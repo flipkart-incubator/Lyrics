@@ -16,7 +16,9 @@
 
 package com.flipkart.lyrics.config;
 
+import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.squareup.javapoet.TypeSpec;
@@ -64,5 +66,5 @@ public interface Tune {
 
     boolean forceDefaultFieldModifiers();
 
-    Map<String, BiConsumer<TypeSpec.Builder, TypeModel>> getSpecialInterfacesHandler();
+    Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
 }

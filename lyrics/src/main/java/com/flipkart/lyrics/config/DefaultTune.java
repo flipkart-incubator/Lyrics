@@ -16,14 +16,18 @@
 
 package com.flipkart.lyrics.config;
 
+import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.*;
-import java.util.function.BiConsumer;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by shrey.garg on 26/11/16.
@@ -95,7 +99,7 @@ public class DefaultTune implements Tune {
     }
 
     @Override
-    public Map<String, BiConsumer<TypeSpec.Builder, TypeModel>> getSpecialInterfacesHandler() {
+    public Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler() {
         return null;
     }
 }

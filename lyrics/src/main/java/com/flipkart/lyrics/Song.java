@@ -35,7 +35,7 @@ public class Song {
     }
 
     public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
-        TypeSpec.Builder typeBuilder = typeModel.getType().getCreator().process(name, typeModel, configuration);
+        TypeSpec.Builder typeBuilder = typeModel.getType().getCreator().process(name, fullPackage, typeModel, configuration);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
                 .indent("    ")
                 .skipJavaLangImports(true)

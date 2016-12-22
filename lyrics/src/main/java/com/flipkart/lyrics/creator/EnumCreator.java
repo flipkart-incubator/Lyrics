@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class EnumCreator implements TypeCreator {
     @Override
-    public TypeSpec.Builder process(String name, TypeModel typeModel, Tune configuration) {
+    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
         TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(name);
 
         new ClassAnnotationHandler().process(typeBuilder, typeModel, configuration);

@@ -17,6 +17,7 @@
 package com.flipkart.lyrics.creator;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.annotations.ClassAnnotationHandler;
 import com.flipkart.lyrics.rules.type.SubTypesRule;
@@ -41,8 +42,9 @@ import java.util.Map;
 public class ClassCreator implements TypeCreator {
 
     @Override
-    public TypeSpec.Builder process(String name, TypeModel typeModel, Tune configuration) {
+    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
         TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(name);
+        MetaInfo metaInfo = new MetaInfo(name, fullPackage);
 
         new GlobalInclusionRule().process(typeBuilder, typeModel, configuration);
         new ClassAnnotationHandler().process(typeBuilder, typeModel, configuration);
@@ -55,7 +57,7 @@ public class ClassCreator implements TypeCreator {
         new EqualsAndHashCodeHandler().process(typeBuilder, name, typeModel.getFields(), configuration);
         new ToStringHandler().process(typeBuilder, name, typeModel.getFields(), configuration);
         new NoArgsConstructorHandler().process(typeBuilder, typeModel);
-        new SpecialInterfaceHandler().process(typeBuilder, typeModel, typeVariableNames, configuration);
+        new SpecialInterfaceHandler().process(typeBuilder, typeModel, typeVariableNames, configuration, metaInfo);
 
         return typeBuilder;
     }

@@ -24,5 +24,5 @@ import com.squareup.javapoet.TypeSpec;
  * Created by shrey.garg on 27/11/16.
  */
 public interface TypeCreator {
-    TypeSpec.Builder process(String name, TypeModel typeModel, Tune configuration);
+    TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration);
 }

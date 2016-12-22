@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  */
 public class AnnotationCreator implements TypeCreator {
     @Override
-    public TypeSpec.Builder process(String name, TypeModel typeModel, Tune configuration) {
+    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
         TypeSpec.Builder typeBuilder = TypeSpec.annotationBuilder(name);
         new ModifiersHandler().process(typeBuilder, typeModel, configuration);
         new AnnotationMethodsHandler().process(typeBuilder, typeModel, configuration);
