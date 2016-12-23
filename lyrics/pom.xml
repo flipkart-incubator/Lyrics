@@ -4,9 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.flipkart.rome</groupId>
+    <name>Lyrics Core</name>
+    <description>Lyrics library</description>
+
+    <parent>
+        <groupId>com.flipkart.rome</groupId>
+        <artifactId>Lyrics</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>lyrics</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <jackson.version>2.6.0</jackson.version>
