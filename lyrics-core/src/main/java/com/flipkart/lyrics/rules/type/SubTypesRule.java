@@ -31,7 +31,8 @@ import static com.flipkart.lyrics.helper.Helper.getClassName;
 /**
  * Created by shrey.garg on 30/11/16.
  */
-public class SubTypesRule {
+public class SubTypesRule implements TypeRule {
+    @Override
     public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Tune configuration) {
         if (typeModel.getSubTypes() == null) {
             return;

@@ -25,7 +25,8 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class GlobalInclusionRule {
+public class GlobalInclusionRule implements TypeRule {
+    @Override
     public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Tune configuration) {
         if (typeModel.getInclusion() == null) {
             return;
