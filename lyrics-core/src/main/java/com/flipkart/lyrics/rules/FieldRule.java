@@ -23,6 +23,6 @@ import com.squareup.javapoet.FieldSpec;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public interface FieldAnnotationRule {
+public interface FieldRule {
     void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration);
 }

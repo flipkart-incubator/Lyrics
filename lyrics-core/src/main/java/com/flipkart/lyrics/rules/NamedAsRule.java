@@ -29,7 +29,7 @@ import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class NamedAsRule implements FieldAnnotationRule {
+public class NamedAsRule implements FieldRule {
     @Override
     public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
         if (isNullOrEmpty(fieldModel.getNamedAs())) {

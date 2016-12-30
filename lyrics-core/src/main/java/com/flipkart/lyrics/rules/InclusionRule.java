@@ -26,7 +26,7 @@ import com.squareup.javapoet.FieldSpec;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class InclusionRule implements FieldAnnotationRule {
+public class InclusionRule implements FieldRule {
     @Override
     public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
         if (fieldModel.getInclusion() == null) {

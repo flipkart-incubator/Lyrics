@@ -26,7 +26,7 @@ import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class RequiredRule implements FieldAnnotationRule {
+public class RequiredRule implements FieldRule {
     @Override
     public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
         if (!fieldModel.isRequired()) {
