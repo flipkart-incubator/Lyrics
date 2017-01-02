@@ -16,13 +16,9 @@
 
 package com.flipkart.lyrics.rules;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 
 import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
@@ -42,21 +38,6 @@ public class NamedAsRule extends FieldRule {
             return;
         }
 
-        String jsonProperty = fieldModel.getNamedAs();
-
-        if (tune.areJacksonStyleAnnotationsNeeded()) {
-            AnnotationSpec annotationSpec = AnnotationSpec.builder(JsonProperty.class)
-                    .addMember("value", "$S", jsonProperty)
-                    .build();
-            fieldSpec.addAnnotation(annotationSpec);
-        }
-
-        if (tune.areGsonStyleAnnotationsNeeded()) {
-            AnnotationSpec annotationSpec = AnnotationSpec.builder(SerializedName.class)
-                    .addMember("value", "$S", jsonProperty)
-                    .build();
-            fieldSpec.addAnnotation(annotationSpec);
-            fieldSpec.addAnnotation(Expose.class);
-        }
+        metaInfo.getAnnotationStyles().forEach(style -> style.processNamedAsRule(fieldSpec, fieldModel));
     }
 }

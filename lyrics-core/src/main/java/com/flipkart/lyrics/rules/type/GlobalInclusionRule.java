@@ -16,11 +16,9 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -38,11 +36,6 @@ public class GlobalInclusionRule extends TypeRule {
             return;
         }
 
-        if (tune.areJacksonStyleAnnotationsNeeded()) {
-            AnnotationSpec annotationSpec = AnnotationSpec.builder(JsonSerialize.class)
-                    .addMember("include", "JsonSerialize.Inclusion.$L", typeModel.getInclusion())
-                    .build();
-            typeSpec.addAnnotation(annotationSpec);
-        }
+        metaInfo.getAnnotationStyles().forEach(style -> style.processGlobalInclusionRule(typeSpec, typeModel));
     }
 }

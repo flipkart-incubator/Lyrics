@@ -18,7 +18,9 @@ package com.flipkart.lyrics.rules.type;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.InclusionType;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
@@ -27,6 +29,7 @@ import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.helper.Helper.processAnnotationStyles;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -45,7 +48,8 @@ public class GlobalInclusionRuleTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new GlobalInclusionRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
+        new GlobalInclusionRule(tune, metaInfo).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -72,7 +76,8 @@ public class GlobalInclusionRuleTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new GlobalInclusionRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
+        new GlobalInclusionRule(tune, metaInfo).process(builder, model);
 
         TypeSpec spec = builder.build();
 

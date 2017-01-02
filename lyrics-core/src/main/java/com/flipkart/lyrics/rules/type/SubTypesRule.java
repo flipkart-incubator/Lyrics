@@ -16,18 +16,10 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.TypeSpec;
-
-import java.util.Map;
-
-import static com.flipkart.lyrics.helper.Helper.getClassName;
 
 /**
  * Created by shrey.garg on 30/11/16.
@@ -44,25 +36,6 @@ public class SubTypesRule extends TypeRule {
             return;
         }
 
-        SubTypeModel subTypeModel = typeModel.getSubTypes();
-        if (tune.areJacksonStyleAnnotationsNeeded()) {
-            AnnotationSpec typeInfoAnnotation = AnnotationSpec.builder(JsonTypeInfo.class)
-                    .addMember("use", "$L", "JsonTypeInfo.Id.NAME")
-                    .addMember("include", "$L", "JsonTypeInfo.As.PROPERTY")
-                    .addMember("property", "$S", subTypeModel.getProperty())
-                    .build();
-
-            AnnotationSpec.Builder subTypesBuilder = AnnotationSpec.builder(JsonSubTypes.class);
-            for (Map.Entry<String, String> subType : subTypeModel.getSubTypeMapping().entrySet()) {
-                subTypesBuilder.addMember("value", "$L",
-                        AnnotationSpec.builder(JsonSubTypes.Type.class)
-                                .addMember("value", "$T.class", getClassName(subType.getValue()))
-                                .addMember("name", "$S", subType.getKey())
-                                .build());
-            }
-
-            typeSpec.addAnnotation(typeInfoAnnotation);
-            typeSpec.addAnnotation(subTypesBuilder.build());
-        }
+        metaInfo.getAnnotationStyles().forEach(style -> style.processSubTypeRule(typeSpec, typeModel));
     }
 }

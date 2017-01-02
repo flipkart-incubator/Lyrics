@@ -16,6 +16,9 @@
 
 package com.flipkart.lyrics;
 
+import com.flipkart.lyrics.annotators.AnnotationStyle;
+import com.flipkart.lyrics.annotators.GsonStyle;
+import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
@@ -28,8 +31,11 @@ import com.squareup.javapoet.TypeSpec;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
+import static com.flipkart.lyrics.helper.Helper.processAnnotationStyles;
 
 /**
  * Created by shrey.garg on 27/11/16.
@@ -42,7 +48,8 @@ public class Song {
     }
 
     public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
-        MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()));
+        List<AnnotationStyle> annotationStyles = processAnnotationStyles(tune);
+        MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()), annotationStyles);
         RuleSet ruleSet = new DefaultRuleSet(tune, metaInfo);
         HandlerSet handlerSet = new DefaultHandlerSet(tune, metaInfo, ruleSet);
 

@@ -16,6 +16,9 @@
 
 package com.flipkart.lyrics.helper;
 
+import com.flipkart.lyrics.annotators.AnnotationStyle;
+import com.flipkart.lyrics.annotators.GsonStyle;
+import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.GenericVariableModel;
@@ -26,10 +29,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeVariableName;
 
 import javax.lang.model.element.Modifier;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by shrey.garg on 25/11/16.
@@ -132,5 +132,17 @@ public class Helper {
         }
 
         return fieldModel.getModifiers();
+    }
+
+    public static List<AnnotationStyle> processAnnotationStyles(Tune tune) {
+        List<AnnotationStyle> annotationStyles = new ArrayList<>();
+        if (tune.areJacksonStyleAnnotationsNeeded()) {
+            annotationStyles.add(new JacksonStyle());
+        }
+
+        if (tune.areGsonStyleAnnotationsNeeded()) {
+            annotationStyles.add(new GsonStyle());
+        }
+        return annotationStyles;
     }
 }

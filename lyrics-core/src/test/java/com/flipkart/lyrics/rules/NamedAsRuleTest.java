@@ -18,7 +18,9 @@ package com.flipkart.lyrics.rules;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.google.gson.annotations.Expose;
@@ -28,6 +30,7 @@ import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.helper.Helper.processAnnotationStyles;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.GSON;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,7 +64,8 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
+        new NamedAsRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -75,7 +79,8 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
+        new NamedAsRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -96,7 +101,8 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
+        new NamedAsRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 

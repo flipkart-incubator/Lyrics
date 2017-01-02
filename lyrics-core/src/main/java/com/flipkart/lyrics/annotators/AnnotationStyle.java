@@ -14,28 +14,24 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.rules;
+package com.flipkart.lyrics.annotators;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeSpec;
 
 /**
- * Created by shrey.garg on 26/11/16.
+ * Created by shrey.garg on 03/01/17.
  */
-public class InclusionRule extends FieldRule {
+public abstract class AnnotationStyle {
 
-    public InclusionRule(Tune tune, MetaInfo metaInfo) {
-        super(tune, metaInfo);
-    }
+    public abstract void processNamedAsRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
 
-    @Override
-    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
-        if (fieldModel.getInclusion() == null) {
-            return;
-        }
+    public abstract void processInclusionRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
 
-        metaInfo.getAnnotationStyles().forEach(style -> style.processInclusionRule(fieldSpec, fieldModel));
-    }
+    public abstract void processGlobalInclusionRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
+
+    public abstract void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
+
 }
