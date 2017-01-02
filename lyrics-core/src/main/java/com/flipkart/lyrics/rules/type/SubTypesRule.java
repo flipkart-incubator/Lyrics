@@ -19,6 +19,7 @@ package com.flipkart.lyrics.rules.type;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.squareup.javapoet.AnnotationSpec;
@@ -31,15 +32,20 @@ import static com.flipkart.lyrics.helper.Helper.getClassName;
 /**
  * Created by shrey.garg on 30/11/16.
  */
-public class SubTypesRule implements TypeRule {
+public class SubTypesRule extends TypeRule {
+
+    public SubTypesRule(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Tune configuration) {
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         if (typeModel.getSubTypes() == null) {
             return;
         }
 
         SubTypeModel subTypeModel = typeModel.getSubTypes();
-        if (configuration.areJacksonStyleAnnotationsNeeded()) {
+        if (tune.areJacksonStyleAnnotationsNeeded()) {
             AnnotationSpec typeInfoAnnotation = AnnotationSpec.builder(JsonTypeInfo.class)
                     .addMember("use", "$L", "JsonTypeInfo.Id.NAME")
                     .addMember("include", "$L", "JsonTypeInfo.As.PROPERTY")

@@ -17,33 +17,43 @@
 package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
 
 /**
  * Created by shrey.garg on 28/11/16.
  */
-public class InterfaceHandler {
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Map<String, TypeVariableName> typeVariableNames, Tune configuration) {
+public class InterfaceHandler extends Handler {
+
+    public InterfaceHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         Set<VariableModel> interfaceDefinitions = new HashSet<>();
-        interfaceDefinitions.addAll(configuration.interfaces());
+        interfaceDefinitions.addAll(tune.interfaces());
         interfaceDefinitions.addAll(typeModel.getInterfaces());
 
         if (interfaceDefinitions.size() == 0) {
             return;
         }
 
-        List<TypeName> interfaces = new ArrayList<>();
-        for (VariableModel model : interfaceDefinitions) {
-            interfaces.add(getResolvedTypeName(model, typeVariableNames));
-        }
+        List<TypeName> interfaces = interfaceDefinitions.stream()
+                .map(model -> getResolvedTypeName(model, metaInfo.getGenericVariables()))
+                .collect(Collectors.toList());
 
         typeSpec.addSuperinterfaces(interfaces);
     }

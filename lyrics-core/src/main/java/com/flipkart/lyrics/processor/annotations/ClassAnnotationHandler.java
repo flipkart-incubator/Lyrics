@@ -18,14 +18,19 @@ package com.flipkart.lyrics.processor.annotations;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
 import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
@@ -33,30 +38,28 @@ import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 /**
  * Created by shrey.garg on 25/11/16.
  */
-public class ClassAnnotationHandler {
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Tune configuration) {
-        List<AnnotationModel> classAnnotations = consolidateClassAnnotations(configuration, typeModel);
+public class ClassAnnotationHandler extends Handler {
+
+    public ClassAnnotationHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        List<AnnotationModel> classAnnotations = consolidateClassAnnotations(tune, typeModel);
         for (AnnotationModel model : classAnnotations) {
             ClassName annotationName = getClassName(model.getClassName());
             AnnotationSpec.Builder annotationBuilder = AnnotationSpec.builder(annotationName);
-            if (!isNullOrEmpty(model.getMembers())) {
-                for (Map.Entry<String, String> entry : model.getMembers().entrySet()) {
-                    annotationBuilder.addMember(entry.getKey(), entry.getValue());
-                }
-            }
+            Optional.ofNullable(model.getMembers()).map(Map::entrySet)
+                    .ifPresent(entries -> entries.forEach(entry -> annotationBuilder.addMember(entry.getKey(), entry.getValue())));
             typeSpec.addAnnotation(annotationBuilder.build());
         }
     }
 
     private List<AnnotationModel> consolidateClassAnnotations(Tune configuration, TypeModel typeModel) {
         List<AnnotationModel> classAnnotations = new ArrayList<>();
-        if (!isNullOrEmpty(configuration.getClassLevelAnnotations())) {
-            configuration.getClassLevelAnnotations().forEach(classAnnotations::add);
-        }
-
-        if (!isNullOrEmpty(typeModel.getAnnotations())) {
-            typeModel.getAnnotations().forEach(classAnnotations::add);
-        }
+        Optional.ofNullable(configuration.getClassLevelAnnotations()).ifPresent(annotations -> annotations.forEach(classAnnotations::add));
+        Optional.ofNullable(typeModel.getAnnotations()).ifPresent(annotations -> annotations.forEach(classAnnotations::add));
         return classAnnotations;
     }
 }

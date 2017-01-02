@@ -45,7 +45,7 @@ public class InclusionRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(null);
 
-        new InclusionRule().process(builder, model, tune);
+        new InclusionRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -59,7 +59,7 @@ public class InclusionRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new InclusionRule().process(builder, model, tune);
+        new InclusionRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -73,7 +73,7 @@ public class InclusionRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new InclusionRule().process(builder, model, tune);
+        new InclusionRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 

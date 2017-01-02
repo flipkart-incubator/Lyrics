@@ -18,6 +18,7 @@ package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.squareup.javapoet.FieldSpec;
 
 import static com.flipkart.lyrics.helper.ClassNames.ANDROID_VALIDATIONS_NULLABLE;
@@ -26,18 +27,23 @@ import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class NotRequiredRule implements FieldRule {
+public class NotRequiredRule extends FieldRule {
+
+    public NotRequiredRule(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
+    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
         if (fieldModel.isRequired() || fieldModel.isPrimitive()) {
             return;
         }
 
-        if (configuration.areJsr305AnnotationsNeeded()) {
+        if (tune.areJsr305AnnotationsNeeded()) {
             fieldSpec.addAnnotation(JSR_305_NULLABLE);
         }
 
-        if (configuration.areAndroidValidationAnnotationsNeeded()) {
+        if (tune.areAndroidValidationAnnotationsNeeded()) {
             fieldSpec.addAnnotation(ANDROID_VALIDATIONS_NULLABLE);
         }
     }

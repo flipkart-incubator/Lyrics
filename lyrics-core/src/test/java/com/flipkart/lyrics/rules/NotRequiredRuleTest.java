@@ -40,7 +40,7 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule().process(builder, model, tune);
+        new NotRequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -54,7 +54,7 @@ public class NotRequiredRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.isPrimitive()).thenReturn(true);
 
-        new NotRequiredRule().process(builder, model, tune);
+        new NotRequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -67,7 +67,7 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule().process(builder, model, tune);
+        new NotRequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -82,7 +82,7 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule().process(builder, model, tune);
+        new NotRequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -97,7 +97,7 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule().process(builder, model, tune);
+        new NotRequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 

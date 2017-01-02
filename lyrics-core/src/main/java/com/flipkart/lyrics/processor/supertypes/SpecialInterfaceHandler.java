@@ -21,20 +21,26 @@ import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 
 import java.util.*;
 
 /**
  * Created by shrey.garg on 07/12/16.
  */
-public class SpecialInterfaceHandler {
+public class SpecialInterfaceHandler extends Handler {
 
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Map<String, TypeVariableName> typeVariableNames, Tune configuration, MetaInfo metaInfo) {
-        final Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> specialHandlers = Optional.ofNullable(configuration.getSpecialInterfacesHandler()).orElseGet(HashMap::new);
+    public SpecialInterfaceHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        final Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> specialHandlers = Optional.ofNullable(tune.getSpecialInterfacesHandler()).orElseGet(HashMap::new);
         Set<VariableModel> interfaces = new HashSet<>();
-        interfaces.addAll(configuration.interfaces());
+        interfaces.addAll(tune.interfaces());
         interfaces.addAll(typeModel.getInterfaces());
         interfaces.forEach(i -> Optional.ofNullable(specialHandlers.get(i.getType())).ifPresent(fn -> fn.accept(typeSpec, typeModel, metaInfo)));
     }

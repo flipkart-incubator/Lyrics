@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.rules;
+package com.flipkart.lyrics.sets;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.rules.FieldRule;
+import com.flipkart.lyrics.rules.type.TypeRule;
 
 /**
- * Created by shrey.garg on 26/11/16.
+ * Created by shrey.garg on 30/12/16.
  */
-public abstract class FieldRule {
+public abstract class RuleSet {
 
     protected Tune tune;
     protected MetaInfo metaInfo;
 
-    public FieldRule(Tune tune, MetaInfo metaInfo) {
+    public RuleSet(Tune tune, MetaInfo metaInfo) {
         this.tune = tune;
         this.metaInfo = metaInfo;
     }
 
-    public abstract void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
+    /**
+     * @return An instance of TypeRule that knows how to handle JSON-SubTypes, schema defines relationships of the schema class to
+     * all of its child classes using {@link com.flipkart.lyrics.model.SubTypeModel} class.
+     */
+    public abstract TypeRule getSubTypeRule();
+    public abstract TypeRule getGlobalInclusionRule();
+
+    public abstract FieldRule getNamedAsRule();
+    public abstract FieldRule getRequiredRule();
+    public abstract FieldRule getNotRequiredRule();
+    public abstract FieldRule getInclusionRule();
+
 }

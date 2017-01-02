@@ -18,44 +18,50 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.processor.annotations.FieldAnnotationHandler;
+import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.processor.methods.GetterHandler;
 import com.flipkart.lyrics.processor.methods.SetterHandler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by shrey.garg on 29/11/16.
  */
-public class FieldsHandler {
-    public Map<String, FieldSpec> process(TypeSpec.Builder typeBuilder, TypeModel typeModel, Tune configuration, Map<String, TypeVariableName> typeVariableNames) {
-        Map<String, FieldSpec> fields = new HashMap<>();
+public class FieldsHandler extends Handler {
+
+    public FieldsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         for (String key : typeModel.getFields().keySet()) {
             FieldModel fieldModel = typeModel.getFields().get(key);
-            FieldSpec.Builder fieldBuilder = fieldModel.getFieldType().getHandler().process(typeBuilder, key, configuration, fieldModel, typeVariableNames);
-            new FieldAnnotationHandler().process(fieldBuilder, fieldModel, configuration);
+            FieldSpec.Builder fieldBuilder = fieldModel.getFieldType().getHandler()
+                    .process(typeBuilder, key, tune, fieldModel, metaInfo.getGenericVariables());
+            handleFieldRules(fieldBuilder, fieldModel);
+
             FieldSpec fieldSpec = fieldBuilder.build();
-            fields.put(key, fieldSpec);
             typeBuilder.addField(fieldSpec);
 
-            if (configuration.areAccessorsNeeded()) {
+            if (tune.areAccessorsNeeded()) {
                 generateGetterAndSetter(typeBuilder, fieldSpec, fieldModel);
             }
         }
-        return fields;
-    }
-
-    public Map<String, FieldSpec> process(TypeSpec.Builder typeBuilder, TypeModel typeModel, Tune configuration) {
-        return process(typeBuilder, typeModel, configuration, new HashMap<>());
     }
 
     private void generateGetterAndSetter(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
         typeBuilder.addMethod(new GetterHandler().process(fieldSpec, fieldModel));
         typeBuilder.addMethod(new SetterHandler().process(fieldSpec, fieldModel));
+    }
+
+    private void handleFieldRules(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
+        ruleSet.getInclusionRule().process(fieldSpec, fieldModel);
+        ruleSet.getNamedAsRule().process(fieldSpec, fieldModel);
+        ruleSet.getRequiredRule().process(fieldSpec, fieldModel);
+        ruleSet.getNotRequiredRule().process(fieldSpec, fieldModel);
     }
 }

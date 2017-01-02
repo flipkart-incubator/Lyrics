@@ -17,16 +17,25 @@
 package com.flipkart.lyrics.processor.modifiers;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 29/11/16.
  */
-public class ModifiersHandler {
-    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel, Tune configuration) {
-        if (typeModel.getModifiers().length == 0 && configuration.getDefaultClassModifier() != null) {
-            typeBuilder.addModifiers(configuration.getDefaultClassModifier());
+public class ModifiersHandler extends Handler {
+
+    public ModifiersHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+        if (typeModel.getModifiers().length == 0 && tune.getDefaultClassModifier() != null) {
+            typeBuilder.addModifiers(tune.getDefaultClassModifier());
         } else {
             typeBuilder.addModifiers(typeModel.getModifiers());
         }

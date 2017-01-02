@@ -16,7 +16,11 @@
 
 package com.flipkart.lyrics.processor.constructors;
 
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
@@ -25,7 +29,13 @@ import javax.lang.model.element.Modifier;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class NoArgsConstructorHandler {
+public class NoArgsConstructorHandler extends Handler {
+
+    public NoArgsConstructorHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
     public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         MethodSpec constructor = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC)

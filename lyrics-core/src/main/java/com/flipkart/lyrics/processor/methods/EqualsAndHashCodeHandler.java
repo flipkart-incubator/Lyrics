@@ -18,6 +18,10 @@ package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -33,12 +37,20 @@ import java.util.stream.Collectors;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class EqualsAndHashCodeHandler {
-    public void process(TypeSpec.Builder typeBuilder, String className, Map<String, FieldModel> fieldModels, Tune configuration) {
-        if (!configuration.areHashCodeAndEqualsNeeded()) {
+public class EqualsAndHashCodeHandler extends Handler {
+
+    public EqualsAndHashCodeHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+        if (!tune.areHashCodeAndEqualsNeeded()) {
             return;
         }
 
+        String className = metaInfo.getClassName();
+        Map<String, FieldModel> fieldModels = typeModel.getFields();
         List<String> nonStaticFields = fieldModels.entrySet().stream()
                 .filter(entry ->
                         (!entry.getValue().isExcludeFromEqualsAndHashCode() && !Arrays.stream(entry.getValue().getModifiers())

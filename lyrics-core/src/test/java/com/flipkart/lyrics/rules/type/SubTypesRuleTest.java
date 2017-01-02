@@ -18,7 +18,6 @@ package com.flipkart.lyrics.rules.type;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
@@ -51,7 +50,7 @@ public class SubTypesRuleTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
 
-        new SubTypesRule().process(builder, model, tune);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -68,7 +67,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        new SubTypesRule().process(builder, model, tune);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -85,7 +84,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        new SubTypesRule().process(builder, model, tune);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -114,7 +113,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        new SubTypesRule().process(builder, model, tune);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 

@@ -20,29 +20,35 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class InclusionRule implements FieldRule {
+public class InclusionRule extends FieldRule {
+
+    public InclusionRule(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
+    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
         if (fieldModel.getInclusion() == null) {
             return;
         }
 
         InclusionType inclusion = fieldModel.getInclusion();
 
-        if (configuration.areJacksonStyleAnnotationsNeeded()) {
+        if (tune.areJacksonStyleAnnotationsNeeded()) {
             AnnotationSpec annotationSpec = AnnotationSpec.builder(JsonSerialize.class)
                     .addMember("include", "JsonSerialize.Inclusion.$L", inclusion)
                     .build();
             fieldSpec.addAnnotation(annotationSpec);
         }
 
-        if (configuration.areGsonStyleAnnotationsNeeded()) {
+        if (tune.areGsonStyleAnnotationsNeeded()) {
 
         }
     }

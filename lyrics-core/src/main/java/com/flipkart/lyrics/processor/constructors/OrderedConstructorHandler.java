@@ -16,23 +16,41 @@
 
 package com.flipkart.lyrics.processor.constructors;
 
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 
 /**
  * Created by shrey.garg on 30/11/16.
  */
-public class OrderedConstructorHandler {
-    public void process(TypeSpec.Builder typeBuilder, Map<String, FieldSpec> fields, List<String> fieldOrder) {
+public class OrderedConstructorHandler extends Handler {
+
+    public OrderedConstructorHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+        List<String> fieldOrder = typeModel.getFieldOrder();
         if (isNullOrEmpty(fieldOrder)) {
             return;
         }
+
+        Map<String, FieldSpec> fields = typeBuilder.build().fieldSpecs.stream().collect(Collectors.toMap(
+                field -> field.name,
+                Function.identity()
+        ));
 
         MethodSpec.Builder orderedConstructor = MethodSpec.constructorBuilder();
 

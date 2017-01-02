@@ -17,9 +17,12 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.MethodModel;
 import com.flipkart.lyrics.model.MethodType;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
@@ -31,8 +34,14 @@ import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 /**
  * Created by shrey.garg on 03/12/16.
  */
-public class AnnotationMethodsHandler {
-    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel, Tune configuration) {
+public class AnnotationMethodsHandler extends Handler {
+
+    public AnnotationMethodsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         Map<String, MethodModel> methods = typeModel.getMethods();
         if (isNullOrEmpty(methods)) {
             return;

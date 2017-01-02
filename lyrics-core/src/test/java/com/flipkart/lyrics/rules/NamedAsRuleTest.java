@@ -47,7 +47,7 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("");
 
-        new NamedAsRule().process(builder, model, tune);
+        new NamedAsRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -61,7 +61,7 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule().process(builder, model, tune);
+        new NamedAsRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -75,7 +75,7 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule().process(builder, model, tune);
+        new NamedAsRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -96,7 +96,7 @@ public class NamedAsRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("nothing");
 
-        new NamedAsRule().process(builder, model, tune);
+        new NamedAsRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 

@@ -18,6 +18,10 @@ package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -32,12 +36,20 @@ import java.util.stream.Collectors;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class ToStringHandler {
-    public void process(TypeSpec.Builder typeBuilder, String className, Map<String, FieldModel> fieldModels, Tune configuration) {
-        if (!configuration.isToStringNeeded()) {
+public class ToStringHandler extends Handler {
+
+    public ToStringHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+        if (!tune.isToStringNeeded()) {
             return;
         }
 
+        String className = metaInfo.getClassName();
+        Map<String, FieldModel> fieldModels = typeModel.getFields();
         List<String> nonStaticFields = fieldModels.entrySet().stream()
                 .filter(entry ->
                         (!entry.getValue().isExcludeFromToString() && !Arrays.stream(entry.getValue().getModifiers())
@@ -50,7 +62,7 @@ public class ToStringHandler {
                 .returns(String.class)
                 .addAnnotation(Override.class);
 
-        if (!configuration.useCommonsLang3()) {
+        if (!tune.useCommonsLang3()) {
             toStringBuilder.addStatement("final StringBuilder sb = new StringBuilder(\"$L{\")", className);
 
             if (nonStaticFields.size() > 0) {

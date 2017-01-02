@@ -16,13 +16,13 @@
 
 package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 27/11/16.
  */
-public interface TypeCreator {
-    TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration);
+public abstract class TypeCreator {
+    public abstract TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel);
 }

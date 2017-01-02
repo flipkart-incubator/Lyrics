@@ -16,25 +16,32 @@
 
 package com.flipkart.lyrics.processor.supertypes;
 
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
 
 /**
  * Created by shrey.garg on 28/11/16.
  */
-public class SuperClassHandler {
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Map<String, TypeVariableName> typeVariableNames) {
+public class SuperClassHandler extends Handler {
+
+    public SuperClassHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         if (typeModel.getExtendsType() == null) {
             return;
         }
 
-        TypeName extendsType = getResolvedTypeName(typeModel.getExtendsType(), typeVariableNames);
+        TypeName extendsType = getResolvedTypeName(typeModel.getExtendsType(), metaInfo.getGenericVariables());
 
         typeSpec.superclass(extendsType);
     }

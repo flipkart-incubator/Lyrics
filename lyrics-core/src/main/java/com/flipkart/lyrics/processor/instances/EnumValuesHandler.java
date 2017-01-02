@@ -16,9 +16,13 @@
 
 package com.flipkart.lyrics.processor.instances;
 
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeSpec;
 
 import java.util.Arrays;
@@ -28,7 +32,13 @@ import java.util.Map;
 /**
  * Created by shrey.garg on 30/11/16.
  */
-public class EnumValuesHandler {
+public class EnumValuesHandler extends Handler {
+
+    public EnumValuesHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
     public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         Map<String, Object[]> values = typeModel.getValues();
         List<Map.Entry<String, FieldModel>> orderedFields = orderFields(typeModel.getFields(), typeModel.getFieldOrder());

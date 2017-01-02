@@ -16,10 +16,8 @@
 
 package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.processor.methods.AnnotationMethodsHandler;
-import com.flipkart.lyrics.processor.modifiers.ModifiersHandler;
+import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.TypeSpec;
 
@@ -31,12 +29,14 @@ import java.lang.annotation.Target;
 /**
  * Created by shrey.garg on 27/11/16.
  */
-public class AnnotationCreator implements TypeCreator {
+public class AnnotationCreator extends TypeCreator {
+
     @Override
-    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
-        TypeSpec.Builder typeBuilder = TypeSpec.annotationBuilder(name);
-        new ModifiersHandler().process(typeBuilder, typeModel, configuration);
-        new AnnotationMethodsHandler().process(typeBuilder, typeModel, configuration);
+    public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
+        TypeSpec.Builder typeBuilder = TypeSpec.annotationBuilder(handlerSet.getMetaInfo().getClassName());
+
+        handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
+        handlerSet.getAnnotationMethodsHandler().process(typeBuilder, typeModel);
 
         if (typeModel.getRetention() != null) {
             typeBuilder.addAnnotation(AnnotationSpec

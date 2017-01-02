@@ -46,7 +46,7 @@ public class ClassAnnotationHandlerTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = new TypeModel();
 
-        new ClassAnnotationHandler().process(builder, model, tune);
+        new ClassAnnotationHandler(tune, null, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -59,7 +59,7 @@ public class ClassAnnotationHandlerTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = new TypeModel();
 
-        new ClassAnnotationHandler().process(builder, model, tune);
+        new ClassAnnotationHandler(tune, null, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -76,7 +76,7 @@ public class ClassAnnotationHandlerTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getAnnotations()).thenReturn(Arrays.asList(new AnnotationModel(Deprecated.class.getName()), new AnnotationModel(Resource.class.getName())));
 
-        new ClassAnnotationHandler().process(builder, model, tune);
+        new ClassAnnotationHandler(tune, null, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -95,7 +95,7 @@ public class ClassAnnotationHandlerTest {
         members.put("value", "something");
         when(model.getAnnotations()).thenReturn(Arrays.asList(new AnnotationModel("com.xyz.jkl", members)));
 
-        new ClassAnnotationHandler().process(builder, model, tune);
+        new ClassAnnotationHandler(tune, null, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 

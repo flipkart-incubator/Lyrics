@@ -18,6 +18,7 @@ package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.GenericVariableModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
@@ -54,7 +55,7 @@ public class SuperClassHandlerTest {
     public void testNoSuperClass(@TuneProvider Tune tune) {
         TypeModel model = new TypeModel();
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        new SuperClassHandler().process(builder, model, new HashMap<>());
+        new SuperClassHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -78,7 +79,8 @@ public class SuperClassHandlerTest {
         when(model.getExtendsType()).thenReturn(variableModel);
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        new SuperClassHandler().process(builder, model, new HashMap<>());
+        MetaInfo metaInfo = new MetaInfo(null, null, new HashMap<>());
+        new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -108,7 +110,8 @@ public class SuperClassHandlerTest {
         List<GenericVariableModel> genericVariables = Arrays.asList(new GenericVariableModel("T"), new GenericVariableModel("U"), new GenericVariableModel("V"));
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        new SuperClassHandler().process(builder, model, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -142,7 +145,8 @@ public class SuperClassHandlerTest {
         List<GenericVariableModel> genericVariables = Arrays.asList(new GenericVariableModel("T"), new GenericVariableModel("U"), new GenericVariableModel("V"));
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        new SuperClassHandler().process(builder, model, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");

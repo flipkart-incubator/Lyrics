@@ -18,6 +18,7 @@ package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.GenericVariableModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
@@ -53,7 +54,7 @@ public class InterfaceHandlerTest {
     public void testNoInterfaces(@TuneProvider Tune tune) {
         TypeModel model = new TypeModel();
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        new InterfaceHandler().process(builder, model, new HashMap<>(), tune);
+        new InterfaceHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -71,7 +72,8 @@ public class InterfaceHandlerTest {
         interfaceSet.add(new VariableModel("java.io.Serializable"));
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
-        new InterfaceHandler().process(builder, model, new HashMap<>(), tune);
+        MetaInfo metaInfo = new MetaInfo(null, null, new HashMap<>());
+        new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -98,7 +100,8 @@ public class InterfaceHandlerTest {
         interfaceSet.add(new VariableModel("java.lang.Cloneable"));
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
-        new InterfaceHandler().process(builder, model, new HashMap<>(), tune);
+        MetaInfo metaInfo = new MetaInfo(null, null, new HashMap<>());
+        new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -130,7 +133,8 @@ public class InterfaceHandlerTest {
         TypeModel model = new TypeModel();
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        new InterfaceHandler().process(builder, model, getTypeVariables(genericVariables), tune);
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -170,7 +174,8 @@ public class InterfaceHandlerTest {
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        new InterfaceHandler().process(builder, model, getTypeVariables(genericVariables), tune);
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -211,7 +216,8 @@ public class InterfaceHandlerTest {
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        new InterfaceHandler().process(builder, model, getTypeVariables(genericVariables), tune);
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");

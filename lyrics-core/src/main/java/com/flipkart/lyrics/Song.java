@@ -17,25 +17,36 @@
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.sets.DefaultHandlerSet;
+import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.File;
 import java.io.IOException;
 
+import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
+
 /**
  * Created by shrey.garg on 27/11/16.
  */
 public class Song {
-    private Tune configuration;
+    private Tune tune;
 
-    public Song(Tune configuration) {
-        this.configuration = configuration;
+    public Song(Tune tune) {
+        this.tune = tune;
     }
 
     public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
-        TypeSpec.Builder typeBuilder = typeModel.getType().getCreator().process(name, fullPackage, typeModel, configuration);
+        MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()));
+        RuleSet ruleSet = new DefaultRuleSet(tune, metaInfo);
+        HandlerSet handlerSet = new DefaultHandlerSet(tune, metaInfo, ruleSet);
+
+        TypeSpec.Builder typeBuilder = typeModel.getType().getCreator().process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
                 .indent("    ")
                 .skipJavaLangImports(true)

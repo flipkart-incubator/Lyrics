@@ -1,18 +1,21 @@
 package com.flipkart.lyrics.model;
 
+import com.squareup.javapoet.TypeVariableName;
+
+import java.util.Map;
+
 /**
  * Created by shrey.garg on 23/12/16.
  */
 public class MetaInfo {
-    private String className;
-    private String fullPackage;
+    private final String className;
+    private final String fullPackage;
+    private final Map<String, TypeVariableName> genericVariables;
 
-    public MetaInfo() {
-    }
-
-    public MetaInfo(String className, String fullPackage) {
+    public MetaInfo(String className, String fullPackage, Map<String, TypeVariableName> genericVariables) {
         this.className = className;
         this.fullPackage = fullPackage;
+        this.genericVariables = genericVariables;
     }
 
     public String getClassName() {
@@ -21,5 +24,9 @@ public class MetaInfo {
 
     public String getFullPackage() {
         return fullPackage;
+    }
+
+    public Map<String, TypeVariableName> getGenericVariables() {
+        return genericVariables;
     }
 }

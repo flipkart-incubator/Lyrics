@@ -16,48 +16,35 @@
 
 package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.processor.annotations.ClassAnnotationHandler;
-import com.flipkart.lyrics.rules.type.SubTypesRule;
-import com.flipkart.lyrics.processor.constructors.NoArgsConstructorHandler;
-import com.flipkart.lyrics.processor.fields.FieldsHandler;
-import com.flipkart.lyrics.processor.generics.GenericsHandler;
-import com.flipkart.lyrics.processor.methods.EqualsAndHashCodeHandler;
-import com.flipkart.lyrics.processor.methods.ToStringHandler;
-import com.flipkart.lyrics.processor.modifiers.ModifiersHandler;
-import com.flipkart.lyrics.processor.supertypes.InterfaceHandler;
-import com.flipkart.lyrics.processor.supertypes.SpecialInterfaceHandler;
-import com.flipkart.lyrics.processor.supertypes.SuperClassHandler;
-import com.flipkart.lyrics.rules.type.GlobalInclusionRule;
+import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.Map;
 
 /**
  * Created by shrey.garg on 27/11/16.
  */
-public class ClassCreator implements TypeCreator {
+public class ClassCreator extends TypeCreator {
 
     @Override
-    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
-        TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(name);
-        MetaInfo metaInfo = new MetaInfo(name, fullPackage);
+    public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
+        RuleSet ruleSet = handlerSet.getRuleSet();
 
-        new GlobalInclusionRule().process(typeBuilder, typeModel, configuration);
-        new ClassAnnotationHandler().process(typeBuilder, typeModel, configuration);
-        new SubTypesRule().process(typeBuilder, typeModel, configuration);
-        Map<String, TypeVariableName> typeVariableNames = new GenericsHandler().process(typeBuilder, typeModel);
-        new ModifiersHandler().process(typeBuilder, typeModel, configuration);
-        new SuperClassHandler().process(typeBuilder, typeModel, typeVariableNames);
-        new InterfaceHandler().process(typeBuilder, typeModel, typeVariableNames, configuration);
-        new FieldsHandler().process(typeBuilder, typeModel, configuration, typeVariableNames);
-        new EqualsAndHashCodeHandler().process(typeBuilder, name, typeModel.getFields(), configuration);
-        new ToStringHandler().process(typeBuilder, name, typeModel.getFields(), configuration);
-        new NoArgsConstructorHandler().process(typeBuilder, typeModel);
-        new SpecialInterfaceHandler().process(typeBuilder, typeModel, typeVariableNames, configuration, metaInfo);
+        TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(handlerSet.getMetaInfo().getClassName());
+
+        handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
+        handlerSet.getGenericsHandler().process(typeBuilder, typeModel);
+        handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
+        handlerSet.getSuperClassHandler().process(typeBuilder, typeModel);
+        handlerSet.getInterfacesHandler().process(typeBuilder, typeModel);
+        handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getEqualsAndHashCodeHandler().process(typeBuilder, typeModel);
+        handlerSet.getToStringHandler().process(typeBuilder, typeModel);
+        handlerSet.getNoArgsConstructorHandler().process(typeBuilder, typeModel);
+        handlerSet.getSpecialInterfacesHandler().process(typeBuilder, typeModel);
+
+        ruleSet.getGlobalInclusionRule().process(typeBuilder, typeModel);
+        ruleSet.getSubTypeRule().process(typeBuilder, typeModel);
 
         return typeBuilder;
     }

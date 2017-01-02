@@ -14,25 +14,31 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.rules;
+package com.flipkart.lyrics.processor;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.sets.RuleSet;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
+
+import java.util.Map;
 
 /**
- * Created by shrey.garg on 26/11/16.
+ * Created by shrey.garg on 31/12/16.
  */
-public abstract class FieldRule {
+public abstract class Handler {
 
-    protected Tune tune;
-    protected MetaInfo metaInfo;
+    protected final Tune tune;
+    protected final MetaInfo metaInfo;
+    protected final RuleSet ruleSet;
 
-    public FieldRule(Tune tune, MetaInfo metaInfo) {
+    public Handler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         this.tune = tune;
         this.metaInfo = metaInfo;
+        this.ruleSet = ruleSet;
     }
 
-    public abstract void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
+    public abstract void process(TypeSpec.Builder typeSpec, TypeModel typeModel);
 }

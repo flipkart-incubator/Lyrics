@@ -18,6 +18,7 @@ package com.flipkart.lyrics.rules.type;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -25,14 +26,19 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class GlobalInclusionRule implements TypeRule {
+public class GlobalInclusionRule extends TypeRule {
+
+    public GlobalInclusionRule(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel, Tune configuration) {
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         if (typeModel.getInclusion() == null) {
             return;
         }
 
-        if (configuration.areJacksonStyleAnnotationsNeeded()) {
+        if (tune.areJacksonStyleAnnotationsNeeded()) {
             AnnotationSpec annotationSpec = AnnotationSpec.builder(JsonSerialize.class)
                     .addMember("include", "JsonSerialize.Inclusion.$L", typeModel.getInclusion())
                     .build();

@@ -19,6 +19,7 @@ package com.flipkart.lyrics.rules;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.javapoet.AnnotationSpec;
@@ -29,23 +30,28 @@ import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class NamedAsRule implements FieldRule {
+public class NamedAsRule extends FieldRule {
+
+    public NamedAsRule(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel, Tune configuration) {
+    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
         if (isNullOrEmpty(fieldModel.getNamedAs())) {
             return;
         }
 
         String jsonProperty = fieldModel.getNamedAs();
 
-        if (configuration.areJacksonStyleAnnotationsNeeded()) {
+        if (tune.areJacksonStyleAnnotationsNeeded()) {
             AnnotationSpec annotationSpec = AnnotationSpec.builder(JsonProperty.class)
                     .addMember("value", "$S", jsonProperty)
                     .build();
             fieldSpec.addAnnotation(annotationSpec);
         }
 
-        if (configuration.areGsonStyleAnnotationsNeeded()) {
+        if (tune.areGsonStyleAnnotationsNeeded()) {
             AnnotationSpec annotationSpec = AnnotationSpec.builder(SerializedName.class)
                     .addMember("value", "$S", jsonProperty)
                     .build();

@@ -16,32 +16,24 @@
 
 package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.processor.annotations.ClassAnnotationHandler;
-import com.flipkart.lyrics.processor.constructors.OrderedConstructorHandler;
-import com.flipkart.lyrics.processor.fields.FieldsHandler;
-import com.flipkart.lyrics.processor.instances.EnumValuesHandler;
-import com.flipkart.lyrics.processor.modifiers.ModifiersHandler;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.TypeSpec;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by shrey.garg on 27/11/16.
  */
-public class EnumCreator implements TypeCreator {
-    @Override
-    public TypeSpec.Builder process(String name, String fullPackage, TypeModel typeModel, Tune configuration) {
-        TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(name);
+public class EnumCreator extends TypeCreator {
 
-        new ClassAnnotationHandler().process(typeBuilder, typeModel, configuration);
-        new ModifiersHandler().process(typeBuilder, typeModel, configuration);
-        new EnumValuesHandler().process(typeBuilder, typeModel);
-        Map<String, FieldSpec> fields = new FieldsHandler().process(typeBuilder, typeModel, configuration, new HashMap<>());
-        new OrderedConstructorHandler().process(typeBuilder, fields, typeModel.getFieldOrder());
+    @Override
+    public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
+        TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
+
+        handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
+        handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
+        handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
+        handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getOrderedConstructorHandler().process(typeBuilder, typeModel);
 
         return typeBuilder;
     }

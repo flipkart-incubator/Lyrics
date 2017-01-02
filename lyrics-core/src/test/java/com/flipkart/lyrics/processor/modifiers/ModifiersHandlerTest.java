@@ -44,7 +44,7 @@ public class ModifiersHandlerTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = new TypeModel();
 
-        new ModifiersHandler().process(builder, model, tune);
+        new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -60,7 +60,7 @@ public class ModifiersHandlerTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
 
-        new ModifiersHandler().process(builder, model, tune);
+        new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -77,7 +77,7 @@ public class ModifiersHandlerTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC, Modifier.ABSTRACT });
 
-        new ModifiersHandler().process(builder, model, tune);
+        new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -95,7 +95,7 @@ public class ModifiersHandlerTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PRIVATE, Modifier.ABSTRACT });
 
-        new ModifiersHandler().process(builder, model, tune);
+        new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");
@@ -112,7 +112,7 @@ public class ModifiersHandlerTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = new TypeModel();
 
-        new ModifiersHandler().process(builder, model, tune);
+        new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");

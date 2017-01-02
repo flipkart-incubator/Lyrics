@@ -18,20 +18,18 @@ package com.flipkart.lyrics.rules.type;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.rules.InclusionRule;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +45,7 @@ public class GlobalInclusionRuleTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new GlobalInclusionRule().process(builder, model, tune);
+        new GlobalInclusionRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -60,7 +58,7 @@ public class GlobalInclusionRuleTest {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
 
-        new GlobalInclusionRule().process(builder, model, tune);
+        new GlobalInclusionRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -74,7 +72,7 @@ public class GlobalInclusionRuleTest {
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        new GlobalInclusionRule().process(builder, model, tune);
+        new GlobalInclusionRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 

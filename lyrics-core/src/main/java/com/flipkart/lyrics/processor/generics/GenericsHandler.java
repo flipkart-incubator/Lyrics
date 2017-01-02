@@ -16,24 +16,27 @@
 
 package com.flipkart.lyrics.processor.generics;
 
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.GenericVariableModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.processor.Handler;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.Map;
-
-import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
 
 /**
  * Created by shrey.garg on 25/11/16.
  */
-public class GenericsHandler {
-    public Map<String, TypeVariableName> process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
-        Map<String, TypeVariableName> typeVariableNames = getTypeVariables(typeModel.getGenericVariables());
+public class GenericsHandler extends Handler {
+
+    public GenericsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         for (GenericVariableModel variable : typeModel.getGenericVariables()) {
-            typeBuilder.addTypeVariable(typeVariableNames.get(variable.getName()));
+            typeBuilder.addTypeVariable(metaInfo.getGenericVariables().get(variable.getName()));
         }
-        return typeVariableNames;
     }
 }
