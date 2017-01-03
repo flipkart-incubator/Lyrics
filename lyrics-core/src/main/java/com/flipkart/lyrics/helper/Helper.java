@@ -20,6 +20,7 @@ import com.flipkart.lyrics.annotators.AnnotationStyle;
 import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.AndroidValidationStyle;
+import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
@@ -151,6 +152,10 @@ public class Helper {
 
     public static List<ValidationAnnotatorStyle> processValidationAnnotationStyles(Tune tune) {
         List<ValidationAnnotatorStyle> validationAnnotatorStyles = new ArrayList<>();
+        if (tune.areJsr303AnnotationsNeeded()) {
+            validationAnnotatorStyles.add(new Jsr303Style());
+        }
+
         if (tune.areJsr305AnnotationsNeeded()) {
             validationAnnotatorStyles.add(new Jsr305Style());
         }

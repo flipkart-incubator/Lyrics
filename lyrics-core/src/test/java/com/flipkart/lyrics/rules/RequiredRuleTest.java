@@ -68,6 +68,23 @@ public class RequiredRuleTest {
     }
 
     @Test
+    public void testJsr303RequiredRules(@TuneProvider(JSR_303) Tune tune) {
+        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
+        FieldModel model = mock(FieldModel.class);
+        when(model.isRequired()).thenReturn(true);
+
+        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
+        new RequiredRule(tune, metaInfo).process(builder, model);
+
+        FieldSpec spec = builder.build();
+
+        assertEquals("test", spec.name, "Wrong name found.");
+        assertEquals(1, spec.annotations.size(), "Annotations not found.");
+
+        assertEquals("javax.validation.constraints.NotNull", spec.annotations.get(0).type.toString(), "JSR-303 annotation not found.");
+    }
+
+    @Test
     public void testJsrRequiredRules(@TuneProvider(JSR_305) Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);

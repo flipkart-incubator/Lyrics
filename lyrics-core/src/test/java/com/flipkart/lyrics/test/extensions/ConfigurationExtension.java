@@ -27,7 +27,10 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -42,6 +45,7 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String INTERFACES = "interfaces";
     public static final String NO_MODIFIERS = "no-modifiers";
     public static final String REQUIRED = "required";
+    public static final String JSR_303 = "jsr-303";
     public static final String JSR_305 = "jsr-305";
     public static final String ANDROID_SUPPORT = "android-support";
     public static final String ANNOTATIONS = "annotations";
@@ -65,6 +69,8 @@ public class ConfigurationExtension implements ParameterResolver {
                 return getNoModifiersTune();
             case REQUIRED:
                 return getRequiredTune();
+            case JSR_303:
+                return getJsr303Tune();
             case JSR_305:
                 return getJsr305Tune();
             case ANDROID_SUPPORT:
@@ -105,6 +111,12 @@ public class ConfigurationExtension implements ParameterResolver {
         Tune requireTune = spy(DefaultTune.class);
         when(requireTune.areJsr305AnnotationsNeeded()).thenReturn(true);
         when(requireTune.areAndroidValidationAnnotationsNeeded()).thenReturn(true);
+        return requireTune;
+    }
+
+    private Tune getJsr303Tune() {
+        Tune requireTune = spy(DefaultTune.class);
+        when(requireTune.areJsr303AnnotationsNeeded()).thenReturn(true);
         return requireTune;
     }
 

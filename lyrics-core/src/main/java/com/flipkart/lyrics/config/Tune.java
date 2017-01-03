@@ -48,6 +48,8 @@ public interface Tune {
      */
     boolean areAndroidValidationAnnotationsNeeded();
 
+    boolean areJsr303AnnotationsNeeded();
+
     /**
      * When switched on, include artifactId: "jsr305" from groupId: "com.google.code.findbugs"
      * in your project for the classes to compile.

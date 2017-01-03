@@ -64,6 +64,11 @@ public class DefaultTune implements Tune {
     }
 
     @Override
+    public boolean areJsr303AnnotationsNeeded() {
+        return false;
+    }
+
+    @Override
     public boolean areJsr305AnnotationsNeeded() {
         return false;
     }
