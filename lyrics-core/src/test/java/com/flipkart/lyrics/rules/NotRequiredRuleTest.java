@@ -17,13 +17,16 @@
 package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.helper.Helper.processValidationAnnotationStyles;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -40,7 +43,8 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
+        new NotRequiredRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -67,7 +71,8 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
+        new NotRequiredRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -82,7 +87,8 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
+        new NotRequiredRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -97,7 +103,8 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        new NotRequiredRule(tune, null).process(builder, model);
+        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
+        new NotRequiredRule(tune, metaInfo).process(builder, model);
 
         FieldSpec spec = builder.build();
 

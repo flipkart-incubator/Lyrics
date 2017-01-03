@@ -19,6 +19,9 @@ package com.flipkart.lyrics.helper;
 import com.flipkart.lyrics.annotators.AnnotationStyle;
 import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
+import com.flipkart.lyrics.annotators.validations.AndroidValidationStyle;
+import com.flipkart.lyrics.annotators.validations.Jsr305Style;
+import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.GenericVariableModel;
@@ -144,5 +147,17 @@ public class Helper {
             annotationStyles.add(new GsonStyle());
         }
         return annotationStyles;
+    }
+
+    public static List<ValidationAnnotatorStyle> processValidationAnnotationStyles(Tune tune) {
+        List<ValidationAnnotatorStyle> validationAnnotatorStyles = new ArrayList<>();
+        if (tune.areJsr305AnnotationsNeeded()) {
+            validationAnnotatorStyles.add(new Jsr305Style());
+        }
+
+        if (tune.areAndroidValidationAnnotationsNeeded()) {
+            validationAnnotatorStyles.add(new AndroidValidationStyle());
+        }
+        return validationAnnotatorStyles;
     }
 }

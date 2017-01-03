@@ -14,28 +14,27 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.rules;
+package com.flipkart.lyrics.annotators.validations;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.squareup.javapoet.FieldSpec;
 
-/**
- * Created by shrey.garg on 26/11/16.
- */
-public class NotRequiredRule extends FieldRule {
+import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
+import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
 
-    public NotRequiredRule(Tune tune, MetaInfo metaInfo) {
-        super(tune, metaInfo);
+/**
+ * Created by shrey.garg on 03/01/17.
+ */
+public class Jsr305Style extends ValidationAnnotatorStyle {
+
+    @Override
+    public void processRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
+        fieldSpec.addAnnotation(JSR_305_NON_NULL);
     }
 
     @Override
-    public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
-        if (fieldModel.isRequired() || fieldModel.isPrimitive()) {
-            return;
-        }
-
-        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRule(fieldSpec, fieldModel));
+    public void processNotRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
+        fieldSpec.addAnnotation(JSR_305_NULLABLE);
     }
+
 }

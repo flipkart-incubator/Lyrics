@@ -21,9 +21,6 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.squareup.javapoet.FieldSpec;
 
-import static com.flipkart.lyrics.helper.ClassNames.ANDROID_VALIDATIONS_NON_NULL;
-import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
-
 /**
  * Created by shrey.garg on 26/11/16.
  */
@@ -39,12 +36,6 @@ public class RequiredRule extends FieldRule {
             return;
         }
 
-        if (tune.areJsr305AnnotationsNeeded()) {
-            fieldSpec.addAnnotation(JSR_305_NON_NULL);
-        }
-
-        if (tune.areAndroidValidationAnnotationsNeeded()) {
-            fieldSpec.addAnnotation(ANDROID_VALIDATIONS_NON_NULL);
-        }
+        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRule(fieldSpec, fieldModel));
     }
 }
