@@ -46,7 +46,7 @@ public class GetterHandlerTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getFieldType()).thenReturn(FieldType.INTEGER);
 
-        MethodSpec methodSpec = new GetterHandler().process(fieldSpec, model);
+        MethodSpec methodSpec = new GetterHandler().process(fieldSpec, model).build();
 
         assertTrue(methodSpec.hasModifier(Modifier.PUBLIC));
         assertEquals(TypeName.INT, methodSpec.returnType);

@@ -18,6 +18,7 @@ package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 
 import static com.flipkart.lyrics.helper.ClassNames.ANDROID_VALIDATIONS_NON_NULL;
 import static com.flipkart.lyrics.helper.ClassNames.ANDROID_VALIDATIONS_NULLABLE;
@@ -33,8 +34,28 @@ public class AndroidValidationStyle extends ValidationAnnotatorStyle {
     }
 
     @Override
+    public void processRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+
+    }
+
+    @Override
+    public void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+
+    }
+
+    @Override
     public void processNotRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
         fieldSpec.addAnnotation(ANDROID_VALIDATIONS_NULLABLE);
+    }
+
+    @Override
+    public void processNotRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+
+    }
+
+    @Override
+    public void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+
     }
 
 }

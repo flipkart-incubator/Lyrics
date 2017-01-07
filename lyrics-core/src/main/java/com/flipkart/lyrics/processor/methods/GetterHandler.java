@@ -16,8 +16,11 @@
 
 package com.flipkart.lyrics.processor.methods;
 
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 
@@ -29,12 +32,13 @@ import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
  * Created by shrey.garg on 25/11/16.
  */
 public class GetterHandler {
-    public MethodSpec process(FieldSpec fieldSpec, FieldModel fieldModel) {
+
+    public MethodSpec.Builder process(FieldSpec fieldSpec, FieldModel fieldModel) {
         String methodName = getGetterSetterName(fieldSpec.name, false, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
         return MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
-                .addStatement("return $L", fieldSpec.name)
-                .build();
+                .addStatement("return $L", fieldSpec.name);
     }
+
 }

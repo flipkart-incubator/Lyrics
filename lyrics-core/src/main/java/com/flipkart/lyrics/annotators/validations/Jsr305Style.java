@@ -18,6 +18,7 @@ package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
@@ -33,8 +34,28 @@ public class Jsr305Style extends ValidationAnnotatorStyle {
     }
 
     @Override
+    public void processRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(JSR_305_NON_NULL);
+    }
+
+    @Override
+    public void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(JSR_305_NON_NULL);
+    }
+
+    @Override
     public void processNotRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
         fieldSpec.addAnnotation(JSR_305_NULLABLE);
+    }
+
+    @Override
+    public void processNotRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(JSR_305_NULLABLE);
+    }
+
+    @Override
+    public void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(JSR_305_NULLABLE);
     }
 
 }

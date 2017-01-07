@@ -18,6 +18,7 @@ package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 
 import javax.validation.constraints.NotNull;
 
@@ -32,7 +33,27 @@ public class Jsr303Style extends ValidationAnnotatorStyle {
     }
 
     @Override
+    public void processRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(NotNull.class);
+    }
+
+    @Override
+    public void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+        methodSpec.addAnnotation(NotNull.class);
+    }
+
+    @Override
     public void processNotRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
+
+    }
+
+    @Override
+    public void processNotRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
+
+    }
+
+    @Override
+    public void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel) {
 
     }
 

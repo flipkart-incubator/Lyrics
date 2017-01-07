@@ -44,7 +44,7 @@ public class SetterHandlerTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getFieldType()).thenReturn(FieldType.INTEGER);
 
-        MethodSpec methodSpec = new SetterHandler().process(fieldSpec, model);
+        MethodSpec methodSpec = new SetterHandler().process(fieldSpec, model).build();
 
         assertEquals(1, methodSpec.parameters.size());
         assertEquals(TypeName.INT, methodSpec.parameters.get(0).type);

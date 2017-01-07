@@ -25,6 +25,7 @@ import com.flipkart.lyrics.processor.methods.GetterHandler;
 import com.flipkart.lyrics.processor.methods.SetterHandler;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -54,8 +55,19 @@ public class FieldsHandler extends Handler {
     }
 
     private void generateGetterAndSetter(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
-        typeBuilder.addMethod(new GetterHandler().process(fieldSpec, fieldModel));
-        typeBuilder.addMethod(new SetterHandler().process(fieldSpec, fieldModel));
+        MethodSpec.Builder getter = new GetterHandler().process(fieldSpec, fieldModel);
+        MethodSpec.Builder setter = new SetterHandler().process(fieldSpec, fieldModel);
+
+        if (fieldModel.isRequired()) {
+            metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRuleForGetters(getter, fieldModel));
+            metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRuleForSetters(setter, fieldModel));
+        } else {
+            metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForGetters(getter, fieldModel));
+            metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForSetters(setter, fieldModel));
+        }
+
+        typeBuilder.addMethod(getter.build());
+        typeBuilder.addMethod(setter.build());
     }
 
     private void handleFieldRules(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {

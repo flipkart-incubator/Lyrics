@@ -29,13 +29,12 @@ import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
  * Created by shrey.garg on 25/11/16.
  */
 public class SetterHandler {
-    public MethodSpec process(FieldSpec fieldSpec, FieldModel fieldModel) {
+    public MethodSpec.Builder process(FieldSpec fieldSpec, FieldModel fieldModel) {
         String methodName = getGetterSetterName(fieldSpec.name, true, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
         return MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
                 .addParameter(fieldSpec.type, fieldSpec.name)
-                .addStatement("this.$L = $L", fieldSpec.name, fieldSpec.name)
-                .build();
+                .addStatement("this.$L = $L", fieldSpec.name, fieldSpec.name);
     }
 }
