@@ -18,13 +18,10 @@ package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
-import org.junit.jupiter.api.Assertions;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.squareup.javapoet.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.lang.model.element.Modifier;
 
@@ -46,7 +43,13 @@ public class GetterHandlerTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getFieldType()).thenReturn(FieldType.INTEGER);
 
-        MethodSpec methodSpec = new GetterHandler().process(fieldSpec, model).build();
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder("Klazz");
+        MetaInfo metaInfo = new MetaInfo(null, null);
+        new GetterHandler(null, metaInfo, new DefaultRuleSet(null, metaInfo)).process(classBuilder, fieldSpec, model);
+
+        TypeSpec spec = classBuilder.build();
+        assertEquals(1, spec.methodSpecs.size());
+        MethodSpec methodSpec = spec.methodSpecs.get(0);
 
         assertTrue(methodSpec.hasModifier(Modifier.PUBLIC));
         assertEquals(TypeName.INT, methodSpec.returnType);

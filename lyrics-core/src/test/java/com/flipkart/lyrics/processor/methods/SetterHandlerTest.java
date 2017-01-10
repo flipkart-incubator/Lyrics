@@ -18,11 +18,12 @@ package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
+import com.squareup.javapoet.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.lang.model.element.Modifier;
 
@@ -34,17 +35,24 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 09/12/16.
  */
+@ExtendWith(ConfigurationExtension.class)
 public class SetterHandlerTest {
 
     @Test
-    public void testGetter() {
+    public void testSetter() {
         FieldSpec.Builder builder = FieldSpec.builder(TypeName.INT, "test");
         FieldSpec fieldSpec = builder.build();
 
         FieldModel model = mock(FieldModel.class);
         when(model.getFieldType()).thenReturn(FieldType.INTEGER);
 
-        MethodSpec methodSpec = new SetterHandler().process(fieldSpec, model).build();
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder("Klazz");
+        MetaInfo metaInfo = new MetaInfo(null, null);
+        new SetterHandler(null, metaInfo, new DefaultRuleSet(null, metaInfo)).process(classBuilder, fieldSpec, model);
+
+        TypeSpec spec = classBuilder.build();
+        assertEquals(1, spec.methodSpecs.size());
+        MethodSpec methodSpec = spec.methodSpecs.get(0);
 
         assertEquals(1, methodSpec.parameters.size());
         assertEquals(TypeName.INT, methodSpec.parameters.get(0).type);

@@ -32,7 +32,7 @@ public class RequiredRule extends FieldRule {
 
     @Override
     public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
-        if (!fieldModel.isRequired()) {
+        if (!fieldModel.isRequired() || fieldModel.isPrimitive()) {
             return;
         }
 
