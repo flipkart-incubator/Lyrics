@@ -106,6 +106,9 @@ public abstract class HandlerSet {
      */
     public abstract Handler getEnumValuesHandler();
 
+
+    public abstract Handler getEnumToStringDefValuesHandler();
+
     /**
      * @return An {@link Handler} that adds a ordered constructor to the under construction enum.
      */

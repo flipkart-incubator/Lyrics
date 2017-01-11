@@ -16,6 +16,7 @@
 
 package com.flipkart.lyrics.creator;
 
+import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.TypeSpec;
@@ -27,11 +28,18 @@ public class EnumCreator extends TypeCreator {
 
     @Override
     public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
-        TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
+        TypeSpec.Builder typeBuilder;
+        if(handlerSet.getTune().isEnumToClassConversionNeeded()){
+            typeBuilder = TypeSpec.classBuilder(handlerSet.getMetaInfo().getClassName());
+            handlerSet.getEnumToStringDefValuesHandler().process(typeBuilder, typeModel);
+
+        }else {
+            typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
+            handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
+        }
 
         handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
         handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
-        handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
         handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
         handlerSet.getOrderedConstructorHandler().process(typeBuilder, typeModel);
 
