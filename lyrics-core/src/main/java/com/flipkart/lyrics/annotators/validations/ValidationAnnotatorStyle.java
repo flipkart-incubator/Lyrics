@@ -19,6 +19,7 @@ package com.flipkart.lyrics.annotators.validations;
 import com.flipkart.lyrics.model.FieldModel;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 
 /**
  * Created by shrey.garg on 03/01/17.
@@ -29,14 +30,12 @@ public abstract class ValidationAnnotatorStyle {
 
     public abstract void processRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel);
 
-    public abstract void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel);
+    public abstract void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder param);
 
     public abstract void processNotRequiredRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
 
     public abstract void processNotRequiredRuleForGetters(MethodSpec.Builder methodSpec, FieldModel fieldModel);
 
-    public abstract void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel);
-
-
+    public abstract void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder param);
 
 }

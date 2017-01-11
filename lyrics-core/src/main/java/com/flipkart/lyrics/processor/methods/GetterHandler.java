@@ -23,6 +23,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
 
@@ -33,12 +34,27 @@ import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
  */
 public class GetterHandler {
 
-    public MethodSpec.Builder process(FieldSpec fieldSpec, FieldModel fieldModel) {
+    private Tune tune;
+    private MetaInfo metaInfo;
+    private RuleSet ruleSet;
+
+    public GetterHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        this.tune = tune;
+        this.metaInfo = metaInfo;
+        this.ruleSet = ruleSet;
+    }
+
+    public void process(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
         String methodName = getGetterSetterName(fieldSpec.name, false, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
-        return MethodSpec.methodBuilder(methodName)
+        MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
                 .addStatement("return $L", fieldSpec.name);
+
+        ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
+        ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
+
+        typeBuilder.addMethod(builder.build());
     }
 
 }

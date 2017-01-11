@@ -19,6 +19,7 @@ package com.flipkart.lyrics.sets;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.rules.*;
+import com.flipkart.lyrics.rules.method.*;
 import com.flipkart.lyrics.rules.type.GlobalInclusionRule;
 import com.flipkart.lyrics.rules.type.SubTypesRule;
 import com.flipkart.lyrics.rules.type.TypeRule;
@@ -53,8 +54,28 @@ public class DefaultRuleSet extends RuleSet {
     }
 
     @Override
+    public MethodRule getGetterRequiredRule() {
+        return new GetterRequiredRule(tune, metaInfo);
+    }
+
+    @Override
+    public MethodRule getSetterRequiredRule() {
+        return new SetterRequiredRule(tune, metaInfo);
+    }
+
+    @Override
     public FieldRule getNotRequiredRule() {
         return new NotRequiredRule(tune, metaInfo);
+    }
+
+    @Override
+    public MethodRule getGetterNotRequiredRule() {
+        return new GetterNotRequiredRule(tune, metaInfo);
+    }
+
+    @Override
+    public MethodRule getSetterNotRequiredRule() {
+        return new SetterNotRequiredRule(tune, metaInfo);
     }
 
     @Override
