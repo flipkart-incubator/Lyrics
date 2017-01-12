@@ -16,14 +16,18 @@
 
 package com.flipkart.lyrics.config;
 
+import com.flipkart.lyrics.annotators.AnnotationStyle;
+import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.sets.*;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,4 +73,28 @@ public interface Tune {
     boolean forceDefaultFieldModifiers();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
+
+    default CreatorSet getCreatorSet() {
+        return new DefaultCreatorSet();
+    }
+
+    default HandlerSet getHandlerSet() {
+        return new DefaultHandlerSet();
+    }
+
+    default RuleSet getRuleSet() {
+        return new DefaultRuleSet();
+    }
+
+    default FieldTypeHandlerSet getFieldTypeHandlerSet() {
+        return new DefaultFieldTypeHandlerSet();
+    }
+
+    default List<AnnotationStyle> getAnnotationStyles() {
+        return new ArrayList<>();
+    }
+
+    default List<ValidationAnnotatorStyle> getValidationAnnotatorStyles() {
+        return new ArrayList<>();
+    }
 }

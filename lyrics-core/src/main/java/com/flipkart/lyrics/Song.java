@@ -21,8 +21,8 @@ import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.sets.DefaultHandlerSet;
-import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.sets.CreatorSet;
+import com.flipkart.lyrics.sets.DefaultCreatorSet;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.JavaFile;
@@ -48,14 +48,29 @@ public class Song {
         List<AnnotationStyle> annotationStyles = processAnnotationStyles(tune);
         List<ValidationAnnotatorStyle> validationAnnotatorStyles = processValidationAnnotationStyles(tune);
         MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()), annotationStyles, validationAnnotatorStyles);
-        RuleSet ruleSet = new DefaultRuleSet(tune, metaInfo);
-        HandlerSet handlerSet = new DefaultHandlerSet(tune, metaInfo, ruleSet);
+        RuleSet ruleSet = processRuleSet(tune, metaInfo);
+        HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
 
-        TypeSpec.Builder typeBuilder = typeModel.getType().getCreator().process(handlerSet, typeModel);
+        TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
                 .indent("    ")
                 .skipJavaLangImports(true)
                 .build();
         javaFile.writeTo(targetFolder);
+    }
+
+    private HandlerSet processHandlerSet(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        HandlerSet handlerSet = tune.getHandlerSet();
+        handlerSet.setMetaInfo(metaInfo);
+        handlerSet.setRuleSet(ruleSet);
+        handlerSet.setTune(tune);
+        return handlerSet;
+    }
+
+    private RuleSet processRuleSet(Tune tune, MetaInfo metaInfo) {
+        RuleSet ruleSet = tune.getRuleSet();
+        ruleSet.setTune(tune);
+        ruleSet.setMetaInfo(metaInfo);
+        return ruleSet;
     }
 }

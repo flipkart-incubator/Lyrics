@@ -27,6 +27,8 @@ import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 
+import static com.flipkart.lyrics.helper.Helper.getFieldTypeHandler;
+
 /**
  * Created by shrey.garg on 29/11/16.
  */
@@ -40,7 +42,7 @@ public class FieldsHandler extends Handler {
     public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         for (String key : typeModel.getFields().keySet()) {
             FieldModel fieldModel = typeModel.getFields().get(key);
-            FieldSpec.Builder fieldBuilder = fieldModel.getFieldType().getHandler()
+            FieldSpec.Builder fieldBuilder = getFieldTypeHandler(fieldModel.getFieldType(), tune.getFieldTypeHandlerSet())
                     .process(typeBuilder, key, tune, fieldModel, metaInfo.getGenericVariables());
             handleFieldRules(fieldBuilder, fieldModel);
 

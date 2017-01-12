@@ -38,6 +38,10 @@ import com.flipkart.lyrics.processor.supertypes.SuperClassHandler;
  */
 public class DefaultHandlerSet extends HandlerSet {
 
+    public DefaultHandlerSet() {
+        super();
+    }
+
     public DefaultHandlerSet(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         super(tune, metaInfo, ruleSet);
     }

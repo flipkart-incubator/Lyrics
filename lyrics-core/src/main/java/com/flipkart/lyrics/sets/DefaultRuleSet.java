@@ -29,6 +29,10 @@ import com.flipkart.lyrics.rules.type.TypeRule;
  */
 public class DefaultRuleSet extends RuleSet {
 
+    public DefaultRuleSet() {
+        super();
+    }
+
     public DefaultRuleSet(Tune tune, MetaInfo metaInfo) {
         super(tune, metaInfo);
     }
