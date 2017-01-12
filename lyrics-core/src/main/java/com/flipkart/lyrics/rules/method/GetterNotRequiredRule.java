@@ -18,7 +18,7 @@ public class GetterNotRequiredRule extends MethodRule {
 
     @Override
     public void process(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder parameterSpec) {
-        if (fieldModel.isRequired() || fieldModel.isPrimitive()) {
+        if (fieldModel.isRequired() || (fieldModel.isPrimitive() && !fieldModel.isArray())) {
             return;
         }
 

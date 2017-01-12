@@ -32,7 +32,7 @@ public class NotRequiredRule extends FieldRule {
 
     @Override
     public void process(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {
-        if (fieldModel.isRequired() || fieldModel.isPrimitive()) {
+        if (fieldModel.isRequired() || (fieldModel.isPrimitive() && !fieldModel.isArray())) {
             return;
         }
 
