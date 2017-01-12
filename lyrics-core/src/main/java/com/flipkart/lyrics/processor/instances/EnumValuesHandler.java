@@ -17,14 +17,17 @@
 package com.flipkart.lyrics.processor.instances;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.ClassNames;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 
+import javax.lang.model.element.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +47,7 @@ public class EnumValuesHandler extends Handler {
         List<Map.Entry<String, FieldModel>> orderedFields = orderFields(typeModel.getFields(), typeModel.getFieldOrder());
         String formattedParams = getFormattedParams(orderedFields);
 
-        for (String key : values.keySet()) {
+         for (String key : values.keySet()) {
             if (formattedParams == null) {
                 typeBuilder.addEnumConstant(key);
             } else {

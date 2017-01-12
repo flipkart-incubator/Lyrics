@@ -68,5 +68,7 @@ public interface Tune {
 
     boolean forceDefaultFieldModifiers();
 
+    boolean isEnumToClassConversionNeeded();
+
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
 }

@@ -104,6 +104,11 @@ public class DefaultTune implements Tune {
     }
 
     @Override
+    public boolean isEnumToClassConversionNeeded() {
+        return true;
+    }
+
+    @Override
     public Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler() {
         return null;
     }
