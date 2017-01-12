@@ -24,9 +24,11 @@ import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.model.GenericVariableModel;
-import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.creator.TypeCreator;
+import com.flipkart.lyrics.model.*;
+import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
+import com.flipkart.lyrics.sets.CreatorSet;
+import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -164,5 +166,45 @@ public class Helper {
             validationAnnotatorStyles.add(new AndroidValidationStyle());
         }
         return validationAnnotatorStyles;
+    }
+
+    public static TypeCreator getCreator(Type type, CreatorSet creatorSet) {
+        switch (type) {
+            case ANNOTATION:
+                return creatorSet.getAnnotationCreator();
+            case CLASS:
+                return creatorSet.getClassCreator();
+            case ENUM:
+                return creatorSet.getEnumCreator();
+            default:
+                return creatorSet.getClassCreator();
+        }
+    }
+
+    public static FieldTypeHandler getFieldTypeHandler(FieldType type, FieldTypeHandlerSet handlerSet) {
+        switch (type) {
+            case BOOLEAN:
+                return handlerSet.getBooleanTypeHandler();
+            case BYTE:
+                return handlerSet.getByteTypeHandler();
+            case CHARACTER:
+                return handlerSet.getCharacterTypeHandler();
+            case DOUBLE:
+                return handlerSet.getDoubleTypeHandler();
+            case FLOAT:
+                return handlerSet.getFloatTypeHandler();
+            case INTEGER:
+                return handlerSet.getIntegerTypeHandler();
+            case LONG:
+                return handlerSet.getLongTypeHandler();
+            case SHORT:
+                return handlerSet.getShortTypeHandler();
+            case OBJECT:
+                return handlerSet.getObjectTypeHandler();
+            case STRING:
+                return handlerSet.getStringTypeHandler();
+            default:
+                return handlerSet.getObjectTypeHandler();
+        }
     }
 }

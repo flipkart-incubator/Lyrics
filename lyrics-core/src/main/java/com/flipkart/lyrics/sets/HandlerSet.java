@@ -27,9 +27,13 @@ import javax.lang.model.element.Modifier;
  */
 public abstract class HandlerSet {
 
-    protected final Tune tune;
-    protected final MetaInfo metaInfo;
-    protected final RuleSet ruleSet;
+    protected Tune tune;
+    protected MetaInfo metaInfo;
+    protected RuleSet ruleSet;
+
+    public HandlerSet() {
+
+    }
 
     public HandlerSet(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         this.tune = tune;
@@ -111,15 +115,27 @@ public abstract class HandlerSet {
      */
     public abstract Handler getOrderedConstructorHandler();
 
-    public final Tune getTune() {
+    public Tune getTune() {
         return tune;
     }
 
-    public final MetaInfo getMetaInfo() {
+    public void setTune(Tune tune) {
+        this.tune = tune;
+    }
+
+    public MetaInfo getMetaInfo() {
         return metaInfo;
     }
 
-    public final RuleSet getRuleSet() {
+    public void setMetaInfo(MetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
+    }
+
+    public RuleSet getRuleSet() {
         return ruleSet;
+    }
+
+    public void setRuleSet(RuleSet ruleSet) {
+        this.ruleSet = ruleSet;
     }
 }

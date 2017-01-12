@@ -16,26 +16,11 @@
 
 package com.flipkart.lyrics.model;
 
-import com.flipkart.lyrics.creator.AnnotationCreator;
-import com.flipkart.lyrics.creator.ClassCreator;
-import com.flipkart.lyrics.creator.EnumCreator;
-import com.flipkart.lyrics.creator.TypeCreator;
-
 /**
  * Created by shrey.garg on 25/11/16.
  */
 public enum Type {
-    CLASS(new ClassCreator()),
-    ENUM(new EnumCreator()),
-    ANNOTATION(new AnnotationCreator());
-
-    private TypeCreator creator;
-
-    Type(TypeCreator creator) {
-        this.creator = creator;
-    }
-
-    public TypeCreator getCreator() {
-        return creator;
-    }
+    CLASS,
+    ENUM,
+    ANNOTATION;
 }

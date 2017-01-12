@@ -16,33 +16,18 @@
 
 package com.flipkart.lyrics.model;
 
-import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
-import com.flipkart.lyrics.processor.fields.ObjectTypeHandler;
-import com.flipkart.lyrics.processor.fields.PrimitiveTypeHandler;
-import com.flipkart.lyrics.processor.fields.StringTypeHandler;
-
 /**
  * Created by shrey.garg on 25/11/16.
  */
 public enum FieldType {
-    OBJECT(new ObjectTypeHandler()),
-    STRING(new StringTypeHandler()),
-    INTEGER(new PrimitiveTypeHandler(Primitive.INTEGER)),
-    BOOLEAN(new PrimitiveTypeHandler(Primitive.BOOLEAN)),
-    LONG(new PrimitiveTypeHandler(Primitive.LONG)),
-    DOUBLE(new PrimitiveTypeHandler(Primitive.DOUBLE)),
-    CHARACTER(new PrimitiveTypeHandler(Primitive.CHARACTER)),
-    SHORT(new PrimitiveTypeHandler(Primitive.SHORT)),
-    BYTE(new PrimitiveTypeHandler(Primitive.BYTE)),
-    FLOAT(new PrimitiveTypeHandler(Primitive.FLOAT));
-
-    private FieldTypeHandler handler;
-
-    FieldType(FieldTypeHandler handler) {
-        this.handler = handler;
-    }
-
-    public FieldTypeHandler getHandler() {
-        return handler;
-    }
+    OBJECT,
+    STRING,
+    INTEGER,
+    BOOLEAN,
+    LONG,
+    DOUBLE,
+    CHARACTER,
+    SHORT,
+    BYTE,
+    FLOAT;
 }

@@ -30,6 +30,9 @@ public abstract class RuleSet {
     protected Tune tune;
     protected MetaInfo metaInfo;
 
+    public RuleSet() {
+    }
+
     public RuleSet(Tune tune, MetaInfo metaInfo) {
         this.tune = tune;
         this.metaInfo = metaInfo;
@@ -53,4 +56,11 @@ public abstract class RuleSet {
     public abstract MethodRule getGetterNotRequiredRule();
     public abstract MethodRule getSetterNotRequiredRule();
 
+    public void setTune(Tune tune) {
+        this.tune = tune;
+    }
+
+    public void setMetaInfo(MetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
+    }
 }
