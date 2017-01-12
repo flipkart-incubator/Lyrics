@@ -35,7 +35,7 @@ public class EnumToStringDefValuesHandler extends Handler {
         AnnotationSpec.Builder intDefAnnotation = AnnotationSpec.builder(ClassName.get("android.support.annotation", "StringDef"))
                 .addMember("value", "{$L}", valuesStr.substring(0, valuesStr.length() - 1));
 
-        typeBuilder.addType(TypeSpec.annotationBuilder(metaInfo.getClassName() + "$Value").
+        typeBuilder.addType(TypeSpec.annotationBuilder(metaInfo.getClassName() + "Def").
                 addModifiers(Modifier.PUBLIC).
                 addAnnotation(retentionAnnotation.build()).
                 addAnnotation(intDefAnnotation.build()).
