@@ -15,6 +15,7 @@
     <modules>
         <module>lyrics-core</module>
         <module>lyrics-json</module>
+        <module>lyrics-android</module>
     </modules>
 
     <developers>
