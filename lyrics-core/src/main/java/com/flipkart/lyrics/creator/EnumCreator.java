@@ -28,7 +28,6 @@ public class EnumCreator extends TypeCreator {
     @Override
     public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
         TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
-
         handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
         handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
         handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);

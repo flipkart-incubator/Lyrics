@@ -13,7 +13,7 @@ import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
 /**
  * Created by anshul.garg on 13/01/17.
  */
-public class AndroidEnumTypeHanlder extends FieldTypeHandler {
+public class AndroidEnumTypeHandler extends FieldTypeHandler {
     @Override
     public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
         if(configuration.isEnumToClassConversionNeeded()) {
