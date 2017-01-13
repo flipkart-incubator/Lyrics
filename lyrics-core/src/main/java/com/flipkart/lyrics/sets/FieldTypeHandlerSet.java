@@ -27,4 +27,6 @@ public abstract class FieldTypeHandlerSet {
 
     public abstract FieldTypeHandler getStringTypeHandler();
 
+    public abstract FieldTypeHandler getEnumTypeHandler();
+
 }

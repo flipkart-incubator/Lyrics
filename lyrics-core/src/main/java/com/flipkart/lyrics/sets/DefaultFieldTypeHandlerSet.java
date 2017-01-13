@@ -61,4 +61,9 @@ public class DefaultFieldTypeHandlerSet extends FieldTypeHandlerSet {
         return new StringTypeHandler();
     }
 
+    @Override
+    public FieldTypeHandler getEnumTypeHandler() {
+        return new ObjectTypeHandler();
+    }
+
 }

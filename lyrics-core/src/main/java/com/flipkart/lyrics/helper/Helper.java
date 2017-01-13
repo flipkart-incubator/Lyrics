@@ -203,6 +203,8 @@ public class Helper {
                 return handlerSet.getObjectTypeHandler();
             case STRING:
                 return handlerSet.getStringTypeHandler();
+            case ENUM:
+                return handlerSet.getEnumTypeHandler();
             default:
                 return handlerSet.getObjectTypeHandler();
         }

@@ -29,5 +29,6 @@ public enum FieldType {
     CHARACTER,
     SHORT,
     BYTE,
-    FLOAT;
+    FLOAT,
+    ENUM;
 }
