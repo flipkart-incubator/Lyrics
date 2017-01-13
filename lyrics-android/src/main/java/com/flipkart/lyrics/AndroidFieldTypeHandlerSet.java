@@ -1,3 +1,6 @@
+package com.flipkart.lyrics;
+
+import com.flipkart.lyrics.handlers.AndroidEnumTypeHanlder;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.sets.DefaultFieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;

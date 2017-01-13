@@ -1,3 +1,5 @@
+package com.flipkart.lyrics;
+
 import com.flipkart.lyrics.creator.TypeCreator;
 import com.flipkart.lyrics.sets.DefaultCreatorSet;
 
@@ -8,7 +10,10 @@ public class AndroidCreator extends DefaultCreatorSet {
 
     @Override
     public TypeCreator getEnumCreator() {
-        //confif either create default or create mine
-        return super.getEnumCreator();
+        if(handlerSet.getTune().isEnumToClassConversionNeeded()) {
+            return
+        }else {
+            return super.getEnumCreator();
+        }
     }
 }

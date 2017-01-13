@@ -74,6 +74,8 @@ public interface Tune {
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
 
+    boolean isEnumToClassConversionNeeded();
+
     default CreatorSet getCreatorSet() {
         return new DefaultCreatorSet();
     }
@@ -97,4 +99,6 @@ public interface Tune {
     default List<ValidationAnnotatorStyle> getValidationAnnotatorStyles() {
         return new ArrayList<>();
     }
+
+
 }
