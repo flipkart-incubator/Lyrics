@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 /**
  * Created by shrey.garg on 26/11/16.
@@ -73,8 +72,6 @@ public interface Tune {
     boolean forceDefaultFieldModifiers();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
-
-    boolean isEnumToClassConversionNeeded();
 
     default CreatorSet getCreatorSet() {
         return new DefaultCreatorSet();
