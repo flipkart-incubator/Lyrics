@@ -19,7 +19,6 @@ package com.flipkart.lyrics.helper;
 import com.flipkart.lyrics.annotators.AnnotationStyle;
 import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
-import com.flipkart.lyrics.annotators.validations.AndroidValidationStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
@@ -149,6 +148,9 @@ public class Helper {
         if (tune.areGsonStyleAnnotationsNeeded()) {
             annotationStyles.add(new GsonStyle());
         }
+
+        annotationStyles.addAll(tune.getAnnotationStyles());
+
         return annotationStyles;
     }
 
@@ -162,9 +164,8 @@ public class Helper {
             validationAnnotatorStyles.add(new Jsr305Style());
         }
 
-        if (tune.areAndroidValidationAnnotationsNeeded()) {
-            validationAnnotatorStyles.add(new AndroidValidationStyle());
-        }
+        validationAnnotatorStyles.addAll(tune.getValidationAnnotatorStyles());
+
         return validationAnnotatorStyles;
     }
 

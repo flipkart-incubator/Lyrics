@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.annotators.validations;
+package com.flipkart.lyrics.android.annotators.validations;
 
+import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.model.FieldModel;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;

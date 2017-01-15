@@ -101,38 +101,4 @@ public class RequiredRuleTest {
         assertEquals("javax.annotation.Nonnull", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
     }
 
-    @Test
-    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
-        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
-        FieldModel model = mock(FieldModel.class);
-        when(model.isRequired()).thenReturn(true);
-
-        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
-        new RequiredRule(tune, metaInfo).process(builder, model);
-
-        FieldSpec spec = builder.build();
-
-        assertEquals("test", spec.name, "Wrong name found.");
-        assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("android.support.annotation.NonNull", spec.annotations.get(0).type.toString(), "Android support annotation not found.");
-    }
-
-    @Test
-    public void testJsrAndAndroidRequiredRules(@TuneProvider(REQUIRED) Tune tune) {
-        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
-        FieldModel model = mock(FieldModel.class);
-        when(model.isRequired()).thenReturn(true);
-
-        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
-        new RequiredRule(tune, metaInfo).process(builder, model);
-
-        FieldSpec spec = builder.build();
-
-        assertEquals("test", spec.name, "Wrong name found.");
-        assertEquals(2, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.annotation.Nonnull", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
-        assertEquals("android.support.annotation.NonNull", spec.annotations.get(1).type.toString(), "Android support annotation not found.");
-    }
 }
