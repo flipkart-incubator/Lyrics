@@ -1,6 +1,6 @@
-package com.flipkart.lyrics;
+package com.flipkart.lyrics.android.sets;
 
-import com.flipkart.lyrics.handlers.EnumToStringDefValuesHandler;
+import com.flipkart.lyrics.android.handlers.StringDefValuesHandler;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.DefaultHandlerSet;
 
@@ -10,6 +10,6 @@ import com.flipkart.lyrics.sets.DefaultHandlerSet;
 public class AndroidHandlerSet extends DefaultHandlerSet {
     @Override
     public Handler getEnumValuesHandler() {
-        return new EnumToStringDefValuesHandler(tune, metaInfo, ruleSet);
+        return new StringDefValuesHandler(tune, metaInfo, ruleSet);
     }
 }
