@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Flipkart Internet, pvt ltd.
+ * Copyright 2017 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.model;
+package com.flipkart.lyrics.android.sets;
+
+import com.flipkart.lyrics.android.creator.AndroidEnumCreator;
+import com.flipkart.lyrics.creator.TypeCreator;
+import com.flipkart.lyrics.sets.DefaultCreatorSet;
 
 /**
- * Created by shrey.garg on 25/11/16.
+ * Created by shrey.garg on 15/01/17.
  */
-public enum FieldType {
-    OBJECT,
-    STRING,
-    INTEGER,
-    BOOLEAN,
-    LONG,
-    DOUBLE,
-    CHARACTER,
-    SHORT,
-    BYTE,
-    FLOAT,
-    ENUM;
+public class AndroidCreatorSet extends DefaultCreatorSet {
+
+    @Override
+    public TypeCreator getEnumCreator() {
+        return new AndroidEnumCreator();
+    }
 }
