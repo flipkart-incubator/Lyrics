@@ -77,11 +77,18 @@ public class EqualsAndHashCodeHandler extends Handler {
 
         ClassName equalsBuilderClass = ClassName.get(EqualsBuilder.class);
         equalsBuilder.addCode("return new $T()\n", equalsBuilderClass);
-        equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n", equalsBuilderClass);
+
+        if (typeModel.isTestSuperEquality()) {
+            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n", equalsBuilderClass);
+        }
 
         ClassName hashCodeBuilderClass = ClassName.get(HashCodeBuilder.class);
         hashCodeBuilder.addCode("return new $T()\n", hashCodeBuilderClass);
-        hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n", hashCodeBuilderClass);
+
+        if (typeModel.isTestSuperEquality()) {
+            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n", hashCodeBuilderClass);
+        }
+
         for (String field : nonStaticFields) {
             equalsBuilder.addCode("\t\t.append($L, that.$L)\n", field, field);
             hashCodeBuilder.addCode("\t\t.append($L)\n", field);
