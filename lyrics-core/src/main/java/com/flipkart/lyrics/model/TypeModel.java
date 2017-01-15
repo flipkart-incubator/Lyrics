@@ -39,6 +39,7 @@ public class TypeModel {
     private SubTypeModel subTypes;
     private RetentionPolicy retention;
     private ElementType[] elementTypes;
+    private boolean testSuperEquality = false;
 
     public TypeModel() {
     }
@@ -116,4 +117,7 @@ public class TypeModel {
         return elementTypes;
     }
 
+    public boolean isTestSuperEquality() {
+        return testSuperEquality;
+    }
 }
