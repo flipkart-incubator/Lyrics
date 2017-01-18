@@ -21,6 +21,8 @@ import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.sets.DefaultFieldTypeHandlerSet;
+import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
@@ -33,6 +35,9 @@ import java.util.Set;
  * Created by shrey.garg on 26/11/16.
  */
 public class DefaultTune implements Tune {
+
+    private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
+
     @Override
     public boolean areJacksonStyleAnnotationsNeeded() {
         return false;
@@ -106,5 +111,10 @@ public class DefaultTune implements Tune {
     @Override
     public Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler() {
         return null;
+    }
+
+    @Override
+    public FieldTypeHandlerSet getFieldTypeHandlerSet() {
+        return fieldTypeHandlerSet;
     }
 }

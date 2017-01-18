@@ -34,6 +34,8 @@ import java.util.List;
  */
 public abstract class AndroidTune extends DefaultTune {
 
+    private final FieldTypeHandlerSet fieldTypeHandlerSet = new AndroidFieldTypeHandlerSet();
+
     public abstract List<String> createStringDefsFor();
 
     @Override
@@ -48,7 +50,7 @@ public abstract class AndroidTune extends DefaultTune {
 
     @Override
     public FieldTypeHandlerSet getFieldTypeHandlerSet() {
-        return new AndroidFieldTypeHandlerSet();
+        return fieldTypeHandlerSet;
     }
 
     @Override
