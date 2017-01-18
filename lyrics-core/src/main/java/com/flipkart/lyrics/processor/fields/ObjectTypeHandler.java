@@ -18,9 +18,11 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.*;
-
-import java.util.Map;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
@@ -29,16 +31,21 @@ import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
  * Created by shrey.garg on 25/11/16.
  */
 public class ObjectTypeHandler extends FieldTypeHandler {
+
+    public ObjectTypeHandler(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
+    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         TypeName typeName;
         if (fieldModel.getType() == null) {
             typeName = TypeName.OBJECT;
         } else {
-            typeName = getResolvedTypeName(fieldModel.getType(), typeVariableNames);
+            typeName = getResolvedTypeName(fieldModel.getType(), metaInfo.getGenericVariables());
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
-        return FieldSpec.builder(typeName, key, resolveModifiers(configuration, fieldModel));
+        return FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
     }
 }

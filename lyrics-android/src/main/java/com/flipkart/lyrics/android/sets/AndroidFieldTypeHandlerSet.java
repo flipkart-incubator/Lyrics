@@ -27,6 +27,6 @@ public class AndroidFieldTypeHandlerSet extends DefaultFieldTypeHandlerSet {
 
     @Override
     public FieldTypeHandler getEnumTypeHandler() {
-        return new AndroidEnumTypeHandler();
+        return new AndroidEnumTypeHandler(tune, metaInfo);
     }
 }

@@ -21,8 +21,7 @@ import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.sets.CreatorSet;
-import com.flipkart.lyrics.sets.DefaultCreatorSet;
+import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.JavaFile;
@@ -50,6 +49,7 @@ public class Song {
         MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()), annotationStyles, validationAnnotatorStyles);
         RuleSet ruleSet = processRuleSet(tune, metaInfo);
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
+        processFieldTypeHandlerSet(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
@@ -72,5 +72,11 @@ public class Song {
         ruleSet.setTune(tune);
         ruleSet.setMetaInfo(metaInfo);
         return ruleSet;
+    }
+
+    private void processFieldTypeHandlerSet(Tune tune, MetaInfo metaInfo) {
+        FieldTypeHandlerSet fieldTypeHandlerSet = tune.getFieldTypeHandlerSet();
+        fieldTypeHandlerSet.setMetaInfo(metaInfo);
+        fieldTypeHandlerSet.setTune(tune);
     }
 }

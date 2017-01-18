@@ -17,11 +17,12 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.*;
-
-import java.util.Map;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
 
@@ -30,10 +31,14 @@ import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
  */
 public class StringTypeHandler extends FieldTypeHandler {
 
+    public StringTypeHandler(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNameMap) {
+    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         TypeName typeName = fieldModel.isArray() ? ArrayTypeName.of(String.class) : TypeName.get(String.class);
-        return FieldSpec.builder(typeName, key, resolveModifiers(configuration, fieldModel));
+        return FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
     }
 
 }

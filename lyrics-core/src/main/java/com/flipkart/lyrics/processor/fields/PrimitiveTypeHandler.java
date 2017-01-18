@@ -18,10 +18,12 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.Primitive;
-import com.squareup.javapoet.*;
-
-import java.util.Map;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
 
@@ -32,15 +34,15 @@ public class PrimitiveTypeHandler extends FieldTypeHandler {
 
     private Primitive primitive;
 
-    public PrimitiveTypeHandler(Primitive primitive) {
-        super();
+    public PrimitiveTypeHandler(Tune tune, MetaInfo metaInfo, Primitive primitive) {
+        super(tune, metaInfo);
         this.primitive = primitive;
     }
 
     @Override
-    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
+    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         Class aClass = fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed();
         TypeName typeName = fieldModel.isArray() ? ArrayTypeName.of(aClass) : TypeName.get(aClass);
-        return FieldSpec.builder(typeName, key, resolveModifiers(configuration, fieldModel));
+        return FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
     }
 }

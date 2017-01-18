@@ -43,7 +43,7 @@ public class FieldsHandler extends Handler {
         for (String key : typeModel.getFields().keySet()) {
             FieldModel fieldModel = typeModel.getFields().get(key);
             FieldSpec.Builder fieldBuilder = getFieldTypeHandler(fieldModel.getFieldType(), tune.getFieldTypeHandlerSet())
-                    .process(typeBuilder, key, tune, fieldModel, metaInfo.getGenericVariables());
+                    .process(typeBuilder, key, fieldModel);
             handleFieldRules(fieldBuilder, fieldModel);
 
             FieldSpec fieldSpec = fieldBuilder.build();

@@ -20,11 +20,13 @@ import com.flipkart.lyrics.android.config.AndroidTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.processor.fields.ObjectTypeHandler;
-import com.squareup.javapoet.*;
-
-import java.util.Map;
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
@@ -33,16 +35,22 @@ import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
  * Created by anshul.garg on 13/01/17.
  */
 public class AndroidEnumTypeHandler extends FieldTypeHandler {
+
+    public AndroidEnumTypeHandler(Tune tune, MetaInfo metaInfo) {
+        super(tune, metaInfo);
+    }
+
     @Override
-    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
-        AndroidTune tune = (AndroidTune) configuration;
+    public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
+        AndroidTune tune = (AndroidTune) this.tune;
         String unresolvedType = fieldModel.getType().getType();
-        if (fieldModel.getFieldType() == FieldType.ENUM && tune.createStringDefsFor().contains(unresolvedType)) {
-            String enumName = unresolvedType.substring(unresolvedType.lastIndexOf(".") + 1);
-            AnnotationSpec annotation = AnnotationSpec.builder(getClassName(unresolvedType + "." + enumName + "Def")).build();
-            return FieldSpec.builder(TypeName.get(String.class), key, resolveModifiers(configuration, fieldModel)).addAnnotation(annotation);
-        } else {
-            return new ObjectTypeHandler().process(typeSpec, key, configuration, fieldModel, typeVariableNames);
+
+        if (fieldModel.getFieldType() != FieldType.ENUM || !tune.createStringDefsFor().contains(unresolvedType)) {
+            return new ObjectTypeHandler(tune, metaInfo).process(typeSpec, key, fieldModel);
         }
+
+        String enumName = unresolvedType.substring(unresolvedType.lastIndexOf(".") + 1);
+        AnnotationSpec annotation = AnnotationSpec.builder(getClassName(unresolvedType + "." + enumName + "Def")).build();
+        return FieldSpec.builder(TypeName.get(String.class), key, resolveModifiers(tune, fieldModel)).addAnnotation(annotation);
     }
 }

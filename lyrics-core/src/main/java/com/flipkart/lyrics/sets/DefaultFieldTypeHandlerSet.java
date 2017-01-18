@@ -13,57 +13,57 @@ public class DefaultFieldTypeHandlerSet extends FieldTypeHandlerSet {
 
     @Override
     public FieldTypeHandler getObjectTypeHandler() {
-        return new ObjectTypeHandler();
+        return new ObjectTypeHandler(tune, metaInfo);
     }
 
     @Override
     public FieldTypeHandler getIntegerTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.INTEGER);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.INTEGER);
     }
 
     @Override
     public FieldTypeHandler getBooleanTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.BOOLEAN);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.BOOLEAN);
     }
 
     @Override
     public FieldTypeHandler getLongTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.LONG);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.LONG);
     }
 
     @Override
     public FieldTypeHandler getDoubleTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.DOUBLE);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.DOUBLE);
     }
 
     @Override
     public FieldTypeHandler getCharacterTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.CHARACTER);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.CHARACTER);
     }
 
     @Override
     public FieldTypeHandler getShortTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.SHORT);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.SHORT);
     }
 
     @Override
     public FieldTypeHandler getByteTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.BYTE);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.BYTE);
     }
 
     @Override
     public FieldTypeHandler getFloatTypeHandler() {
-        return new PrimitiveTypeHandler(Primitive.FLOAT);
+        return new PrimitiveTypeHandler(tune, metaInfo, Primitive.FLOAT);
     }
 
     @Override
     public FieldTypeHandler getStringTypeHandler() {
-        return new StringTypeHandler();
+        return new StringTypeHandler(tune, metaInfo);
     }
 
     @Override
     public FieldTypeHandler getEnumTypeHandler() {
-        return new ObjectTypeHandler();
+        return new ObjectTypeHandler(tune, metaInfo);
     }
 
 }

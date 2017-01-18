@@ -18,17 +18,23 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.MetaInfo;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.Map;
 
 /**
  * Created by shrey.garg on 25/11/16.
  */
 public abstract class FieldTypeHandler {
 
-    public abstract FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, Tune configuration, FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames);
+    protected Tune tune;
+    protected MetaInfo metaInfo;
+
+    public FieldTypeHandler(Tune tune, MetaInfo metaInfo) {
+        this.tune = tune;
+        this.metaInfo = metaInfo;
+    }
+
+    public abstract FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel);
 
 }
