@@ -35,17 +35,19 @@ import java.util.List;
 public abstract class AndroidTune extends DefaultTune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new AndroidFieldTypeHandlerSet();
+    private final CreatorSet creatorSet = new AndroidCreatorSet();
+    private final HandlerSet handlerSet = new AndroidHandlerSet();
 
     public abstract List<String> createStringDefsFor();
 
     @Override
     public CreatorSet getCreatorSet() {
-        return new AndroidCreatorSet();
+        return creatorSet;
     }
 
     @Override
     public HandlerSet getHandlerSet() {
-        return new AndroidHandlerSet();
+        return handlerSet;
     }
 
     @Override
