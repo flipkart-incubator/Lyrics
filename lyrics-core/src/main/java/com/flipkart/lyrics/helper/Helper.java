@@ -177,6 +177,8 @@ public class Helper {
                 return creatorSet.getClassCreator();
             case ENUM:
                 return creatorSet.getEnumCreator();
+            case INTERFACE:
+                return creatorSet.getInterfaceCreator();
             default:
                 return creatorSet.getClassCreator();
         }
@@ -209,5 +211,52 @@ public class Helper {
             default:
                 return handlerSet.getObjectTypeHandler();
         }
+    }
+
+    public static TypeName processType(FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
+        Primitive primitive;
+        switch (fieldModel.getFieldType()) {
+            case STRING:
+                return TypeName.get(String.class);
+            case ENUM:
+            case OBJECT:
+                TypeName typeName;
+                if (fieldModel.getType().getType() == null) {
+                    typeName = TypeName.OBJECT;
+                } else {
+                    typeName = getResolvedTypeName(fieldModel.getType(), typeVariableNames);
+                }
+                return typeName;
+            case SHORT:
+                primitive = Primitive.SHORT;
+                break;
+            case INTEGER:
+                primitive = Primitive.INTEGER;
+                break;
+            case LONG:
+                primitive = Primitive.LONG;
+                break;
+            case FLOAT:
+                primitive = Primitive.FLOAT;
+                break;
+            case DOUBLE:
+                primitive = Primitive.DOUBLE;
+                break;
+            case BYTE:
+                primitive = Primitive.BYTE;
+                break;
+            case BOOLEAN:
+                primitive = Primitive.BOOLEAN;
+                break;
+            case CHARACTER:
+                primitive = Primitive.CHARACTER;
+                break;
+            default:
+                primitive = Primitive.BYTE;
+                break;
+
+        }
+
+        return TypeName.get(fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed());
     }
 }

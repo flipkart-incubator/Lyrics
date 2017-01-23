@@ -115,6 +115,11 @@ public abstract class HandlerSet {
      */
     public abstract Handler getOrderedConstructorHandler();
 
+    /**
+     * @return A {@link Handler} that adds methods to the under construction interfaces.
+     */
+    public abstract Handler getInterfaceMethodsHandler();
+
     public Tune getTune() {
         return tune;
     }
