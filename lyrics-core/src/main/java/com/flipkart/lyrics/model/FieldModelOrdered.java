@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Flipkart Internet, pvt ltd.
+ * Copyright 2017 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,16 @@
 package com.flipkart.lyrics.model;
 
 /**
- * Created by shrey.garg on 25/11/16.
+ * Created by shrey.garg on 24/01/17.
  */
-public enum Type {
-    CLASS,
-    ENUM,
-    ANNOTATION,
-    INTERFACE;
+public class FieldModelOrdered extends FieldModel {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

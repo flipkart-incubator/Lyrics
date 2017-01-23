@@ -16,53 +16,46 @@
 
 package com.flipkart.lyrics.model;
 
-import javax.lang.model.element.Modifier;
+import java.util.List;
 
 /**
  * Created by shrey.garg on 03/12/16.
  */
 public class MethodModel {
-    private MethodType methodType;
-    private VariableModel type;
-    private boolean primitive;
-    private Modifier[] modifiers = new Modifier[0];
-    private boolean packageVisibility;
+    private FieldModel returnType;
+    private List<FieldModelOrdered> parameters;
     private Object defaultValue;
 
     public MethodModel() {
     }
 
-    public MethodModel(MethodType methodType, VariableModel type, boolean primitive, Modifier[] modifiers, boolean packageVisibility, Object defaultValue) {
-        this.methodType = methodType;
-        this.type = type;
-        this.primitive = primitive;
-        this.modifiers = modifiers;
-        this.packageVisibility = packageVisibility;
+    public MethodModel(FieldModel returnType, List<FieldModelOrdered> parameters, Object defaultValue) {
+        this.returnType = returnType;
+        this.parameters = parameters;
         this.defaultValue = defaultValue;
     }
 
-    public MethodType getMethodType() {
-        return methodType;
+    public FieldModel getReturnType() {
+        return returnType;
     }
 
-    public VariableModel getType() {
-        return type;
+    public void setReturnType(FieldModel returnType) {
+        this.returnType = returnType;
     }
 
-    public boolean isPrimitive() {
-        return primitive;
+    public List<FieldModelOrdered> getParameters() {
+        return parameters;
     }
 
-    public Modifier[] getModifiers() {
-        return modifiers;
-    }
-
-    public boolean isPackageVisibility() {
-        return packageVisibility;
+    public void setParameters(List<FieldModelOrdered> parameters) {
+        this.parameters = parameters;
     }
 
     public Object getDefaultValue() {
         return defaultValue;
     }
 
+    public void setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
+    }
 }

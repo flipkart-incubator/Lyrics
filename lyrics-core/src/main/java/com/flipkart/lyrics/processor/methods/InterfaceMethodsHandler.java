@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Flipkart Internet, pvt ltd.
+ * Copyright 2017 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,24 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 
 /**
- * Created by shrey.garg on 03/12/16.
+ * Created by shrey.garg on 23/01/17.
  */
-public class AnnotationMethodsHandler extends Handler {
+public class InterfaceMethodsHandler extends Handler {
 
-    public AnnotationMethodsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+    public InterfaceMethodsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         super(tune, metaInfo, ruleSet);
     }
 
     @Override
-    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         Map<String, MethodModel> methods = typeModel.getMethods();
         if (isNullOrEmpty(methods)) {
             return;
@@ -47,15 +50,20 @@ public class AnnotationMethodsHandler extends Handler {
 
         for (Map.Entry<String, MethodModel> methodEntry : methods.entrySet()) {
             FieldModel returnsModel = methodEntry.getValue().getReturnType();
+            List<FieldModelOrdered> parameters = Optional.ofNullable(methodEntry.getValue().getParameters()).orElseGet(ArrayList::new);
+
             MethodSpec.Builder builder = MethodSpec.methodBuilder(methodEntry.getKey())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
                     .returns(Helper.processType(returnsModel, metaInfo.getGenericVariables()));
 
-            if (methodEntry.getValue().getDefaultValue() != null) {
-                builder.defaultValue(returnsModel.getFieldType() == FieldType.STRING ? "$S" : "$L", methodEntry.getValue().getDefaultValue());
+            for (FieldModelOrdered parameter : parameters) {
+                builder.addParameter(
+                        Helper.processType(parameter, metaInfo.getGenericVariables()),
+                        parameter.getName(), parameter.getModifiers()
+                );
             }
 
-            typeBuilder.addMethod(builder.build());
+            typeSpec.addMethod(builder.build());
         }
     }
 }

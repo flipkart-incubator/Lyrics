@@ -27,6 +27,7 @@ import com.flipkart.lyrics.processor.generics.GenericsHandler;
 import com.flipkart.lyrics.processor.instances.EnumValuesHandler;
 import com.flipkart.lyrics.processor.methods.AnnotationMethodsHandler;
 import com.flipkart.lyrics.processor.methods.EqualsAndHashCodeHandler;
+import com.flipkart.lyrics.processor.methods.InterfaceMethodsHandler;
 import com.flipkart.lyrics.processor.methods.ToStringHandler;
 import com.flipkart.lyrics.processor.modifiers.ModifiersHandler;
 import com.flipkart.lyrics.processor.supertypes.InterfaceHandler;
@@ -109,6 +110,11 @@ public class DefaultHandlerSet extends HandlerSet {
     @Override
     public Handler getOrderedConstructorHandler() {
         return new OrderedConstructorHandler(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public Handler getInterfaceMethodsHandler() {
+        return new InterfaceMethodsHandler(tune, metaInfo, ruleSet);
     }
 
 }
