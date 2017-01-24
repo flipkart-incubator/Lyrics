@@ -1,5 +1,6 @@
 package com.flipkart.lyrics.json;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -9,7 +10,7 @@ public final class JsonMapper {
     private final static ObjectMapper mapper = new ObjectMapper();
 
     static {
-
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
     }
 
     public static ObjectMapper get() {

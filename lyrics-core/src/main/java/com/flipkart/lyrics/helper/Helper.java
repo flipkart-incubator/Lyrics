@@ -117,12 +117,19 @@ public class Helper {
     public static Map<String, TypeVariableName> getTypeVariables(List<GenericVariableModel> genericVariables) {
         Map<String, TypeVariableName> typeVariableNames = new HashMap<>();
         for (GenericVariableModel variable : genericVariables) {
-            if (variable.getExtendsType() != null) {
-                ClassName variableName = getClassName(variable.getExtendsType());
-                typeVariableNames.put(variable.getName(), TypeVariableName.get(variable.getName(), variableName));
-            } else {
-                typeVariableNames.put(variable.getName(), TypeVariableName.get(variable.getName()));
+            List<TypeName> resolvedBounds = new ArrayList<>();
+            for (VariableModel variableModel : variable.getBounds()) {
+                if (variableModel != null) {
+                    resolvedBounds.add(getResolvedTypeName(variableModel, typeVariableNames));
+                }
             }
+
+            TypeVariableName typeVariableName = TypeVariableName.get(variable.getName());
+            if (!resolvedBounds.isEmpty()) {
+                typeVariableName = typeVariableName.withBounds(resolvedBounds);
+            }
+
+            typeVariableNames.put(variable.getName(), typeVariableName);
         }
         return typeVariableNames;
     }
