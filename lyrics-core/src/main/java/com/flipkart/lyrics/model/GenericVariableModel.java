@@ -16,12 +16,15 @@
 
 package com.flipkart.lyrics.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by shrey.garg on 25/11/16.
  */
 public class GenericVariableModel {
     private String name;
-    private String extendsType;
+    private List<VariableModel> bounds = new ArrayList<>();
 
     public GenericVariableModel() {
     }
@@ -30,17 +33,16 @@ public class GenericVariableModel {
         this.name = name;
     }
 
-    public GenericVariableModel(String name, String extendsType) {
+    public GenericVariableModel(String name, List<VariableModel> bounds) {
         this.name = name;
-        this.extendsType = extendsType;
+        this.bounds = bounds;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getExtendsType() {
-        return extendsType;
+    public List<VariableModel> getBounds() {
+        return bounds;
     }
-
 }
