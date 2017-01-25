@@ -221,6 +221,10 @@ public class Helper {
     }
 
     public static TypeName processType(FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
+        if (fieldModel == null) {
+            return TypeName.VOID;
+        }
+
         Primitive primitive;
         switch (fieldModel.getFieldType()) {
             case STRING:
