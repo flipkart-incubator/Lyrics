@@ -11,6 +11,10 @@ Currently we only support invoking Lyrics through your java application but othe
 
 Please check the wiki for more details.
 
+* [Getting Started](https://github.com/flipkart-incubator/Lyrics/wiki/Getting-Started) 
+
+* [Reference](https://github.com/flipkart-incubator/Lyrics/wiki/Reference)
+
 
 ## License
 
