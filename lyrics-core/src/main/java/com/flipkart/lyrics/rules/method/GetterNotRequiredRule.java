@@ -3,7 +3,6 @@ package com.flipkart.lyrics.rules.method;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.flipkart.lyrics.rules.method.MethodRule;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 
@@ -22,7 +21,7 @@ public class GetterNotRequiredRule extends MethodRule {
             return;
         }
 
-        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForGetters(methodSpec, fieldModel));
+        tune.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForGetters(methodSpec, fieldModel));
     }
 
 }

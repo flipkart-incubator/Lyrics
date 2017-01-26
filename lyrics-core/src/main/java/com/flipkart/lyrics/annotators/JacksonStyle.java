@@ -35,7 +35,7 @@ import static com.flipkart.lyrics.helper.Helper.getClassName;
 /**
  * Created by shrey.garg on 03/01/17.
  */
-public class JacksonStyle extends AnnotationStyle {
+public class JacksonStyle extends AnnotatorStyle {
 
     @Override
     public void processNamedAsRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {

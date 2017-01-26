@@ -16,20 +16,19 @@
 
 package com.flipkart.lyrics.config;
 
+import com.flipkart.lyrics.annotators.AnnotatorStyle;
+import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
-import com.flipkart.lyrics.sets.DefaultFieldTypeHandlerSet;
-import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
+import com.flipkart.lyrics.sets.*;
+import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by shrey.garg on 26/11/16.
@@ -37,16 +36,13 @@ import java.util.Set;
 public class DefaultTune implements Tune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
-
-    @Override
-    public boolean areJacksonStyleAnnotationsNeeded() {
-        return false;
-    }
-
-    @Override
-    public boolean areGsonStyleAnnotationsNeeded() {
-        return false;
-    }
+    private final CreatorSet creatorSet = new DefaultCreatorSet();
+    private final HandlerSet handlerSet = new DefaultHandlerSet();
+    private final RuleSet ruleSet = new DefaultRuleSet();
+    private final List<AnnotatorStyle> annotatorStyles = new ArrayList<>();
+    private final List<ValidationAnnotatorStyle> validationAnnotatorStyles = new ArrayList<>();
+    private final ObjectMethodsStyle objectMethodsStyle = null;
+    private final Set<VariableModel> interfaces = new HashSet<>();
 
     @Override
     public Modifier getDefaultFieldModifier() {
@@ -64,18 +60,13 @@ public class DefaultTune implements Tune {
     }
 
     @Override
-    public boolean areAndroidValidationAnnotationsNeeded() {
-        return false;
+    public List<AnnotatorStyle> getAnnotatorStyles() {
+        return annotatorStyles;
     }
 
     @Override
-    public boolean areJsr303AnnotationsNeeded() {
-        return false;
-    }
-
-    @Override
-    public boolean areJsr305AnnotationsNeeded() {
-        return false;
+    public List<ValidationAnnotatorStyle> getValidationAnnotatorStyles() {
+        return validationAnnotatorStyles;
     }
 
     @Override
@@ -85,22 +76,22 @@ public class DefaultTune implements Tune {
 
     @Override
     public boolean isToStringNeeded() {
-        return true;
-    }
-
-    @Override
-    public boolean areHashCodeAndEqualsNeeded() {
-        return true;
-    }
-
-    @Override
-    public boolean useCommonsLang3() {
         return false;
     }
 
     @Override
+    public boolean areHashCodeAndEqualsNeeded() {
+        return false;
+    }
+
+    @Override
+    public ObjectMethodsStyle getObjectMethodsStyle() {
+        return objectMethodsStyle;
+    }
+
+    @Override
     public Set<VariableModel> interfaces() {
-        return new HashSet<>();
+        return interfaces;
     }
 
     @Override
@@ -114,7 +105,23 @@ public class DefaultTune implements Tune {
     }
 
     @Override
+    public CreatorSet getCreatorSet() {
+        return creatorSet;
+    }
+
+    @Override
+    public HandlerSet getHandlerSet() {
+        return handlerSet;
+    }
+
+    @Override
+    public RuleSet getRuleSet() {
+        return ruleSet;
+    }
+
+    @Override
     public FieldTypeHandlerSet getFieldTypeHandlerSet() {
         return fieldTypeHandlerSet;
     }
+
 }

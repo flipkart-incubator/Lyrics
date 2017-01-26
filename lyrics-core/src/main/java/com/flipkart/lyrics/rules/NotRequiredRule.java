@@ -36,6 +36,6 @@ public class NotRequiredRule extends FieldRule {
             return;
         }
 
-        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRule(fieldSpec, fieldModel));
+        tune.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRule(fieldSpec, fieldModel));
     }
 }

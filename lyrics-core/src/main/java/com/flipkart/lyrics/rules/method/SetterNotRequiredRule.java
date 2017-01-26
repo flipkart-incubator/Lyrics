@@ -22,7 +22,7 @@ public class SetterNotRequiredRule extends MethodRule {
             return;
         }
 
-        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForSetters(methodSpec, fieldModel, parameterSpec));
+        tune.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForSetters(methodSpec, fieldModel, parameterSpec));
     }
 
 }

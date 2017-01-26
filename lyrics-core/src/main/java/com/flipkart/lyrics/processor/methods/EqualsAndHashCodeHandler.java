@@ -22,11 +22,8 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.lang.model.element.Modifier;
 import java.util.Arrays;
@@ -45,11 +42,10 @@ public class EqualsAndHashCodeHandler extends Handler {
 
     @Override
     public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
-        if (!tune.areHashCodeAndEqualsNeeded()) {
+        if (!tune.areHashCodeAndEqualsNeeded() || tune.getObjectMethodsStyle() == null) {
             return;
         }
 
-        String className = metaInfo.getClassName();
         Map<String, FieldModel> fieldModels = typeModel.getFields();
         List<String> nonStaticFields = fieldModels.entrySet().stream()
                 .filter(entry ->
@@ -69,32 +65,7 @@ public class EqualsAndHashCodeHandler extends Handler {
                 .returns(int.class)
                 .addAnnotation(Override.class);
 
-        equalsBuilder.addStatement("if (this == o) return true");
-        equalsBuilder.addStatement("if (!(o instanceof $L)) return false", className);
-        equalsBuilder.addCode("\n");
-        equalsBuilder.addStatement("$L that = ($L) o", className, className);
-        equalsBuilder.addCode("\n");
-
-        ClassName equalsBuilderClass = ClassName.get(EqualsBuilder.class);
-        equalsBuilder.addCode("return new $T()\n", equalsBuilderClass);
-
-        if (typeModel.isTestSuperEquality()) {
-            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n", equalsBuilderClass);
-        }
-
-        ClassName hashCodeBuilderClass = ClassName.get(HashCodeBuilder.class);
-        hashCodeBuilder.addCode("return new $T()\n", hashCodeBuilderClass);
-
-        if (typeModel.isTestSuperEquality()) {
-            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n", hashCodeBuilderClass);
-        }
-
-        for (String field : nonStaticFields) {
-            equalsBuilder.addCode("\t\t.append($L, that.$L)\n", field, field);
-            hashCodeBuilder.addCode("\t\t.append($L)\n", field);
-        }
-        equalsBuilder.addCode("\t\t.isEquals();\n");
-        hashCodeBuilder.addCode("\t\t.toHashCode();\n");
+        tune.getObjectMethodsStyle().processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, nonStaticFields, metaInfo, typeModel.isTestSuperEquality());
 
         typeBuilder.addMethod(equalsBuilder.build());
         typeBuilder.addMethod(hashCodeBuilder.build());

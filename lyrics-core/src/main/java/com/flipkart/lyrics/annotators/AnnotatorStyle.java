@@ -24,7 +24,7 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Created by shrey.garg on 03/01/17.
  */
-public abstract class AnnotationStyle {
+public abstract class AnnotatorStyle {
 
     public abstract void processNamedAsRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel);
 

@@ -19,7 +19,6 @@ package com.flipkart.lyrics.android.rules;
 import com.flipkart.lyrics.android.config.AndroidTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.rules.RequiredRule;
 import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.flipkart.lyrics.helper.Helper.processValidationAnnotationStyles;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -50,8 +48,7 @@ public class RequiredRuleTest {
             }
         };
 
-        MetaInfo metaInfo = new MetaInfo(null, null, processValidationAnnotationStyles(tune));
-        new RequiredRule(tune, metaInfo).process(builder, model);
+        new RequiredRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
