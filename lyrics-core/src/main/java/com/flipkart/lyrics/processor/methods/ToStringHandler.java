@@ -22,10 +22,8 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.lang.model.element.Modifier;
 import java.util.Arrays;
@@ -44,11 +42,10 @@ public class ToStringHandler extends Handler {
 
     @Override
     public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
-        if (!tune.isToStringNeeded()) {
+        if (!tune.isToStringNeeded() || tune.getObjectMethodsStyle() == null) {
             return;
         }
 
-        String className = metaInfo.getClassName();
         Map<String, FieldModel> fieldModels = typeModel.getFields();
         List<String> nonStaticFields = fieldModels.entrySet().stream()
                 .filter(entry ->
@@ -62,29 +59,7 @@ public class ToStringHandler extends Handler {
                 .returns(String.class)
                 .addAnnotation(Override.class);
 
-        if (!tune.useCommonsLang3()) {
-            toStringBuilder.addStatement("final StringBuilder sb = new StringBuilder(\"$L{\")", className);
-
-            if (nonStaticFields.size() > 0) {
-                String firstField = nonStaticFields.get(0);
-                toStringBuilder.addStatement("sb.append(\"$L=\").append($L)", firstField, firstField);
-                if (nonStaticFields.size() > 1) {
-                    for (String field : nonStaticFields.subList(1, nonStaticFields.size())) {
-                        toStringBuilder.addStatement("sb.append(\", $L=\").append($L);", field, field);
-                    }
-                }
-            }
-
-            toStringBuilder.addStatement("sb.append('}')");
-            toStringBuilder.addStatement("return sb.toString()");
-        } else {
-            ClassName toStringBuilderClass = ClassName.get(ToStringBuilder.class);
-            toStringBuilder.addCode("return new $T(this)\n", toStringBuilderClass);
-            for (String field : nonStaticFields) {
-                toStringBuilder.addCode("\t\t.append($S, $L)\n", field, field);
-            }
-            toStringBuilder.addCode("\t\t.toString();\n");
-        }
+        tune.getObjectMethodsStyle().processToString(toStringBuilder, nonStaticFields, metaInfo);
 
         typeBuilder.addMethod(toStringBuilder.build());
     }

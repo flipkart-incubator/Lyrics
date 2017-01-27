@@ -36,6 +36,6 @@ public class InclusionRule extends FieldRule {
             return;
         }
 
-        metaInfo.getAnnotationStyles().forEach(style -> style.processInclusionRule(fieldSpec, fieldModel));
+        tune.getAnnotatorStyles().forEach(style -> style.processInclusionRule(fieldSpec, fieldModel));
     }
 }

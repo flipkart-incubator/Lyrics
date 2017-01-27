@@ -19,8 +19,6 @@ package com.flipkart.lyrics.rules.type;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.Helper;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
@@ -35,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.flipkart.lyrics.helper.Helper.processAnnotationStyles;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -70,8 +67,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
-        new SubTypesRule(tune, metaInfo).process(builder, model);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -88,8 +84,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
-        new SubTypesRule(tune, metaInfo).process(builder, model);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 
@@ -118,8 +113,7 @@ public class SubTypesRuleTest {
         SubTypeModel subTypeModel = new SubTypeModel("id", values);
         when(model.getSubTypes()).thenReturn(subTypeModel);
 
-        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
-        new SubTypesRule(tune, metaInfo).process(builder, model);
+        new SubTypesRule(tune, null).process(builder, model);
 
         TypeSpec spec = builder.build();
 

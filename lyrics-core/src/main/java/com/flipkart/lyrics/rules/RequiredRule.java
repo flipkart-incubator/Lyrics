@@ -36,6 +36,6 @@ public class RequiredRule extends FieldRule {
             return;
         }
 
-        metaInfo.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRule(fieldSpec, fieldModel));
+        tune.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRule(fieldSpec, fieldModel));
     }
 }

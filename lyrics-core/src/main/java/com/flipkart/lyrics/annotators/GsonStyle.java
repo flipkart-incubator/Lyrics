@@ -27,7 +27,7 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Created by shrey.garg on 03/01/17.
  */
-public class GsonStyle extends AnnotationStyle {
+public class GsonStyle extends AnnotatorStyle {
 
     @Override
     public void processNamedAsRule(FieldSpec.Builder fieldSpec, FieldModel fieldModel) {

@@ -16,18 +16,21 @@
 
 package com.flipkart.lyrics.config;
 
-import com.flipkart.lyrics.annotators.AnnotationStyle;
+import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
-import com.flipkart.lyrics.sets.*;
+import com.flipkart.lyrics.sets.CreatorSet;
+import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
+import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,28 +39,18 @@ import java.util.Set;
  * Created by shrey.garg on 26/11/16.
  */
 public interface Tune {
-    boolean areJacksonStyleAnnotationsNeeded();
 
-    boolean areGsonStyleAnnotationsNeeded();
+    boolean forceDefaultFieldModifiers();
 
     Modifier getDefaultFieldModifier();
 
     Modifier getDefaultClassModifier();
 
+    Set<VariableModel> interfaces();
+
     List<AnnotationModel> getClassLevelAnnotations();
 
-    /**
-     * When switched on, include "android-support" library in your project for the classes to compile.
-     */
-    boolean areAndroidValidationAnnotationsNeeded();
-
-    boolean areJsr303AnnotationsNeeded();
-
-    /**
-     * When switched on, include artifactId: "jsr305" from groupId: "com.google.code.findbugs"
-     * in your project for the classes to compile.
-     */
-    boolean areJsr305AnnotationsNeeded();
+    List<AnnotatorStyle> getAnnotatorStyles();
 
     boolean areAccessorsNeeded();
 
@@ -65,37 +58,18 @@ public interface Tune {
 
     boolean areHashCodeAndEqualsNeeded();
 
-    boolean useCommonsLang3();
-
-    Set<VariableModel> interfaces();
-
-    boolean forceDefaultFieldModifiers();
+    ObjectMethodsStyle getObjectMethodsStyle();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
 
-    default CreatorSet getCreatorSet() {
-        return new DefaultCreatorSet();
-    }
+    CreatorSet getCreatorSet();
 
-    default HandlerSet getHandlerSet() {
-        return new DefaultHandlerSet();
-    }
+    HandlerSet getHandlerSet();
 
-    default RuleSet getRuleSet() {
-        return new DefaultRuleSet();
-    }
+    RuleSet getRuleSet();
 
-    default FieldTypeHandlerSet getFieldTypeHandlerSet() {
-        return new DefaultFieldTypeHandlerSet();
-    }
+    FieldTypeHandlerSet getFieldTypeHandlerSet();
 
-    default List<AnnotationStyle> getAnnotationStyles() {
-        return new ArrayList<>();
-    }
-
-    default List<ValidationAnnotatorStyle> getValidationAnnotatorStyles() {
-        return new ArrayList<>();
-    }
-
+    List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
 }

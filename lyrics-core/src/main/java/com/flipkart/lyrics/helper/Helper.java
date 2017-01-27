@@ -16,12 +16,6 @@
 
 package com.flipkart.lyrics.helper;
 
-import com.flipkart.lyrics.annotators.AnnotationStyle;
-import com.flipkart.lyrics.annotators.GsonStyle;
-import com.flipkart.lyrics.annotators.JacksonStyle;
-import com.flipkart.lyrics.annotators.validations.Jsr303Style;
-import com.flipkart.lyrics.annotators.validations.Jsr305Style;
-import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.creator.TypeCreator;
 import com.flipkart.lyrics.model.*;
@@ -144,36 +138,6 @@ public class Helper {
         }
 
         return fieldModel.getModifiers();
-    }
-
-    public static List<AnnotationStyle> processAnnotationStyles(Tune tune) {
-        List<AnnotationStyle> annotationStyles = new ArrayList<>();
-        if (tune.areJacksonStyleAnnotationsNeeded()) {
-            annotationStyles.add(new JacksonStyle());
-        }
-
-        if (tune.areGsonStyleAnnotationsNeeded()) {
-            annotationStyles.add(new GsonStyle());
-        }
-
-        annotationStyles.addAll(tune.getAnnotationStyles());
-
-        return annotationStyles;
-    }
-
-    public static List<ValidationAnnotatorStyle> processValidationAnnotationStyles(Tune tune) {
-        List<ValidationAnnotatorStyle> validationAnnotatorStyles = new ArrayList<>();
-        if (tune.areJsr303AnnotationsNeeded()) {
-            validationAnnotatorStyles.add(new Jsr303Style());
-        }
-
-        if (tune.areJsr305AnnotationsNeeded()) {
-            validationAnnotatorStyles.add(new Jsr305Style());
-        }
-
-        validationAnnotatorStyles.addAll(tune.getValidationAnnotatorStyles());
-
-        return validationAnnotatorStyles;
     }
 
     public static TypeCreator getCreator(Type type, CreatorSet creatorSet) {

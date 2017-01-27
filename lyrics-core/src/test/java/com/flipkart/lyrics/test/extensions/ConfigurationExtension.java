@@ -16,6 +16,10 @@
 
 package com.flipkart.lyrics.test.extensions;
 
+import com.flipkart.lyrics.annotators.GsonStyle;
+import com.flipkart.lyrics.annotators.JacksonStyle;
+import com.flipkart.lyrics.annotators.validations.Jsr303Style;
+import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
@@ -27,10 +31,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -73,8 +74,6 @@ public class ConfigurationExtension implements ParameterResolver {
                 return getJsr303Tune();
             case JSR_305:
                 return getJsr305Tune();
-            case ANDROID_SUPPORT:
-                return getAndroidSupportTune();
             case GSON:
                 return getGsonTune();
             case ANNOTATIONS:
@@ -97,38 +96,31 @@ public class ConfigurationExtension implements ParameterResolver {
 
     private Tune getJacksonTune() {
         Tune jacksonTune = spy(DefaultTune.class);
-        when(jacksonTune.areJacksonStyleAnnotationsNeeded()).thenReturn(true);
+        when(jacksonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new JacksonStyle()));
         return jacksonTune;
     }
 
     private Tune getGsonTune() {
         Tune gsonTune = spy(DefaultTune.class);
-        when(gsonTune.areGsonStyleAnnotationsNeeded()).thenReturn(true);
+        when(gsonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new GsonStyle()));
         return gsonTune;
     }
 
     private Tune getRequiredTune() {
         Tune requireTune = spy(DefaultTune.class);
-        when(requireTune.areJsr305AnnotationsNeeded()).thenReturn(true);
-        when(requireTune.areAndroidValidationAnnotationsNeeded()).thenReturn(true);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
         return requireTune;
     }
 
     private Tune getJsr303Tune() {
         Tune requireTune = spy(DefaultTune.class);
-        when(requireTune.areJsr303AnnotationsNeeded()).thenReturn(true);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
         return requireTune;
     }
 
     private Tune getJsr305Tune() {
         Tune requireTune = spy(DefaultTune.class);
-        when(requireTune.areJsr305AnnotationsNeeded()).thenReturn(true);
-        return requireTune;
-    }
-
-    private Tune getAndroidSupportTune() {
-        Tune requireTune = spy(DefaultTune.class);
-        when(requireTune.areAndroidValidationAnnotationsNeeded()).thenReturn(true);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr305Style()));
         return requireTune;
     }
 

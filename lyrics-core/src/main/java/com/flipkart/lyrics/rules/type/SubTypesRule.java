@@ -36,6 +36,6 @@ public class SubTypesRule extends TypeRule {
             return;
         }
 
-        metaInfo.getAnnotationStyles().forEach(style -> style.processSubTypeRule(typeSpec, typeModel));
+        tune.getAnnotatorStyles().forEach(style -> style.processSubTypeRule(typeSpec, typeModel));
     }
 }

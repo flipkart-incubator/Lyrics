@@ -38,6 +38,6 @@ public class NamedAsRule extends FieldRule {
             return;
         }
 
-        metaInfo.getAnnotationStyles().forEach(style -> style.processNamedAsRule(fieldSpec, fieldModel));
+        tune.getAnnotatorStyles().forEach(style -> style.processNamedAsRule(fieldSpec, fieldModel));
     }
 }

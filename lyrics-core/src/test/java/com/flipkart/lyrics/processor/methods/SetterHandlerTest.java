@@ -16,10 +16,11 @@
 
 package com.flipkart.lyrics.processor.methods;
 
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.squareup.javapoet.*;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ import static org.mockito.Mockito.when;
 public class SetterHandlerTest {
 
     @Test
-    public void testSetter() {
+    public void testSetter(@TuneProvider Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(TypeName.INT, "test");
         FieldSpec fieldSpec = builder.build();
 
@@ -47,8 +48,7 @@ public class SetterHandlerTest {
         when(model.getFieldType()).thenReturn(FieldType.INTEGER);
 
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder("Klazz");
-        MetaInfo metaInfo = new MetaInfo(null, null);
-        new SetterHandler(null, metaInfo, new DefaultRuleSet(null, metaInfo)).process(classBuilder, fieldSpec, model);
+        new SetterHandler(tune, null, new DefaultRuleSet(tune, null)).process(classBuilder, fieldSpec, model);
 
         TypeSpec spec = classBuilder.build();
         assertEquals(1, spec.methodSpecs.size());

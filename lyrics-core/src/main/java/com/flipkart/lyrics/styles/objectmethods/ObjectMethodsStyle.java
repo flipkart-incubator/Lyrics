@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Flipkart Internet, pvt ltd.
+ * Copyright 2017 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.rules.type;
+package com.flipkart.lyrics.styles.objectmethods;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.flipkart.lyrics.model.TypeModel;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.List;
+
 /**
- * Created by shrey.garg on 26/11/16.
+ * Created by shrey.garg on 25/01/17.
  */
-public class GlobalInclusionRule extends TypeRule {
+public abstract class ObjectMethodsStyle {
 
-    public GlobalInclusionRule(Tune tune, MetaInfo metaInfo) {
-        super(tune, metaInfo);
-    }
+    public abstract void processToString(MethodSpec.Builder toStringBuilder, List<String> nonStaticFields, MetaInfo metaInfo);
 
-    @Override
-    public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
-        if (typeModel.getInclusion() == null) {
-            return;
-        }
+    public abstract void processEqualsAndHashCode(MethodSpec.Builder equalsBuilder, MethodSpec.Builder hashCodeBuilder, List<String> nonStaticFields, MetaInfo metaInfo, boolean testSuperEquality);
 
-        tune.getAnnotatorStyles().forEach(style -> style.processGlobalInclusionRule(typeSpec, typeModel));
-    }
 }

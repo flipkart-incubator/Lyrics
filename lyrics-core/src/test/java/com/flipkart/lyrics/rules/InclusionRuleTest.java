@@ -18,10 +18,8 @@ package com.flipkart.lyrics.rules;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
-import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.squareup.javapoet.AnnotationSpec;
@@ -29,7 +27,6 @@ import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static com.flipkart.lyrics.helper.Helper.processAnnotationStyles;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,8 +59,7 @@ public class InclusionRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
-        new InclusionRule(tune, metaInfo).process(builder, model);
+        new InclusionRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
@@ -77,8 +73,7 @@ public class InclusionRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
 
-        MetaInfo metaInfo = new MetaInfo(null, null, null, processAnnotationStyles(tune));
-        new InclusionRule(tune, metaInfo).process(builder, model);
+        new InclusionRule(tune, null).process(builder, model);
 
         FieldSpec spec = builder.build();
 
