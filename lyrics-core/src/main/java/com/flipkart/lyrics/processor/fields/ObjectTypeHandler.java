@@ -18,14 +18,11 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.InitializerModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.ArrayTypeName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 
-import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
-import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
+import static com.flipkart.lyrics.helper.Helper.*;
 
 /**
  * Created by shrey.garg on 25/11/16.
@@ -46,6 +43,19 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
-        return FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        InitializerModel initializeWith = fieldModel.getInitializeWith();
+        if (initializeWith != null) {
+            if (initializeWith.getValue() != null) {
+                ClassName fromType = getClassName(initializeWith.getFromType());
+                builder.initializer("$T.$L", fromType, initializeWith.getValue());
+            } else if (initializeWith.getNewInstanceOf() != null) {
+                ClassName instanceOf = getClassName(initializeWith.getNewInstanceOf());
+                String initializerString = "new $T" + (initializeWith.isInferGenerics() ? "<>" : "") + "()";
+                builder.initializer(initializerString, instanceOf);
+            }
+        }
+
+        return builder;
     }
 }

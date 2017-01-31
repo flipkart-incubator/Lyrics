@@ -38,7 +38,12 @@ public class StringTypeHandler extends FieldTypeHandler {
     @Override
     public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         TypeName typeName = fieldModel.isArray() ? ArrayTypeName.of(String.class) : TypeName.get(String.class);
-        return FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        if (fieldModel.getInitializeWith() != null) {
+            builder.initializer("$S", fieldModel.getInitializeWith().getValue());
+        }
+
+        return builder;
     }
 
 }
