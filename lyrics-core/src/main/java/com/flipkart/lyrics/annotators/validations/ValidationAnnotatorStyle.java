@@ -38,4 +38,6 @@ public abstract class ValidationAnnotatorStyle {
 
     public abstract void processNotRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder param);
 
+    public abstract void processRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec);
+
 }

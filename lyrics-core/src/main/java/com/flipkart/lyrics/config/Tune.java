@@ -58,6 +58,8 @@ public interface Tune {
 
     boolean areHashCodeAndEqualsNeeded();
 
+    boolean isRequiredFieldConstructorNeeded();
+
     ObjectMethodsStyle getObjectMethodsStyle();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();

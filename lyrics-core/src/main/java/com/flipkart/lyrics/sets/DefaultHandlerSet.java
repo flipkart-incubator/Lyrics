@@ -22,6 +22,7 @@ import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.processor.annotations.ClassAnnotationHandler;
 import com.flipkart.lyrics.processor.constructors.NoArgsConstructorHandler;
 import com.flipkart.lyrics.processor.constructors.OrderedConstructorHandler;
+import com.flipkart.lyrics.processor.constructors.RequiredFieldsConstructorHandler;
 import com.flipkart.lyrics.processor.fields.FieldsHandler;
 import com.flipkart.lyrics.processor.generics.GenericsHandler;
 import com.flipkart.lyrics.processor.instances.EnumValuesHandler;
@@ -90,6 +91,11 @@ public class DefaultHandlerSet extends HandlerSet {
     @Override
     public Handler getNoArgsConstructorHandler() {
         return new NoArgsConstructorHandler(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public Handler getRequiredFieldsConstructorHandler() {
+        return new RequiredFieldsConstructorHandler(tune, metaInfo, ruleSet);
     }
 
     @Override
