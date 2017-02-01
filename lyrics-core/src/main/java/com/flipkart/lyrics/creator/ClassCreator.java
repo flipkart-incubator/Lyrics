@@ -41,6 +41,7 @@ public class ClassCreator extends TypeCreator {
         handlerSet.getEqualsAndHashCodeHandler().process(typeBuilder, typeModel);
         handlerSet.getToStringHandler().process(typeBuilder, typeModel);
         handlerSet.getNoArgsConstructorHandler().process(typeBuilder, typeModel);
+        handlerSet.getRequiredFieldsConstructorHandler().process(typeBuilder, typeModel);
         handlerSet.getSpecialInterfacesHandler().process(typeBuilder, typeModel);
 
         ruleSet.getGlobalInclusionRule().process(typeBuilder, typeModel);

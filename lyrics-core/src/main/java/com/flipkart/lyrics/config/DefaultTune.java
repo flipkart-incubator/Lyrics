@@ -85,6 +85,11 @@ public class DefaultTune implements Tune {
     }
 
     @Override
+    public boolean isRequiredFieldConstructorNeeded() {
+        return true;
+    }
+
+    @Override
     public ObjectMethodsStyle getObjectMethodsStyle() {
         return objectMethodsStyle;
     }

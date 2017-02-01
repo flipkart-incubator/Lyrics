@@ -22,10 +22,7 @@ import com.flipkart.lyrics.model.*;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeVariableName;
+import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
 import java.util.*;
@@ -192,7 +189,7 @@ public class Helper {
         Primitive primitive;
         switch (fieldModel.getFieldType()) {
             case STRING:
-                return TypeName.get(String.class);
+                return fieldModel.isArray() ? ArrayTypeName.of(String.class) : TypeName.get(String.class);
             case ENUM:
             case OBJECT:
                 TypeName typeName;
@@ -201,7 +198,7 @@ public class Helper {
                 } else {
                     typeName = getResolvedTypeName(fieldModel.getType(), typeVariableNames);
                 }
-                return typeName;
+                return fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
             case SHORT:
                 primitive = Primitive.SHORT;
                 break;
@@ -232,6 +229,7 @@ public class Helper {
 
         }
 
-        return TypeName.get(fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed());
+        TypeName typeName = TypeName.get(fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed());
+        return fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
     }
 }

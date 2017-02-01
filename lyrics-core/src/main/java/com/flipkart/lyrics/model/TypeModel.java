@@ -31,10 +31,10 @@ public class TypeModel {
     private Set<VariableModel> interfaces = new HashSet<>();
     private List<GenericVariableModel> genericVariables = new ArrayList<>();
     private List<AnnotationModel> annotations = new ArrayList<>();
-    private Map<String, FieldModel> fields = new HashMap<>();
-    private Map<String, MethodModel> methods = new HashMap<>();
+    private Map<String, FieldModel> fields = new LinkedHashMap<>();
+    private Map<String, MethodModel> methods = new LinkedHashMap<>();
     private InclusionType inclusion;
-    private Map<String, Object[]> values = new HashMap<>();
+    private Map<String, Object[]> values = new LinkedHashMap<>();
     private List<String> fieldOrder = new ArrayList<>();
     private SubTypeModel subTypes;
     private RetentionPolicy retention;
