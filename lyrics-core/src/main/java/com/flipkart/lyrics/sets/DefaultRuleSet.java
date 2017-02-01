@@ -55,7 +55,7 @@ public class DefaultRuleSet extends RuleSet {
 
     @Override
     public FieldRule getDeprecatedRule() {
-        return null;
+        return new DeprecatedRule(tune, metaInfo);
     }
 
     @Override
