@@ -34,11 +34,12 @@ public class FieldModel {
     private boolean excludeFromToString;
     private boolean excludeFromEqualsAndHashCode;
     private InitializerModel initializeWith;
+    private boolean deprecated;
 
     public FieldModel() {
     }
 
-    public FieldModel(String namedAs, FieldType fieldType, VariableModel type, boolean primitive, Modifier[] modifiers, boolean packageVisibility, InclusionType inclusion, boolean required, boolean excludeFromToString, boolean excludeFromEqualsAndHashCode, boolean array, InitializerModel initializeWith) {
+    public FieldModel(String namedAs, FieldType fieldType, VariableModel type, boolean primitive, Modifier[] modifiers, boolean packageVisibility, InclusionType inclusion, boolean required, boolean excludeFromToString, boolean excludeFromEqualsAndHashCode, boolean array, InitializerModel initializeWith, boolean deprecated) {
         this.namedAs = namedAs;
         this.fieldType = fieldType;
         this.type = type;
@@ -51,6 +52,7 @@ public class FieldModel {
         this.excludeFromEqualsAndHashCode = excludeFromEqualsAndHashCode;
         this.array = array;
         this.initializeWith = initializeWith;
+        this.deprecated = deprecated;
     }
 
     public String getNamedAs() {
@@ -99,5 +101,9 @@ public class FieldModel {
 
     public InitializerModel getInitializeWith() {
         return initializeWith;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
     }
 }

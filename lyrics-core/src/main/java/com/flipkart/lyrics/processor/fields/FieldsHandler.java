@@ -61,5 +61,6 @@ public class FieldsHandler extends Handler {
         ruleSet.getNamedAsRule().process(fieldSpec, fieldModel);
         ruleSet.getRequiredRule().process(fieldSpec, fieldModel);
         ruleSet.getNotRequiredRule().process(fieldSpec, fieldModel);
+        ruleSet.getDeprecatedRule().process(fieldSpec, fieldModel);
     }
 }

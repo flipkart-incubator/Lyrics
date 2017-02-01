@@ -40,6 +40,7 @@ public class TypeModel {
     private RetentionPolicy retention;
     private ElementType[] elementTypes;
     private boolean testSuperEquality = false;
+    private boolean deprecated;
 
     public TypeModel() {
     }
@@ -119,5 +120,9 @@ public class TypeModel {
 
     public boolean isTestSuperEquality() {
         return testSuperEquality;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
     }
 }

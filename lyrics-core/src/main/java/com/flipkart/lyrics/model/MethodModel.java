@@ -39,23 +39,11 @@ public class MethodModel {
         return returnType;
     }
 
-    public void setReturnType(FieldModel returnType) {
-        this.returnType = returnType;
-    }
-
     public List<FieldModelOrdered> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<FieldModelOrdered> parameters) {
-        this.parameters = parameters;
-    }
-
     public Object getDefaultValue() {
         return defaultValue;
-    }
-
-    public void setDefaultValue(Object defaultValue) {
-        this.defaultValue = defaultValue;
     }
 }

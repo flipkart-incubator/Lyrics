@@ -20,6 +20,7 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.rules.*;
 import com.flipkart.lyrics.rules.method.*;
+import com.flipkart.lyrics.rules.type.GlobalDeprecatedRule;
 import com.flipkart.lyrics.rules.type.GlobalInclusionRule;
 import com.flipkart.lyrics.rules.type.SubTypesRule;
 import com.flipkart.lyrics.rules.type.TypeRule;
@@ -45,6 +46,16 @@ public class DefaultRuleSet extends RuleSet {
     @Override
     public TypeRule getGlobalInclusionRule() {
         return new GlobalInclusionRule(tune, metaInfo);
+    }
+
+    @Override
+    public TypeRule getGlobalDeprecatedRule() {
+        return new GlobalDeprecatedRule(tune, metaInfo);
+    }
+
+    @Override
+    public FieldRule getDeprecatedRule() {
+        return null;
     }
 
     @Override
