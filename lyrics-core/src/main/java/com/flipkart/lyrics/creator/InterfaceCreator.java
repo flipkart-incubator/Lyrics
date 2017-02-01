@@ -35,6 +35,8 @@ public class InterfaceCreator extends TypeCreator {
         handlerSet.getInterfacesHandler().process(typeBuilder, typeModel);
         handlerSet.getInterfaceMethodsHandler().process(typeBuilder, typeModel);
 
+        handlerSet.getRuleSet().getGlobalDeprecatedRule().process(typeBuilder, typeModel);
+
         return typeBuilder;
     }
 

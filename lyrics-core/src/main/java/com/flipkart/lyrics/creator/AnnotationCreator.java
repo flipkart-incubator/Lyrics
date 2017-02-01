@@ -53,6 +53,8 @@ public class AnnotationCreator extends TypeCreator {
             typeBuilder.addAnnotation(builder.build());
         }
 
+        handlerSet.getRuleSet().getGlobalDeprecatedRule().process(typeBuilder, typeModel);
+
         return typeBuilder;
     }
 }
