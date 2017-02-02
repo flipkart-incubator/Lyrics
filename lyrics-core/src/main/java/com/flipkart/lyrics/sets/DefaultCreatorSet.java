@@ -23,6 +23,11 @@ public class DefaultCreatorSet extends CreatorSet {
     }
 
     @Override
+    public TypeCreator getEnumWithFieldsCreator() {
+        return new EnumWithFieldsCreator();
+    }
+
+    @Override
     public TypeCreator getInterfaceCreator() {
         return new InterfaceCreator();
     }

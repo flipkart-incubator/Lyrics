@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Flipkart Internet, pvt ltd.
+ * Copyright 2016 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,28 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.android.creator;
+package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.creator.TypeCreator;
-import com.flipkart.lyrics.model.Type;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.TypeSpec;
 
 /**
- * Created by shrey.garg on 15/01/17.
+ * Created by shrey.garg on 27/11/16.
  */
-public class AndroidEnumCreator extends TypeCreator {
+public class EnumWithFieldsCreator extends TypeCreator {
 
     @Override
     public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
-        TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(handlerSet.getMetaInfo().getClassName());
-
+        TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
         handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
         handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
-
-        if (typeModel.getType() == Type.ENUM) {
-            handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
-        } else {
-            handlerSet.getEnumValuesWithFieldsHandler().process(typeBuilder, typeModel);
-        }
+        handlerSet.getEnumValuesWithFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getOrderedConstructorHandler().process(typeBuilder, typeModel);
 
         handlerSet.getRuleSet().getGlobalDeprecatedRule().process(typeBuilder, typeModel);
 
         return typeBuilder;
     }
-
 }

@@ -22,6 +22,7 @@ package com.flipkart.lyrics.model;
 public enum Type {
     CLASS,
     ENUM,
+    ENUM_WITH_FIELDS,
     ANNOTATION,
     INTERFACE;
 }

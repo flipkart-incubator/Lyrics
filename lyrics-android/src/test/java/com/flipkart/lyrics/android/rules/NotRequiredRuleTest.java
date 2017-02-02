@@ -23,9 +23,6 @@ import com.flipkart.lyrics.rules.NotRequiredRule;
 import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -38,12 +35,7 @@ public class NotRequiredRuleTest {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
-        Tune tune = new AndroidTune() {
-            @Override
-            public List<String> createStringDefsFor() {
-                return new ArrayList<>();
-            }
-        };
+        Tune tune = new AndroidTune();
 
         new NotRequiredRule(tune, null).process(builder, model);
 

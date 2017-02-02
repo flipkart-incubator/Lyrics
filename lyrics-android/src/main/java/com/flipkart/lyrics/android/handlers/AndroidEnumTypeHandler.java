@@ -45,7 +45,7 @@ public class AndroidEnumTypeHandler extends FieldTypeHandler {
         AndroidTune tune = (AndroidTune) this.tune;
         String unresolvedType = fieldModel.getType().getType();
 
-        if (fieldModel.getFieldType() != FieldType.ENUM || !tune.createStringDefsFor().contains(unresolvedType)) {
+        if (fieldModel.getFieldType() != FieldType.ENUM) {
             return new ObjectTypeHandler(tune, metaInfo).process(typeSpec, key, fieldModel);
         }
 

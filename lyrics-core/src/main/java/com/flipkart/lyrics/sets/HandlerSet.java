@@ -111,9 +111,14 @@ public abstract class HandlerSet {
 
     /**
      * @return An {@link Handler} that adds the specified enum values to the under construction enums.
-     * Fields are provided by {@link TypeModel} as a map of String and Object array.
      */
     public abstract Handler getEnumValuesHandler();
+
+    /**
+     * @return An {@link Handler} that adds the specified enum values to the under construction enums.
+     * Fields are provided by {@link TypeModel} as a map of String and Object array.
+     */
+    public abstract Handler getEnumValuesWithFieldsHandler();
 
     /**
      * @return An {@link Handler} that adds a ordered constructor to the under construction enum.

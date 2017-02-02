@@ -31,8 +31,6 @@ public class EnumCreator extends TypeCreator {
         handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
         handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
         handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
-        handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
-        handlerSet.getOrderedConstructorHandler().process(typeBuilder, typeModel);
 
         handlerSet.getRuleSet().getGlobalDeprecatedRule().process(typeBuilder, typeModel);
 

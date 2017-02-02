@@ -34,7 +34,8 @@ public class TypeModel {
     private Map<String, FieldModel> fields = new LinkedHashMap<>();
     private Map<String, MethodModel> methods = new LinkedHashMap<>();
     private InclusionType inclusion;
-    private Map<String, Object[]> values = new LinkedHashMap<>();
+    private List<String> values;
+    private Map<String, Object[]> valuesWithFields = new LinkedHashMap<>();
     private List<String> fieldOrder = new ArrayList<>();
     private SubTypeModel subTypes;
     private RetentionPolicy retention;
@@ -45,7 +46,7 @@ public class TypeModel {
     public TypeModel() {
     }
 
-    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces, List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations, Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion, Map<String, Object[]> values, List<String> fieldOrder, SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes) {
+    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces, List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations, Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion, List<String> values, Map<String, Object[]> valuesWithFields, List<String> fieldOrder, SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes) {
         this.type = type;
         this.modifiers = modifiers;
         this.extendsType = extendsType;
@@ -56,6 +57,7 @@ public class TypeModel {
         this.methods = methods;
         this.inclusion = inclusion;
         this.values = values;
+        this.valuesWithFields = valuesWithFields;
         this.fieldOrder = fieldOrder;
         this.subTypes = subTypes;
         this.retention = retention;
@@ -98,8 +100,12 @@ public class TypeModel {
         return inclusion;
     }
 
-    public Map<String, Object[]> getValues() {
+    public List<String> getValues() {
         return values;
+    }
+
+    public Map<String, Object[]> getValuesWithFields() {
+        return valuesWithFields;
     }
 
     public List<String> getFieldOrder() {

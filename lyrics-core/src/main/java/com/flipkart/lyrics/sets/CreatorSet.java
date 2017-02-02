@@ -13,6 +13,8 @@ public abstract class CreatorSet {
 
     public abstract TypeCreator getEnumCreator();
 
+    public abstract TypeCreator getEnumWithFieldsCreator();
+
     public abstract TypeCreator getInterfaceCreator();
 
 }
