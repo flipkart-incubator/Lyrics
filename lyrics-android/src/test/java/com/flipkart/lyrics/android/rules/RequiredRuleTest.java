@@ -41,12 +41,7 @@ public class RequiredRuleTest {
         FieldModel model = mock(FieldModel.class);
         when(model.isRequired()).thenReturn(true);
 
-        Tune tune = new AndroidTune() {
-            @Override
-            public List<String> createStringDefsFor() {
-                return new ArrayList<>();
-            }
-        };
+        Tune tune = new AndroidTune();
 
         new RequiredRule(tune, null).process(builder, model);
 

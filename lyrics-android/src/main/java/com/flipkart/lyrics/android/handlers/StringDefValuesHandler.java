@@ -16,12 +16,10 @@
 
 package com.flipkart.lyrics.android.handlers;
 
-import com.flipkart.lyrics.android.config.AndroidTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
-import com.flipkart.lyrics.processor.instances.EnumValuesHandler;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
@@ -31,7 +29,7 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by anshul.garg on 11/01/17.
@@ -44,15 +42,8 @@ public class StringDefValuesHandler extends Handler {
 
     @Override
     public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
-        AndroidTune androidTune = (AndroidTune) tune;
-        if (!androidTune.createStringDefsFor().contains(metaInfo.getFullPackage() + "." + metaInfo.getClassName())) {
-            new EnumValuesHandler(tune, metaInfo, ruleSet).process(typeBuilder, typeModel);
-            return;
-        }
-
-        List<String> values = typeModel.getValues();
         String valuesStr = "";
-        for (String key : values) {
+        for (String key : getEnumValues(typeModel)) {
             valuesStr += key + ", ";
             typeBuilder.addField(FieldSpec.builder(ClassName.get(String.class), key)
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
@@ -70,5 +61,9 @@ public class StringDefValuesHandler extends Handler {
                 addAnnotation(retentionAnnotation.build()).
                 addAnnotation(intDefAnnotation.build()).
                 build());
+    }
+
+    protected Collection<String> getEnumValues(TypeModel typeModel) {
+        return typeModel.getValues();
     }
 }

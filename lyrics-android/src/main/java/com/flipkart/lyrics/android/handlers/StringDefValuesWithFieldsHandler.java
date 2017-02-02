@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.android.sets;
+package com.flipkart.lyrics.android.handlers;
 
-import com.flipkart.lyrics.android.creator.AndroidEnumCreator;
-import com.flipkart.lyrics.creator.TypeCreator;
-import com.flipkart.lyrics.sets.DefaultCreatorSet;
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.sets.RuleSet;
+
+import java.util.Collection;
 
 /**
- * Created by shrey.garg on 15/01/17.
+ * Created by shrey.garg on 03/02/17.
  */
-public class AndroidCreatorSet extends DefaultCreatorSet {
+public class StringDefValuesWithFieldsHandler extends StringDefValuesHandler {
 
-    @Override
-    public TypeCreator getEnumCreator() {
-        return new AndroidEnumCreator();
+    public StringDefValuesWithFieldsHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+        super(tune, metaInfo, ruleSet);
     }
 
     @Override
-    public TypeCreator getEnumWithFieldsCreator() {
-        return new AndroidEnumCreator();
+    protected Collection<String> getEnumValues(TypeModel typeModel) {
+        return typeModel.getValuesWithFields().keySet();
     }
 }
