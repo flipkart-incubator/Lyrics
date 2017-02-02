@@ -31,7 +31,7 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by anshul.garg on 11/01/17.
@@ -50,9 +50,9 @@ public class StringDefValuesHandler extends Handler {
             return;
         }
 
-        Map<String, Object[]> values = typeModel.getValues();
+        List<String> values = typeModel.getValues();
         String valuesStr = "";
-        for (String key : values.keySet()) {
+        for (String key : values) {
             valuesStr += key + ", ";
             typeBuilder.addField(FieldSpec.builder(ClassName.get(String.class), key)
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)

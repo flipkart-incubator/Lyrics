@@ -26,6 +26,7 @@ import com.flipkart.lyrics.processor.constructors.RequiredFieldsConstructorHandl
 import com.flipkart.lyrics.processor.fields.FieldsHandler;
 import com.flipkart.lyrics.processor.generics.GenericsHandler;
 import com.flipkart.lyrics.processor.instances.EnumValuesHandler;
+import com.flipkart.lyrics.processor.instances.EnumWithFieldsValuesHandler;
 import com.flipkart.lyrics.processor.methods.AnnotationMethodsHandler;
 import com.flipkart.lyrics.processor.methods.EqualsAndHashCodeHandler;
 import com.flipkart.lyrics.processor.methods.InterfaceMethodsHandler;
@@ -111,6 +112,11 @@ public class DefaultHandlerSet extends HandlerSet {
     @Override
     public Handler getEnumValuesHandler() {
         return new EnumValuesHandler(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public Handler getEnumValuesWithFieldsHandler() {
+        return new EnumWithFieldsValuesHandler(tune, metaInfo, ruleSet);
     }
 
     @Override

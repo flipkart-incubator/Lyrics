@@ -23,14 +23,16 @@ import com.squareup.javapoet.TypeSpec;
 /**
  * Created by shrey.garg on 27/11/16.
  */
-public class EnumCreator extends TypeCreator {
+public class EnumWithFieldsCreator extends TypeCreator {
 
     @Override
     public TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel) {
         TypeSpec.Builder typeBuilder = TypeSpec.enumBuilder(handlerSet.getMetaInfo().getClassName());
         handlerSet.getTypeAnnotationHandler().process(typeBuilder, typeModel);
         handlerSet.getModifiersHandler().process(typeBuilder, typeModel);
-        handlerSet.getEnumValuesHandler().process(typeBuilder, typeModel);
+        handlerSet.getEnumValuesWithFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getFieldsHandler().process(typeBuilder, typeModel);
+        handlerSet.getOrderedConstructorHandler().process(typeBuilder, typeModel);
 
         handlerSet.getRuleSet().getGlobalDeprecatedRule().process(typeBuilder, typeModel);
 

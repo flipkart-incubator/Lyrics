@@ -145,6 +145,8 @@ public class Helper {
                 return creatorSet.getClassCreator();
             case ENUM:
                 return creatorSet.getEnumCreator();
+            case ENUM_WITH_FIELDS:
+                return creatorSet.getEnumWithFieldsCreator();
             case INTERFACE:
                 return creatorSet.getInterfaceCreator();
             default:
