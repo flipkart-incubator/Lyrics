@@ -23,10 +23,7 @@ import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
-import com.flipkart.lyrics.sets.CreatorSet;
-import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
-import com.flipkart.lyrics.sets.HandlerSet;
-import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.sets.*;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 import com.squareup.javapoet.TypeSpec;
 
@@ -71,6 +68,8 @@ public interface Tune {
     RuleSet getRuleSet();
 
     FieldTypeHandlerSet getFieldTypeHandlerSet();
+
+    ParameterTypeHandlerSet getParameterTypeHandlerSet();
 
     List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
