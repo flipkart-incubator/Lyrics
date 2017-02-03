@@ -36,6 +36,7 @@ import java.util.*;
 public class DefaultTune implements Tune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
+    private final ParameterTypeHandlerSet parameterTypeHandlerSet = new DefaultParameterTypeHandlerSet();
     private final CreatorSet creatorSet = new DefaultCreatorSet();
     private final HandlerSet handlerSet = new DefaultHandlerSet();
     private final RuleSet ruleSet = new DefaultRuleSet();
@@ -127,6 +128,11 @@ public class DefaultTune implements Tune {
     @Override
     public FieldTypeHandlerSet getFieldTypeHandlerSet() {
         return fieldTypeHandlerSet;
+    }
+
+    @Override
+    public ParameterTypeHandlerSet getParameterTypeHandlerSet() {
+        return parameterTypeHandlerSet;
     }
 
 }

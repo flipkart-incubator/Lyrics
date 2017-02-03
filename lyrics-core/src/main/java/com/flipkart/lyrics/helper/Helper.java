@@ -19,9 +19,11 @@ package com.flipkart.lyrics.helper;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.creator.TypeCreator;
 import com.flipkart.lyrics.model.*;
+import com.flipkart.lyrics.processor.constructors.ParameterTypeHandler;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
+import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
@@ -155,6 +157,35 @@ public class Helper {
     }
 
     public static FieldTypeHandler getFieldTypeHandler(FieldType type, FieldTypeHandlerSet handlerSet) {
+        switch (type) {
+            case BOOLEAN:
+                return handlerSet.getBooleanTypeHandler();
+            case BYTE:
+                return handlerSet.getByteTypeHandler();
+            case CHARACTER:
+                return handlerSet.getCharacterTypeHandler();
+            case DOUBLE:
+                return handlerSet.getDoubleTypeHandler();
+            case FLOAT:
+                return handlerSet.getFloatTypeHandler();
+            case INTEGER:
+                return handlerSet.getIntegerTypeHandler();
+            case LONG:
+                return handlerSet.getLongTypeHandler();
+            case SHORT:
+                return handlerSet.getShortTypeHandler();
+            case OBJECT:
+                return handlerSet.getObjectTypeHandler();
+            case STRING:
+                return handlerSet.getStringTypeHandler();
+            case ENUM:
+                return handlerSet.getEnumTypeHandler();
+            default:
+                return handlerSet.getObjectTypeHandler();
+        }
+    }
+
+    public static ParameterTypeHandler getParameterTypeHandler(FieldType type, ParameterTypeHandlerSet handlerSet) {
         switch (type) {
             case BOOLEAN:
                 return handlerSet.getBooleanTypeHandler();

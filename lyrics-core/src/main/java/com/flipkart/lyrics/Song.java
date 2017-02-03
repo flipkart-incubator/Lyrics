@@ -21,6 +21,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
@@ -46,6 +47,7 @@ public class Song {
         RuleSet ruleSet = processRuleSet(tune, metaInfo);
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);
+        processParameterTypeHandlerSet(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
@@ -74,5 +76,11 @@ public class Song {
         FieldTypeHandlerSet fieldTypeHandlerSet = tune.getFieldTypeHandlerSet();
         fieldTypeHandlerSet.setMetaInfo(metaInfo);
         fieldTypeHandlerSet.setTune(tune);
+    }
+
+    private void processParameterTypeHandlerSet(Tune tune, MetaInfo metaInfo) {
+        ParameterTypeHandlerSet parameterTypeHandlerSet = tune.getParameterTypeHandlerSet();
+        parameterTypeHandlerSet.setMetaInfo(metaInfo);
+        parameterTypeHandlerSet.setTune(tune);
     }
 }

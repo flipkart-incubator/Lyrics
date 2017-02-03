@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.flipkart.lyrics.processor.constructors;
 
 import com.flipkart.lyrics.config.Tune;
@@ -32,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.flipkart.lyrics.helper.Helper.processType;
+import static com.flipkart.lyrics.helper.Helper.getParameterTypeHandler;
 
 /**
  * Created by shrey.garg on 01/02/17.
@@ -62,7 +61,8 @@ public class RequiredFieldsConstructorHandler extends Handler {
         MethodSpec.Builder constructor = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC);
 
         for (String field : requiredFields) {
-            ParameterSpec.Builder parameterSpec = ParameterSpec.builder(processType(fields.get(field), metaInfo.getGenericVariables()), field);
+            ParameterSpec.Builder parameterSpec = getParameterTypeHandler(fields.get(field).getFieldType(), tune.getParameterTypeHandlerSet())
+                    .process(typeSpec, field, fields.get(field));
 
             if (!fields.get(field).isPrimitive()) {
                 tune.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRuleForConstructor(parameterSpec));

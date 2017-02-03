@@ -20,11 +20,13 @@ import com.flipkart.lyrics.android.annotators.validations.AndroidValidationStyle
 import com.flipkart.lyrics.android.sets.AndroidCreatorSet;
 import com.flipkart.lyrics.android.sets.AndroidFieldTypeHandlerSet;
 import com.flipkart.lyrics.android.sets.AndroidHandlerSet;
+import com.flipkart.lyrics.android.sets.AndroidParameterTypeHandlerSet;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +37,7 @@ import java.util.List;
 public class AndroidTune extends DefaultTune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new AndroidFieldTypeHandlerSet();
+    private final ParameterTypeHandlerSet parameterTypeHandlerSet = new AndroidParameterTypeHandlerSet();
     private final CreatorSet creatorSet = new AndroidCreatorSet();
     private final HandlerSet handlerSet = new AndroidHandlerSet();
 
@@ -51,6 +54,11 @@ public class AndroidTune extends DefaultTune {
     @Override
     public FieldTypeHandlerSet getFieldTypeHandlerSet() {
         return fieldTypeHandlerSet;
+    }
+
+    @Override
+    public ParameterTypeHandlerSet getParameterTypeHandlerSet() {
+        return parameterTypeHandlerSet;
     }
 
     @Override
