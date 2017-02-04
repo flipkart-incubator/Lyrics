@@ -1,0 +1,11 @@
+{
+  "type": "CLASS",
+  "fields": {
+    "id": {
+      "fieldType": "STRING"
+    },
+    "address": {
+      "fieldType": "STRING"
+    }
+  }
+}

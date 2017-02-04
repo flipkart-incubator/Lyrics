@@ -44,8 +44,8 @@ public final class Lyrics {
     }
 
     private void generateClasses(String pkg, File source) {
-        pkg = pkg + source.getName() + ".";
         if (source.isDirectory()) {
+            pkg = pkg + source.getName() + ".";
             String finalPkg = pkg;
             Arrays.stream(source.listFiles()).forEach(file -> generateClasses(finalPkg, file));
         } else {
