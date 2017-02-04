@@ -1,0 +1,21 @@
+{
+  "type": "CLASS",
+  "modifiers": [
+    "PUBLIC",
+    "ABSTRACT"
+  ],
+  "fields": {
+    "id": {
+      "fieldType": "STRING",
+      "required": true
+    },
+    "name": {
+      "fieldType": "STRING",
+      "required": true
+    },
+    "dateOfBirth": {
+      "fieldType": "LONG",
+      "primitive": true
+    }
+  }
+}

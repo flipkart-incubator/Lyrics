@@ -1,0 +1,16 @@
+{
+  "type": "CLASS",
+  "fields": {
+    "id": {
+      "fieldType": "STRING"
+    },
+    "level": {
+      "fieldType": "ENUM",
+      "type": "com.flipkart.lyrics.sample.userdb.access.Level"
+    },
+    "usageCount": {
+      "fieldType": "LONG",
+      "primitive": true
+    }
+  }
+}

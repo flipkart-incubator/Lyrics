@@ -1,0 +1,14 @@
+{
+  "type": "CLASS",
+  "extendsType": "com.flipkart.lyrics.sample.userdb.people.Person",
+  "fields": {
+    "department": {
+      "fieldType": "OBJECT",
+      "type": "com.flipkart.lyrics.sample.userdb.structure.Department"
+    },
+    "accessRight": {
+      "fieldType": "OBJECT",
+      "type": "com.flipkart.lyrics.sample.userdb.access.Right"
+    }
+  }
+}

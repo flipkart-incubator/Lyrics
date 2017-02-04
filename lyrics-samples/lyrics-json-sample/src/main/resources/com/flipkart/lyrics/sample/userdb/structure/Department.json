@@ -1,0 +1,22 @@
+{
+  "type": "CLASS",
+  "fields": {
+    "location": {
+      "fieldType": "OBJECT",
+      "type": "com.flipkart.lyrics.sample.userdb.structure.Location"
+    },
+    "manager": {
+      "fieldType": "OBJECT",
+      "type": "com.flipkart.lyrics.sample.userdb.people.Manager"
+    },
+    "members": {
+      "fieldType": "OBJECT",
+      "type": {
+        "type": "java.util.List",
+        "types": [
+          "com.flipkart.lyrics.sample.userdb.people.Person"
+        ]
+      }
+    }
+  }
+}
