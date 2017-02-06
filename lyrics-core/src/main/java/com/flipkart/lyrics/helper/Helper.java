@@ -28,6 +28,7 @@ import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by shrey.garg on 25/11/16.
@@ -264,5 +265,21 @@ public class Helper {
 
         TypeName typeName = TypeName.get(fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed());
         return fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
+    }
+
+    public static List<String> getRequiredFields(Map<String, FieldModel> fields, boolean excludeInitializedFields) {
+        return fields.entrySet().stream()
+                .filter(entry -> {
+                    if (!entry.getValue().isRequired()) {
+                        return false;
+                    }
+
+                    if (excludeInitializedFields && entry.getValue().getInitializeWith() != null) {
+                        return false;
+                    }
+
+                    return true;
+                }).map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }

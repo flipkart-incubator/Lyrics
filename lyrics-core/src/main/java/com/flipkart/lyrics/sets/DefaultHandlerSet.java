@@ -20,6 +20,7 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.processor.annotations.ClassAnnotationHandler;
+import com.flipkart.lyrics.processor.constructors.CustomConstructorHandler;
 import com.flipkart.lyrics.processor.constructors.NoArgsConstructorHandler;
 import com.flipkart.lyrics.processor.constructors.OrderedConstructorHandler;
 import com.flipkart.lyrics.processor.constructors.RequiredFieldsConstructorHandler;
@@ -97,6 +98,11 @@ public class DefaultHandlerSet extends HandlerSet {
     @Override
     public Handler getRequiredFieldsConstructorHandler() {
         return new RequiredFieldsConstructorHandler(tune, metaInfo, ruleSet);
+    }
+
+    @Override
+    public Handler getCustomConstructorHandler() {
+        return new CustomConstructorHandler(tune, metaInfo, ruleSet);
     }
 
     @Override

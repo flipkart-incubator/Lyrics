@@ -30,28 +30,33 @@ import java.util.Map;
 import static com.flipkart.lyrics.helper.Helper.getRequiredFields;
 
 /**
- * Created by shrey.garg on 01/02/17.
+ * Created by shrey.garg on 06/02/17.
  */
-public class RequiredFieldsConstructorHandler extends ConstructorHandler {
+public class CustomConstructorHandler extends ConstructorHandler {
 
-    public RequiredFieldsConstructorHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
+    public CustomConstructorHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         super(tune, metaInfo, ruleSet);
     }
 
     @Override
     protected List<String> getConstructorFields(TypeModel typeModel) {
-        if (!tune.isRequiredFieldConstructorNeeded()) {
+        Map<String, FieldModel> fields = typeModel.getFields();
+        List<String> requiredFields = getRequiredFields(fields, tune.excludeInitializedFieldsFromConstructor());
+
+        List<String> customConstructorFields = typeModel.getCustomConstructorFields();
+        customConstructorFields.removeAll(requiredFields);
+
+        if (customConstructorFields.isEmpty()) {
             return new ArrayList<>();
         }
 
-        Map<String, FieldModel> fields = typeModel.getFields();
+        requiredFields.addAll(customConstructorFields);
 
-        return getRequiredFields(fields, tune.excludeInitializedFieldsFromConstructor());
+        return requiredFields;
     }
 
     @Override
     protected Modifier getModifier() {
         return Modifier.PUBLIC;
     }
-
 }

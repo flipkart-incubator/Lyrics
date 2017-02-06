@@ -57,6 +57,8 @@ public interface Tune {
 
     boolean isRequiredFieldConstructorNeeded();
 
+    boolean excludeInitializedFieldsFromConstructor();
+
     ObjectMethodsStyle getObjectMethodsStyle();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();

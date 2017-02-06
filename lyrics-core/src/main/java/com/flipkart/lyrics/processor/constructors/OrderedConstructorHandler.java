@@ -19,46 +19,29 @@ package com.flipkart.lyrics.processor.constructors;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
 
+import javax.lang.model.element.Modifier;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
+import java.util.Optional;
 
 /**
  * Created by shrey.garg on 30/11/16.
  */
-public class OrderedConstructorHandler extends Handler {
+public class OrderedConstructorHandler extends ConstructorHandler {
 
     public OrderedConstructorHandler(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
         super(tune, metaInfo, ruleSet);
     }
 
-    public void process(TypeSpec.Builder typeBuilder, TypeModel typeModel) {
-        List<String> fieldOrder = typeModel.getFieldOrder();
-        if (isNullOrEmpty(fieldOrder)) {
-            return;
-        }
+    @Override
+    protected List<String> getConstructorFields(TypeModel typeModel) {
+        return Optional.ofNullable(typeModel.getFieldOrder()).orElseGet(ArrayList::new);
+    }
 
-        Map<String, FieldSpec> fields = typeBuilder.build().fieldSpecs.stream().collect(Collectors.toMap(
-                field -> field.name,
-                Function.identity()
-        ));
-
-        MethodSpec.Builder orderedConstructor = MethodSpec.constructorBuilder();
-
-        for (String field : fieldOrder) {
-            orderedConstructor.addParameter(fields.get(field).type, field);
-            orderedConstructor.addStatement("this.$L = $L", field, field);
-        }
-
-        typeBuilder.addMethod(orderedConstructor.build());
+    @Override
+    protected Modifier getModifier() {
+        return null;
     }
 }
