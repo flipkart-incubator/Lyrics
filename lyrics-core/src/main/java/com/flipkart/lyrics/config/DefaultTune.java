@@ -96,6 +96,11 @@ public class DefaultTune implements Tune {
     }
 
     @Override
+    public boolean isCustomConstructorNeeded() {
+        return false;
+    }
+
+    @Override
     public ObjectMethodsStyle getObjectMethodsStyle() {
         return objectMethodsStyle;
     }

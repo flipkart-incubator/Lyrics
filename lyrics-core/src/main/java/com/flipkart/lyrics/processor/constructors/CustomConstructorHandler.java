@@ -40,10 +40,13 @@ public class CustomConstructorHandler extends ConstructorHandler {
 
     @Override
     protected List<String> getConstructorFields(TypeModel typeModel) {
+        List<String> customConstructorFields = typeModel.getCustomConstructorFields();
+        if (!tune.isCustomConstructorNeeded() || customConstructorFields == null) {
+            return new ArrayList<>();
+        }
+
         Map<String, FieldModel> fields = typeModel.getFields();
         List<String> requiredFields = getRequiredFields(fields, tune.excludeInitializedFieldsFromConstructor());
-
-        List<String> customConstructorFields = typeModel.getCustomConstructorFields();
         customConstructorFields.removeAll(requiredFields);
 
         if (customConstructorFields.isEmpty()) {
