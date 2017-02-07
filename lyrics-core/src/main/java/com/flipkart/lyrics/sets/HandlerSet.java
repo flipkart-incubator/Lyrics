@@ -99,6 +99,11 @@ public abstract class HandlerSet {
     public abstract Handler getRequiredFieldsConstructorHandler();
 
     /**
+     * @return An {@link Handler} that adds a constructor initializing all the required fields and the fields defined as custom constructor fields to the under construction classes.
+     */
+    public abstract Handler getCustomConstructorHandler();
+
+    /**
      * @return An {@link Handler} that handles special interfaces, if any, for the under construction classes.
      */
     public abstract Handler getSpecialInterfacesHandler();

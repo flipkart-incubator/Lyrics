@@ -42,11 +42,12 @@ public class TypeModel {
     private ElementType[] elementTypes;
     private boolean testSuperEquality = false;
     private boolean deprecated;
+    private List<String> customConstructorFields;
 
     public TypeModel() {
     }
 
-    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces, List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations, Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion, List<String> values, Map<String, Object[]> valuesWithFields, List<String> fieldOrder, SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes) {
+    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces, List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations, Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion, List<String> values, Map<String, Object[]> valuesWithFields, List<String> fieldOrder, SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes, List<String> customConstructorFields) {
         this.type = type;
         this.modifiers = modifiers;
         this.extendsType = extendsType;
@@ -62,6 +63,7 @@ public class TypeModel {
         this.subTypes = subTypes;
         this.retention = retention;
         this.elementTypes = elementTypes;
+        this.customConstructorFields = customConstructorFields;
     }
 
     public Type getType() {
@@ -130,5 +132,9 @@ public class TypeModel {
 
     public boolean isDeprecated() {
         return deprecated;
+    }
+
+    public List<String> getCustomConstructorFields() {
+        return customConstructorFields;
     }
 }
