@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class SubTypeModel {
     private String property;
+    private boolean existingProperty;
     private Map<String, String> subTypeMapping;
 
     public SubTypeModel() {
@@ -35,6 +36,10 @@ public class SubTypeModel {
 
     public String getProperty() {
         return property;
+    }
+
+    public boolean isExistingProperty() {
+        return existingProperty;
     }
 
     public Map<String, String> getSubTypeMapping() {

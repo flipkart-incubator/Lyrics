@@ -70,7 +70,7 @@ public class JacksonStyle extends AnnotatorStyle {
 
         AnnotationSpec typeInfoAnnotation = AnnotationSpec.builder(JsonTypeInfo.class)
                 .addMember("use", "$L", "JsonTypeInfo.Id.NAME")
-                .addMember("include", "$L", "JsonTypeInfo.As.PROPERTY")
+                .addMember("include", "$L", "JsonTypeInfo.As." + (subTypeModel.isExistingProperty() ? "EXISTING_PROPERTY" : "PROPERTY"))
                 .addMember("property", "$S", subTypeModel.getProperty())
                 .build();
 
