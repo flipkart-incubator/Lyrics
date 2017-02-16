@@ -40,4 +40,6 @@ public abstract class ValidationAnnotatorStyle {
 
     public abstract void processRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec);
 
+    public abstract void processNotRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec);
+
 }

@@ -64,4 +64,9 @@ public class AndroidValidationStyle extends ValidationAnnotatorStyle {
     public void processRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
         parameterSpec.addAnnotation(ANDROID_VALIDATIONS_NON_NULL);
     }
+
+    @Override
+    public void processNotRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
+        parameterSpec.addAnnotation(ANDROID_VALIDATIONS_NULLABLE);
+    }
 }

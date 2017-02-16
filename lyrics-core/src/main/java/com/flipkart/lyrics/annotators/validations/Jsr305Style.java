@@ -63,4 +63,9 @@ public class Jsr305Style extends ValidationAnnotatorStyle {
     public void processRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
         parameterSpec.addAnnotation(JSR_305_NON_NULL);
     }
+
+    @Override
+    public void processNotRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
+        parameterSpec.addAnnotation(JSR_305_NULLABLE);
+    }
 }

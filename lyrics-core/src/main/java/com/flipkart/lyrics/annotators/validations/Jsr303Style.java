@@ -63,4 +63,9 @@ public class Jsr303Style extends ValidationAnnotatorStyle {
         parameterSpec.addAnnotation(NotNull.class);
     }
 
+    @Override
+    public void processNotRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
+
+    }
+
 }

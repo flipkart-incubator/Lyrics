@@ -60,7 +60,13 @@ public abstract class ConstructorHandler extends Handler {
                     .process(typeSpec, field, fields.get(field));
 
             if (!fields.get(field).isPrimitive()) {
-                tune.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRuleForConstructor(parameterSpec));
+                tune.getValidationAnnotatorStyles().forEach(style -> {
+                    if (fields.get(field).isRequired()) {
+                        style.processRequiredRuleForConstructor(parameterSpec);
+                    } else {
+                        style.processNotRequiredRuleForConstructor(parameterSpec);
+                    }
+                });
             }
 
             constructor.addParameter(parameterSpec.build());
