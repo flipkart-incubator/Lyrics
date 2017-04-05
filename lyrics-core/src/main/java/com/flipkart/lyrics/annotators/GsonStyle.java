@@ -22,6 +22,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -51,6 +52,11 @@ public class GsonStyle extends AnnotatorStyle {
 
     @Override
     public void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+
+    }
+
+    @Override
+    public void processJsonValueRule(MethodSpec.Builder methodSpec) {
 
     }
 

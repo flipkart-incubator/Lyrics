@@ -58,6 +58,7 @@ public abstract class RuleSet {
     public abstract FieldRule getNotRequiredRule();
     public abstract MethodRule getGetterNotRequiredRule();
     public abstract MethodRule getSetterNotRequiredRule();
+    public abstract MethodRule getJsonValueRule();
 
     public void setTune(Tune tune) {
         this.tune = tune;

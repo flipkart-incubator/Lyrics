@@ -51,12 +51,10 @@ public class GetterHandler {
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
                 .addStatement("return $L", fieldSpec.name);
-        if (fieldModel.isJsonValue()) {
-            builder.addAnnotation(JsonValue.class);
-        }
 
         ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
         ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
+        ruleSet.getJsonValueRule().process(builder, fieldModel, null);
 
         typeBuilder.addMethod(builder.build());
     }

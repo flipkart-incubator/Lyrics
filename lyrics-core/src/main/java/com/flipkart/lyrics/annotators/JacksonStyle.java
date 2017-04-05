@@ -19,6 +19,7 @@ package com.flipkart.lyrics.annotators;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
@@ -26,6 +27,7 @@ import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import java.util.Map;
@@ -85,6 +87,11 @@ public class JacksonStyle extends AnnotatorStyle {
 
         typeSpec.addAnnotation(typeInfoAnnotation);
         typeSpec.addAnnotation(subTypesBuilder.build());
+    }
+
+    @Override
+    public void processJsonValueRule(MethodSpec.Builder methodSpec) {
+        methodSpec.addAnnotation(JsonValue.class);
     }
 
 }

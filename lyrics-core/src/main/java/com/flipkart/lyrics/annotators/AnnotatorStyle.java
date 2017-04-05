@@ -19,6 +19,7 @@ package com.flipkart.lyrics.annotators;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -33,5 +34,7 @@ public abstract class AnnotatorStyle {
     public abstract void processGlobalInclusionRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
 
     public abstract void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
+
+    public abstract void processJsonValueRule(MethodSpec.Builder methodSpec);
 
 }
