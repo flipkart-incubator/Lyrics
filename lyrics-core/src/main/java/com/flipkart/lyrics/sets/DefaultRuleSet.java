@@ -94,6 +94,11 @@ public class DefaultRuleSet extends RuleSet {
     }
 
     @Override
+    public MethodRule getJsonValueRule() {
+        return new JsonValueRule(tune, metaInfo);
+    }
+
+    @Override
     public FieldRule getInclusionRule() {
         return new InclusionRule(tune, metaInfo);
     }
