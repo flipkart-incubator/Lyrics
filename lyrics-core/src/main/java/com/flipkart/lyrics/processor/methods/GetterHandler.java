@@ -16,6 +16,7 @@
 
 package com.flipkart.lyrics.processor.methods;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
@@ -50,6 +51,9 @@ public class GetterHandler {
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
                 .addStatement("return $L", fieldSpec.name);
+        if (fieldModel.isJsonValue()) {
+            builder.addAnnotation(JsonValue.class);
+        }
 
         ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
         ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
