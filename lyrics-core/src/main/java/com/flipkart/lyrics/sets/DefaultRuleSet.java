@@ -20,10 +20,7 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.rules.*;
 import com.flipkart.lyrics.rules.method.*;
-import com.flipkart.lyrics.rules.type.GlobalDeprecatedRule;
-import com.flipkart.lyrics.rules.type.GlobalInclusionRule;
-import com.flipkart.lyrics.rules.type.SubTypesRule;
-import com.flipkart.lyrics.rules.type.TypeRule;
+import com.flipkart.lyrics.rules.type.*;
 
 /**
  * Created by shrey.garg on 30/12/16.
@@ -46,6 +43,11 @@ public class DefaultRuleSet extends RuleSet {
     @Override
     public TypeRule getGlobalInclusionRule() {
         return new GlobalInclusionRule(tune, metaInfo);
+    }
+
+    @Override
+    public TypeRule getPropertyOrderRule() {
+        return new PropertyOrderRule(tune, metaInfo);
     }
 
     @Override

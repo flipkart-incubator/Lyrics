@@ -48,6 +48,7 @@ public class ClassCreator extends TypeCreator {
         ruleSet.getGlobalInclusionRule().process(typeBuilder, typeModel);
         ruleSet.getSubTypeRule().process(typeBuilder, typeModel);
         ruleSet.getGlobalDeprecatedRule().process(typeBuilder, typeModel);
+        ruleSet.getPropertyOrderRule().process(typeBuilder, typeModel);
 
         return typeBuilder;
     }

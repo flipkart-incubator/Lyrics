@@ -34,4 +34,6 @@ public abstract class AnnotatorStyle {
 
     public abstract void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
 
+    public abstract void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
+
 }

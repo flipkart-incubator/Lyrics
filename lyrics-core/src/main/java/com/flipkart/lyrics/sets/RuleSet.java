@@ -44,6 +44,7 @@ public abstract class RuleSet {
      */
     public abstract TypeRule getSubTypeRule();
     public abstract TypeRule getGlobalInclusionRule();
+    public abstract TypeRule getPropertyOrderRule();
 
     public abstract TypeRule getGlobalDeprecatedRule();
     public abstract FieldRule getDeprecatedRule();

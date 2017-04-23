@@ -54,4 +54,9 @@ public class GsonStyle extends AnnotatorStyle {
 
     }
 
+    @Override
+    public void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+
+    }
+
 }

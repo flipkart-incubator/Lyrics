@@ -17,6 +17,7 @@
 package com.flipkart.lyrics.annotators;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -28,6 +29,7 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
@@ -85,6 +87,18 @@ public class JacksonStyle extends AnnotatorStyle {
 
         typeSpec.addAnnotation(typeInfoAnnotation);
         typeSpec.addAnnotation(subTypesBuilder.build());
+    }
+
+    @Override
+    public void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        List<String> fieldOrder = typeModel.getFieldOrder();
+
+        AnnotationSpec.Builder propertyOrderBuilder = AnnotationSpec.builder(JsonPropertyOrder.class);
+        for (String field : fieldOrder) {
+            propertyOrderBuilder.addMember("value", "$S", field);
+        }
+
+        typeSpec.addAnnotation(propertyOrderBuilder.build());
     }
 
 }
