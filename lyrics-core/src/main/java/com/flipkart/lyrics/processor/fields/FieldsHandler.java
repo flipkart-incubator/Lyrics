@@ -57,7 +57,7 @@ public class FieldsHandler extends Handler {
 
             boolean hideField = triggers.stream().anyMatch(b -> !b);
             if (hideField) {
-                return;
+                continue;
             }
 
             FieldSpec fieldSpec = fieldBuilder.build();
