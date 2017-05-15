@@ -27,6 +27,11 @@ import com.flipkart.lyrics.sets.RuleSet;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import static com.flipkart.lyrics.helper.Helper.getFieldTypeHandler;
 
 /**
@@ -45,6 +50,15 @@ public class FieldsHandler extends Handler {
             FieldSpec.Builder fieldBuilder = getFieldTypeHandler(fieldModel.getFieldType(), tune.getFieldTypeHandlerSet())
                     .process(typeBuilder, key, fieldModel);
             handleFieldRules(fieldBuilder, fieldModel);
+
+            Map<String, Object> additionalFields = fieldModel.getAdditionalFields();
+            Map<String, FieldAdditionalHandler> additionalPropertiesHandlers = tune.getFieldsAdditionalPropertiesHandler();
+            List<Boolean> triggers = additionalPropertiesHandlers.entrySet().stream().filter(e -> additionalFields.get(e.getKey()) != null).map(e -> e.getValue().process(fieldBuilder, e.getKey(), additionalFields.get(e.getKey()))).collect(Collectors.toList());
+
+            boolean hideField = triggers.stream().anyMatch(b -> !b);
+            if (hideField) {
+                return;
+            }
 
             FieldSpec fieldSpec = fieldBuilder.build();
             typeBuilder.addField(fieldSpec);

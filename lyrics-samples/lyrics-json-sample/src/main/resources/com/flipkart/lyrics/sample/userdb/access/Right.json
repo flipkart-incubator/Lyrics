@@ -10,7 +10,12 @@
     },
     "usageCount": {
       "fieldType": "LONG",
-      "primitive": true
+      "primitive": true,
+      "versioning": [
+        {
+          "some": "thing"
+        }
+      ]
     }
   }
 }
