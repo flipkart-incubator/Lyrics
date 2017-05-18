@@ -24,9 +24,11 @@ import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
+import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -54,6 +56,7 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String JSR_305 = "jsr-305";
     public static final String ANDROID_SUPPORT = "android-support";
     public static final String ANNOTATIONS = "annotations";
+    public static final String ADDITIONAL_FIELD_PROPERTY_HANDLER = "addPropHandler";
 
     @Override
     public boolean supports(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
@@ -82,6 +85,8 @@ public class ConfigurationExtension implements ParameterResolver {
                 return getGsonTune();
             case ANNOTATIONS:
                 return getAnnotationsTune();
+            case ADDITIONAL_FIELD_PROPERTY_HANDLER:
+                return getAdditionalFieldPropertiesHandlerTune();
             default:
                 return null;
         }
@@ -151,4 +156,26 @@ public class ConfigurationExtension implements ParameterResolver {
         return jacksonTune;
     }
 
+    private Tune getAdditionalFieldPropertiesHandlerTune() {
+        Tune additionalFieldPropertyHandlerTune = spy(getDefaultTune());
+        Map<String, FieldAdditionalHandler> additionalHandlerMap = new HashMap<>();
+        additionalHandlerMap.put("abc", new AdditionalFieldHandlerTestImpl());
+        additionalHandlerMap.put("xyz", new NoOpAdditionalFieldHandlerTestImpl());
+        when(additionalFieldPropertyHandlerTune.getFieldsAdditionalPropertiesHandler()).thenReturn(additionalHandlerMap);
+        return additionalFieldPropertyHandlerTune;
+    }
+}
+
+class AdditionalFieldHandlerTestImpl extends FieldAdditionalHandler {
+    @Override
+    public boolean process(FieldSpec.Builder fieldBuilder, String key, Object value) {
+        return true;
+    }
+}
+
+class NoOpAdditionalFieldHandlerTestImpl extends FieldAdditionalHandler {
+    @Override
+    public boolean process(FieldSpec.Builder fieldBuilder, String key, Object value) {
+        return false;
+    }
 }
