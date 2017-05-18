@@ -116,6 +116,7 @@ public class FieldsHandlerTest {
         when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
 
         Map<String, Object> additionalFieldsTwo = new HashMap<>();
+        additionalFieldsTwo.put("abc", "something");
         additionalFieldsTwo.put("xyz", "something");
         when(fieldModelTwo.getAdditionalFields()).thenReturn(additionalFieldsTwo);
 
