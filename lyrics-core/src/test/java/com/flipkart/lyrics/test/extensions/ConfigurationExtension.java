@@ -24,6 +24,8 @@ import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.sets.RuleSet;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -33,6 +35,8 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 import javax.annotation.Resource;
 import java.util.*;
 
+import static com.flipkart.lyrics.helper.Injector.*;
+import static com.flipkart.lyrics.helper.Injector.processFieldAdditionalHandlers;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -84,7 +88,13 @@ public class ConfigurationExtension implements ParameterResolver {
     }
 
     private Tune getDefaultTune() {
-        return new DefaultTune();
+        Tune tune = new DefaultTune();
+        RuleSet ruleSet = processRuleSet(tune, null);
+        processHandlerSet(tune, null, ruleSet);
+        processFieldTypeHandlerSet(tune, null);
+        processParameterTypeHandlerSet(tune, null);
+        processFieldAdditionalHandlers(tune, null);
+        return tune;
     }
 
     private Tune getAnnotationsTune() {
