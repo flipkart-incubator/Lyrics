@@ -71,10 +71,8 @@ public class Helper {
 
         if (isBoolean) {
             if (capitalizedName.startsWith("Is")) {
-                if (capitalizedName.length() > 2) {
+                if (capitalizedName.length() > 2 && Character.isUpperCase(capitalizedName.charAt(2))) {
                     capitalizedName = capitalizedName.substring(2);
-                } else if (isPrimitive && !isSetter) {
-                    capitalizedName = "";
                 }
             }
 
