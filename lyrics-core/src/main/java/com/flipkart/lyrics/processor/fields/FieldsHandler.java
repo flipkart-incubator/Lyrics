@@ -51,9 +51,10 @@ public class FieldsHandler extends Handler {
                     .process(typeBuilder, key, fieldModel);
             handleFieldRules(fieldBuilder, fieldModel);
 
-            Map<String, Object> additionalFields = fieldModel.getAdditionalFields();
-            Map<String, FieldAdditionalHandler> additionalPropertiesHandlers = tune.getFieldsAdditionalPropertiesHandler();
-            List<Boolean> triggers = additionalPropertiesHandlers.entrySet().stream().filter(e -> additionalFields.get(e.getKey()) != null).map(e -> e.getValue().process(fieldBuilder, e.getKey(), additionalFields.get(e.getKey()))).collect(Collectors.toList());
+            List<Boolean> triggers = tune.getFieldsAdditionalPropertiesHandler().entrySet().stream()
+                    .filter(e -> fieldModel.getAdditionalFields().get(e.getKey()) != null)
+                    .map(e -> e.getValue().process(fieldBuilder, e.getKey(), fieldModel.getAdditionalFields().get(e.getKey())))
+                    .collect(Collectors.toList());
 
             boolean hideField = triggers.stream().anyMatch(b -> !b);
             if (hideField) {
