@@ -140,7 +140,7 @@ public abstract class HandlerSet {
     }
 
     public final void setTune(Tune tune) {
-        this.tune = this.tune == null ? tune : this.tune;
+        this.tune = tune;
     }
 
     public MetaInfo getMetaInfo() {
@@ -148,7 +148,7 @@ public abstract class HandlerSet {
     }
 
     public final void setMetaInfo(MetaInfo metaInfo) {
-        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
+        this.metaInfo = metaInfo;
     }
 
     public RuleSet getRuleSet() {
@@ -156,6 +156,6 @@ public abstract class HandlerSet {
     }
 
     public final void setRuleSet(RuleSet ruleSet) {
-        this.ruleSet = this.ruleSet == null ? ruleSet : this.ruleSet;
+        this.ruleSet = ruleSet;
     }
 }

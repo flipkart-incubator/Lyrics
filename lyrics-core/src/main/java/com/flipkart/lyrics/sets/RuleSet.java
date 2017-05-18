@@ -61,10 +61,10 @@ public abstract class RuleSet {
     public abstract MethodRule getSetterNotRequiredRule();
 
     public final void setTune(Tune tune) {
-        this.tune = this.tune == null ? tune : this.tune;
+        this.tune = tune;
     }
 
     public final void setMetaInfo(MetaInfo metaInfo) {
-        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
+        this.metaInfo = metaInfo;
     }
 }
