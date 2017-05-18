@@ -30,6 +30,12 @@ public abstract class FieldAdditionalHandler {
     public FieldAdditionalHandler() {
     }
 
+    /**
+     * @param fieldBuilder Builder for the current field being processed, before it is added to type.
+     * @param key The additional property name for which the handler is called.
+     * @param value The non-null value of the additional property.
+     * @return False, if the field is not supposed to be added to the type. True, otherwise.
+     */
     public abstract boolean process(FieldSpec.Builder fieldBuilder, String key, Object value);
 
     public final void setTune(Tune tune) {
