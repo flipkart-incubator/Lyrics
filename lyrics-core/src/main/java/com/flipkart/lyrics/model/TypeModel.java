@@ -46,7 +46,6 @@ public class TypeModel {
     private boolean testSuperEquality = false;
     private boolean deprecated;
     private List<String> customConstructorFields;
-    private final Map<String, Object> additionalFields = new HashMap<>();
 
     public TypeModel() {
     }
@@ -140,15 +139,5 @@ public class TypeModel {
 
     public List<String> getCustomConstructorFields() {
         return customConstructorFields;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-        return additionalFields;
-    }
-
-    @JsonAnySetter
-    public void addAdditionalProperties(String name, Object value) {
-        this.additionalFields.put(name, value);
     }
 }
