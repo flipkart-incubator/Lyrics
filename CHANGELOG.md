@@ -1,4 +1,4 @@
-## 0.2.0  (W.I.P.)
+## 0.2.0  (May 18, 2017)
 ### CORE
 - Added support for field initializations
 - Added a deprecated rule for types and fields
