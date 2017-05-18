@@ -139,7 +139,7 @@ public abstract class HandlerSet {
         return tune;
     }
 
-    public void setTune(Tune tune) {
+    public final void setTune(Tune tune) {
         this.tune = tune;
     }
 
@@ -147,7 +147,7 @@ public abstract class HandlerSet {
         return metaInfo;
     }
 
-    public void setMetaInfo(MetaInfo metaInfo) {
+    public final void setMetaInfo(MetaInfo metaInfo) {
         this.metaInfo = metaInfo;
     }
 
@@ -155,7 +155,7 @@ public abstract class HandlerSet {
         return ruleSet;
     }
 
-    public void setRuleSet(RuleSet ruleSet) {
+    public final void setRuleSet(RuleSet ruleSet) {
         this.ruleSet = ruleSet;
     }
 }

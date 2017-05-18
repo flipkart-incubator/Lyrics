@@ -17,6 +17,7 @@
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Injector;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
@@ -31,6 +32,7 @@ import java.io.IOException;
 
 import static com.flipkart.lyrics.helper.Helper.getCreator;
 import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
+import static com.flipkart.lyrics.helper.Injector.*;
 
 /**
  * Created by shrey.garg on 27/11/16.
@@ -48,6 +50,7 @@ public class Song {
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);
         processParameterTypeHandlerSet(tune, metaInfo);
+        processFieldAdditionalHandlers(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
@@ -55,32 +58,5 @@ public class Song {
                 .skipJavaLangImports(true)
                 .build();
         javaFile.writeTo(targetFolder);
-    }
-
-    private HandlerSet processHandlerSet(Tune tune, MetaInfo metaInfo, RuleSet ruleSet) {
-        HandlerSet handlerSet = tune.getHandlerSet();
-        handlerSet.setMetaInfo(metaInfo);
-        handlerSet.setRuleSet(ruleSet);
-        handlerSet.setTune(tune);
-        return handlerSet;
-    }
-
-    private RuleSet processRuleSet(Tune tune, MetaInfo metaInfo) {
-        RuleSet ruleSet = tune.getRuleSet();
-        ruleSet.setTune(tune);
-        ruleSet.setMetaInfo(metaInfo);
-        return ruleSet;
-    }
-
-    private void processFieldTypeHandlerSet(Tune tune, MetaInfo metaInfo) {
-        FieldTypeHandlerSet fieldTypeHandlerSet = tune.getFieldTypeHandlerSet();
-        fieldTypeHandlerSet.setMetaInfo(metaInfo);
-        fieldTypeHandlerSet.setTune(tune);
-    }
-
-    private void processParameterTypeHandlerSet(Tune tune, MetaInfo metaInfo) {
-        ParameterTypeHandlerSet parameterTypeHandlerSet = tune.getParameterTypeHandlerSet();
-        parameterTypeHandlerSet.setMetaInfo(metaInfo);
-        parameterTypeHandlerSet.setTune(tune);
     }
 }

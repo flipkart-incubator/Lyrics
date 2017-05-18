@@ -6,7 +6,7 @@
 
     <groupId>com.flipkart.rome</groupId>
     <artifactId>lyrics</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 
     <name>Lyrics</name>
 
@@ -82,7 +82,7 @@
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>5.0.0-M2</version>
+                <version>5.0.0-M3</version>
             </dependency>
 
             <dependency>

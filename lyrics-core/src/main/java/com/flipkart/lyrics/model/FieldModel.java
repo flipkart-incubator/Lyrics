@@ -16,7 +16,12 @@
 
 package com.flipkart.lyrics.model;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 import javax.lang.model.element.Modifier;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by shrey.garg on 25/11/16.
@@ -35,6 +40,7 @@ public class FieldModel {
     private boolean excludeFromEqualsAndHashCode;
     private InitializerModel initializeWith;
     private boolean deprecated;
+    private final Map<String, Object> additionalFields = new HashMap<>();
 
     public FieldModel() {
     }
@@ -105,5 +111,15 @@ public class FieldModel {
 
     public boolean isDeprecated() {
         return deprecated;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+        return additionalFields;
+    }
+
+    @JsonAnySetter
+    public void addAdditionalProperties(String name, Object value) {
+        this.additionalFields.put(name, value);
     }
 }

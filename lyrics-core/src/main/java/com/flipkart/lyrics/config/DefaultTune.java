@@ -23,6 +23,7 @@ import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 import com.squareup.javapoet.TypeSpec;
@@ -44,6 +45,7 @@ public class DefaultTune implements Tune {
     private final List<ValidationAnnotatorStyle> validationAnnotatorStyles = new ArrayList<>();
     private final ObjectMethodsStyle objectMethodsStyle = null;
     private final Set<VariableModel> interfaces = new HashSet<>();
+    private final Map<String, FieldAdditionalHandler> fieldAdditionalHandlerMap = new HashMap<>();
 
     @Override
     public Modifier getDefaultFieldModifier() {
@@ -118,6 +120,11 @@ public class DefaultTune implements Tune {
     @Override
     public Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler() {
         return null;
+    }
+
+    @Override
+    public Map<String, FieldAdditionalHandler> getFieldsAdditionalPropertiesHandler() {
+        return fieldAdditionalHandlerMap;
     }
 
     @Override

@@ -1,3 +1,7 @@
+## 0.3.0  (May 19, 2017)
+### CORE
+- Added support for user handling of additional properties in FieldModel
+
 ## 0.2.0  (May 18, 2017)
 ### CORE
 - Added support for field initializations
