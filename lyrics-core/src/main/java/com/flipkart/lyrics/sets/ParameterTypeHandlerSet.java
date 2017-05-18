@@ -60,11 +60,11 @@ public abstract class ParameterTypeHandlerSet {
     public abstract ParameterTypeHandler getEnumTypeHandler();
 
     public final void setTune(Tune tune) {
-        this.tune = tune;
+        this.tune = this.tune == null ? tune : this.tune;
     }
 
     public final void setMetaInfo(MetaInfo metaInfo) {
-        this.metaInfo = metaInfo;
+        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
     }
 
 }

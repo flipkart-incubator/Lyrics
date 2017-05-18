@@ -139,23 +139,23 @@ public abstract class HandlerSet {
         return tune;
     }
 
-    public void setTune(Tune tune) {
-        this.tune = tune;
+    public final void setTune(Tune tune) {
+        this.tune = this.tune == null ? tune : this.tune;
     }
 
     public MetaInfo getMetaInfo() {
         return metaInfo;
     }
 
-    public void setMetaInfo(MetaInfo metaInfo) {
-        this.metaInfo = metaInfo;
+    public final void setMetaInfo(MetaInfo metaInfo) {
+        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
     }
 
     public RuleSet getRuleSet() {
         return ruleSet;
     }
 
-    public void setRuleSet(RuleSet ruleSet) {
-        this.ruleSet = ruleSet;
+    public final void setRuleSet(RuleSet ruleSet) {
+        this.ruleSet = this.ruleSet == null ? ruleSet : this.ruleSet;
     }
 }

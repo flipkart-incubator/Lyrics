@@ -24,13 +24,19 @@ import com.squareup.javapoet.FieldSpec;
  * Created by shrey.garg on 13/05/17.
  */
 public abstract class FieldAdditionalHandler {
-    protected final Tune tune;
-    protected final MetaInfo metaInfo;
+    protected Tune tune;
+    protected MetaInfo metaInfo;
 
-    public FieldAdditionalHandler(Tune tune, MetaInfo metaInfo) {
-        this.tune = tune;
-        this.metaInfo = metaInfo;
+    public FieldAdditionalHandler() {
     }
 
     public abstract boolean process(FieldSpec.Builder fieldBuilder, String key, Object value);
+
+    public final void setTune(Tune tune) {
+        this.tune = this.tune == null ? tune : this.tune;
+    }
+
+    public final void setMetaInfo(MetaInfo metaInfo) {
+        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
+    }
 }

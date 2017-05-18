@@ -44,10 +44,10 @@ public abstract class FieldTypeHandlerSet {
     public abstract FieldTypeHandler getEnumTypeHandler();
 
     public final void setTune(Tune tune) {
-        this.tune = tune;
+        this.tune = this.tune == null ? tune : this.tune;
     }
 
     public final void setMetaInfo(MetaInfo metaInfo) {
-        this.metaInfo = metaInfo;
+        this.metaInfo = this.metaInfo == null ? metaInfo : this.metaInfo;
     }
 }

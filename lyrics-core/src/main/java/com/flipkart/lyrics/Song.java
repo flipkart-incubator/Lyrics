@@ -48,6 +48,7 @@ public class Song {
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);
         processParameterTypeHandlerSet(tune, metaInfo);
+        processFieldAdditionalHandlers(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
@@ -82,5 +83,12 @@ public class Song {
         ParameterTypeHandlerSet parameterTypeHandlerSet = tune.getParameterTypeHandlerSet();
         parameterTypeHandlerSet.setMetaInfo(metaInfo);
         parameterTypeHandlerSet.setTune(tune);
+    }
+
+    private void processFieldAdditionalHandlers(Tune tune, MetaInfo metaInfo) {
+        tune.getFieldsAdditionalPropertiesHandler().values().forEach(h -> {
+            h.setTune(tune);
+            h.setMetaInfo(metaInfo);
+        });
     }
 }
