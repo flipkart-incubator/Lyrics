@@ -1,6 +1,7 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
@@ -18,6 +19,7 @@ import javax.lang.model.element.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -45,6 +47,53 @@ public class FieldsHandlerTest {
 
         FieldsHandler handler = new FieldsHandler(tune, metaInfo, ruleSet);
         handler.process(typeBuilder, typeModel);
+
+        TypeSpec typeSpec = typeBuilder.build();
+
+        assertEquals(1, typeSpec.fieldSpecs.size(), "Only one field should be present");
+        assertEquals("one", typeSpec.fieldSpecs.get(0).name, "Field should have the expected name");
+
+        assertEquals(2, typeSpec.methodSpecs.size(), "Getters and setters should be present");
+        assertEquals(getGetterSetterName("one", false, false, false), typeSpec.methodSpecs.get(0).name, "Getter should be first");
+        assertEquals(getGetterSetterName("one", true, false, false), typeSpec.methodSpecs.get(1).name, "Setter should be second");
     }
+
+    @Test
+    public void testMultipleFields(@TuneProvider Tune tune) {
+        RuleSet ruleSet = new DefaultRuleSet(tune, metaInfo);
+        TypeSpec.Builder typeBuilder = TypeSpec.classBuilder("Sample");
+
+        Map<String, FieldModel> fieldModels = new HashMap<>();
+        FieldModel fieldModel = mock(FieldModel.class);
+        when(fieldModel.getFieldType()).thenReturn(FieldType.STRING);
+        when(fieldModel.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+
+        FieldModel fieldModelTwo = mock(FieldModel.class);
+        when(fieldModelTwo.getFieldType()).thenReturn(FieldType.STRING);
+        when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+
+        fieldModels.put("one", fieldModel);
+        fieldModels.put("two", fieldModelTwo);
+
+        TypeModel typeModel = mock(TypeModel.class);
+        Mockito.when(typeModel.getFields()).thenReturn(fieldModels);
+
+        FieldsHandler handler = new FieldsHandler(tune, metaInfo, ruleSet);
+        handler.process(typeBuilder, typeModel);
+
+        TypeSpec typeSpec = typeBuilder.build();
+
+        assertEquals(2, typeSpec.fieldSpecs.size(), "Only two fields should be present");
+        assertEquals("one", typeSpec.fieldSpecs.get(0).name, "First field should have the expected name");
+        assertEquals("two", typeSpec.fieldSpecs.get(1).name, "Second field should have the expected name");
+
+        assertEquals(4, typeSpec.methodSpecs.size(), "Getters and setters should be present");
+        assertEquals(getGetterSetterName("one", false, false, false), typeSpec.methodSpecs.get(0).name, "Getter should be first");
+        assertEquals(getGetterSetterName("one", true, false, false), typeSpec.methodSpecs.get(1).name, "Setter should be second");
+
+        assertEquals(getGetterSetterName("two", false, false, false), typeSpec.methodSpecs.get(2).name, "Getter should be first");
+        assertEquals(getGetterSetterName("two", true, false, false), typeSpec.methodSpecs.get(3).name, "Setter should be second");
+    }
+
 
 }
