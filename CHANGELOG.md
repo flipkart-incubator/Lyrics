@@ -1,4 +1,4 @@
-## 0.3.0  (May 19, 2017)
+## 0.3.0  (May 24, 2017)
 ### CORE
 - Added support for user handling of additional properties in FieldModel
 
