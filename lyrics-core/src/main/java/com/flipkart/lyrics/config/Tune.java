@@ -24,6 +24,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
+import com.flipkart.lyrics.processor.types.TypeAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 import com.squareup.javapoet.TypeSpec;
@@ -67,6 +68,8 @@ public interface Tune {
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();
 
     Map<String, FieldAdditionalHandler> getFieldsAdditionalPropertiesHandler();
+
+    Map<String, TypeAdditionalHandler> getTypeAdditionalPropertiesHandler();
 
     CreatorSet getCreatorSet();
 

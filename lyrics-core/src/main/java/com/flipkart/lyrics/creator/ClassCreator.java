@@ -50,6 +50,8 @@ public class ClassCreator extends TypeCreator {
         ruleSet.getGlobalDeprecatedRule().process(typeBuilder, typeModel);
         ruleSet.getPropertyOrderRule().process(typeBuilder, typeModel);
 
+        handleAdditionalProperties(handlerSet.getTune(), typeBuilder, typeModel);
+
         return typeBuilder;
     }
 
