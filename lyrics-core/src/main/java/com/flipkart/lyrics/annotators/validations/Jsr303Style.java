@@ -39,8 +39,8 @@ public class Jsr303Style extends ValidationAnnotatorStyle {
     }
 
     @Override
-    public void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder param) {
-        methodSpec.addAnnotation(NotNull.class);
+    public void processRequiredRuleForSetters(MethodSpec.Builder methodSpec, FieldModel fieldModel, ParameterSpec.Builder parameterSpec) {
+        parameterSpec.addAnnotation(NotNull.class);
     }
 
     @Override

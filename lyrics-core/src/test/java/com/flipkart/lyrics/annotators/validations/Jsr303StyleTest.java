@@ -16,44 +16,137 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
+import com.flipkart.lyrics.model.FieldModel;
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import javax.validation.constraints.NotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by shrey.garg on 07/06/17.
  */
-class Jsr303StyleTest {
+public class Jsr303StyleTest {
+
     @Test
-    void processRequiredRule() {
+    public void testRequiredRule() {
+        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processRequiredRule(builder, model);
+
+        FieldSpec fieldSpec = builder.build();
+        assertEquals("test", fieldSpec.name);
+        assertEquals(1, fieldSpec.annotations.size());
+
+        AnnotationSpec requiredAnnotation = fieldSpec.annotations.get(0);
+        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
-    void processRequiredRuleForGetters() {
+    public void processRequiredRuleForGetters() {
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processRequiredRuleForGetters(builder, model);
+
+        MethodSpec methodSpec = builder.build();
+        assertEquals("test", methodSpec.name);
+        assertEquals(1, methodSpec.annotations.size());
+
+        AnnotationSpec requiredAnnotation = methodSpec.annotations.get(0);
+        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
-    void processRequiredRuleForSetters() {
+    public void processRequiredRuleForSetters() {
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
+        ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processRequiredRuleForSetters(builder, model, parameterBuilder);
+
+        MethodSpec methodSpec = builder.build();
+        assertEquals("test", methodSpec.name);
+        assertEquals(0, methodSpec.annotations.size());
+
+        ParameterSpec parameterSpec = parameterBuilder.build();
+        assertEquals("one", parameterSpec.name);
+        assertEquals(1, parameterSpec.annotations.size());
+
+        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
+        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
-    void processNotRequiredRule() {
+    public void processNotRequiredRule() {
+        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processNotRequiredRule(builder, model);
+
+        FieldSpec fieldSpec = builder.build();
+        assertEquals("test", fieldSpec.name);
+        assertEquals(0, fieldSpec.annotations.size());
     }
 
     @Test
-    void processNotRequiredRuleForGetters() {
+    public void processNotRequiredRuleForGetters() {
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processNotRequiredRuleForGetters(builder, model);
+
+        MethodSpec methodSpec = builder.build();
+        assertEquals("test", methodSpec.name);
+        assertEquals(0, methodSpec.annotations.size());
     }
 
     @Test
-    void processNotRequiredRuleForSetters() {
+    public void processNotRequiredRuleForSetters() {
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
+        ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
+        FieldModel model = mock(FieldModel.class);
+
+        new Jsr303Style().processNotRequiredRuleForSetters(builder, model, parameterBuilder);
+
+        MethodSpec methodSpec = builder.build();
+        assertEquals("test", methodSpec.name);
+        assertEquals(0, methodSpec.annotations.size());
+
+        ParameterSpec parameterSpec = parameterBuilder.build();
+        assertEquals("one", parameterSpec.name);
+        assertEquals(0, parameterSpec.annotations.size());
     }
 
     @Test
-    void processRequiredRuleForConstructor() {
+    public void processRequiredRuleForConstructor() {
+        ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
+
+        new Jsr303Style().processRequiredRuleForConstructor(parameterBuilder);
+
+        ParameterSpec parameterSpec = parameterBuilder.build();
+        assertEquals("one", parameterSpec.name);
+        assertEquals(1, parameterSpec.annotations.size());
+
+        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
+        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
-    void processNotRequiredRuleForConstructor() {
+    public void processNotRequiredRuleForConstructor() {
+        ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
+
+        new Jsr303Style().processNotRequiredRuleForConstructor(parameterBuilder);
+
+        ParameterSpec parameterSpec = parameterBuilder.build();
+        assertEquals("one", parameterSpec.name);
+        assertEquals(0, parameterSpec.annotations.size());
     }
 
 }
