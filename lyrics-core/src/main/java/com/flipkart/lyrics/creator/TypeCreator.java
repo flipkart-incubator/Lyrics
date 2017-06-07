@@ -31,8 +31,8 @@ public abstract class TypeCreator {
 
     protected void handleAdditionalProperties(Tune tune, TypeSpec.Builder typeBuilder, TypeModel typeModel) {
         tune.getTypeAdditionalPropertiesHandler().forEach((key, processor) -> {
-            Optional.ofNullable(typeModel.getAdditionalFields().get(key)).ifPresent(o ->
-                    processor.process(typeBuilder, key, o)
+            Optional.ofNullable(typeModel.getAdditionalFields().get(key)).ifPresent(value ->
+                    processor.process(typeBuilder, key, value)
             );
         });
     }
