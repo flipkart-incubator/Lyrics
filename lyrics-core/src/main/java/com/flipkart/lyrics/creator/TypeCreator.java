@@ -16,13 +16,24 @@
 
 package com.flipkart.lyrics.creator;
 
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.squareup.javapoet.TypeSpec;
+
+import java.util.Optional;
 
 /**
  * Created by shrey.garg on 27/11/16.
  */
 public abstract class TypeCreator {
     public abstract TypeSpec.Builder process(HandlerSet handlerSet, TypeModel typeModel);
+
+    protected void handleAdditionalProperties(Tune tune, TypeSpec.Builder typeBuilder, TypeModel typeModel) {
+        tune.getTypeAdditionalPropertiesHandler().forEach((key, processor) -> {
+            Optional.ofNullable(typeModel.getAdditionalFields().get(key)).ifPresent(value ->
+                    processor.process(typeBuilder, key, value)
+            );
+        });
+    }
 }

@@ -51,6 +51,7 @@ public class Song {
         processFieldTypeHandlerSet(tune, metaInfo);
         processParameterTypeHandlerSet(tune, metaInfo);
         processFieldAdditionalHandlers(tune, metaInfo);
+        processTypeAdditionalHandlers(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
