@@ -16,15 +16,24 @@
 
 package com.flipkart.lyrics.helper;
 
+import com.squareup.javapoet.ClassName;
 import org.junit.jupiter.api.Test;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by shrey.garg on 18/05/17.
  */
 public class HelperTest {
+
+    @Test
+    public void testGetClassName() {
+        String name = "com.flipkart.lyrics.Test";
+        ClassName className = Helper.getClassName(name);
+        assertEquals("com.flipkart.lyrics", className.packageName());
+        assertEquals("Test", className.simpleName());
+    }
 
     @Test
     public void testNormalGetterName() {
