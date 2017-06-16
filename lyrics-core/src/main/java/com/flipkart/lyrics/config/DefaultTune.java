@@ -24,6 +24,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
+import com.flipkart.lyrics.processor.fields.FieldModificationHandler;
 import com.flipkart.lyrics.processor.types.TypeAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
@@ -48,6 +49,7 @@ public class DefaultTune implements Tune {
     private final Set<VariableModel> interfaces = new HashSet<>();
     private final Map<String, FieldAdditionalHandler> fieldAdditionalHandlerMap = new HashMap<>();
     private final Map<String, TypeAdditionalHandler> typeAdditionalHandlerMap = new HashMap<>();
+    private final Map<String, FieldModificationHandler> fieldModificationHandlers = new HashMap<>();
 
     @Override
     public Modifier getDefaultFieldModifier() {
@@ -127,6 +129,11 @@ public class DefaultTune implements Tune {
     @Override
     public Map<String, FieldAdditionalHandler> getFieldsAdditionalPropertiesHandler() {
         return fieldAdditionalHandlerMap;
+    }
+
+    @Override
+    public Map<String, FieldModificationHandler> getFieldModificationHandlers() {
+        return fieldModificationHandlers;
     }
 
     @Override

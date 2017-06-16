@@ -1,3 +1,8 @@
+## 0.4.0 (W.I.P)  (May 14, 2017)
+### CORE
+- Added support for user handling of additional properties in TypeModel
+- Added support for replacing a Field that is being constructed based on user defined logic
+
 ## 0.3.0  (May 24, 2017)
 ### CORE
 - Added support for user handling of additional properties in FieldModel

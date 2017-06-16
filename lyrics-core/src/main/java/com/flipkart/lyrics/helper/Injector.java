@@ -68,4 +68,11 @@ public class Injector {
             h.setMetaInfo(metaInfo);
         });
     }
+
+    public static void processFieldModificationHandlers(Tune tune, MetaInfo metaInfo) {
+        tune.getFieldModificationHandlers().values().forEach(h -> {
+            h.setTune(tune);
+            h.setMetaInfo(metaInfo);
+        });
+    }
 }

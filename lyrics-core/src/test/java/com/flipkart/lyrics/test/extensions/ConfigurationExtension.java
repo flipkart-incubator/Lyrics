@@ -100,6 +100,7 @@ public class ConfigurationExtension implements ParameterResolver {
         processParameterTypeHandlerSet(tune, null);
         processFieldAdditionalHandlers(tune, null);
         processTypeAdditionalHandlers(tune, null);
+        processFieldModificationHandlers(tune, null);
         return tune;
     }
 
