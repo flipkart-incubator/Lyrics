@@ -19,6 +19,7 @@ package com.flipkart.lyrics.config;
 import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.helper.TriConsumer;
+import com.flipkart.lyrics.interfaces.contract.Factory;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
@@ -86,4 +87,5 @@ public interface Tune {
 
     List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
+    Factory createFactory();
 }

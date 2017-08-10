@@ -46,15 +46,21 @@ public class GetterHandler {
 
     public void process(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
         String methodName = getGetterSetterName(fieldSpec.name, false, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
+
+        com.flipkart.lyrics.interfaces.MethodSpec.Builder methodBuilder = com.flipkart.lyrics.interfaces.MethodSpec.methodBuilder(methodName)
+                .addModifiers(com.flipkart.lyrics.Modifier.PUBLIC)
+                .returns(fieldSpec.type)
+                .addStatement("return $L", fieldSpec.name);
+
         MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
                 .addStatement("return $L", fieldSpec.name);
 
-        ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
-        ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
+        //ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
+        //ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
 
-        typeBuilder.addMethod(builder.build());
+        typeBuilder.addMethod((MethodSpec) methodBuilder.build().getMethodSpec());
     }
 
 }
