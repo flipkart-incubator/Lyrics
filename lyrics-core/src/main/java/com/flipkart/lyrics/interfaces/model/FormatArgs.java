@@ -4,8 +4,8 @@ package com.flipkart.lyrics.interfaces.model;
  * @author kushal.sharma on 10/08/17.
  */
 public class FormatArgs {
-    String format;
-    Object[] args;
+    private String format;
+    private Object[] args;
 
     public FormatArgs(String format, Object... args) {
         this.format = format;

@@ -16,10 +16,10 @@
 
 package com.flipkart.lyrics.creator;
 
+import com.flipkart.lyrics.interfaces.AnnotationSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.TypeSpec;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

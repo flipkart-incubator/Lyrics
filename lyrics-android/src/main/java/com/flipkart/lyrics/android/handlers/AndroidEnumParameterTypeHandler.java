@@ -17,11 +17,11 @@
 package com.flipkart.lyrics.android.handlers;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.ParameterSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.processor.constructors.ParameterTypeHandler;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 03/02/17.
@@ -36,5 +36,4 @@ public class AndroidEnumParameterTypeHandler extends ParameterTypeHandler {
     public ParameterSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         return ParameterSpec.builder(String.class, key);
     }
-
 }

@@ -17,13 +17,12 @@
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.interfaces.contract.Factory;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,10 +55,6 @@ public class Song {
         factory = tune.createFactory();
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
-        JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
-                .indent("    ")
-                .skipJavaLangImports(true)
-                .build();
-        javaFile.writeTo(targetFolder);
+        typeBuilder.build().writeToFile(fullPackage, targetFolder);
     }
 }

@@ -16,9 +16,9 @@
 
 package com.flipkart.lyrics.creator;
 
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 23/01/17.
@@ -41,5 +41,4 @@ public class InterfaceCreator extends TypeCreator {
 
         return typeBuilder;
     }
-
 }

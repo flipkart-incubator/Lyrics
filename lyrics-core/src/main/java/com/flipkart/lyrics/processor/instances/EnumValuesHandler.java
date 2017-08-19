@@ -17,11 +17,11 @@
 package com.flipkart.lyrics.processor.instances;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
 
 import java.util.List;
 
@@ -42,5 +42,4 @@ public class EnumValuesHandler extends Handler {
             typeBuilder.addEnumConstant(key);
         }
     }
-
 }

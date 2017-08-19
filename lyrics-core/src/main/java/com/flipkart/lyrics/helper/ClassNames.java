@@ -16,7 +16,8 @@
 
 package com.flipkart.lyrics.helper;
 
-import com.squareup.javapoet.ClassName;
+
+import com.flipkart.lyrics.interfaces.typenames.ClassName;
 
 /**
  * Created by shrey.garg on 30/11/16.

@@ -17,15 +17,14 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
-
-import javax.lang.model.element.Modifier;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
 
@@ -47,20 +46,14 @@ public class GetterHandler {
     public void process(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
         String methodName = getGetterSetterName(fieldSpec.name, false, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
 
-        com.flipkart.lyrics.interfaces.MethodSpec.Builder methodBuilder = com.flipkart.lyrics.interfaces.MethodSpec.methodBuilder(methodName)
-                .addModifiers(com.flipkart.lyrics.Modifier.PUBLIC)
-                .returns(fieldSpec.type)
-                .addStatement("return $L", fieldSpec.name);
-
         MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(fieldSpec.type)
                 .addStatement("return $L", fieldSpec.name);
 
-        //ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
-        //ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
+        ruleSet.getGetterRequiredRule().process(builder, fieldModel, null);
+        ruleSet.getGetterNotRequiredRule().process(builder, fieldModel, null);
 
-        typeBuilder.addMethod((MethodSpec) methodBuilder.build().getMethodSpec());
+        typeBuilder.addMethod(builder.build());
     }
-
 }

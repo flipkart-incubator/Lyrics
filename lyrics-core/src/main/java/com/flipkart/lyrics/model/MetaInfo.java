@@ -1,6 +1,7 @@
 package com.flipkart.lyrics.model;
 
-import com.squareup.javapoet.TypeVariableName;
+
+import com.flipkart.lyrics.interfaces.typenames.TypeVariableName;
 
 import java.util.HashMap;
 import java.util.Map;

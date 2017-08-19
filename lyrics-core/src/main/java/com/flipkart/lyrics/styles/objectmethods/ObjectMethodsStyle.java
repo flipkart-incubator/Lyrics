@@ -16,9 +16,8 @@
 
 package com.flipkart.lyrics.styles.objectmethods;
 
+import com.flipkart.lyrics.interfaces.MethodSpec;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
 
 import java.util.List;
 
@@ -30,5 +29,4 @@ public abstract class ObjectMethodsStyle {
     public abstract void processToString(MethodSpec.Builder toStringBuilder, List<String> nonStaticFields, MetaInfo metaInfo);
 
     public abstract void processEqualsAndHashCode(MethodSpec.Builder equalsBuilder, MethodSpec.Builder hashCodeBuilder, List<String> nonStaticFields, MetaInfo metaInfo, boolean testSuperEquality);
-
 }

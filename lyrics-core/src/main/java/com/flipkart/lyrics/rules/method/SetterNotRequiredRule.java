@@ -1,11 +1,10 @@
 package com.flipkart.lyrics.rules.method;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.ParameterSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.flipkart.lyrics.rules.method.MethodRule;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 
 /**
  * Created by shrey.garg on 10/01/17.
@@ -24,5 +23,4 @@ public class SetterNotRequiredRule extends MethodRule {
 
         tune.getValidationAnnotatorStyles().forEach(style -> style.processNotRequiredRuleForSetters(methodSpec, fieldModel, parameterSpec));
     }
-
 }

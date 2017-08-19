@@ -16,10 +16,10 @@
 
 package com.flipkart.lyrics.annotators;
 
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 03/01/17.
@@ -35,5 +35,4 @@ public abstract class AnnotatorStyle {
     public abstract void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
 
     public abstract void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
-
 }

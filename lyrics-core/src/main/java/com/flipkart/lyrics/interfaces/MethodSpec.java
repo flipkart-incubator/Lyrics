@@ -1,9 +1,9 @@
 package com.flipkart.lyrics.interfaces;
 
-import com.flipkart.lyrics.Modifier;
 import com.flipkart.lyrics.Song;
-import com.flipkart.lyrics.interfaces.model.ClassName;
-import com.flipkart.lyrics.interfaces.model.TypeName;
+import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.interfaces.typenames.TypeName;
 
 import java.lang.reflect.Type;
 
@@ -11,10 +11,7 @@ import java.lang.reflect.Type;
  * @author kushal.sharma on 09/08/17.
  */
 public class MethodSpec {
-    protected MethodSpec() { }
-
-    public Object getMethodSpec() {
-        return null;
+    protected MethodSpec() {
     }
 
     public static Builder methodBuilder(String name) {
@@ -25,6 +22,9 @@ public class MethodSpec {
         return Song.factory.createConstructorBuilder();
     }
 
+    public Object getMethodSpec() {
+        return null;
+    }
 
     public static abstract class Builder {
         public String name;

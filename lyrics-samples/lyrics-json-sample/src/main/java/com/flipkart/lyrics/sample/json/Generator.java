@@ -1,6 +1,5 @@
 package com.flipkart.lyrics.sample.json;
 
-import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.json.Lyrics;
 
@@ -12,7 +11,7 @@ import java.io.File;
 public class Generator {
 
     public static void main(String[] args) {
-        Tune tune = new DefaultTune();
+        Tune tune = new TestTune();
 
         File target = new File(Generator.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
         File generatedSources = new File(target, "generated-sources");

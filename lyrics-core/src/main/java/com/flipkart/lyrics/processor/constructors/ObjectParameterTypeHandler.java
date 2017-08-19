@@ -17,10 +17,10 @@
 package com.flipkart.lyrics.processor.constructors;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.ParameterSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.processType;
 

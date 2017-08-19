@@ -17,12 +17,12 @@
 package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.typenames.TypeName;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
 

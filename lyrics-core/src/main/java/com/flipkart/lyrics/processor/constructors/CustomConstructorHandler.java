@@ -17,12 +17,12 @@
 package com.flipkart.lyrics.processor.constructors;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.RuleSet;
 
-import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

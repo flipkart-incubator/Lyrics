@@ -65,5 +65,4 @@ public class DefaultFieldTypeHandlerSet extends FieldTypeHandlerSet {
     public FieldTypeHandler getEnumTypeHandler() {
         return new ObjectTypeHandler(tune, metaInfo);
     }
-
 }

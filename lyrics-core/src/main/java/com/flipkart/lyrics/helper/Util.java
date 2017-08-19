@@ -1,5 +1,8 @@
 package com.flipkart.lyrics.helper;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ public class Util {
             StringBuilder result = new StringBuilder();
             result.append(parts.get(0));
 
-            for(int i = 1; i < parts.size(); ++i) {
+            for (int i = 1; i < parts.size(); ++i) {
                 result.append(separator).append(parts.get(i));
             }
 
@@ -33,5 +36,9 @@ public class Util {
         } else {
             return reference;
         }
+    }
+
+    public static <T> List<T> immutableList(Collection<T> collection) {
+        return Collections.unmodifiableList(new ArrayList<>(collection));
     }
 }

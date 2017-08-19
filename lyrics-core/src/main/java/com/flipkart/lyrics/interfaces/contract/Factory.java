@@ -1,9 +1,9 @@
 package com.flipkart.lyrics.interfaces.contract;
 
-import com.flipkart.lyrics.Modifier;
 import com.flipkart.lyrics.interfaces.*;
-import com.flipkart.lyrics.interfaces.model.Kind;
-import com.flipkart.lyrics.interfaces.model.TypeName;
+import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.interfaces.typenames.TypeName;
 
 /**
  * @author kushal.sharma on 09/08/17.
@@ -13,19 +13,23 @@ public interface Factory {
 
     MethodSpec.Builder createMethodBuilder(String name);
 
-    AnnotationSpec.Builder createAnnotation(Class annotationClass);
+    AnnotationSpec.Builder createAnnotationBuilder(Class clazz);
 
-    TypeSpec.Builder createClassBuilder(Kind kind, String name);
+    AnnotationSpec.Builder createAnnotationBuilder(ClassName className);
 
-    TypeSpec.Builder createAnnotationBuilder(Kind kind, String name);
+    TypeSpec.Builder createClassBuilder(String name);
 
-    TypeSpec.Builder createInterfaceBuilder(Kind kind, String name);
+    TypeSpec.Builder createAnnotationBuilder(String name);
 
-    TypeSpec.Builder createEnumBuilder(Kind kind, String name);
+    TypeSpec.Builder createInterfaceBuilder(String name);
 
-    TypeSpec.Builder createAnonymousClassBuilder(String name);
+    TypeSpec.Builder createEnumBuilder(String name);
+
+    TypeSpec.Builder createAnonymousClassBuilder(String typeArgumentsFormat, Object... args);
 
     FieldSpec.Builder createFieldBuilder(TypeName typeName, String name, Modifier[] modifiers);
 
     ParameterSpec.Builder createParameterBuilder(TypeName typeName, String name, Modifier[] modifiers);
+
+    ParameterSpec.Builder createParameterBuilder(Class<?> clazz, String name, Modifier[] modifiers);
 }

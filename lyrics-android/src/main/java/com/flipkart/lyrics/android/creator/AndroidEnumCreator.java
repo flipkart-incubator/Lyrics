@@ -17,10 +17,10 @@
 package com.flipkart.lyrics.android.creator;
 
 import com.flipkart.lyrics.creator.TypeCreator;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.Type;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 15/01/17.
@@ -46,5 +46,4 @@ public class AndroidEnumCreator extends TypeCreator {
 
         return typeBuilder;
     }
-
 }

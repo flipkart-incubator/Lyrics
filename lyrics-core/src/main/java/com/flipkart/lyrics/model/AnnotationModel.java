@@ -44,5 +44,4 @@ public class AnnotationModel {
     public Map<String, String> getMembers() {
         return members;
     }
-
 }

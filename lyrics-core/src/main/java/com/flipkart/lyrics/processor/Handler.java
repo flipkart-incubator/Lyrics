@@ -17,13 +17,10 @@
 package com.flipkart.lyrics.processor;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-
-import java.util.Map;
 
 /**
  * Created by shrey.garg on 31/12/16.
