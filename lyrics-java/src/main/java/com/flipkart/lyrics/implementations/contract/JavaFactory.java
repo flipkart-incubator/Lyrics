@@ -12,10 +12,12 @@ import com.flipkart.lyrics.interfaces.typenames.TypeName;
  * @author kushal.sharma on 09/08/17.
  */
 public class JavaFactory implements Factory {
+    @Override
     public MethodSpec.Builder createConstructorBuilder() {
         return new JavaMethodSpec.Builder();
     }
 
+    @Override
     public MethodSpec.Builder createMethodBuilder(String name) {
         return new JavaMethodSpec.Builder(name);
     }

@@ -1,9 +1,14 @@
 package com.flipkart.lyrics.interfaces;
 
 import com.flipkart.lyrics.Song;
+import com.flipkart.lyrics.interfaces.model.FormatArgs;
 import com.flipkart.lyrics.interfaces.typenames.ClassName;
 import com.flipkart.lyrics.interfaces.typenames.Modifier;
 import com.flipkart.lyrics.interfaces.typenames.TypeName;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author kushal.sharma on 10/08/17.
@@ -11,10 +16,22 @@ import com.flipkart.lyrics.interfaces.typenames.TypeName;
 public class FieldSpec {
     public final String name;
     public final TypeName type;
+    public final Modifier[] modifier;
+    public final FormatArgs initializer;
+    public final List<Modifier> modifiers = new ArrayList<>();
+    public final List<ClassName> classNames = new ArrayList<>();
+    public final List<Class<?>> annotationClasses = new ArrayList<>();
+    public final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
 
-    protected FieldSpec(Builder builder) {
+
+    public FieldSpec(Builder builder) {
         this.name = builder.name;
         this.type = builder.type;
+        this.modifier = builder.modifier;
+        this.initializer = builder.initializer;
+        this.classNames.addAll(builder.classNames);
+        this.annotationClasses.addAll(builder.annotationClasses);
+        this.annotationSpecs.addAll(builder.annotationSpecs);
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -26,9 +43,14 @@ public class FieldSpec {
     }
 
     public static abstract class Builder {
-        public TypeName type;
-        public String name;
-        public Modifier[] modifier;
+        private final String name;
+        private final TypeName type;
+        private final Modifier[] modifier;
+        private FormatArgs initializer;
+        private final List<Modifier> modifiers = new ArrayList<>();
+        private final List<ClassName> classNames = new ArrayList<>();
+        private final List<Class<?>> annotationClasses = new ArrayList<>();
+        private final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
 
         public Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;
@@ -36,15 +58,30 @@ public class FieldSpec {
             this.modifier = modifiers;
         }
 
-        public abstract Builder initializer(String format, Object... args);
+        public FieldSpec.Builder initializer(String format, Object... args) {
+            this.initializer = new FormatArgs(format, args);
+            return this;
+        }
 
-        public abstract Builder addAnnotation(Class<?> clazz);
+        public FieldSpec.Builder addAnnotation(Class<?> clazz) {
+            this.annotationClasses.add(clazz);
+            return this;
+        }
 
-        public abstract Builder addAnnotation(ClassName className);
+        public FieldSpec.Builder addAnnotation(ClassName className) {
+            this.classNames.add(className);
+            return this;
+        }
 
-        public abstract Builder addAnnotation(AnnotationSpec annotationSpec);
+        public FieldSpec.Builder addAnnotation(AnnotationSpec annotationSpec) {
+            this.annotationSpecs.add(annotationSpec);
+            return this;
+        }
 
-        public abstract Builder addModifiers(Modifier... modifiers);
+        public FieldSpec.Builder addModifiers(Modifier... modifiers) {
+            this.modifiers.addAll(Arrays.asList(modifiers));
+            return this;
+        }
 
         public abstract FieldSpec build();
     }

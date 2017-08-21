@@ -1,13 +1,24 @@
 package com.flipkart.lyrics.interfaces;
 
 import com.flipkart.lyrics.Song;
+import com.flipkart.lyrics.interfaces.model.NameFormatArgs;
 import com.flipkart.lyrics.interfaces.typenames.ClassName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 public class AnnotationSpec {
-    protected AnnotationSpec() {
+    public final Class<?> clazz;
+    public final ClassName className;
+    public final List<NameFormatArgs> members = new ArrayList<>();
+
+    public AnnotationSpec(Builder builder) {
+        this.clazz = builder.clazz;
+        this.className = builder.className;
+        this.members.addAll(builder.members);
     }
 
     public static Builder builder(Class<?> clazz) {
@@ -23,8 +34,9 @@ public class AnnotationSpec {
     }
 
     public static abstract class Builder {
-        public Class<?> clazz;
-        public ClassName className;
+        private Class<?> clazz;
+        private ClassName className;
+        private final List<NameFormatArgs> members = new ArrayList<>();
 
         protected Builder(Class<?> clazz) {
             this.clazz = clazz;
@@ -34,7 +46,10 @@ public class AnnotationSpec {
             this.className = className;
         }
 
-        public abstract Builder addMember(String name, String format, Object... args);
+        public AnnotationSpec.Builder addMember(String name, String format, Object... args) {
+            this.members.add(new NameFormatArgs(name, format, args));
+            return this;
+        }
 
         public abstract AnnotationSpec build();
     }

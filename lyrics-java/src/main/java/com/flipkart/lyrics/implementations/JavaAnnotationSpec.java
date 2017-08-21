@@ -15,11 +15,13 @@ import static com.flipkart.lyrics.helper.JavaHelper.getJavaClassName;
 public class JavaAnnotationSpec extends AnnotationSpec {
     private com.squareup.javapoet.AnnotationSpec.Builder builder;
 
-    public JavaAnnotationSpec(Builder builder) {
-        if (builder.clazz != null) this.builder = com.squareup.javapoet.AnnotationSpec.builder(builder.clazz);
-        if (builder.className != null)
-            this.builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(builder.className));
-        for (NameFormatArgs member : builder.members) {
+    JavaAnnotationSpec(Builder builder) {
+        super(builder);
+
+        if (this.clazz != null) this.builder = com.squareup.javapoet.AnnotationSpec.builder(this.clazz);
+        if (this.className != null) this.builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(this.className));
+
+        for (NameFormatArgs member : this.members) {
             Object[] newArgs = new Object[member.getArgs().length];
             for (int i = 0; i< member.getArgs().length; i++){
                 if (member.getArgs()[i] instanceof ClassName) {
@@ -38,20 +40,12 @@ public class JavaAnnotationSpec extends AnnotationSpec {
     }
 
     public static final class Builder extends AnnotationSpec.Builder {
-        private List<NameFormatArgs> members = new ArrayList<>();
-
         public Builder(Class clazz) {
             super(clazz);
         }
 
         public Builder(ClassName className) {
             super(className);
-        }
-
-        @Override
-        public AnnotationSpec.Builder addMember(String name, String format, Object... args) {
-            this.members.add(new NameFormatArgs(name, format, args));
-            return this;
         }
 
         @Override

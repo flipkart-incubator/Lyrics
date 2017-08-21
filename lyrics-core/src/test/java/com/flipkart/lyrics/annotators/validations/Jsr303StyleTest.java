@@ -1,38 +1,41 @@
-///*
-// * Copyright 2017 Flipkart Internet, pvt ltd.
-// *
-// * Licensed under the Apache License, Version 2.0 (the "License");
-// * you may not use this file except in compliance with the License.
-// * You may obtain a copy of the License at
-// *
-// * http://www.apache.org/licenses/LICENSE-2.0
-// *
-// * Unless required by applicable law or agreed to in writing, software
-// * distributed under the License is distributed on an "AS IS" BASIS,
-// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// * See the License for the specific language governing permissions and
-// * limitations under the License.
-// */
-//
-//package com.flipkart.lyrics.annotators.validations;
-//
-//import com.flipkart.lyrics.model.FieldModel;
-//import com.squareup.javapoet.AnnotationSpec;
-//import com.squareup.javapoet.FieldSpec;
-//import com.squareup.javapoet.MethodSpec;
-//import com.squareup.javapoet.ParameterSpec;
-//import org.junit.jupiter.api.Test;
-//
-//import javax.validation.constraints.NotNull;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.mock;
-//
-///**
-// * Created by shrey.garg on 07/06/17.
-// */
-//public class Jsr303StyleTest {
-//
+/*
+ * Copyright 2017 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.flipkart.lyrics.annotators.validations;
+
+import com.flipkart.lyrics.Song;
+import com.flipkart.lyrics.interfaces.AnnotationSpec;
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.ParameterSpec;
+import com.flipkart.lyrics.interfaces.contract.Factory;
+import com.flipkart.lyrics.model.FieldModel;
+import org.junit.jupiter.api.Test;
+
+import javax.validation.constraints.NotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+/**
+ * Created by shrey.garg on 07/06/17.
+ */
+public class Jsr303StyleTest {
+
 //    @Test
 //    public void testRequiredRule() {
 //        FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
@@ -57,10 +60,10 @@
 //
 //        MethodSpec methodSpec = builder.build();
 //        assertEquals("test", methodSpec.name);
-//        assertEquals(1, methodSpec.annotations.size());
+//        assertEquals(1, methodSpec.annotationClasses.size());
 //
-//        AnnotationSpec requiredAnnotation = methodSpec.annotations.get(0);
-//        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
+//        Class<?> requiredAnnotation = methodSpec.annotationClasses.get(0);
+//        assertEquals(NotNull.class.getName(), requiredAnnotation.getName());
 //    }
 //
 //    @Test
@@ -149,4 +152,4 @@
 //        assertEquals(0, parameterSpec.annotations.size());
 //    }
 //
-//}
+}
