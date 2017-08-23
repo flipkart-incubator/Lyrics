@@ -17,7 +17,11 @@ public class JavaFieldSpec extends FieldSpec {
     JavaFieldSpec(Builder builder) {
         super(builder);
 
-        this.builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifier));
+        if (this.clazz == null) {
+            this.builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifier));
+        } else {
+            this.builder = com.squareup.javapoet.FieldSpec.builder(this.clazz, this.name, getJavaModifiers(this.modifier));
+        }
 
         if (this.initializer != null)
             this.builder.initializer(this.initializer.getFormat(), this.initializer.getArgs());
@@ -43,6 +47,10 @@ public class JavaFieldSpec extends FieldSpec {
     public static final class Builder extends FieldSpec.Builder {
         public Builder(TypeName typeName, String name, Modifier... modifiers) {
             super(typeName, name, modifiers);
+        }
+
+        public Builder(Class<?> clazz, String name, Modifier... modifiers) {
+            super(clazz, name, modifiers);
         }
 
         @Override

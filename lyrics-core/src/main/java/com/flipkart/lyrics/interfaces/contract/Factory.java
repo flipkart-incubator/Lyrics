@@ -29,6 +29,8 @@ public interface Factory {
 
     FieldSpec.Builder createFieldBuilder(TypeName typeName, String name, Modifier[] modifiers);
 
+    FieldSpec.Builder createFieldBuilder(Class<?> clazz, String name, Modifier[] modifiers);
+
     ParameterSpec.Builder createParameterBuilder(TypeName typeName, String name, Modifier[] modifiers);
 
     ParameterSpec.Builder createParameterBuilder(Class<?> clazz, String name, Modifier[] modifiers);

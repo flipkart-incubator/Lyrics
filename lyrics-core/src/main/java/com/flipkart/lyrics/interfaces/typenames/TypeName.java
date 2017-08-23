@@ -154,6 +154,11 @@ public class TypeName {
         return toString().hashCode();
     }
 
+    @Override
+    public String toString() {
+        return keyword;
+    }
+
     /** Returns a type name equivalent to {@code mirror}. */
     public static TypeName get(TypeMirror mirror) {
         return get(mirror, new LinkedHashMap<>());
