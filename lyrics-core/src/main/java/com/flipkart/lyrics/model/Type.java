@@ -24,5 +24,5 @@ public enum Type {
     ENUM,
     ENUM_WITH_FIELDS,
     ANNOTATION,
-    INTERFACE;
+    INTERFACE
 }

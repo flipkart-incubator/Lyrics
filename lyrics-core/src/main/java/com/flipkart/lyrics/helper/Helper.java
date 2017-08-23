@@ -18,15 +18,14 @@ package com.flipkart.lyrics.helper;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.creator.TypeCreator;
+import com.flipkart.lyrics.interfaces.typenames.*;
 import com.flipkart.lyrics.model.*;
 import com.flipkart.lyrics.processor.constructors.ParameterTypeHandler;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
-import com.squareup.javapoet.*;
 
-import javax.lang.model.element.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -132,7 +131,7 @@ public class Helper {
         }
 
         if (tune.forceDefaultFieldModifiers() || (fieldModel.getModifiers().length == 0 && !fieldModel.isPackageVisibility())) {
-            return new Modifier[] { tune.getDefaultFieldModifier() };
+            return new Modifier[]{tune.getDefaultFieldModifier()};
         }
 
         return fieldModel.getModifiers();

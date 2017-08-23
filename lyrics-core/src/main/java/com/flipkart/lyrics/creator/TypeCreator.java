@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.creator;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
-import com.squareup.javapoet.TypeSpec;
 
 import java.util.Optional;
 

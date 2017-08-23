@@ -16,10 +16,10 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.ParameterSpec;
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;

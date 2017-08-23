@@ -31,5 +31,4 @@ public class DefaultCreatorSet extends CreatorSet {
     public TypeCreator getInterfaceCreator() {
         return new InterfaceCreator();
     }
-
 }

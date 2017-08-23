@@ -18,15 +18,15 @@ package com.flipkart.lyrics.android.handlers;
 
 import com.flipkart.lyrics.android.config.AndroidTune;
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.AnnotationSpec;
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.typenames.TypeName;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.processor.fields.ObjectTypeHandler;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;

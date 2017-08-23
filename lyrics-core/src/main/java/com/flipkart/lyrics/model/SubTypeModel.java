@@ -45,5 +45,4 @@ public class SubTypeModel {
     public Map<String, String> getSubTypeMapping() {
         return subTypeMapping;
     }
-
 }

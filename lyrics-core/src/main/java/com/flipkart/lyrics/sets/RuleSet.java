@@ -43,21 +43,29 @@ public abstract class RuleSet {
      * all of its child classes using {@link com.flipkart.lyrics.model.SubTypeModel} class.
      */
     public abstract TypeRule getSubTypeRule();
+
     public abstract TypeRule getGlobalInclusionRule();
+
     public abstract TypeRule getPropertyOrderRule();
 
     public abstract TypeRule getGlobalDeprecatedRule();
+
     public abstract FieldRule getDeprecatedRule();
 
     public abstract FieldRule getNamedAsRule();
+
     public abstract FieldRule getInclusionRule();
 
     public abstract FieldRule getRequiredRule();
+
     public abstract MethodRule getGetterRequiredRule();
+
     public abstract MethodRule getSetterRequiredRule();
 
     public abstract FieldRule getNotRequiredRule();
+
     public abstract MethodRule getGetterNotRequiredRule();
+
     public abstract MethodRule getSetterNotRequiredRule();
 
     public final void setTune(Tune tune) {

@@ -1,0 +1,9 @@
+{
+  "type": "INTERFACE",
+  "genericVariables": [
+    {
+      "name": "T",
+      "bounds": "com.flipkart.lyrics.sample.userdb.people.Dog"
+    }
+  ]
+}

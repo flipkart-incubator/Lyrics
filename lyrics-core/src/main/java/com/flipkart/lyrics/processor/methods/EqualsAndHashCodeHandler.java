@@ -17,15 +17,15 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
 
-import javax.lang.model.element.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

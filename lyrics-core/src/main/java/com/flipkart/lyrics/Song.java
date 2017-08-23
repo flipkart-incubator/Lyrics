@@ -17,15 +17,12 @@
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.Injector;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.contract.Factory;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
-import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +35,8 @@ import static com.flipkart.lyrics.helper.Injector.*;
  * Created by shrey.garg on 27/11/16.
  */
 public class Song {
+    public static Factory factory;
+
     private Tune tune;
 
     public Song(Tune tune) {
@@ -53,12 +52,9 @@ public class Song {
         processFieldAdditionalHandlers(tune, metaInfo);
         processTypeAdditionalHandlers(tune, metaInfo);
         processFieldModificationHandlers(tune, metaInfo);
+        factory = tune.createFactory();
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
-        JavaFile javaFile = JavaFile.builder(fullPackage, typeBuilder.build())
-                .indent("    ")
-                .skipJavaLangImports(true)
-                .build();
-        javaFile.writeTo(targetFolder);
+        typeBuilder.build().writeToFile(fullPackage, targetFolder);
     }
 }

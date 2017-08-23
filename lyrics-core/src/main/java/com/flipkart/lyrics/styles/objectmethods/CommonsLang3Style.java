@@ -16,9 +16,9 @@
 
 package com.flipkart.lyrics.styles.objectmethods;
 
+import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.interfaces.typenames.ClassName;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -72,5 +72,4 @@ public class CommonsLang3Style extends ObjectMethodsStyle {
         equalsBuilder.addCode("\t\t.isEquals();\n");
         hashCodeBuilder.addCode("\t\t.toHashCode();\n");
     }
-
 }

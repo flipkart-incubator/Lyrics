@@ -17,16 +17,16 @@
 package com.flipkart.lyrics.android.handlers;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.AnnotationSpec;
+import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.interfaces.typenames.Modifier;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
 
-import javax.lang.model.element.Modifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Collection;

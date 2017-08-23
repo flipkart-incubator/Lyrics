@@ -18,12 +18,12 @@ package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.TriConsumer;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
 
 import java.util.*;
 
@@ -44,5 +44,4 @@ public class SpecialInterfaceHandler extends Handler {
         interfaces.addAll(typeModel.getInterfaces());
         interfaces.forEach(i -> Optional.ofNullable(specialHandlers.get(i.getType())).ifPresent(fn -> fn.accept(typeSpec, typeModel, metaInfo)));
     }
-
 }

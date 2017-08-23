@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.rules.type;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.interfaces.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.squareup.javapoet.TypeSpec;
 
 /**
  * Created by shrey.garg on 30/12/16.
