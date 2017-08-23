@@ -14,6 +14,7 @@ import java.util.List;
  * @author kushal.sharma on 10/08/17.
  */
 public class FieldSpec {
+    public final Class<?> clazz;
     public final String name;
     public final TypeName type;
     public final Modifier[] modifier;
@@ -25,10 +26,12 @@ public class FieldSpec {
 
 
     public FieldSpec(Builder builder) {
+        this.clazz = builder.clazz;
         this.name = builder.name;
         this.type = builder.type;
         this.modifier = builder.modifier;
         this.initializer = builder.initializer;
+        this.modifiers.addAll(builder.modifiers);
         this.classNames.addAll(builder.classNames);
         this.annotationClasses.addAll(builder.annotationClasses);
         this.annotationSpecs.addAll(builder.annotationSpecs);
@@ -38,11 +41,16 @@ public class FieldSpec {
         return Song.factory.createFieldBuilder(typeName, name, modifiers);
     }
 
+    public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
+        return Song.factory.createFieldBuilder(clazz, name, modifiers);
+    }
+
     public Object getFieldSpec() {
         return null;
     }
 
     public static abstract class Builder {
+        private final Class<?> clazz;
         private final String name;
         private final TypeName type;
         private final Modifier[] modifier;
@@ -55,6 +63,14 @@ public class FieldSpec {
         public Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;
             this.name = name;
+            this.clazz = null;
+            this.modifier = modifiers;
+        }
+
+        public Builder(Class<?> clazz, String name, Modifier... modifiers) {
+            this.type = null;
+            this.name = name;
+            this.clazz = clazz;
             this.modifier = modifiers;
         }
 
