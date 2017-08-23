@@ -123,5 +123,4 @@ public class GsonStyleTest {
         assertEquals("Test", typeSpec.name);
         assertEquals(0, typeSpec.annotationClasses.size());
     }
-
 }

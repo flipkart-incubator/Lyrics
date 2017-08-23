@@ -26,5 +26,4 @@ public class GetterRequiredRuleTest {
     @Test
     public void testGetter() {
     }
-
 }

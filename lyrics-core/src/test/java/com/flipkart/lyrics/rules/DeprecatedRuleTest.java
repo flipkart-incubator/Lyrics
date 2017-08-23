@@ -56,5 +56,4 @@ public class DeprecatedRuleTest {
         assertEquals("test", fieldSpec.name);
         assertEquals(0, fieldSpec.annotationClasses.size());
     }
-
 }
