@@ -1,10 +1,9 @@
 package com.flipkart.lyrics.implementations;
 
-import com.flipkart.lyrics.interfaces.AnnotationSpec;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
 
 import static com.flipkart.lyrics.helper.JavaHelper.*;
 
@@ -17,25 +16,13 @@ public class JavaFieldSpec extends FieldSpec {
     JavaFieldSpec(Builder builder) {
         super(builder);
 
-        if (this.clazz == null) {
-            this.builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifier));
-        } else {
-            this.builder = com.squareup.javapoet.FieldSpec.builder(this.clazz, this.name, getJavaModifiers(this.modifier));
-        }
+        this.builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifiers.toArray(new Modifier[this.modifiers.size()])));
 
-        if (this.initializer != null)
-            this.builder.initializer(this.initializer.getFormat(), this.initializer.getArgs());
-        for (ClassName className : this.classNames) {
-            this.builder.addAnnotation(getJavaClassName(className));
+        if (this.initializer != null) {
+            this.builder.initializer(this.initializer.format, this.initializer.arguments);
         }
-        for (Class clazz : this.annotationClasses) {
-            this.builder.addAnnotation(clazz);
-        }
-        for (AnnotationSpec annotationSpec : this.annotationSpecs) {
+        for (AnnotationSpec annotationSpec : this.annotations) {
             this.builder.addAnnotation((com.squareup.javapoet.AnnotationSpec) annotationSpec.getAnnotationSpec());
-        }
-        for (Modifier modifier : this.modifiers) {
-            this.builder.addModifiers(getJavaModifier(modifier));
         }
     }
 

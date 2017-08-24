@@ -1,6 +1,6 @@
 package com.flipkart.lyrics.android;
 
-import com.flipkart.lyrics.interfaces.MethodSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
 
 /**
  * @author kushal.sharma on 22/08/17.

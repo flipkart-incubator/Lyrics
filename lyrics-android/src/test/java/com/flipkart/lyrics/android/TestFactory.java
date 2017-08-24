@@ -1,11 +1,11 @@
 package com.flipkart.lyrics.android;
 
-import com.flipkart.lyrics.interfaces.*;
-import com.flipkart.lyrics.interfaces.contract.Factory;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.Kind;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.*;
+import com.flipkart.lyrics.specs.contract.Factory;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.Kind;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
 
 /**
  * @author kushal.sharma on 23/08/17.
@@ -19,11 +19,6 @@ public class TestFactory implements Factory {
     @Override
     public MethodSpec.Builder createMethodBuilder(String name) {
         return new TestMethodSpec.Builder(name);
-    }
-
-    @Override
-    public AnnotationSpec.Builder createAnnotationBuilder(Class clazz) {
-        return new TestAnnotationSpec.Builder(clazz);
     }
 
     @Override
@@ -62,17 +57,7 @@ public class TestFactory implements Factory {
     }
 
     @Override
-    public FieldSpec.Builder createFieldBuilder(Class<?> clazz, String name, Modifier[] modifiers) {
-        return new TestFieldSpec.Builder(clazz, name, modifiers);
-    }
-
-    @Override
     public ParameterSpec.Builder createParameterBuilder(TypeName typeName, String name, Modifier[] modifiers) {
         return new TestParameterSpec.Builder(typeName, name, modifiers);
-    }
-
-    @Override
-    public ParameterSpec.Builder createParameterBuilder(Class<?> clazz, String name, Modifier[] modifiers) {
-        return new TestParameterSpec.Builder(clazz, name, modifiers);
     }
 }

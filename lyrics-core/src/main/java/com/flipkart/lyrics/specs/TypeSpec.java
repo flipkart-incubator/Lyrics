@@ -1,17 +1,9 @@
-package com.flipkart.lyrics.interfaces;
+package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
-import com.flipkart.lyrics.interfaces.model.KeyTypeSpec;
-import com.flipkart.lyrics.interfaces.model.TypeArgsFormatArgs;
-import com.flipkart.lyrics.interfaces.typenames.Kind;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
-import com.flipkart.lyrics.interfaces.typenames.TypeVariableName;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author kushal.sharma on 10/08/17.
@@ -19,34 +11,30 @@ import java.util.List;
 public class TypeSpec {
     public final Kind kind;
     public final String name;
-    public TypeName extendsType;
-    public TypeArgsFormatArgs typeArgsFormatArgs;
+    public TypeName superclass;
+    public CodeBlock anonymousTypeArguments;
     public final List<TypeSpec> types = new ArrayList<>();
-    public final List<String> enumKeys = new ArrayList<>();
     public final List<Modifier> modifiers = new ArrayList<>();
-    public final List<TypeName> interfaces = new ArrayList<>();
+    public final List<TypeName> superinterfaces = new ArrayList<>();
     public final List<FieldSpec> fieldSpecs = new ArrayList<>();
     public final List<MethodSpec> methodSpecs = new ArrayList<>();
-    public final List<Class<?>> annotationClasses = new ArrayList<>();
-    public final List<KeyTypeSpec> enumKeyTypeSpecs = new ArrayList<>();
     public final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
-    public final List<TypeVariableName> typeVariableNames = new ArrayList<>();
+    public final List<TypeVariableName> typeVariables = new ArrayList<>();
+    public final Map<String, TypeSpec> enumConstants = new HashMap<>();
 
     public TypeSpec(Builder builder) {
         this.kind = builder.kind;
         this.name = builder.name;
         this.types.addAll(builder.types);
-        this.extendsType = builder.extendsType;
-        this.enumKeys.addAll(builder.enumKeys);
+        this.superclass = builder.superclass;
         this.modifiers.addAll(builder.modifiers);
-        this.interfaces.addAll(builder.interfaces);
+        this.superinterfaces.addAll(builder.superinterfaces);
         this.fieldSpecs.addAll(builder.fieldSpecs);
         this.methodSpecs.addAll(builder.methodSpecs);
-        this.typeArgsFormatArgs = builder.typeArgsFormatArgs;
+        this.anonymousTypeArguments = builder.anonymousTypeArguments;
         this.annotationSpecs.addAll(builder.annotationSpecs);
-        this.enumKeyTypeSpecs.addAll(builder.enumKeyTypeSpecs);
-        this.annotationClasses.addAll(builder.annotationClasses);
-        this.typeVariableNames.addAll(builder.typeVariableNames);
+        this.enumConstants.putAll(builder.enumConstants);
+        this.typeVariables.addAll(builder.typeVariables);
     }
 
     public static Builder classBuilder(String name) {
@@ -78,18 +66,16 @@ public class TypeSpec {
     public static abstract class Builder {
         private final Kind kind;
         private final String name;
-        private TypeName extendsType;
-        private TypeArgsFormatArgs typeArgsFormatArgs;
+        private TypeName superclass;
+        private CodeBlock anonymousTypeArguments;
         private final List<TypeSpec> types = new ArrayList<>();
-        private final List<String> enumKeys = new ArrayList<>();
         private final List<Modifier> modifiers = new ArrayList<>();
-        private final List<TypeName> interfaces = new ArrayList<>();
+        private final List<TypeName> superinterfaces = new ArrayList<>();
         private final List<FieldSpec> fieldSpecs = new ArrayList<>();
         private final List<MethodSpec> methodSpecs = new ArrayList<>();
-        private final List<Class<?>> annotationClasses = new ArrayList<>();
-        private final List<KeyTypeSpec> enumKeyTypeSpecs = new ArrayList<>();
         private final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
-        private final List<TypeVariableName> typeVariableNames = new ArrayList<>();
+        private final List<TypeVariableName> typeVariables = new ArrayList<>();
+        private final Map<String, TypeSpec> enumConstants = new HashMap<>();
 
         public Builder(Kind kind, String name) {
             this.kind = kind;
@@ -99,7 +85,7 @@ public class TypeSpec {
         public Builder(Kind kind, String typeArgumentsFormat, Object... args) {
             this.kind = kind;
             this.name = null;
-            this.typeArgsFormatArgs = new TypeArgsFormatArgs(typeArgumentsFormat, args);
+            this.anonymousTypeArguments = CodeBlock.of(typeArgumentsFormat, args);
         }
 
         public TypeSpec.Builder addField(FieldSpec fieldSpec) {
@@ -113,7 +99,7 @@ public class TypeSpec {
         }
 
         public TypeSpec.Builder addAnnotation(Class<?> clazz) {
-            this.annotationClasses.add(clazz);
+            this.annotationSpecs.add(AnnotationSpec.builder(clazz).build());
             return this;
         }
 
@@ -127,23 +113,23 @@ public class TypeSpec {
             return this;
         }
 
-        public TypeSpec.Builder superclass(TypeName extendsType) {
-            this.extendsType = extendsType;
+        public TypeSpec.Builder superclass(TypeName superclass) {
+            this.superclass = superclass;
             return this;
         }
 
         public TypeSpec.Builder addEnumConstant(String key) {
-            this.enumKeys.add(key);
+            this.enumConstants.put(key, null);
             return this;
         }
 
         public TypeSpec.Builder addEnumConstant(String key, TypeSpec typeSpec) {
-            this.enumKeyTypeSpecs.add(new KeyTypeSpec(key, typeSpec));
+            this.enumConstants.put(key, typeSpec);
             return this;
         }
 
-        public TypeSpec.Builder addSuperinterfaces(List<TypeName> interfaces) {
-            this.interfaces.addAll(interfaces);
+        public TypeSpec.Builder addSuperinterfaces(List<TypeName> superinterfaces) {
+            this.superinterfaces.addAll(superinterfaces);
             return this;
         }
 
@@ -152,8 +138,8 @@ public class TypeSpec {
             return this;
         }
 
-        public TypeSpec.Builder addTypeVariable(TypeVariableName typeVariableName) {
-            this.typeVariableNames.add(typeVariableName);
+        public TypeSpec.Builder addTypeVariable(TypeVariableName typeVariables) {
+            this.typeVariables.add(typeVariables);
             return this;
         }
 

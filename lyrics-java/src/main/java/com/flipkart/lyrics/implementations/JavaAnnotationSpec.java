@@ -1,11 +1,8 @@
 package com.flipkart.lyrics.implementations;
 
-import com.flipkart.lyrics.interfaces.AnnotationSpec;
-import com.flipkart.lyrics.interfaces.model.NameFormatArgs;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.ClassName;
+import com.squareup.javapoet.CodeBlock;
 
 import static com.flipkart.lyrics.helper.JavaHelper.getJavaClassName;
 
@@ -18,20 +15,20 @@ public class JavaAnnotationSpec extends AnnotationSpec {
     JavaAnnotationSpec(Builder builder) {
         super(builder);
 
-        if (this.clazz != null) this.builder = com.squareup.javapoet.AnnotationSpec.builder(this.clazz);
-        if (this.className != null) this.builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(this.className));
+        this.builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(this.type));
 
-        for (NameFormatArgs member : this.members) {
-            Object[] newArgs = new Object[member.getArgs().length];
-            for (int i = 0; i< member.getArgs().length; i++){
-                if (member.getArgs()[i] instanceof ClassName) {
-                    ClassName className = (ClassName) member.getArgs()[i];
+        for (String name : this.members.keySet()) {
+            com.flipkart.lyrics.specs.CodeBlock codeBlock = this.members.get(name);
+            Object[] newArgs = new Object[codeBlock.arguments.length];
+            for (int i = 0; i< codeBlock.arguments.length; i++){
+                if (codeBlock.arguments[i] instanceof ClassName) {
+                    ClassName className = (ClassName) codeBlock.arguments[i];
                     newArgs[i] = getJavaClassName(className);
                 } else {
-                    newArgs[i] = member.getArgs()[i];
+                    newArgs[i] =codeBlock.arguments[i];
                 }
             }
-            this.builder.addMember(member.getName(), member.getFormat(), newArgs);
+            this.builder.addMember(name, CodeBlock.of(codeBlock.format, newArgs));
         }
     }
 
@@ -40,10 +37,6 @@ public class JavaAnnotationSpec extends AnnotationSpec {
     }
 
     public static final class Builder extends AnnotationSpec.Builder {
-        public Builder(Class clazz) {
-            super(clazz);
-        }
-
         public Builder(ClassName className) {
             super(className);
         }

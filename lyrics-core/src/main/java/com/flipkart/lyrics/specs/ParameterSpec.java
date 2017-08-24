@@ -1,9 +1,6 @@
-package com.flipkart.lyrics.interfaces;
+package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +9,16 @@ import java.util.List;
  * @author kushal.sharma on 10/08/17.
  */
 public class ParameterSpec {
-    public Class<?> clazz;
     public final String name;
-    public final TypeName typeName;
+    public final TypeName type;
     public final Modifier[] modifiers;
-    public final List<Class<?>> classes = new ArrayList<>();
-    public final List<ClassName> classNames = new ArrayList<>();
+    public final List<AnnotationSpec> annotations = new ArrayList<>();
 
     public ParameterSpec(Builder builder) {
         this.name = builder.name;
-        this.clazz = builder.clazz;
-        this.typeName = builder.typeName;
+        this.type = builder.type;
         this.modifiers = builder.modifiers;
-        this.classes.addAll(builder.classes);
-        this.classNames.addAll(builder.classNames);
+        this.annotations.addAll(builder.annotations);
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -33,7 +26,7 @@ public class ParameterSpec {
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
-        return Song.factory.createParameterBuilder(clazz, name, modifiers);
+        return Song.factory.createParameterBuilder(TypeName.get(clazz), name, modifiers);
     }
 
     public Object getParameterSpec() {
@@ -41,33 +34,30 @@ public class ParameterSpec {
     }
 
     public static abstract class Builder {
-        private Class<?> clazz;
         private final String name;
-        private final TypeName typeName;
+        private final TypeName type;
         private final Modifier[] modifiers;
-        private final List<Class<?>> classes = new ArrayList<>();
-        private final List<ClassName> classNames = new ArrayList<>();
+        private final List<AnnotationSpec> annotations = new ArrayList<>();
 
-        public Builder(TypeName typeName, String name, Modifier... modifiers) {
+        public Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
-            this.typeName = typeName;
+            this.type = type;
             this.modifiers = modifiers;
         }
 
         public Builder(Class<?> clazz, String name, Modifier... modifiers) {
-            this.clazz = clazz;
             this.name = name;
-            this.typeName = null;
+            this.type = TypeName.get(clazz);
             this.modifiers = modifiers;
         }
 
         public ParameterSpec.Builder addAnnotation(Class<?> clazz) {
-            this.classes.add(clazz);
+            this.annotations.add(AnnotationSpec.builder(clazz).build());
             return this;
         }
 
         public ParameterSpec.Builder addAnnotation(ClassName className) {
-            this.classNames.add(className);
+            this.annotations.add(AnnotationSpec.builder(className).build());
             return this;
         }
 

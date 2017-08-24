@@ -17,10 +17,10 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.ArrayTypeName;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.ArrayTypeName;
+import com.flipkart.lyrics.specs.TypeName;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 

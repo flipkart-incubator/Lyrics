@@ -17,11 +17,11 @@
 package com.flipkart.lyrics.android.handlers;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.AnnotationSpec;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;

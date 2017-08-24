@@ -17,8 +17,8 @@
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.contract.Factory;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.contract.Factory;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;

@@ -25,7 +25,7 @@ import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
@@ -49,7 +49,7 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String DEFAULT = "default";
     public static final String JACKSON = "jackson";
     public static final String GSON = "gson";
-    public static final String INTERFACES = "interfaces";
+    public static final String INTERFACES = "specs";
     public static final String NO_MODIFIERS = "no-modifiers";
     public static final String REQUIRED = "required";
     public static final String JSR_303 = "jsr-303";

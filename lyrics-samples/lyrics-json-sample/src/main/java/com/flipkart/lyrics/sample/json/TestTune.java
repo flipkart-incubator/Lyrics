@@ -2,7 +2,7 @@ package com.flipkart.lyrics.sample.json;
 
 import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.helper.TriConsumer;
-import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 

@@ -1,8 +1,8 @@
 package com.flipkart.lyrics;
 
-import com.flipkart.lyrics.interfaces.ParameterSpec;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.ParameterSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
 
 /**
  * @author kushal.sharma on 22/08/17.

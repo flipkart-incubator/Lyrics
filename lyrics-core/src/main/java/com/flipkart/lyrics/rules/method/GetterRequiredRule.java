@@ -17,8 +17,8 @@
 package com.flipkart.lyrics.rules.method;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.ParameterSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 

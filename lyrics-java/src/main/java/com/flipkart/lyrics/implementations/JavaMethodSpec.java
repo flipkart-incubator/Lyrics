@@ -1,12 +1,10 @@
 package com.flipkart.lyrics.implementations;
 
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.ParameterSpec;
-import com.flipkart.lyrics.interfaces.model.FormatArgs;
-import com.flipkart.lyrics.interfaces.model.TypeNameModifiers;
-import com.flipkart.lyrics.interfaces.model.TypeNameNameModifiers;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
+import com.flipkart.lyrics.specs.CodeBlock;
+import com.flipkart.lyrics.specs.Modifier;
 
 import static com.flipkart.lyrics.helper.JavaHelper.*;
 
@@ -24,41 +22,26 @@ public class JavaMethodSpec extends MethodSpec {
         for (Modifier modifier : this.modifiers) {
             this.builder.addModifiers(getJavaModifier(modifier));
         }
-        if (this.returnsTypeName != null) {
-            this.builder.returns(getJavaTypeName(this.returnsTypeName));
-        }
-        for (FormatArgs formatArgs : this.statementFormatArgs) {
-            this.builder.addStatement(formatArgs.getFormat(), formatArgs.getArgs());
-        }
         if (this.returnType != null) {
-            this.builder.returns(this.returnType);
+            this.builder.returns(getJavaTypeName(this.returnType));
         }
-        for (ParameterSpec parameterSpec : this.parameterSpecs) {
-            this.builder.addParameter((com.squareup.javapoet.ParameterSpec) parameterSpec.getParameterSpec());
+        for (CodeBlock statement : this.statements) {
+            this.builder.addStatement(statement.format, statement.arguments);
         }
-        for (Class<?> clazz : this.annotationClasses) {
-            this.builder.addAnnotation(clazz);
+        for (AnnotationSpec annotation : this.annotations) {
+            this.builder.addAnnotation((com.squareup.javapoet.AnnotationSpec) annotation.getAnnotationSpec());
         }
-        for (ClassName className : this.annotationClassNames) {
-            this.builder.addAnnotation(getJavaClassName(className));
+        for (CodeBlock code : this.codeBlocks) {
+            this.builder.addCode(code.format, code.arguments);
         }
-        for (FormatArgs code : this.codeFormatArgs) {
-            this.builder.addCode(code.getFormat(), code.getArgs());
+        for (CodeBlock comment : this.comments) {
+            this.builder.addComment(comment.format, comment.arguments);
         }
-        for (FormatArgs comment : this.commentFormatArgs) {
-            this.builder.addComment(comment.getFormat(), comment.getArgs());
-        }
-        for (TypeNameNameModifiers parameter : this.parameterTypeNameNameModifiers) {
-            this.builder.addParameter(getJavaTypeName(parameter.getTypeName()), parameter.getName(), getJavaModifiers(parameter.getModifiers()));
-        }
-        for (TypeNameModifiers parameter : this.parameterTypeNameModifiers) {
-            this.builder.addParameter(parameter.getType(), parameter.getName(), getJavaModifiers(parameter.getModifiers()));
-        }
-        for (TypeNameModifiers parameter : this.parameterTypeName) {
-            this.builder.addParameter(parameter.getType(), parameter.getName());
+        for (ParameterSpec parameter : this.parameters) {
+            this.builder.addParameter((com.squareup.javapoet.ParameterSpec) parameter.getParameterSpec());
         }
         if (this.defaultValue != null) {
-            this.builder.defaultValue(this.defaultValue.getFormat(), this.defaultValue.getArgs());
+            this.builder.defaultValue(this.defaultValue.format, this.defaultValue.arguments);
         }
     }
 

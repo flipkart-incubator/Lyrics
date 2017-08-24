@@ -1,22 +1,17 @@
 package com.flipkart.lyrics.implementations;
 
-import com.flipkart.lyrics.interfaces.AnnotationSpec;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.model.KeyTypeSpec;
-import com.flipkart.lyrics.interfaces.model.TypeArgsFormatArgs;
-import com.flipkart.lyrics.interfaces.typenames.Kind;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
-import com.flipkart.lyrics.interfaces.typenames.TypeVariableName;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.Kind;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeVariableName;
 import com.squareup.javapoet.JavaFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.flipkart.lyrics.helper.JavaHelper.*;
 
@@ -43,21 +38,20 @@ public class JavaTypeSpec extends TypeSpec {
                 this.builder = com.squareup.javapoet.TypeSpec.annotationBuilder(this.name);
                 break;
             case ANONYMOUS:
-                this.builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(this.typeArgsFormatArgs.getTypeArgsFormat(), this.typeArgsFormatArgs.getArgs());
+                this.builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(this.anonymousTypeArguments.format, this.anonymousTypeArguments.arguments);
                 break;
             default:
                 this.builder = com.squareup.javapoet.TypeSpec.classBuilder(this.name);
         }
 
-        if (this.extendsType != null) this.builder.superclass(getJavaTypeName(this.extendsType));
+        if (this.superclass != null) {
+            this.builder.superclass(getJavaTypeName(this.superclass));
+        }
         for (FieldSpec fieldSpec : this.fieldSpecs) {
             this.builder.addField((com.squareup.javapoet.FieldSpec) fieldSpec.getFieldSpec());
         }
         for (AnnotationSpec annotationSpec : this.annotationSpecs) {
             this.builder.addAnnotation((com.squareup.javapoet.AnnotationSpec) annotationSpec.getAnnotationSpec());
-        }
-        for (Class<?> clazz : this.annotationClasses) {
-            this.builder.addAnnotation(clazz);
         }
         for (MethodSpec methodSpec : this.methodSpecs) {
             this.builder.addMethod((com.squareup.javapoet.MethodSpec) methodSpec.getMethodSpec());
@@ -65,19 +59,21 @@ public class JavaTypeSpec extends TypeSpec {
         for (Modifier modifier : this.modifiers) {
             this.builder.addModifiers(getJavaModifier(modifier));
         }
-        for (String key : this.enumKeys) {
-            this.builder.addEnumConstant(key);
+        for (String key : this.enumConstants.keySet()) {
+            TypeSpec typeSpec = this.enumConstants.get(key);
+            if (typeSpec == null) {
+                this.builder.addEnumConstant(key);
+            } else {
+                this.builder.addEnumConstant(key, (com.squareup.javapoet.TypeSpec) typeSpec.getTypeSpec());
+            }
         }
-        for (KeyTypeSpec keyTypeSpec : this.enumKeyTypeSpecs) {
-            this.builder.addEnumConstant(keyTypeSpec.getKey(), (com.squareup.javapoet.TypeSpec) keyTypeSpec.getTypeSpec().getTypeSpec());
-        }
-        for (TypeName superinterface : this.interfaces) {
+        for (TypeName superinterface : this.superinterfaces) {
             this.builder.addSuperinterface(getJavaTypeName(superinterface));
         }
         for (TypeSpec typeSpec : this.types) {
             this.builder.addType((com.squareup.javapoet.TypeSpec) typeSpec.getTypeSpec());
         }
-        for (TypeVariableName typeVariableName : this.typeVariableNames) {
+        for (TypeVariableName typeVariableName : this.typeVariables) {
             this.builder.addTypeVariable(getJavaTypeVariableName(typeVariableName));
         }
     }

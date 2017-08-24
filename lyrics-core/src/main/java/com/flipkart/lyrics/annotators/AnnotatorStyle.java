@@ -16,8 +16,8 @@
 
 package com.flipkart.lyrics.annotators;
 
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
 
