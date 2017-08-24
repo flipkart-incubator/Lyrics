@@ -17,8 +17,8 @@
 package com.flipkart.lyrics.styles.objectmethods;
 
 import com.flipkart.lyrics.TestMethodSpec;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.MetaInfo;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class CommonsLang3StyleTest {
 
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
-        assertEquals(0, toString.parameterSpecs.size());
+        assertEquals(0, toString.parameters.size());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CommonsLang3StyleTest {
 
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
-        assertEquals(0, toString.parameterSpecs.size());
+        assertEquals(0, toString.parameters.size());
     }
 
     @Test

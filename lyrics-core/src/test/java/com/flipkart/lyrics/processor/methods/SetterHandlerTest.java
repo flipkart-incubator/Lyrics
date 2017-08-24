@@ -17,11 +17,11 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
@@ -56,12 +56,12 @@ public class SetterHandlerTest {
         assertEquals(1, spec.methodSpecs.size());
         MethodSpec methodSpec = spec.methodSpecs.get(0);
 
-        assertEquals(1, methodSpec.parameterSpecs.size());
-        assertEquals(TypeName.INT, methodSpec.parameterSpecs.get(0).typeName);
-        assertEquals("test", methodSpec.parameterSpecs.get(0).name);
+        assertEquals(1, methodSpec.parameters.size());
+//        assertEquals(TypeName.INT, methodSpec.parameters.get(0).typeName);
+        assertEquals("test", methodSpec.parameters.get(0).name);
 
         assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
-        assertEquals(void.class, methodSpec.returnType);
+//        assertEquals(void.class, methodSpec.returnType);
         assertEquals("setTest", methodSpec.name);
     }
 }

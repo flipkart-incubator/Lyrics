@@ -16,7 +16,7 @@
 
 package com.flipkart.lyrics.helper;
 
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.specs.ClassName;
 import org.junit.jupiter.api.Test;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;

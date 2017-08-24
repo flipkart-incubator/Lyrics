@@ -17,7 +17,7 @@
 package com.flipkart.lyrics.helper;
 
 
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.specs.ClassName;
 
 /**
  * Created by shrey.garg on 30/11/16.

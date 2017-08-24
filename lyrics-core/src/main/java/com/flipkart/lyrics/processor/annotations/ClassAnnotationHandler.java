@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.processor.annotations;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.AnnotationSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.ClassName;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;

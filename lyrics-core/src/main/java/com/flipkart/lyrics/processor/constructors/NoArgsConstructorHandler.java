@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.processor.constructors;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;

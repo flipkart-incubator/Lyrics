@@ -18,7 +18,7 @@ package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.TriConsumer;
-import com.flipkart.lyrics.interfaces.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;

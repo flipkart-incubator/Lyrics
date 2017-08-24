@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.android.annotators.validations;
 
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
-import com.flipkart.lyrics.interfaces.FieldSpec;
-import com.flipkart.lyrics.interfaces.MethodSpec;
-import com.flipkart.lyrics.interfaces.ParameterSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.model.FieldModel;
 
 import static com.flipkart.lyrics.helper.ClassNames.ANDROID_VALIDATIONS_NON_NULL;

@@ -17,8 +17,8 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;

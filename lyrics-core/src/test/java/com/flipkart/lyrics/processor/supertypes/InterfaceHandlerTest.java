@@ -17,10 +17,7 @@
 package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.interfaces.TypeSpec;
-import com.flipkart.lyrics.interfaces.typenames.ClassName;
-import com.flipkart.lyrics.interfaces.typenames.ParameterizedTypeName;
-import com.flipkart.lyrics.interfaces.typenames.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
@@ -59,8 +56,8 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(0, interfaces.size(), "Interfaces found");
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(0, interfaces.size(), "Interfaces found");
     }
 
     @Test
@@ -78,16 +75,16 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(1, interfaces.size(), "No interfaces found");
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(1, interfaces.size(), "No specs found");
 
-        TypeName interfaceType = interfaces.get(0);
-        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceClassName = (ClassName) interfaceType;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.io", interfaceClassName.packageName()),
-                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
+//        TypeName interfaceType = interfaces.get(0);
+//        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceClassName = (ClassName) interfaceType;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.io", interfaceClassName.packageName()),
+//                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
     }
 
     @Test
@@ -106,24 +103,24 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(2, interfaces.size(), "No interfaces found");
-
-        TypeName interfaceType = interfaces.get(0);
-        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceClassName = (ClassName) interfaceType;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.io", interfaceClassName.packageName()),
-                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
-
-        TypeName interfaceTypeTwo = interfaces.get(1);
-        assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceTwoClassName = (ClassName) interfaceTypeTwo;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.lang", interfaceTwoClassName.packageName()),
-                () -> assertEquals("Cloneable", interfaceTwoClassName.simpleName()));
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(2, interfaces.size(), "No specs found");
+//
+//        TypeName interfaceType = interfaces.get(0);
+//        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceClassName = (ClassName) interfaceType;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.io", interfaceClassName.packageName()),
+//                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
+//
+//        TypeName interfaceTypeTwo = interfaces.get(1);
+//        assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceTwoClassName = (ClassName) interfaceTypeTwo;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.lang", interfaceTwoClassName.packageName()),
+//                () -> assertEquals("Cloneable", interfaceTwoClassName.simpleName()));
     }
 
     @Test
@@ -139,27 +136,27 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(2, interfaces.size(), "No interfaces found");
-
-        TypeName interfaceType = interfaces.get(0);
-        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceClassName = (ClassName) interfaceType;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.io", interfaceClassName.packageName()),
-                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
-
-        TypeName interfaceTypeThree = interfaces.get(1);
-        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
-
-        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
-                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
-
-        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(2, interfaces.size(), "No specs found");
+//
+//        TypeName interfaceType = interfaces.get(0);
+//        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceClassName = (ClassName) interfaceType;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.io", interfaceClassName.packageName()),
+//                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
+//
+//        TypeName interfaceTypeThree = interfaces.get(1);
+//        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
+//
+//        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
+//                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
+//
+//        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
+//        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
 //        assertAll("Type variable validations",
 //                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
@@ -180,27 +177,27 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(2, interfaces.size(), "No interfaces found");
-
-        TypeName interfaceType = interfaces.get(0);
-        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceClassName = (ClassName) interfaceType;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.io", interfaceClassName.packageName()),
-                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
-
-        TypeName interfaceTypeThree = interfaces.get(1);
-        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
-
-        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
-                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
-
-        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(2, interfaces.size(), "No specs found");
+//
+//        TypeName interfaceType = interfaces.get(0);
+//        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceClassName = (ClassName) interfaceType;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.io", interfaceClassName.packageName()),
+//                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
+//
+//        TypeName interfaceTypeThree = interfaces.get(1);
+//        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
+//
+//        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
+//                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
+//
+//        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
+//        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
 //        assertAll("Type variable validations",
 //                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
@@ -222,36 +219,36 @@ public class InterfaceHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        List<TypeName> interfaces = spec.interfaces;
-        assertEquals(3, interfaces.size(), "No interfaces found");
-
-        TypeName interfaceType = interfaces.get(0);
-        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceClassName = (ClassName) interfaceType;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.io", interfaceClassName.packageName()),
-                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
-
-        TypeName interfaceTypeThree = interfaces.get(1);
-        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
-
-        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
-                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
-
-        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
+//        List<TypeName> interfaces = spec.interfaces;
+//        assertEquals(3, interfaces.size(), "No specs found");
+//
+//        TypeName interfaceType = interfaces.get(0);
+//        assertTrue(interfaceType instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceClassName = (ClassName) interfaceType;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.io", interfaceClassName.packageName()),
+//                () -> assertEquals("Serializable", interfaceClassName.simpleName()));
+//
+//        TypeName interfaceTypeThree = interfaces.get(1);
+//        assertTrue(interfaceTypeThree instanceof ParameterizedTypeName);
+//
+//        ParameterizedTypeName interfaceThreeClassName = (ParameterizedTypeName) interfaceTypeThree;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("com.flipkart.lyrics.test.classes", interfaceThreeClassName.rawType.packageName()),
+//                () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
+//
+//        assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
+//        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
 //        assertAll("Type variable validations",
 //                () -> assertEquals("T", typeArguments.get(0).toString()));
-
-        TypeName interfaceTypeTwo = interfaces.get(2);
-        assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");
-
-        ClassName interfaceTwoClassName = (ClassName) interfaceTypeTwo;
-        assertAll("Class and package name assertions",
-                () -> assertEquals("java.lang", interfaceTwoClassName.packageName()),
-                () -> assertEquals("Cloneable", interfaceTwoClassName.simpleName()));
+//
+//        TypeName interfaceTypeTwo = interfaces.get(2);
+//        assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");
+//
+//        ClassName interfaceTwoClassName = (ClassName) interfaceTypeTwo;
+//        assertAll("Class and package name assertions",
+//                () -> assertEquals("java.lang", interfaceTwoClassName.packageName()),
+//                () -> assertEquals("Cloneable", interfaceTwoClassName.simpleName()));
     }
 }

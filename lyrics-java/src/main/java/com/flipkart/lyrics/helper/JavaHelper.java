@@ -1,10 +1,11 @@
 package com.flipkart.lyrics.helper;
 
-import com.flipkart.lyrics.interfaces.typenames.*;
+import com.flipkart.lyrics.specs.ArrayTypeName;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeVariableName;
-
-import java.lang.reflect.Type;
 
 /**
  * @author kushal.sharma on 10/08/17.
@@ -49,41 +50,44 @@ public class JavaHelper {
         }
     }
 
-    public static TypeName getJavaTypeName(com.flipkart.lyrics.interfaces.typenames.TypeName typeName) {
-        if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.INT) {
+    public static TypeName getJavaTypeName(com.flipkart.lyrics.specs.TypeName typeName) {
+        if (typeName == com.flipkart.lyrics.specs.TypeName.INT) {
             return TypeName.INT;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.BOOLEAN) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.BOOLEAN) {
             return TypeName.BOOLEAN;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.BYTE) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.BYTE) {
             return TypeName.BYTE;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.CHAR) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.CHAR) {
             return TypeName.CHAR;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.FLOAT) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.FLOAT) {
             return TypeName.FLOAT;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.DOUBLE) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.DOUBLE) {
             return TypeName.DOUBLE;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.LONG) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.LONG) {
             return TypeName.LONG;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.SHORT) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.SHORT) {
             return TypeName.SHORT;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.VOID) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.VOID) {
             return TypeName.VOID;
-        } else if (typeName == com.flipkart.lyrics.interfaces.typenames.TypeName.OBJECT) {
+        } else if (typeName == com.flipkart.lyrics.specs.TypeName.OBJECT) {
             return TypeName.OBJECT;
         } else if (typeName instanceof ClassName) {
-            return getJavaClassName((ClassName) typeName);
+            return getJavaClassName(typeName);
         } else if (typeName instanceof ParameterizedTypeName) {
             return getJavaParameterizedTypeName((ParameterizedTypeName) typeName);
         } else if (typeName instanceof ArrayTypeName) {
             return com.squareup.javapoet.ArrayTypeName.of(getJavaTypeName(((ArrayTypeName) typeName).componentType));
-        } else if (typeName instanceof com.flipkart.lyrics.interfaces.typenames.TypeVariableName) {
-            return getJavaTypeVariableName((com.flipkart.lyrics.interfaces.typenames.TypeVariableName) typeName);
+        } else if (typeName instanceof com.flipkart.lyrics.specs.TypeVariableName) {
+            return getJavaTypeVariableName((com.flipkart.lyrics.specs.TypeVariableName) typeName);
         }
         return TypeName.OBJECT;
     }
 
-    public static com.squareup.javapoet.ClassName getJavaClassName(ClassName className) {
-        return com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleName());
+    public static com.squareup.javapoet.ClassName getJavaClassName(com.flipkart.lyrics.specs.TypeName typeName) {
+        if (typeName instanceof ClassName) {
+            ClassName className = (ClassName) typeName;
+            return com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleName());
+        } else return null;
     }
 
     public static com.squareup.javapoet.ParameterizedTypeName getJavaParameterizedTypeName(ParameterizedTypeName parameterizedTypeName) {
@@ -94,7 +98,7 @@ public class JavaHelper {
         return com.squareup.javapoet.ParameterizedTypeName.get(getJavaClassName(parameterizedTypeName.rawType), typeNameArray);
     }
 
-    public static TypeVariableName getJavaTypeVariableName(com.flipkart.lyrics.interfaces.typenames.TypeVariableName typeVariableName) {
+    public static TypeVariableName getJavaTypeVariableName(com.flipkart.lyrics.specs.TypeVariableName typeVariableName) {
         TypeName[] typeNameArray = new TypeName[typeVariableName.bounds.size()];
         for (int i = 0; i < typeVariableName.bounds.size(); i++) {
             typeNameArray[i] = getJavaTypeName(typeVariableName.bounds.get(i));
