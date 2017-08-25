@@ -1,6 +1,5 @@
 package com.flipkart.lyrics.model;
 
-
 import com.flipkart.lyrics.specs.TypeVariableName;
 
 import java.util.HashMap;

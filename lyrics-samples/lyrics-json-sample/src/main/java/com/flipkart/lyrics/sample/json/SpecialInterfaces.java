@@ -36,6 +36,5 @@ public class SpecialInterfaces {
 
         builder.addMethod(one.build());
         builder.addMethod(two.build());
-
     }
 }
