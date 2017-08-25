@@ -152,9 +152,8 @@ public class ConfigurationExtension implements ParameterResolver {
         Tune interfacesTune = spy(TestTune.class);
         Set<VariableModel> interfaces = new HashSet<>();
         interfaces.add(new VariableModel("java.io.Serializable"));
-        interfaces.add(
-                new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
-                        new VariableModel[]{new VariableModel("T")}));
+        interfaces.add(new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
+                new VariableModel[]{new VariableModel("T")}));
         when(interfacesTune.interfaces()).thenReturn(interfaces);
         Song.factory = new TestFactory();
         return interfacesTune;
