@@ -25,6 +25,7 @@ import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.android.test.extensions.ConfigurationExtension.ANDROID_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -35,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class NotRequiredRuleTest {
 
     @Test
-    public void testAndroidRequiredRules(@TuneProvider() Tune tune) {
+    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 

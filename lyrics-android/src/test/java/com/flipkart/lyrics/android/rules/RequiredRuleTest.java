@@ -25,6 +25,7 @@ import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.android.test.extensions.ConfigurationExtension.ANDROID_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -37,7 +38,7 @@ import static org.mockito.Mockito.when;
 public class RequiredRuleTest {
 
     @Test
-    public void testAndroidRequiredRules(@TuneProvider() Tune tune) {
+    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.isRequired()).thenReturn(true);
