@@ -16,10 +16,12 @@
 
 package com.flipkart.lyrics.rules;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
@@ -48,7 +50,7 @@ public class InclusionRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -62,7 +64,7 @@ public class InclusionRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -76,13 +78,13 @@ public class InclusionRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(1, spec.annotationSpecs.size(), "Annotation not found.");
+        assertEquals(1, spec.annotations.size(), "Annotation not found.");
 
-//        AnnotationSpec annotationSpec = spec.annotationSpecs.get(0);
-//        assertEquals(JsonSerialize.class.getName(), annotationSpec.clazz.getName(), "Wrong annotation found.");
-//        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
+        AnnotationSpec annotationSpec = spec.annotations.get(0);
+        assertEquals(JsonSerialize.class.getName(), annotationSpec.type.toString(), "Wrong annotation found.");
+        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
 
-//        assertNotNull(annotationSpec.members.get("include"), "Annotation inclusion not found");
-//        assertEquals("JsonSerialize.Inclusion.NON_NULL", annotationSpec.members.get("include").get(0).toString(), "Wrong value found.");
+        assertNotNull(annotationSpec.members.get("include"), "Annotation inclusion not found");
+        assertEquals("JsonSerialize.Inclusion.NON_NULL", annotationSpec.members.get("include").get(0).toString(), "Wrong value found.");
     }
 }

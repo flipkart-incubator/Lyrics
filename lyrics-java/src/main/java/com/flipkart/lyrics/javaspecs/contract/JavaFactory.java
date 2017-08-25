@@ -1,6 +1,6 @@
-package com.flipkart.lyrics.implementations.contract;
+package com.flipkart.lyrics.javaspecs.contract;
 
-import com.flipkart.lyrics.implementations.*;
+import com.flipkart.lyrics.javaspecs.*;
 import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.specs.contract.Factory;
 import com.flipkart.lyrics.specs.ClassName;

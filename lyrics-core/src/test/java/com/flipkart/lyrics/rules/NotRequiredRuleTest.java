@@ -17,8 +17,8 @@
 package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class NotRequiredRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class NotRequiredRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -72,8 +72,8 @@ public class NotRequiredRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(1, spec.annotationClassNames.size(), "Annotations not found.");
+        assertEquals(1, spec.annotations.size(), "Annotations not found.");
 
-//        assertEquals("javax.annotation.Nullable", spec.annotationClassNames.get(0).packageName() + "." + spec.annotationClassNames.get(0).simpleName(), "JSR-305 annotation not found.");
+        assertEquals("javax.annotation.Nullable", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
     }
 }

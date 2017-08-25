@@ -17,14 +17,10 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
@@ -57,11 +53,12 @@ public class SetterHandlerTest {
         MethodSpec methodSpec = spec.methodSpecs.get(0);
 
         assertEquals(1, methodSpec.parameters.size());
-//        assertEquals(TypeName.INT, methodSpec.parameters.get(0).typeName);
+        assertEquals(TypeName.INT, methodSpec.parameters.get(0).type);
         assertEquals("test", methodSpec.parameters.get(0).name);
 
         assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
-//        assertEquals(void.class, methodSpec.returnType);
+        assertEquals(TypeName.VOID, methodSpec.returnType);
         assertEquals("setTest", methodSpec.name);
+        //assertEquals(CodeBlock.of("this.test = test;").toString().trim(), methodSpec.code.toString().trim());
     }
 }

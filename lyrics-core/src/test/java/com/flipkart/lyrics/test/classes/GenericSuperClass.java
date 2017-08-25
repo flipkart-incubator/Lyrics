@@ -20,5 +20,4 @@ package com.flipkart.lyrics.test.classes;
  * Created by shrey.garg on 05/12/16.
  */
 public class GenericSuperClass<T, U, V> {
-
 }

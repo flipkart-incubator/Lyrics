@@ -19,7 +19,7 @@ package com.flipkart.lyrics.config;
 import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.helper.TriConsumer;
-import com.flipkart.lyrics.implementations.contract.JavaFactory;
+import com.flipkart.lyrics.javaspecs.contract.JavaFactory;
 import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.specs.contract.Factory;
 import com.flipkart.lyrics.specs.Modifier;
@@ -38,7 +38,7 @@ import java.util.*;
 /**
  * Created by shrey.garg on 26/11/16.
  */
-public class DefaultTune implements Tune {
+public class JavaTune implements Tune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
     private final ParameterTypeHandlerSet parameterTypeHandlerSet = new DefaultParameterTypeHandlerSet();

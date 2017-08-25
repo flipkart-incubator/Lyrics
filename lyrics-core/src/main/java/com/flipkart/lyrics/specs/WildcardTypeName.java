@@ -30,7 +30,7 @@ public final class WildcardTypeName extends TypeName {
     public final List<TypeName> lowerBounds;
 
     private WildcardTypeName(List<TypeName> upperBounds, List<TypeName> lowerBounds) {
-        this(upperBounds, lowerBounds, new ArrayList<AnnotationSpec>());
+        this(upperBounds, lowerBounds, new ArrayList<>());
     }
 
     private WildcardTypeName(List<TypeName> upperBounds, List<TypeName> lowerBounds,

@@ -2,15 +2,14 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 public class AnnotationSpec {
     public final TypeName type;
-    public final Map<String, CodeBlock> members = new HashMap<>();
+    public final Map<String, List<CodeBlock>> members = new HashMap<>();
 
     public AnnotationSpec(Builder builder) {
         this.type = builder.type;
@@ -31,14 +30,14 @@ public class AnnotationSpec {
 
     public static abstract class Builder {
         private TypeName type;
-        private final Map<String, CodeBlock> members = new HashMap<>();
+        private final Map<String, List<CodeBlock>> members = new HashMap<>();
 
         protected Builder(TypeName typeName) {
             this.type = typeName;
         }
 
         public AnnotationSpec.Builder addMember(String name, String format, Object... args) {
-            this.members.put(name, CodeBlock.of(format, args));
+            this.members.put(name, Collections.singletonList(CodeBlock.of(format, args)));
             return this;
         }
 

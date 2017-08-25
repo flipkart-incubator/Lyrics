@@ -22,7 +22,7 @@ import com.flipkart.lyrics.android.sets.AndroidFieldTypeHandlerSet;
 import com.flipkart.lyrics.android.sets.AndroidHandlerSet;
 import com.flipkart.lyrics.android.sets.AndroidParameterTypeHandlerSet;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
-import com.flipkart.lyrics.config.DefaultTune;
+import com.flipkart.lyrics.config.JavaTune;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Created by shrey.garg on 15/01/17.
  */
-public class AndroidTune extends DefaultTune {
+public class AndroidTune extends JavaTune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new AndroidFieldTypeHandlerSet();
     private final ParameterTypeHandlerSet parameterTypeHandlerSet = new AndroidParameterTypeHandlerSet();

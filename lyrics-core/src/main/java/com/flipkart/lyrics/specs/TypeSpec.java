@@ -3,6 +3,7 @@ package com.flipkart.lyrics.specs;
 import com.flipkart.lyrics.Song;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -14,11 +15,11 @@ public class TypeSpec {
     public TypeName superclass;
     public CodeBlock anonymousTypeArguments;
     public final List<TypeSpec> types = new ArrayList<>();
-    public final List<Modifier> modifiers = new ArrayList<>();
+    public final Set<Modifier> modifiers = new HashSet<>();
     public final List<TypeName> superinterfaces = new ArrayList<>();
     public final List<FieldSpec> fieldSpecs = new ArrayList<>();
     public final List<MethodSpec> methodSpecs = new ArrayList<>();
-    public final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
+    public final List<AnnotationSpec> annotations = new ArrayList<>();
     public final List<TypeVariableName> typeVariables = new ArrayList<>();
     public final Map<String, TypeSpec> enumConstants = new HashMap<>();
 
@@ -32,7 +33,7 @@ public class TypeSpec {
         this.fieldSpecs.addAll(builder.fieldSpecs);
         this.methodSpecs.addAll(builder.methodSpecs);
         this.anonymousTypeArguments = builder.anonymousTypeArguments;
-        this.annotationSpecs.addAll(builder.annotationSpecs);
+        this.annotations.addAll(builder.annotations);
         this.enumConstants.putAll(builder.enumConstants);
         this.typeVariables.addAll(builder.typeVariables);
     }
@@ -69,11 +70,11 @@ public class TypeSpec {
         private TypeName superclass;
         private CodeBlock anonymousTypeArguments;
         private final List<TypeSpec> types = new ArrayList<>();
-        private final List<Modifier> modifiers = new ArrayList<>();
+        private final Set<Modifier> modifiers = new HashSet<>();
         private final List<TypeName> superinterfaces = new ArrayList<>();
         private final List<FieldSpec> fieldSpecs = new ArrayList<>();
         private final List<MethodSpec> methodSpecs = new ArrayList<>();
-        private final List<AnnotationSpec> annotationSpecs = new ArrayList<>();
+        private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final List<TypeVariableName> typeVariables = new ArrayList<>();
         private final Map<String, TypeSpec> enumConstants = new HashMap<>();
 
@@ -94,12 +95,12 @@ public class TypeSpec {
         }
 
         public TypeSpec.Builder addAnnotation(AnnotationSpec annotationSpec) {
-            this.annotationSpecs.add(annotationSpec);
+            this.annotations.add(annotationSpec);
             return this;
         }
 
         public TypeSpec.Builder addAnnotation(Class<?> clazz) {
-            this.annotationSpecs.add(AnnotationSpec.builder(clazz).build());
+            this.annotations.add(AnnotationSpec.builder(clazz).build());
             return this;
         }
 

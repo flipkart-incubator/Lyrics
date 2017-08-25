@@ -17,11 +17,14 @@
 package com.flipkart.lyrics.processor.supertypes;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.ParameterizedTypeName;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,13 +60,13 @@ public class SuperClassHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-//        TypeName superclass = spec.extendsType;
-//        assertTrue(superclass instanceof ClassName);
-//
-//        ClassName superClassName = (ClassName) superclass;
-//        assertAll("Class and package name assertions",
-//                () -> assertEquals("java.lang", superClassName.packageName()),
-//                () -> assertEquals("Object", superClassName.simpleName()));
+        TypeName superclass = spec.superclass;
+        assertTrue(superclass instanceof ClassName);
+
+        ClassName superClassName = (ClassName) superclass;
+        assertAll("Class and package name assertions",
+                () -> assertEquals("java.lang", superClassName.packageName()),
+                () -> assertEquals("Object", superClassName.simpleName()));
     }
 
     @Test
@@ -82,13 +85,13 @@ public class SuperClassHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-//        TypeName superclass = spec.extendsType;
-//        assertTrue(superclass instanceof ClassName);
+        TypeName superclass = spec.superclass;
+        assertTrue(superclass instanceof ClassName);
 
-//        ClassName superClassName = (ClassName) superclass;
-//        assertAll("Class and package name assertions",
-//                () -> assertEquals(fullPackage, superClassName.packageName()),
-//                () -> assertEquals(className, superClassName.simpleName()));
+        ClassName superClassName = (ClassName) superclass;
+        assertAll("Class and package name assertions",
+                () -> assertEquals(fullPackage, superClassName.packageName()),
+                () -> assertEquals(className, superClassName.simpleName()));
     }
 
     @Test
@@ -113,21 +116,21 @@ public class SuperClassHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-//        TypeName superclass = spec.extendsType;
-//        assertTrue(superclass instanceof ParameterizedTypeName);
+        TypeName superclass = spec.superclass;
+        assertTrue(superclass instanceof ParameterizedTypeName);
 
-//        ParameterizedTypeName superClassName = (ParameterizedTypeName) superclass;
-//        assertAll("Class and package name assertions",
-//                () -> assertEquals(fullPackage, superClassName.rawType.packageName()),
-//                () -> assertEquals(className, superClassName.rawType.simpleName()));
+        ParameterizedTypeName superClassName = (ParameterizedTypeName) superclass;
+        assertAll("Class and package name assertions",
+                () -> assertEquals(fullPackage, superClassName.rawType.packageName()),
+                () -> assertEquals(className, superClassName.rawType.simpleName()));
 
-//        assertEquals(3, superClassName.typeArguments.size(), "Mismatch in number of generic variables");
+        assertEquals(3, superClassName.typeArguments.size(), "Mismatch in number of generic variables");
 
-//        List<TypeName> typeArguments = superClassName.typeArguments;
-//        assertAll("Type variable validations",
-//                () -> assertEquals("T", typeArguments.get(0).toString()),
-//                () -> assertEquals("U", typeArguments.get(1).toString()),
-//                () -> assertEquals("V", typeArguments.get(2).toString()));
+        List<TypeName> typeArguments = superClassName.typeArguments;
+        assertAll("Type variable validations",
+                () -> assertEquals("T", typeArguments.get(0).toString()),
+                () -> assertEquals("U", typeArguments.get(1).toString()),
+                () -> assertEquals("V", typeArguments.get(2).toString()));
     }
 
     @Test
@@ -148,12 +151,12 @@ public class SuperClassHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-//        TypeName superclass = spec.extendsType;
-//        assertTrue(superclass instanceof ClassName);
+        TypeName superclass = spec.superclass;
+        assertTrue(superclass instanceof ClassName);
 
-//        ClassName superClassName = (ClassName) superclass;
-//        assertAll("Class and package name assertions",
-//                () -> assertEquals(fullPackage, superClassName.packageName()),
-//                () -> assertEquals(className, superClassName.simpleName()));
+        ClassName superClassName = (ClassName) superclass;
+        assertAll("Class and package name assertions",
+                () -> assertEquals(fullPackage, superClassName.packageName()),
+                () -> assertEquals(className, superClassName.simpleName()));
     }
 }

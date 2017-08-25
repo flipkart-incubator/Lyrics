@@ -17,14 +17,17 @@
 package com.flipkart.lyrics.annotators;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -39,7 +42,6 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 07/06/17.
  */
-
 @ExtendWith(ConfigurationExtension.class)
 public class GsonStyleTest {
 
@@ -53,15 +55,14 @@ public class GsonStyleTest {
 
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
-//        assertEquals(1, fieldSpec.annotationSpecs.size());
-//        assertEquals(1, fieldSpec.annotationClasses.size());
+        assertEquals(2, fieldSpec.annotations.size());
 
-//        AnnotationSpec namedAsAnnotation = fieldSpec.annotationSpecs.get(0);
-//        assertEquals(SerializedName.class.getName(), namedAsAnnotation.clazz.getName());
-//        assertEquals(1, namedAsAnnotation.members.size());
-//        assertEquals("TEST", namedAsAnnotation.members.get(0).getArgs()[0]);
+        AnnotationSpec namedAsAnnotation = fieldSpec.annotations.get(0);
+        assertEquals(SerializedName.class.getName(), namedAsAnnotation.type.toString());
+        assertEquals(1, namedAsAnnotation.members.size());
+        assertEquals("\"TEST\"", namedAsAnnotation.members.get("value").get(0).toString());
 
-//        assertEquals(Expose.class.getName(), fieldSpec.annotationClasses.get(0).getName());
+        assertEquals(Expose.class.getName(), fieldSpec.annotations.get(1).type.toString());
     }
 
     @Test
@@ -74,7 +75,7 @@ public class GsonStyleTest {
 
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
-//        assertEquals(0, fieldSpec.annotationClasses.size());
+        assertEquals(0, fieldSpec.annotations.size());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class GsonStyleTest {
 
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
-//        assertEquals(0, typeSpec.annotationClasses.size());
+        assertEquals(0, typeSpec.annotations.size());
     }
 
     @Test
@@ -105,7 +106,7 @@ public class GsonStyleTest {
 
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
-//        assertEquals(0, typeSpec.annotationClasses.size());
+        assertEquals(0, typeSpec.annotations.size());
     }
 
     @Test
@@ -118,6 +119,6 @@ public class GsonStyleTest {
 
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
-//        assertEquals(0, typeSpec.annotationClasses.size());
+        assertEquals(0, typeSpec.annotations.size());
     }
 }

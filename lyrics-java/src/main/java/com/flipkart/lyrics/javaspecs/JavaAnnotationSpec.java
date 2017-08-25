@@ -1,4 +1,4 @@
-package com.flipkart.lyrics.implementations;
+package com.flipkart.lyrics.javaspecs;
 
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.ClassName;
@@ -18,7 +18,7 @@ public class JavaAnnotationSpec extends AnnotationSpec {
         this.builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(this.type));
 
         for (String name : this.members.keySet()) {
-            com.flipkart.lyrics.specs.CodeBlock codeBlock = this.members.get(name);
+            com.flipkart.lyrics.specs.CodeBlock codeBlock = this.members.get(name).get(0);
             Object[] newArgs = new Object[codeBlock.arguments.length];
             for (int i = 0; i< codeBlock.arguments.length; i++){
                 if (codeBlock.arguments[i] instanceof ClassName) {
