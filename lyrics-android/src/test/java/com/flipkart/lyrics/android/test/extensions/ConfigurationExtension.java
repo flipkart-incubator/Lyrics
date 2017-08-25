@@ -25,11 +25,11 @@ import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -120,7 +120,7 @@ public class ConfigurationExtension implements ParameterResolver {
         interfaces.add(new VariableModel("java.io.Serializable"));
         interfaces.add(
                 new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
-                new VariableModel[] { new VariableModel("T") }));
+                        new VariableModel[]{new VariableModel("T")}));
         when(interfacesTune.interfaces()).thenReturn(interfaces);
         Song.factory = interfacesTune.createFactory();
         return interfacesTune;

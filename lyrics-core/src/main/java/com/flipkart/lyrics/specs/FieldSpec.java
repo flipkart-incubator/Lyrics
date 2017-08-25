@@ -2,6 +2,7 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -35,12 +36,23 @@ public class FieldSpec {
         return null;
     }
 
+    void emit(CodeWriter codeWriter, Set<Modifier> implicitModifiers) throws IOException {
+        codeWriter.emitAnnotations(annotations, false);
+        codeWriter.emitModifiers(modifiers, implicitModifiers);
+        codeWriter.emit("$T $L", type, name);
+        if (!initializer.isEmpty()) {
+            codeWriter.emit(" = ");
+            codeWriter.emit(initializer);
+        }
+        codeWriter.emit(";\n");
+    }
+
     public static abstract class Builder {
         private final String name;
         private final TypeName type;
-        private CodeBlock initializer;
         private final Set<Modifier> modifiers = new HashSet<>();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
+        private CodeBlock initializer;
 
         public Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;

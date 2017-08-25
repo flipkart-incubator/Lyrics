@@ -19,6 +19,8 @@ import com.flipkart.lyrics.helper.Util;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,16 +32,24 @@ import java.util.regex.Pattern;
 public final class CodeBlock {
     private static final Pattern NAMED_ARGUMENT = Pattern.compile("\\$(?<argumentName>[\\w_]+):(?<typeChar>[\\w]).*", 32);
     private static final Pattern LOWERCASE = Pattern.compile("[a-z]+[\\w_]*");
-    final List<String> formatParts;
-    final List<Object> args;
     final public String format;
     final public Object[] arguments;
+    final List<String> formatParts;
+    final List<Object> args;
 
     private CodeBlock(CodeBlock.Builder builder) {
         this.formatParts = Util.immutableList(builder.formatParts);
         this.args = Util.immutableList(builder.args);
         this.format = builder.format;
         this.arguments = builder.arguments;
+    }
+
+    public static CodeBlock of(String format, Object... args) {
+        return (new CodeBlock.Builder()).add(format, args).build();
+    }
+
+    public static CodeBlock.Builder builder() {
+        return new CodeBlock.Builder();
     }
 
     public boolean isEmpty() {
@@ -61,15 +71,13 @@ public final class CodeBlock {
     }
 
     public String toString() {
-        return super.toString();
-    }
-
-    public static CodeBlock of(String format, Object... args) {
-        return (new CodeBlock.Builder()).add(format, args).build();
-    }
-
-    public static CodeBlock.Builder builder() {
-        return new CodeBlock.Builder();
+        StringWriter out = new StringWriter();
+        try {
+            new CodeWriter(out).emit(this);
+            return out.toString();
+        } catch (IOException e) {
+            throw new AssertionError();
+        }
     }
 
     public CodeBlock.Builder toBuilder() {
@@ -94,12 +102,12 @@ public final class CodeBlock {
             int p = 0;
             Iterator var4 = arguments.keySet().iterator();
 
-            while(var4.hasNext()) {
-                String argument = (String)var4.next();
+            while (var4.hasNext()) {
+                String argument = (String) var4.next();
                 Util.checkArgument(CodeBlock.LOWERCASE.matcher(argument).matches(), "argument '%s' must start with a lowercase character", new Object[]{argument});
             }
 
-            while(p < format.length()) {
+            while (p < format.length()) {
                 int nextP = format.indexOf("$", p);
                 if (nextP == -1) {
                     this.formatParts.add(format.substring(p, format.length()));
@@ -139,9 +147,9 @@ public final class CodeBlock {
             int[] indexedParameterCount = new int[args.length];
             int p = 0;
 
-            while(true) {
+            while (true) {
                 int indexStart;
-                while(p < format.length()) {
+                while (p < format.length()) {
                     if (format.charAt(p) != '$') {
                         indexStart = format.indexOf(36, p + 1);
                         if (indexStart == -1) {
@@ -158,7 +166,7 @@ public final class CodeBlock {
                         do {
                             Util.checkArgument(p < format.length(), "dangling format characters in '%s'", new Object[]{format});
                             c = format.charAt(p++);
-                        } while(c >= '0' && c <= '9');
+                        } while (c >= '0' && c <= '9');
 
                         int indexEnd = p - 1;
                         if (this.isNoArgPlaceholder(c)) {
@@ -191,7 +199,7 @@ public final class CodeBlock {
                 if (hasIndexed) {
                     List<String> unused = new ArrayList();
 
-                    for(indexStart = 0; indexStart < args.length; ++indexStart) {
+                    for (indexStart = 0; indexStart < args.length; ++indexStart) {
                         if (indexedParameterCount[indexStart] == 0) {
                             unused.add("$" + (indexStart + 1));
                         }
@@ -210,7 +218,7 @@ public final class CodeBlock {
         }
 
         private void addArgument(String format, char c, Object arg) {
-            switch(c) {
+            switch (c) {
                 case 'L':
                     this.args.add(this.argToLiteral(arg));
                     break;
@@ -237,13 +245,13 @@ public final class CodeBlock {
             if (o instanceof CharSequence) {
                 return o.toString();
             } else if (o instanceof ParameterSpec) {
-                return ((ParameterSpec)o).name;
+                return ((ParameterSpec) o).name;
             } else if (o instanceof FieldSpec) {
-                return ((FieldSpec)o).name;
+                return ((FieldSpec) o).name;
             } else if (o instanceof MethodSpec) {
-                return ((MethodSpec)o).name;
+                return ((MethodSpec) o).name;
             } else if (o instanceof TypeSpec) {
-                return ((TypeSpec)o).name;
+                return ((TypeSpec) o).name;
             } else {
                 throw new IllegalArgumentException("expected name but was " + o);
             }
@@ -259,13 +267,13 @@ public final class CodeBlock {
 
         private TypeName argToType(Object o) {
             if (o instanceof TypeName) {
-                return (TypeName)o;
+                return (TypeName) o;
             } else if (o instanceof TypeMirror) {
-                return TypeName.get((TypeMirror)o);
+                return TypeName.get((TypeMirror) o);
             } else if (o instanceof Element) {
-                return TypeName.get(((Element)o).asType());
+                return TypeName.get(((Element) o).asType());
             } else if (o instanceof Type) {
-                return TypeName.get((Type)o);
+                return TypeName.get((Type) o);
             } else {
                 throw new IllegalArgumentException("expected type but was " + o);
             }

@@ -2,6 +2,7 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -9,6 +10,8 @@ import java.util.*;
  * @author kushal.sharma on 09/08/17.
  */
 public class MethodSpec {
+    static final String CONSTRUCTOR = "<init>";
+
     public final String name;
     public final CodeBlock defaultValue;
     public final TypeName returnType;
@@ -18,6 +21,7 @@ public class MethodSpec {
     public final List<CodeBlock> statements = new ArrayList<>();
     public final List<AnnotationSpec> annotations = new ArrayList<>();
     public final List<ParameterSpec> parameters = new ArrayList<>();
+    public boolean varargs;
 
     protected MethodSpec(Builder builder) {
         this.name = builder.name;
@@ -43,16 +47,59 @@ public class MethodSpec {
         return null;
     }
 
+    void emit(CodeWriter codeWriter, String enclosingName, Set<Modifier> implicitModifiers)
+            throws IOException {
+        codeWriter.emitAnnotations(annotations, false);
+        codeWriter.emitModifiers(modifiers, implicitModifiers);
+
+        if (isConstructor()) {
+            codeWriter.emit("$L(", enclosingName);
+        } else {
+            codeWriter.emit("$T $L(", returnType, name);
+        }
+
+        boolean firstParameter = true;
+        for (Iterator<ParameterSpec> i = parameters.iterator(); i.hasNext(); ) {
+            ParameterSpec parameter = i.next();
+            if (!firstParameter) codeWriter.emit(", ");
+            parameter.emit(codeWriter, !i.hasNext() && varargs);
+            firstParameter = false;
+        }
+
+        codeWriter.emit(")");
+
+        if (defaultValue != null && !defaultValue.isEmpty()) {
+            codeWriter.emit(" default ");
+            codeWriter.emit(defaultValue);
+        }
+
+        if (modifiers.contains(Modifier.ABSTRACT)) {
+            codeWriter.emit(";\n");
+        } else {
+            codeWriter.emit(" {\n");
+
+            codeWriter.indent();
+            codeWriter.emit("");
+            codeWriter.unindent();
+
+            codeWriter.emit("}\n");
+        }
+    }
+
+    public boolean isConstructor() {
+        return name.equals(CONSTRUCTOR);
+    }
+
     public static abstract class Builder {
         private final String name;
-        private CodeBlock defaultValue;
-        private TypeName returnType;
         private final Set<Modifier> modifiers = new HashSet<>();
         private final List<CodeBlock> codeBlocks = new ArrayList<>();
         private final List<CodeBlock> comments = new ArrayList<>();
         private final List<CodeBlock> statements = new ArrayList<>();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final List<ParameterSpec> parameters = new ArrayList<>();
+        private CodeBlock defaultValue;
+        private TypeName returnType;
 
         protected Builder(String name) {
             this.name = name;

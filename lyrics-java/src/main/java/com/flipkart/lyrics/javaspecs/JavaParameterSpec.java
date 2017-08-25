@@ -1,11 +1,12 @@
 package com.flipkart.lyrics.javaspecs;
 
 import com.flipkart.lyrics.specs.AnnotationSpec;
-import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.specs.TypeName;
 
-import static com.flipkart.lyrics.helper.JavaHelper.*;
+import static com.flipkart.lyrics.helper.JavaHelper.getJavaModifiers;
+import static com.flipkart.lyrics.helper.JavaHelper.getJavaTypeName;
 
 /**
  * @author kushal.sharma on 11/08/17.

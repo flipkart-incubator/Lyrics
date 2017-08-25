@@ -23,6 +23,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,9 +56,9 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
 
     public static ClassName get(Class<?> clazz) {
         checkNotNull(clazz, "clazz == null");
-        checkArgument(!clazz.isPrimitive(), "primitive types cannot be represented as a ClassName");
+        checkArgument(!clazz.isPrimitive(), "primitive typeSpecs cannot be represented as a ClassName");
         checkArgument(!void.class.equals(clazz), "'void' type cannot be represented as a ClassName");
-        checkArgument(!clazz.isArray(), "array types cannot be represented as a ClassName");
+        checkArgument(!clazz.isArray(), "array typeSpecs cannot be represented as a ClassName");
         List<String> names = new ArrayList<>();
         while (true) {
             String anonymousSuffix = "";
@@ -225,5 +226,10 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
     @Override
     public int compareTo(ClassName o) {
         return canonicalName.compareTo(o.canonicalName);
+    }
+
+    @Override
+    CodeWriter emit(CodeWriter out) throws IOException {
+        return out.emitAndIndent(out.lookupName(this));
     }
 }

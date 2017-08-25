@@ -55,6 +55,5 @@ public class GetterHandlerTest {
         assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
         assertEquals(TypeName.INT, methodSpec.returnType);
         assertEquals("getTest", methodSpec.name);
-        //assertEquals(CodeBlock.of("return $L;", "test").toString().trim(), methodSpec.code.toString().trim());
     }
 }

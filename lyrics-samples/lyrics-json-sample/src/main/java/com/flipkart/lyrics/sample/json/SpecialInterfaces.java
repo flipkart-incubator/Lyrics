@@ -1,14 +1,8 @@
 package com.flipkart.lyrics.sample.json;
 
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.ParameterSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.ClassName;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.ParameterizedTypeName;
-import com.flipkart.lyrics.specs.TypeName;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.*;
 
 import java.util.Map;
 

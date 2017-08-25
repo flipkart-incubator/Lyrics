@@ -58,7 +58,7 @@ public class ModifiersHandlerTest {
     public void testSingleModifier(@TuneProvider(NO_MODIFIERS) Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
@@ -75,7 +75,7 @@ public class ModifiersHandlerTest {
     public void testMultipleModifiers(@TuneProvider(NO_MODIFIERS) Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC, Modifier.ABSTRACT });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC, Modifier.ABSTRACT});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
@@ -93,7 +93,7 @@ public class ModifiersHandlerTest {
     public void testConfigModifiersAndModelModifier(@TuneProvider Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PRIVATE, Modifier.ABSTRACT });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PRIVATE, Modifier.ABSTRACT});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();

@@ -3,10 +3,6 @@ package com.flipkart.lyrics.javaspecs.contract;
 import com.flipkart.lyrics.javaspecs.*;
 import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.specs.contract.Factory;
-import com.flipkart.lyrics.specs.ClassName;
-import com.flipkart.lyrics.specs.Kind;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
 
 /**
  * @author kushal.sharma on 09/08/17.

@@ -27,8 +27,6 @@ import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import javax.validation.constraints.NotNull;
-
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;

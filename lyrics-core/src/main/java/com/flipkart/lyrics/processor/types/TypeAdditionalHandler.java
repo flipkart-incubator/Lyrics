@@ -1,8 +1,8 @@
 package com.flipkart.lyrics.processor.types;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 06/06/17.
