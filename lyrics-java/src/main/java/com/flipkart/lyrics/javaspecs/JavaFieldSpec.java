@@ -1,4 +1,4 @@
-package com.flipkart.lyrics.implementations;
+package com.flipkart.lyrics.javaspecs;
 
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;

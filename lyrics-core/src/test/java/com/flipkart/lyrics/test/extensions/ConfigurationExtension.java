@@ -17,17 +17,18 @@
 package com.flipkart.lyrics.test.extensions;
 
 import com.flipkart.lyrics.Song;
+import com.flipkart.lyrics.TestFactory;
+import com.flipkart.lyrics.TestTune;
 import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.TestTune;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -49,7 +50,7 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String DEFAULT = "default";
     public static final String JACKSON = "jackson";
     public static final String GSON = "gson";
-    public static final String INTERFACES = "specs";
+    public static final String INTERFACES = "interfaces";
     public static final String NO_MODIFIERS = "no-modifiers";
     public static final String REQUIRED = "required";
     public static final String JSR_303 = "jsr-303";
@@ -57,90 +58,6 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String ANDROID_SUPPORT = "android-support";
     public static final String ANNOTATIONS = "annotations";
     public static final String ADDITIONAL_FIELD_PROPERTY_HANDLER = "addPropHandler";
-
-    private Tune getDefaultTune() {
-        Tune tune = new TestTune();
-        RuleSet ruleSet = processRuleSet(tune, null);
-        processHandlerSet(tune, null, ruleSet);
-        processFieldTypeHandlerSet(tune, null);
-        processParameterTypeHandlerSet(tune, null);
-        processFieldAdditionalHandlers(tune, null);
-        processTypeAdditionalHandlers(tune, null);
-        processFieldModificationHandlers(tune, null);
-        Song.factory = tune.createFactory();
-        return tune;
-    }
-
-    private Tune getAnnotationsTune() {
-        Tune jacksonTune = spy(TestTune.class);
-        List<AnnotationModel> annotationModels = Arrays.asList(new AnnotationModel(Deprecated.class.getName()), new AnnotationModel(Resource.class.getName()));
-        when(jacksonTune.getClassLevelAnnotations()).thenReturn(annotationModels);
-        Song.factory = jacksonTune.createFactory();
-        return jacksonTune;
-    }
-
-    private Tune getJacksonTune() {
-        Tune jacksonTune = spy(TestTune.class);
-        when(jacksonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new JacksonStyle()));
-        Song.factory = jacksonTune.createFactory();
-        return jacksonTune;
-    }
-
-    private Tune getGsonTune() {
-        Tune gsonTune = spy(TestTune.class);
-        when(gsonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new GsonStyle()));
-        Song.factory = gsonTune.createFactory();
-        return gsonTune;
-    }
-
-    private Tune getRequiredTune() {
-        Tune requireTune = spy(TestTune.class);
-        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
-        Song.factory = requireTune.createFactory();
-        return requireTune;
-    }
-
-    private Tune getJsr303Tune() {
-        Tune requireTune = spy(TestTune.class);
-        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
-        Song.factory = requireTune.createFactory();
-        return requireTune;
-    }
-
-    private Tune getJsr305Tune() {
-        Tune requireTune = spy(TestTune.class);
-        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr305Style()));
-        Song.factory = requireTune.createFactory();
-        return requireTune;
-    }
-
-    private Tune getInterfacesTune() {
-        Tune interfacesTune = spy(TestTune.class);
-        Set<VariableModel> interfaces = new HashSet<>();
-        interfaces.add(new VariableModel("java.io.Serializable"));
-        interfaces.add(
-                new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
-                new VariableModel[] { new VariableModel("T") }));
-        when(interfacesTune.interfaces()).thenReturn(interfaces);
-        Song.factory = interfacesTune.createFactory();
-        return interfacesTune;
-    }
-
-    private Tune getNoModifiersTune() {
-        Tune jacksonTune = spy(TestTune.class);
-        when(jacksonTune.getDefaultClassModifier()).thenReturn(null);
-        Song.factory = jacksonTune.createFactory();
-        return jacksonTune;
-    }
-
-    private Tune getAdditionalFieldPropertiesHandlerTune() {
-        Tune additionalFieldPropertyHandlerTune = spy(getDefaultTune());
-        Map<String, FieldAdditionalHandler> additionalHandlerMap = new HashMap<>();
-        additionalHandlerMap.put("abc", new AdditionalFieldHandlerTestImpl());
-        additionalHandlerMap.put("xyz", new NoOpAdditionalFieldHandlerTestImpl());
-        when(additionalFieldPropertyHandlerTune.getFieldsAdditionalPropertiesHandler()).thenReturn(additionalHandlerMap);
-        return additionalFieldPropertyHandlerTune;
-    }
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
@@ -174,6 +91,91 @@ public class ConfigurationExtension implements ParameterResolver {
             default:
                 return null;
         }
+    }
+
+    private Tune getDefaultTune() {
+        Tune tune = new TestTune();
+        RuleSet ruleSet = processRuleSet(tune, null);
+        processHandlerSet(tune, null, ruleSet);
+        processFieldTypeHandlerSet(tune, null);
+        processParameterTypeHandlerSet(tune, null);
+        processFieldAdditionalHandlers(tune, null);
+        processTypeAdditionalHandlers(tune, null);
+        processFieldModificationHandlers(tune, null);
+        Song.factory = new TestFactory();
+        return tune;
+    }
+
+    private Tune getAnnotationsTune() {
+        Tune jacksonTune = spy(TestTune.class);
+        List<AnnotationModel> annotationModels = Arrays.asList(new AnnotationModel(Deprecated.class.getName()), new AnnotationModel(Resource.class.getName()));
+        when(jacksonTune.getClassLevelAnnotations()).thenReturn(annotationModels);
+        Song.factory = new TestFactory();
+        return jacksonTune;
+    }
+
+    private Tune getJacksonTune() {
+        Tune jacksonTune = spy(TestTune.class);
+        when(jacksonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new JacksonStyle()));
+        Song.factory = new TestFactory();
+        return jacksonTune;
+    }
+
+    private Tune getGsonTune() {
+        Tune gsonTune = spy(TestTune.class);
+        when(gsonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new GsonStyle()));
+        Song.factory = new TestFactory();
+        return gsonTune;
+    }
+
+    private Tune getRequiredTune() {
+        Tune requireTune = spy(TestTune.class);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
+        Song.factory = new TestFactory();
+        return requireTune;
+    }
+
+    private Tune getJsr303Tune() {
+        Tune requireTune = spy(TestTune.class);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
+        Song.factory = new TestFactory();
+        return requireTune;
+    }
+
+    private Tune getJsr305Tune() {
+        Tune requireTune = spy(TestTune.class);
+        when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr305Style()));
+        Song.factory = new TestFactory();
+        return requireTune;
+    }
+
+    private Tune getInterfacesTune() {
+        Tune interfacesTune = spy(TestTune.class);
+        Set<VariableModel> interfaces = new HashSet<>();
+        interfaces.add(new VariableModel("java.io.Serializable"));
+        interfaces.add(
+                new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
+                new VariableModel[] { new VariableModel("T") }));
+        when(interfacesTune.interfaces()).thenReturn(interfaces);
+        Song.factory = new TestFactory();
+        return interfacesTune;
+    }
+
+    private Tune getNoModifiersTune() {
+        Tune jacksonTune = spy(TestTune.class);
+        when(jacksonTune.getDefaultClassModifier()).thenReturn(null);
+        Song.factory = new TestFactory();
+        return jacksonTune;
+    }
+
+    private Tune getAdditionalFieldPropertiesHandlerTune() {
+        Tune additionalFieldPropertyHandlerTune = spy(getDefaultTune());
+        Map<String, FieldAdditionalHandler> additionalHandlerMap = new HashMap<>();
+        additionalHandlerMap.put("abc", new AdditionalFieldHandlerTestImpl());
+        additionalHandlerMap.put("xyz", new NoOpAdditionalFieldHandlerTestImpl());
+        when(additionalFieldPropertyHandlerTune.getFieldsAdditionalPropertiesHandler()).thenReturn(additionalHandlerMap);
+        Song.factory = new TestFactory();
+        return additionalFieldPropertyHandlerTune;
     }
 }
 

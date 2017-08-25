@@ -1,6 +1,6 @@
 package com.flipkart.lyrics.sample.json;
 
-import com.flipkart.lyrics.config.DefaultTune;
+import com.flipkart.lyrics.config.JavaTune;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.MetaInfo;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author kushal.sharma on 18/08/17.
  */
-public class TestTune extends DefaultTune {
+public class TestTune extends JavaTune {
     private static final Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> specialHandlers = new HashMap<>();
 
     static {

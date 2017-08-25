@@ -17,13 +17,15 @@
 package com.flipkart.lyrics.processor.modifiers;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.util.Set;
 
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.NO_MODIFIERS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +49,9 @@ public class ModifiersHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        assertEquals(0, spec.modifiers.size(), "Modifiers found");
+        Set<Modifier> modifiers = spec.modifiers;
+
+        assertEquals(0, modifiers.size(), "Modifiers found");
     }
 
     @Test
@@ -61,7 +65,9 @@ public class ModifiersHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        assertEquals(1, spec.modifiers.size(), "No Modifiers found");
+        Set<Modifier> modifiers = spec.modifiers;
+
+        assertEquals(1, modifiers.size(), "No Modifiers found");
         assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
     }
 
@@ -76,7 +82,9 @@ public class ModifiersHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        assertEquals(2, spec.modifiers.size(), "No Modifiers found");
+        Set<Modifier> modifiers = spec.modifiers;
+
+        assertEquals(2, modifiers.size(), "No Modifiers found");
         assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
         assertTrue(spec.modifiers.contains(Modifier.ABSTRACT));
     }
@@ -92,7 +100,9 @@ public class ModifiersHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        assertEquals(2, spec.modifiers.size(), "No Modifiers found");
+        Set<Modifier> modifiers = spec.modifiers;
+
+        assertEquals(2, modifiers.size(), "No Modifiers found");
         assertTrue(spec.modifiers.contains(Modifier.PRIVATE));
         assertTrue(spec.modifiers.contains(Modifier.ABSTRACT));
     }
@@ -107,7 +117,9 @@ public class ModifiersHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class name found");
 
-        assertEquals(1, spec.modifiers.size(), "No Modifiers found");
+        Set<Modifier> modifiers = spec.modifiers;
+
+        assertEquals(1, modifiers.size(), "No Modifiers found");
         assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
     }
 }

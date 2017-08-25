@@ -16,11 +16,15 @@
 
 package com.flipkart.lyrics.rules;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -48,7 +52,7 @@ public class NamedAsRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -62,7 +66,7 @@ public class NamedAsRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(0, spec.annotationSpecs.size(), "Annotations found.");
+        assertEquals(0, spec.annotations.size(), "Annotations found.");
     }
 
     @Test
@@ -76,14 +80,14 @@ public class NamedAsRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(1, spec.annotationSpecs.size(), "Annotation not found.");
+        assertEquals(1, spec.annotations.size(), "Annotation not found.");
 
-//        AnnotationSpec annotationSpec = spec.annotationSpecs.get(0);
-//        assertEquals(JsonProperty.class.getName(), annotationSpec.clazz.getName(), "Wrong annotation found.");
-//        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
+        AnnotationSpec annotationSpec = spec.annotations.get(0);
+        assertEquals(JsonProperty.class.getName(), annotationSpec.type.toString(), "Wrong annotation found.");
+        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
 
-//        assertNotNull(annotationSpec.members.get("value"), "Annotation value not found");
-//        assertEquals("\"nothing\"", annotationSpec.members.get("value").get(0).toString(), "Wrong value found.");
+        assertNotNull(annotationSpec.members.get("value"), "Annotation value not found");
+        assertEquals("\"nothing\"", annotationSpec.members.get("value").get(0).toString(), "Wrong value found.");
     }
 
     @Test
@@ -97,15 +101,14 @@ public class NamedAsRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(1, spec.annotationSpecs.size(), "Annotations not found.");
-//        assertEquals(1, spec.annotationClasses.size(), "Annotations not found.");
+        assertEquals(2, spec.annotations.size(), "Annotations not found.");
 
-//        AnnotationSpec annotationSpec = spec.annotationSpecs.get(0);
-//        assertEquals(SerializedName.class.getName(), annotationSpec.clazz.getName(), "Wrong annotation found.");
-//        assertEquals(Expose.class.getName(), spec.annotationClasses.get(0).getName(), "@Expose not found.");
-//        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
+        AnnotationSpec annotationSpec = spec.annotations.get(0);
+        assertEquals(SerializedName.class.getName(), annotationSpec.type.toString(), "Wrong annotation found.");
+        assertEquals(Expose.class.getName(), spec.annotations.get(1).type.toString(), "@Expose not found.");
+        assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
 
-//        assertNotNull(annotationSpec.members.get("value"), "Annotation value not found");
-//        assertEquals("\"nothing\"", annotationSpec.members.get("value").get(0).toString(), "Wrong value found.");
+        assertNotNull(annotationSpec.members.get("value"), "Annotation value not found");
+        assertEquals("\"nothing\"", annotationSpec.members.get("value").get(0).toString(), "Wrong value found.");
     }
 }

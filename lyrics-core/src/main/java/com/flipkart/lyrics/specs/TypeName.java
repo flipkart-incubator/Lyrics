@@ -22,6 +22,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor7;
+import java.io.IOException;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -57,7 +58,7 @@ public class TypeName {
     private String cachedString;
 
     private TypeName(String keyword) {
-        this(keyword, new ArrayList<AnnotationSpec>());
+        this(keyword, new ArrayList<>());
     }
 
     private TypeName(String keyword, List<AnnotationSpec> annotations) {
@@ -165,9 +166,13 @@ public class TypeName {
         return toString().hashCode();
     }
 
-    @Override
-    public String toString() {
-        return keyword;
+    @Override public final String toString() {
+        String result = cachedString;
+        if (result == null) {
+            result = this.annotations.toString() + this.keyword;
+            cachedString = result;
+        }
+        return result;
     }
 
     /** Returns a type name equivalent to {@code mirror}. */
@@ -252,7 +257,7 @@ public class TypeName {
 
     /** Returns a type name equivalent to {@code type}. */
     public static TypeName get(Type type) {
-        return get(type, new LinkedHashMap<Type, TypeVariableName>());
+        return get(type, new LinkedHashMap<>());
     }
 
     static TypeName get(Type type, Map<Type, TypeVariableName> map) {
@@ -283,7 +288,7 @@ public class TypeName {
 
     /** Converts an array of types to a list of type names. */
     static List<TypeName> list(Type[] types) {
-        return list(types, new LinkedHashMap<Type, TypeVariableName>());
+        return list(types, new LinkedHashMap<>());
     }
 
     static List<TypeName> list(Type[] types, Map<Type, TypeVariableName> map) {

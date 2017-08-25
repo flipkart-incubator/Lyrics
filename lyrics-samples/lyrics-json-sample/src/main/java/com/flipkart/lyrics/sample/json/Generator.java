@@ -22,5 +22,4 @@ public class Generator {
         File source = new File("lyrics-samples/lyrics-json-sample/src/main/resources/com");
         lyrics.compose(true, source);
     }
-
 }

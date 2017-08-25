@@ -1,4 +1,4 @@
-package com.flipkart.lyrics.implementations;
+package com.flipkart.lyrics.javaspecs;
 
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
@@ -50,7 +50,7 @@ public class JavaTypeSpec extends TypeSpec {
         for (FieldSpec fieldSpec : this.fieldSpecs) {
             this.builder.addField((com.squareup.javapoet.FieldSpec) fieldSpec.getFieldSpec());
         }
-        for (AnnotationSpec annotationSpec : this.annotationSpecs) {
+        for (AnnotationSpec annotationSpec : this.annotations) {
             this.builder.addAnnotation((com.squareup.javapoet.AnnotationSpec) annotationSpec.getAnnotationSpec());
         }
         for (MethodSpec methodSpec : this.methodSpecs) {

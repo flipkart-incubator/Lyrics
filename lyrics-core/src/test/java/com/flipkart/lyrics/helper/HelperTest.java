@@ -123,5 +123,4 @@ public class HelperTest {
     private void verifyBooleanSetterName(String fieldName, String setterName, boolean primitive) {
         assertEquals(setterName, getGetterSetterName(fieldName, true, true, primitive));
     }
-
 }

@@ -17,14 +17,10 @@
 package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
+import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
@@ -57,7 +53,8 @@ public class GetterHandlerTest {
         MethodSpec methodSpec = spec.methodSpecs.get(0);
 
         assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
-//        assertEquals(TypeName.INT, methodSpec.returnsTypeName);
+        assertEquals(TypeName.INT, methodSpec.returnType);
         assertEquals("getTest", methodSpec.name);
+        //assertEquals(CodeBlock.of("return $L;", "test").toString().trim(), methodSpec.code.toString().trim());
     }
 }

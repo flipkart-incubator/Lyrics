@@ -124,5 +124,4 @@ public class DefaultHandlerSetTest {
         Handler handler = handlerSet.getOrderedConstructorHandler();
         assertTrue(handler instanceof OrderedConstructorHandler);
     }
-
 }

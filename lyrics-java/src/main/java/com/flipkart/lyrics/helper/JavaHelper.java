@@ -12,11 +12,11 @@ import com.squareup.javapoet.TypeVariableName;
  */
 public class JavaHelper {
     public static javax.lang.model.element.Modifier[] getJavaModifiers(Modifier... modifiers) {
-        javax.lang.model.element.Modifier[] newModifiers = new javax.lang.model.element.Modifier[modifiers.length];
+        javax.lang.model.element.Modifier[] javaModifiers = new javax.lang.model.element.Modifier[modifiers.length];
         for (int i = 0; i < modifiers.length; i++) {
-            newModifiers[i] = getJavaModifier(modifiers[i]);
+            javaModifiers[i] = getJavaModifier(modifiers[i]);
         }
-        return newModifiers;
+        return javaModifiers;
     }
 
     public static javax.lang.model.element.Modifier getJavaModifier(Modifier modifier) {
