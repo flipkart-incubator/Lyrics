@@ -5,7 +5,8 @@ import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.specs.TypeName;
 
-import static com.flipkart.lyrics.helper.JavaHelper.*;
+import static com.flipkart.lyrics.helper.JavaHelper.getJavaModifiers;
+import static com.flipkart.lyrics.helper.JavaHelper.getJavaTypeName;
 
 /**
  * @author kushal.sharma on 10/08/17.

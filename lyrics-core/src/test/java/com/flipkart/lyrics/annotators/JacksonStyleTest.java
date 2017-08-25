@@ -33,14 +33,14 @@ import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by shrey.garg on 06/06/17.
@@ -130,8 +130,8 @@ public class JacksonStyleTest {
         assertEquals(JsonSubTypes.class.getName(), subTypesAnnotation.type.toString());
         assertEquals(1, subTypesAnnotation.members.size());
         assertEquals(2, subTypesAnnotation.members.get("value").size());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(value = com.flipkart.lyrics.A.class, name = \"A\")", subTypesAnnotation.members.get("value").get(0).toString());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(value = com.flipkart.lyrics.B.class, name = \"B\")", subTypesAnnotation.members.get("value").get(1).toString());
+        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"A\", value = com.flipkart.lyrics.A.class)", subTypesAnnotation.members.get("value").get(0).toString());
+        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"B\", value = com.flipkart.lyrics.B.class)", subTypesAnnotation.members.get("value").get(1).toString());
     }
 
     @Test
@@ -166,8 +166,8 @@ public class JacksonStyleTest {
         assertEquals(JsonSubTypes.class.getName(), subTypesAnnotation.type.toString());
         assertEquals(1, subTypesAnnotation.members.size());
         assertEquals(2, subTypesAnnotation.members.get("value").size());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(value = com.flipkart.lyrics.A.class, name = \"A\")", subTypesAnnotation.members.get("value").get(0).toString());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(value = com.flipkart.lyrics.B.class, name = \"B\")", subTypesAnnotation.members.get("value").get(1).toString());
+        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"A\", value = com.flipkart.lyrics.A.class)", subTypesAnnotation.members.get("value").get(0).toString());
+        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"B\", value = com.flipkart.lyrics.B.class)", subTypesAnnotation.members.get("value").get(1).toString());
     }
 
     @Test

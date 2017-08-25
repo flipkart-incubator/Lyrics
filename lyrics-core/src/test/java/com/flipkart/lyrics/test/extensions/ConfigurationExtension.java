@@ -39,7 +39,6 @@ import javax.annotation.Resource;
 import java.util.*;
 
 import static com.flipkart.lyrics.helper.Injector.*;
-import static com.flipkart.lyrics.helper.Injector.processFieldAdditionalHandlers;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -155,7 +154,7 @@ public class ConfigurationExtension implements ParameterResolver {
         interfaces.add(new VariableModel("java.io.Serializable"));
         interfaces.add(
                 new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
-                new VariableModel[] { new VariableModel("T") }));
+                        new VariableModel[]{new VariableModel("T")}));
         when(interfacesTune.interfaces()).thenReturn(interfaces);
         Song.factory = new TestFactory();
         return interfacesTune;

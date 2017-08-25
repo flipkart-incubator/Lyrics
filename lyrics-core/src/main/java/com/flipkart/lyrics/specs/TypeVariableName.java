@@ -18,6 +18,7 @@ package com.flipkart.lyrics.specs;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -168,5 +169,10 @@ public final class TypeVariableName extends TypeName {
         newBounds.addAll(this.bounds);
         newBounds.addAll(bounds);
         return new TypeVariableName(name, newBounds, annotations);
+    }
+
+    @Override
+    CodeWriter emit(CodeWriter out) throws IOException {
+        return out.emitAndIndent(name);
     }
 }

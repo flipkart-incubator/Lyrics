@@ -16,8 +16,8 @@
 
 package com.flipkart.lyrics.styles.objectmethods;
 
-import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.specs.MethodSpec;
 
 import java.util.List;
 

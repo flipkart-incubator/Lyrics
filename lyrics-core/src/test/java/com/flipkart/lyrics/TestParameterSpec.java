@@ -1,7 +1,7 @@
 package com.flipkart.lyrics;
 
-import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.specs.TypeName;
 
 /**

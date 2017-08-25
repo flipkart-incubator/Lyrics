@@ -2,10 +2,6 @@ package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.specs.contract.Factory;
-import com.flipkart.lyrics.specs.ClassName;
-import com.flipkart.lyrics.specs.Kind;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
 
 /**
  * @author kushal.sharma on 23/08/17.

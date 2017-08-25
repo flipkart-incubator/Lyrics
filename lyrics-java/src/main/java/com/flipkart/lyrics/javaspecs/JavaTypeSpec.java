@@ -1,13 +1,6 @@
 package com.flipkart.lyrics.javaspecs;
 
-import com.flipkart.lyrics.specs.AnnotationSpec;
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.Kind;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
-import com.flipkart.lyrics.specs.TypeVariableName;
+import com.flipkart.lyrics.specs.*;
 import com.squareup.javapoet.JavaFile;
 
 import java.io.File;
@@ -70,7 +63,7 @@ public class JavaTypeSpec extends TypeSpec {
         for (TypeName superinterface : this.superinterfaces) {
             this.builder.addSuperinterface(getJavaTypeName(superinterface));
         }
-        for (TypeSpec typeSpec : this.types) {
+        for (TypeSpec typeSpec : this.typeSpecs) {
             this.builder.addType((com.squareup.javapoet.TypeSpec) typeSpec.getTypeSpec());
         }
         for (TypeVariableName typeVariableName : this.typeVariables) {

@@ -19,13 +19,12 @@ package com.flipkart.lyrics.android.rules;
 import com.flipkart.lyrics.android.test.annotation.TuneProvider;
 import com.flipkart.lyrics.android.test.extensions.ConfigurationExtension;
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.rules.NotRequiredRule;
+import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static com.flipkart.lyrics.android.test.extensions.ConfigurationExtension.ANDROID_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class NotRequiredRuleTest {
 
     @Test
-    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
+    public void testAndroidRequiredRules(@TuneProvider() Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
 
@@ -45,8 +44,8 @@ public class NotRequiredRuleTest {
         FieldSpec spec = builder.build();
 
         assertEquals("test", spec.name, "Wrong name found.");
-//        assertEquals(1, spec.annotationClassNames.size(), "Annotations not found.");
+        assertEquals(1, spec.annotations.size(), "Annotations not found.");
 
-//        assertEquals("android.support.annotation.Nullable", spec.annotationClassNames.get(0).packageName() + "." + spec.annotationClassNames.get(0).simpleName(), "Android support annotation not found.");
+        assertEquals("android.support.annotation.Nullable", spec.annotations.get(0).type.toString(), "Android support annotation not found.");
     }
 }

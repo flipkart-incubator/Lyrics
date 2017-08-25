@@ -6,14 +6,14 @@
   "fields": {
     "id": {
       "fieldType": "INTEGER",
-      "modifiers" : [
+      "modifiers": [
         "PRIVATE"
       ],
-      "primitive" : true
+      "primitive": true
     },
     "name": {
       "fieldType": "STRING",
-      "modifiers" : [
+      "modifiers": [
         "PUBLIC"
       ],
       "initializeWith": {

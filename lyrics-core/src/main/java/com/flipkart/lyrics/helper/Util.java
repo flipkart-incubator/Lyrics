@@ -47,7 +47,9 @@ public class Util {
         }
     }
 
-    /** Returns the string literal representing {@code value}, including wrapping double quotes. */
+    /**
+     * Returns the string literal representing {@code value}, including wrapping double quotes.
+     */
     public static String stringLiteralWithDoubleQuotes(String value, String indent) {
         StringBuilder result = new StringBuilder(value.length() + 2);
         result.append('"');
@@ -77,14 +79,22 @@ public class Util {
     static String characterLiteralWithoutSingleQuotes(char c) {
         // see https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6
         switch (c) {
-            case '\b': return "\\b"; /* \u0008: backspace (BS) */
-            case '\t': return "\\t"; /* \u0009: horizontal tab (HT) */
-            case '\n': return "\\n"; /* \u000a: linefeed (LF) */
-            case '\f': return "\\f"; /* \u000c: form feed (FF) */
-            case '\r': return "\\r"; /* \u000d: carriage return (CR) */
-            case '\"': return "\"";  /* \u0022: double quote (") */
-            case '\'': return "\\'"; /* \u0027: single quote (') */
-            case '\\': return "\\\\";  /* \u005c: backslash (\) */
+            case '\b':
+                return "\\b"; /* \u0008: backspace (BS) */
+            case '\t':
+                return "\\t"; /* \u0009: horizontal tab (HT) */
+            case '\n':
+                return "\\n"; /* \u000a: linefeed (LF) */
+            case '\f':
+                return "\\f"; /* \u000c: form feed (FF) */
+            case '\r':
+                return "\\r"; /* \u000d: carriage return (CR) */
+            case '\"':
+                return "\"";  /* \u0022: double quote (") */
+            case '\'':
+                return "\\'"; /* \u0027: single quote (') */
+            case '\\':
+                return "\\\\";  /* \u005c: backslash (\) */
             default:
                 return isISOControl(c) ? String.format("\\u%04x", (int) c) : Character.toString(c);
         }
@@ -95,5 +105,9 @@ public class Util {
         result.addAll(a);
         result.addAll(b);
         return result;
+    }
+
+    public static <T> Set<T> immutableSet(Collection<T> set) {
+        return Collections.unmodifiableSet(new LinkedHashSet<>(set));
     }
 }

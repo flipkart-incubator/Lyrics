@@ -18,12 +18,12 @@ package com.flipkart.lyrics.processor.methods;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.Helper;
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.model.*;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.Map;
 

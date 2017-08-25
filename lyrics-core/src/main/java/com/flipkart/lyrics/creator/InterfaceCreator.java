@@ -16,9 +16,9 @@
 
 package com.flipkart.lyrics.creator;
 
-import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 23/01/17.

@@ -16,9 +16,9 @@
 
 package com.flipkart.lyrics.styles.objectmethods;
 
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.ClassName;
 import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.MethodSpec;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;

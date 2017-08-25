@@ -2,7 +2,10 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -31,6 +34,16 @@ public class ParameterSpec {
 
     public Object getParameterSpec() {
         return null;
+    }
+
+    void emit(CodeWriter codeWriter, boolean varargs) throws IOException {
+        codeWriter.emitAnnotations(annotations, true);
+        codeWriter.emitModifiers(new HashSet<>(Arrays.asList(modifiers)));
+        if (varargs) {
+            codeWriter.emit("$T... $L", TypeName.arrayComponent(type), name);
+        } else {
+            codeWriter.emit("$T $L", type, name);
+        }
     }
 
     public static abstract class Builder {

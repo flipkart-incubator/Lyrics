@@ -16,10 +16,10 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
+import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.ParameterSpec;
-import com.flipkart.lyrics.model.FieldModel;
 
 /**
  * Created by shrey.garg on 03/01/17.
