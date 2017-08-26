@@ -2,7 +2,7 @@ package com.flipkart.lyrics.sample.json;
 
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.*;
+import com.flipkart.lyrics.specs.*;
 
 import java.util.Map;
 

@@ -25,14 +25,14 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.AnnotationSpec;
-import com.flipkart.lyrics.java.specs.FieldSpec;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.flipkart.lyrics.java.helper.Helper.getClassName;
+import static com.flipkart.lyrics.helper.Helper.getClassName;
 
 /**
  * Created by shrey.garg on 03/01/17.

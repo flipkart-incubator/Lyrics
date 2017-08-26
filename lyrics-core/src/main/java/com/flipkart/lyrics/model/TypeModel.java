@@ -18,7 +18,7 @@ package com.flipkart.lyrics.model;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.flipkart.lyrics.java.specs.Modifier;
+import com.flipkart.lyrics.specs.Modifier;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;

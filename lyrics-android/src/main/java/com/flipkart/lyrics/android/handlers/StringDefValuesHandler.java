@@ -16,12 +16,12 @@
 
 package com.flipkart.lyrics.android.handlers;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.java.specs.*;
+import com.flipkart.lyrics.specs.*;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

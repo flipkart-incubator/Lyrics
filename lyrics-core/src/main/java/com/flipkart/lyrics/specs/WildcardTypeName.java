@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.flipkart.lyrics.java.specs;
+package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.java.helper.Util;
+import com.flipkart.lyrics.helper.Util;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.flipkart.lyrics.java.helper.Util.checkArgument;
+import static com.flipkart.lyrics.helper.Util.checkArgument;
 
 public final class WildcardTypeName extends TypeName {
     public final List<TypeName> upperBounds;

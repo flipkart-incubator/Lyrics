@@ -1,4 +1,4 @@
-package com.flipkart.lyrics.java.helper;
+package com.flipkart.lyrics.helper;
 
 /**
  * Created by shrey.garg on 23/12/16.

@@ -1,5 +1,6 @@
 package com.flipkart.lyrics.java.specs;
 
+import com.flipkart.lyrics.specs.*;
 import com.squareup.javapoet.JavaFile;
 
 import java.io.File;

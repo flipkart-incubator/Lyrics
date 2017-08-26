@@ -16,16 +16,16 @@
 
 package com.flipkart.lyrics.processor.fields;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.Primitive;
-import com.flipkart.lyrics.java.specs.ArrayTypeName;
-import com.flipkart.lyrics.java.specs.FieldSpec;
-import com.flipkart.lyrics.java.specs.TypeName;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.ArrayTypeName;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 
-import static com.flipkart.lyrics.java.helper.Helper.resolveModifiers;
+import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
 
 /**
  * Created by shrey.garg on 25/11/16.

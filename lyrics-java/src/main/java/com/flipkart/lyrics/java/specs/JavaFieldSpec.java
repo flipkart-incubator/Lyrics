@@ -1,5 +1,10 @@
 package com.flipkart.lyrics.java.specs;
 
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeName;
+
 import static com.flipkart.lyrics.java.helper.JavaHelper.getJavaModifiers;
 import static com.flipkart.lyrics.java.helper.JavaHelper.getJavaTypeName;
 

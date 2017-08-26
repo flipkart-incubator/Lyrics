@@ -16,11 +16,11 @@
 
 package com.flipkart.lyrics.processor.methods;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
-import com.flipkart.lyrics.java.specs.*;
+import com.flipkart.lyrics.specs.*;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;

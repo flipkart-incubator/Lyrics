@@ -17,11 +17,11 @@
 package com.flipkart.lyrics.rules.type;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.AnnotationSpec;
-import com.flipkart.lyrics.java.specs.CodeBlock;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.CodeBlock;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;

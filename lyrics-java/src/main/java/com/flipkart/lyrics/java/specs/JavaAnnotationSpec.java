@@ -1,5 +1,9 @@
 package com.flipkart.lyrics.java.specs;
 
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.CodeBlock;
+
 import static com.flipkart.lyrics.java.helper.JavaHelper.getJavaClassName;
 
 /**

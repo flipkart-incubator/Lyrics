@@ -1,7 +1,7 @@
 package com.flipkart.lyrics;
 
-import com.flipkart.lyrics.java.specs.*;
-import com.flipkart.lyrics.java.specs.contract.Factory;
+import com.flipkart.lyrics.specs.contract.Factory;
+import com.flipkart.lyrics.specs.*;
 
 /**
  * @author kushal.sharma on 23/08/17.
