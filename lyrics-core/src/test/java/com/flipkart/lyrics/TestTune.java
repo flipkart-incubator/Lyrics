@@ -2,8 +2,8 @@ package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
-import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.TriConsumer;
+import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.java.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
@@ -12,9 +12,9 @@ import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.processor.fields.FieldModificationHandler;
 import com.flipkart.lyrics.processor.types.TypeAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.contract.Factory;
+import com.flipkart.lyrics.java.specs.Modifier;
+import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.contract.Factory;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 
 import java.util.*;

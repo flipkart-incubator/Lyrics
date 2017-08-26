@@ -16,20 +16,20 @@
 
 package com.flipkart.lyrics;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.contract.Factory;
+import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.contract.Factory;
 
 import java.io.File;
 import java.io.IOException;
 
-import static com.flipkart.lyrics.helper.Helper.getCreator;
-import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
-import static com.flipkart.lyrics.helper.Injector.*;
+import static com.flipkart.lyrics.java.helper.Helper.getCreator;
+import static com.flipkart.lyrics.java.helper.Helper.getTypeVariables;
+import static com.flipkart.lyrics.java.helper.Injector.*;
 
 /**
  * Created by shrey.garg on 27/11/16.

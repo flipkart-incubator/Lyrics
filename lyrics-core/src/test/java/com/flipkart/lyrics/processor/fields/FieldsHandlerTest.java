@@ -16,15 +16,15 @@
 
 package com.flipkart.lyrics.processor.fields;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.Modifier;
+import com.flipkart.lyrics.java.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ import org.mockito.Mockito;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
+import static com.flipkart.lyrics.java.helper.Helper.getGetterSetterName;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.ADDITIONAL_FIELD_PROPERTY_HANDLER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;

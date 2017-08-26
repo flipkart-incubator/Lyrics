@@ -22,7 +22,7 @@ import com.flipkart.lyrics.android.sets.AndroidFieldTypeHandlerSet;
 import com.flipkart.lyrics.android.sets.AndroidHandlerSet;
 import com.flipkart.lyrics.android.sets.AndroidParameterTypeHandlerSet;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
-import com.flipkart.lyrics.config.JavaTune;
+import com.flipkart.lyrics.java.config.JavaTune;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;

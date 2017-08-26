@@ -16,13 +16,13 @@
 
 package com.flipkart.lyrics.processor.fields;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InitializerModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.flipkart.lyrics.specs.*;
+import com.flipkart.lyrics.java.specs.*;
 
-import static com.flipkart.lyrics.helper.Helper.*;
+import static com.flipkart.lyrics.java.helper.Helper.*;
 
 /**
  * Created by shrey.garg on 25/11/16.

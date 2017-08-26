@@ -23,12 +23,12 @@ import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.java.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -38,7 +38,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 import javax.annotation.Resource;
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Injector.*;
+import static com.flipkart.lyrics.java.helper.Injector.*;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 

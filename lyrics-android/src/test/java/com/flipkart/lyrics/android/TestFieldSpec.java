@@ -1,8 +1,8 @@
 package com.flipkart.lyrics.android;
 
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.java.specs.FieldSpec;
+import com.flipkart.lyrics.java.specs.Modifier;
+import com.flipkart.lyrics.java.specs.TypeName;
 
 /**
  * @author kushal.sharma on 22/08/17.

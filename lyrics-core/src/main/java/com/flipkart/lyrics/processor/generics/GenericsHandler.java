@@ -16,13 +16,13 @@
 
 package com.flipkart.lyrics.processor.generics;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 25/11/16.
