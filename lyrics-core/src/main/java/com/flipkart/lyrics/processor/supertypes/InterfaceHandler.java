@@ -16,21 +16,21 @@
 
 package com.flipkart.lyrics.processor.supertypes;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.TypeName;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.TypeName;
+import com.flipkart.lyrics.java.specs.TypeSpec;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
+import static com.flipkart.lyrics.java.helper.Helper.getResolvedTypeName;
 
 /**
  * Created by shrey.garg on 28/11/16.

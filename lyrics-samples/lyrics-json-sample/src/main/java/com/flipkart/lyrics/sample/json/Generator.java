@@ -1,6 +1,6 @@
 package com.flipkart.lyrics.sample.json;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.json.Lyrics;
 
 import java.io.File;

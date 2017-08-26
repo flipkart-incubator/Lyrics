@@ -16,15 +16,15 @@
 
 package com.flipkart.lyrics.processor.supertypes;
 
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
-import com.flipkart.lyrics.specs.ClassName;
-import com.flipkart.lyrics.specs.ParameterizedTypeName;
-import com.flipkart.lyrics.specs.TypeName;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.ClassName;
+import com.flipkart.lyrics.java.specs.ParameterizedTypeName;
+import com.flipkart.lyrics.java.specs.TypeName;
+import com.flipkart.lyrics.java.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Helper.getTypeVariables;
+import static com.flipkart.lyrics.java.helper.Helper.getTypeVariables;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.INTERFACES;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

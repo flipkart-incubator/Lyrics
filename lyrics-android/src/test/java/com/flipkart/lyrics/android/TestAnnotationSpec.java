@@ -1,7 +1,7 @@
 package com.flipkart.lyrics.android;
 
-import com.flipkart.lyrics.specs.AnnotationSpec;
-import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.java.specs.AnnotationSpec;
+import com.flipkart.lyrics.java.specs.ClassName;
 
 /**
  * @author kushal.sharma on 23/08/17.

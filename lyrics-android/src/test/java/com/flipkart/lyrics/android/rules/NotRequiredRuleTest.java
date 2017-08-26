@@ -18,10 +18,10 @@ package com.flipkart.lyrics.android.rules;
 
 import com.flipkart.lyrics.android.test.annotation.TuneProvider;
 import com.flipkart.lyrics.android.test.extensions.ConfigurationExtension;
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.rules.NotRequiredRule;
-import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.java.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

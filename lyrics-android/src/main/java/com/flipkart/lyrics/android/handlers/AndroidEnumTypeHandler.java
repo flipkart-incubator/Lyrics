@@ -17,19 +17,19 @@
 package com.flipkart.lyrics.android.handlers;
 
 import com.flipkart.lyrics.android.config.AndroidTune;
-import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.java.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.processor.fields.ObjectTypeHandler;
-import com.flipkart.lyrics.specs.AnnotationSpec;
-import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.specs.TypeName;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.java.specs.AnnotationSpec;
+import com.flipkart.lyrics.java.specs.FieldSpec;
+import com.flipkart.lyrics.java.specs.TypeName;
+import com.flipkart.lyrics.java.specs.TypeSpec;
 
-import static com.flipkart.lyrics.helper.Helper.getClassName;
-import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
+import static com.flipkart.lyrics.java.helper.Helper.getClassName;
+import static com.flipkart.lyrics.java.helper.Helper.resolveModifiers;
 
 /**
  * Created by anshul.garg on 13/01/17.
