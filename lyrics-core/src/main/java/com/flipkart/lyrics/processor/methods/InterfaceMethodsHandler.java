@@ -16,21 +16,21 @@
 
 package com.flipkart.lyrics.processor.methods;
 
-import com.flipkart.lyrics.java.config.Tune;
-import com.flipkart.lyrics.java.helper.Helper;
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.*;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.java.specs.MethodSpec;
-import com.flipkart.lyrics.java.specs.Modifier;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.flipkart.lyrics.java.helper.Helper.isNullOrEmpty;
+import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 
 /**
  * Created by shrey.garg on 23/01/17.

@@ -16,12 +16,12 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.java.specs.AnnotationSpec;
-import com.flipkart.lyrics.java.specs.FieldSpec;
-import com.flipkart.lyrics.java.specs.MethodSpec;
-import com.flipkart.lyrics.java.specs.ParameterSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;

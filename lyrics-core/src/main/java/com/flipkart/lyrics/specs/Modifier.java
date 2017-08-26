@@ -1,4 +1,4 @@
-package com.flipkart.lyrics.java.specs;
+package com.flipkart.lyrics.specs;
 
 public enum Modifier {
 

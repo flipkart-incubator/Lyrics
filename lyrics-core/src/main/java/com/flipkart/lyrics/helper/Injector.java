@@ -15,9 +15,9 @@
  */
 
 
-package com.flipkart.lyrics.java.helper;
+package com.flipkart.lyrics.helper;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;

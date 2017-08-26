@@ -1,10 +1,10 @@
 package com.flipkart.lyrics.sample.json;
 
 import com.flipkart.lyrics.java.config.JavaTune;
-import com.flipkart.lyrics.java.helper.TriConsumer;
+import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.HashMap;
 import java.util.Map;

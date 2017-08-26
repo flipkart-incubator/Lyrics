@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.flipkart.lyrics.java.specs;
+package com.flipkart.lyrics.specs;
 
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.ArrayType;
@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.flipkart.lyrics.java.helper.Util.checkNotNull;
+import static com.flipkart.lyrics.helper.Util.checkNotNull;
 
 public final class ArrayTypeName extends TypeName {
     public final TypeName componentType;

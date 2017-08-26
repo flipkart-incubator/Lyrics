@@ -1,6 +1,6 @@
 package com.flipkart.lyrics.java.helper;
 
-import com.flipkart.lyrics.java.specs.*;
+import com.flipkart.lyrics.specs.*;
 
 /**
  * @author kushal.sharma on 10/08/17.

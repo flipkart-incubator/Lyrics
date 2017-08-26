@@ -16,14 +16,14 @@
 
 package com.flipkart.lyrics.processor.instances;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.Arrays;
 import java.util.List;

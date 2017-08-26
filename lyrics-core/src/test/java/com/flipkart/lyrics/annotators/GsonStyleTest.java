@@ -16,14 +16,14 @@
 
 package com.flipkart.lyrics.annotators;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.AnnotationSpec;
-import com.flipkart.lyrics.java.specs.FieldSpec;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.google.gson.annotations.Expose;

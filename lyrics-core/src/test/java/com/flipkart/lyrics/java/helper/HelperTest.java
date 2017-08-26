@@ -16,10 +16,11 @@
 
 package com.flipkart.lyrics.java.helper;
 
-import com.flipkart.lyrics.java.specs.ClassName;
+import com.flipkart.lyrics.helper.Helper;
+import com.flipkart.lyrics.specs.ClassName;
 import org.junit.jupiter.api.Test;
 
-import static com.flipkart.lyrics.java.helper.Helper.getGetterSetterName;
+import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

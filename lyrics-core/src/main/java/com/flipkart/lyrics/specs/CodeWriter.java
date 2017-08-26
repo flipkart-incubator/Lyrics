@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.flipkart.lyrics.java.specs;
+package com.flipkart.lyrics.specs;
 
 import javax.lang.model.SourceVersion;
 import java.io.IOException;
 import java.util.*;
 
-import static com.flipkart.lyrics.java.helper.Util.*;
+import static com.flipkart.lyrics.helper.Util.*;
 
 
 /**

@@ -18,8 +18,8 @@ package com.flipkart.lyrics.annotators;
 
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.java.specs.FieldSpec;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 03/01/17.

@@ -16,7 +16,7 @@
 
 package com.flipkart.lyrics.sets;
 
-import com.flipkart.lyrics.java.config.Tune;
+import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.*;
 import com.flipkart.lyrics.processor.Handler;
 

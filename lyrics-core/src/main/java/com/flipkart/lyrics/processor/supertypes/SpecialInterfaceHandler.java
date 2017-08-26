@@ -16,14 +16,14 @@
 
 package com.flipkart.lyrics.processor.supertypes;
 
-import com.flipkart.lyrics.java.config.Tune;
-import com.flipkart.lyrics.java.helper.TriConsumer;
+import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.java.specs.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.*;
 

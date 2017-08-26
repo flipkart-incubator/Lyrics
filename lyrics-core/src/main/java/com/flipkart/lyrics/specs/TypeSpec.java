@@ -1,7 +1,7 @@
-package com.flipkart.lyrics.java.specs;
+package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.Song;
-import com.flipkart.lyrics.java.helper.Util;
+import com.flipkart.lyrics.helper.Util;
 
 import java.io.File;
 import java.io.IOException;
