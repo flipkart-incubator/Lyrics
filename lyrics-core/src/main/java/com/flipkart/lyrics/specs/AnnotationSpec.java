@@ -1,7 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -18,15 +16,11 @@ public class AnnotationSpec {
     }
 
     public static Builder builder(Class<?> clazz) {
-        return Song.factory.createAnnotationBuilder(ClassName.get(clazz));
+        return new AnnotationSpec.Builder(ClassName.get(clazz));
     }
 
     public static Builder builder(ClassName className) {
-        return Song.factory.createAnnotationBuilder(className);
-    }
-
-    public Object getAnnotationSpec() {
-        return null;
+        return new AnnotationSpec.Builder(className);
     }
 
     public Builder toBuilder() {
@@ -92,7 +86,7 @@ public class AnnotationSpec {
         codeWriter.emit(whitespace + "}");
     }
 
-    public static class Builder {
+    public static final class Builder {
         private TypeName type;
         private final Map<String, List<CodeBlock>> members = new HashMap<>();
 

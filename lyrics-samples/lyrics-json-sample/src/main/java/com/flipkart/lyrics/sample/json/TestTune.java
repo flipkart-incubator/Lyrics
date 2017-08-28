@@ -1,7 +1,7 @@
 package com.flipkart.lyrics.sample.json;
 
-import com.flipkart.lyrics.java.config.JavaTune;
 import com.flipkart.lyrics.helper.TriConsumer;
+import com.flipkart.lyrics.java.JavaTune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.TypeSpec;

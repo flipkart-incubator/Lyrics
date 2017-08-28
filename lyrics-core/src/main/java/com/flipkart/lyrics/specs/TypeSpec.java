@@ -1,6 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
 import com.flipkart.lyrics.helper.Util;
 
 import java.io.File;
@@ -40,27 +39,23 @@ public class TypeSpec {
     }
 
     public static Builder classBuilder(String name) {
-        return Song.factory.createClassBuilder(name);
+        return new Builder(Kind.CLASS, name);
     }
 
     public static Builder annotationBuilder(String name) {
-        return Song.factory.createAnnotationBuilder(name);
+        return new Builder(Kind.ANNOTATION, name);
     }
 
     public static Builder interfaceBuilder(String name) {
-        return Song.factory.createInterfaceBuilder(name);
+        return new Builder(Kind.INTERFACE, name);
     }
 
     public static Builder enumBuilder(String name) {
-        return Song.factory.createEnumBuilder(name);
+        return new Builder(Kind.ENUM, name);
     }
 
     public static Builder anonymousClassBuilder(String typeArgumentsFormat, Object... args) {
-        return Song.factory.createAnonymousClassBuilder(typeArgumentsFormat, args);
-    }
-
-    public Object getTypeSpec() {
-        return null;
+        return new Builder(Kind.ANONYMOUS, typeArgumentsFormat, args);
     }
 
     public Builder toBuilder() {
@@ -218,7 +213,9 @@ public class TypeSpec {
         }
     }
 
-    public void writeToFile(String fullPackage, File targetFolder) { }
+    public void writeToFile(FileWriter fileWriter, String fullPackage, File targetFolder) {
+        fileWriter.writeToFile(this, fullPackage, targetFolder);
+    }
 
     public static class Builder {
         private final Kind kind;
@@ -234,12 +231,12 @@ public class TypeSpec {
         private TypeName superclass;
         private CodeBlock anonymousTypeArguments;
 
-        protected Builder(Kind kind, String name) {
+        public Builder(Kind kind, String name) {
             this.kind = kind;
             this.name = name;
         }
 
-        protected Builder(Kind kind, String typeArgumentsFormat, Object... args) {
+        private Builder(Kind kind, String typeArgumentsFormat, Object... args) {
             this.kind = kind;
             this.name = null;
             this.anonymousTypeArguments = CodeBlock.of(typeArgumentsFormat, args);

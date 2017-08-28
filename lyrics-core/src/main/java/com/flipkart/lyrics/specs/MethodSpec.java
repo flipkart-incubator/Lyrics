@@ -1,7 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -36,15 +34,11 @@ public class MethodSpec {
     }
 
     public static Builder methodBuilder(String name) {
-        return Song.factory.createMethodBuilder(name);
+        return new Builder(name);
     }
 
     public static Builder constructorBuilder() {
-        return Song.factory.createConstructorBuilder();
-    }
-
-    public Object getMethodSpec() {
-        return null;
+        return new Builder(CONSTRUCTOR);
     }
 
     public Builder toBuilder() {
@@ -103,7 +97,7 @@ public class MethodSpec {
         return name.equals(CONSTRUCTOR);
     }
 
-    public static class Builder {
+    public static final class Builder {
         private final String name;
         private final Set<Modifier> modifiers = new HashSet<>();
         private final List<CodeBlock> codeBlocks = new ArrayList<>();

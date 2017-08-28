@@ -1,7 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -22,15 +20,11 @@ public class ParameterSpec {
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
-        return Song.factory.createParameterBuilder(typeName, name, modifiers);
+        return new Builder(typeName, name, modifiers);
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
-        return Song.factory.createParameterBuilder(TypeName.get(clazz), name, modifiers);
-    }
-
-    public Object getParameterSpec() {
-        return null;
+        return new Builder(clazz, name, modifiers);
     }
 
     public Builder toBuilder() {

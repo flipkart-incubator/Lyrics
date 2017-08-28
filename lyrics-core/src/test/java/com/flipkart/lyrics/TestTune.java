@@ -12,9 +12,9 @@ import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.processor.fields.FieldModificationHandler;
 import com.flipkart.lyrics.processor.types.TypeAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
+import com.flipkart.lyrics.specs.FileWriter;
 import com.flipkart.lyrics.specs.Modifier;
 import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.contract.Factory;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 
 import java.util.*;
@@ -23,7 +23,6 @@ import java.util.*;
  * @author kushal.sharma on 23/08/17.
  */
 public class TestTune implements Tune {
-
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
     private final ParameterTypeHandlerSet parameterTypeHandlerSet = new DefaultParameterTypeHandlerSet();
     private final CreatorSet creatorSet = new DefaultCreatorSet();
@@ -60,6 +59,11 @@ public class TestTune implements Tune {
     @Override
     public List<ValidationAnnotatorStyle> getValidationAnnotatorStyles() {
         return validationAnnotatorStyles;
+    }
+
+    @Override
+    public FileWriter getFileWriter() {
+        return null;
     }
 
     @Override
@@ -150,11 +154,6 @@ public class TestTune implements Tune {
     @Override
     public ParameterTypeHandlerSet getParameterTypeHandlerSet() {
         return parameterTypeHandlerSet;
-    }
-
-    @Override
-    public Factory getFactory() {
-        return new TestFactory();
     }
 }
 

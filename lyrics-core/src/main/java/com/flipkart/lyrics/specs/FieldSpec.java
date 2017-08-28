@@ -1,7 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -24,15 +22,11 @@ public class FieldSpec {
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
-        return Song.factory.createFieldBuilder(typeName, name, modifiers);
+        return new Builder(typeName, name, modifiers);
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
-        return Song.factory.createFieldBuilder(TypeName.get(clazz), name, modifiers);
-    }
-
-    public Object getFieldSpec() {
-        return null;
+        return new Builder(clazz, name, modifiers);
     }
 
     public Builder toBuilder() {
@@ -54,7 +48,7 @@ public class FieldSpec {
         codeWriter.emit(";\n");
     }
 
-    public static class Builder {
+    public static final class Builder {
         private final String name;
         private final TypeName type;
         private final Set<Modifier> modifiers = new HashSet<>();
