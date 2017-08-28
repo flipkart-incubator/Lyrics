@@ -17,7 +17,7 @@ public class JavaParameterSpec extends ParameterSpec {
     JavaParameterSpec(Builder builder) {
         super(builder);
 
-        this.builder = com.squareup.javapoet.ParameterSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifiers));
+        this.builder = com.squareup.javapoet.ParameterSpec.builder(getJavaTypeName(this.type), this.name, getJavaModifiers(this.modifiers.toArray(new Modifier[this.modifiers.size()])));
 
         for (AnnotationSpec annotation : this.annotations) {
             this.builder.addAnnotation((com.squareup.javapoet.AnnotationSpec) annotation.getAnnotationSpec());

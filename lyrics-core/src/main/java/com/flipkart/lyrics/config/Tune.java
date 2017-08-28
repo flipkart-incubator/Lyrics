@@ -87,5 +87,5 @@ public interface Tune {
 
     List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
-    Factory createFactory();
+    Factory getFactory();
 }

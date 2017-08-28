@@ -21,8 +21,8 @@ public class TypeSpec {
     public final List<AnnotationSpec> annotations = new ArrayList<>();
     public final List<TypeVariableName> typeVariables = new ArrayList<>();
     public final Map<String, TypeSpec> enumConstants = new HashMap<>();
-    public TypeName superclass;
-    public CodeBlock anonymousTypeArguments;
+    public final TypeName superclass;
+    public final CodeBlock anonymousTypeArguments;
 
     public TypeSpec(Builder builder) {
         this.kind = builder.kind;

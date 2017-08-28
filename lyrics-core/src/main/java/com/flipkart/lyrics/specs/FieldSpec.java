@@ -15,7 +15,6 @@ public class FieldSpec {
     public final Set<Modifier> modifiers = new HashSet<>();
     public final List<AnnotationSpec> annotations = new ArrayList<>();
 
-
     public FieldSpec(Builder builder) {
         this.name = builder.name;
         this.type = builder.type;

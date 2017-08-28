@@ -52,7 +52,7 @@ public class Song {
         processFieldAdditionalHandlers(tune, metaInfo);
         processTypeAdditionalHandlers(tune, metaInfo);
         processFieldModificationHandlers(tune, metaInfo);
-        factory = tune.createFactory();
+        factory = tune.getFactory();
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
         typeBuilder.build().writeToFile(fullPackage, targetFolder);

@@ -153,7 +153,7 @@ public class TestTune implements Tune {
     }
 
     @Override
-    public Factory createFactory() {
+    public Factory getFactory() {
         return new TestFactory();
     }
 }

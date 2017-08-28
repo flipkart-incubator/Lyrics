@@ -170,7 +170,7 @@ public class JavaTune implements Tune {
     }
 
     @Override
-    public Factory createFactory() {
+    public Factory getFactory() {
         return new JavaFactory();
     }
 }
