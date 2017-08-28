@@ -22,7 +22,6 @@ import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.specs.contract.Factory;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +34,6 @@ import static com.flipkart.lyrics.helper.Injector.*;
  * Created by shrey.garg on 27/11/16.
  */
 public class Song {
-    public static Factory factory;
 
     private Tune tune;
 
@@ -52,9 +50,8 @@ public class Song {
         processFieldAdditionalHandlers(tune, metaInfo);
         processTypeAdditionalHandlers(tune, metaInfo);
         processFieldModificationHandlers(tune, metaInfo);
-        factory = tune.createFactory();
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
-        typeBuilder.build().writeToFile(fullPackage, targetFolder);
+        typeBuilder.build().writeToFile(tune.getFileWriter(), fullPackage, targetFolder);
     }
 }

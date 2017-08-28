@@ -1,12 +1,7 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author kushal.sharma on 10/08/17.
@@ -14,31 +9,38 @@ import java.util.List;
 public class ParameterSpec {
     public final String name;
     public final TypeName type;
-    public final Modifier[] modifiers;
+    public final Set<Modifier> modifiers = new HashSet<>();
     public final List<AnnotationSpec> annotations = new ArrayList<>();
 
     public ParameterSpec(Builder builder) {
         this.name = builder.name;
         this.type = builder.type;
-        this.modifiers = builder.modifiers;
+        this.modifiers.addAll(builder.modifiers);
         this.annotations.addAll(builder.annotations);
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
-        return Song.factory.createParameterBuilder(typeName, name, modifiers);
+        return new Builder(typeName, name, modifiers);
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
-        return Song.factory.createParameterBuilder(TypeName.get(clazz), name, modifiers);
+        return new Builder(clazz, name, modifiers);
     }
 
-    public Object getParameterSpec() {
-        return null;
+    public Builder toBuilder() {
+        return toBuilder(type, name);
+    }
+
+    Builder toBuilder(TypeName type, String name) {
+        Builder builder = new Builder(type, name);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        return builder;
     }
 
     void emit(CodeWriter codeWriter, boolean varargs) throws IOException {
         codeWriter.emitAnnotations(annotations, true);
-        codeWriter.emitModifiers(new HashSet<>(Arrays.asList(modifiers)));
+        codeWriter.emitModifiers(modifiers);
         if (varargs) {
             codeWriter.emit("$T... $L", TypeName.arrayComponent(type), name);
         } else {
@@ -46,22 +48,22 @@ public class ParameterSpec {
         }
     }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final String name;
         private final TypeName type;
-        private final Modifier[] modifiers;
+        private final List<Modifier> modifiers = new ArrayList<>();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
 
-        public Builder(TypeName type, String name, Modifier... modifiers) {
+        protected Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
             this.type = type;
-            this.modifiers = modifiers;
+            Collections.addAll(this.modifiers, modifiers);
         }
 
-        public Builder(Class<?> clazz, String name, Modifier... modifiers) {
+        protected Builder(Class<?> clazz, String name, Modifier... modifiers) {
             this.name = name;
             this.type = TypeName.get(clazz);
-            this.modifiers = modifiers;
+            Collections.addAll(this.modifiers, modifiers);
         }
 
         public ParameterSpec.Builder addAnnotation(Class<?> clazz) {
@@ -74,6 +76,8 @@ public class ParameterSpec {
             return this;
         }
 
-        public abstract ParameterSpec build();
+        public ParameterSpec build() {
+            return new ParameterSpec(this);
+        }
     }
 }

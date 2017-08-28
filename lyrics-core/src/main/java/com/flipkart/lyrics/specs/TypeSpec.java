@@ -1,6 +1,5 @@
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.Song;
 import com.flipkart.lyrics.helper.Util;
 
 import java.io.File;
@@ -21,8 +20,8 @@ public class TypeSpec {
     public final List<AnnotationSpec> annotations = new ArrayList<>();
     public final List<TypeVariableName> typeVariables = new ArrayList<>();
     public final Map<String, TypeSpec> enumConstants = new HashMap<>();
-    public TypeName superclass;
-    public CodeBlock anonymousTypeArguments;
+    public final TypeName superclass;
+    public final CodeBlock anonymousTypeArguments;
 
     public TypeSpec(Builder builder) {
         this.kind = builder.kind;
@@ -40,28 +39,39 @@ public class TypeSpec {
     }
 
     public static Builder classBuilder(String name) {
-        return Song.factory.createClassBuilder(name);
+        return new Builder(Kind.CLASS, name);
     }
 
     public static Builder annotationBuilder(String name) {
-        return Song.factory.createAnnotationBuilder(name);
+        return new Builder(Kind.ANNOTATION, name);
     }
 
     public static Builder interfaceBuilder(String name) {
-        return Song.factory.createInterfaceBuilder(name);
+        return new Builder(Kind.INTERFACE, name);
     }
 
     public static Builder enumBuilder(String name) {
-        return Song.factory.createEnumBuilder(name);
+        return new Builder(Kind.ENUM, name);
     }
 
     public static Builder anonymousClassBuilder(String typeArgumentsFormat, Object... args) {
-        return Song.factory.createAnonymousClassBuilder(typeArgumentsFormat, args);
+        return new Builder(Kind.ANONYMOUS, typeArgumentsFormat, args);
     }
 
-    public Object getTypeSpec() {
-        return null;
+    public Builder toBuilder() {
+        Builder builder = new Builder(kind, name, anonymousTypeArguments);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        builder.typeVariables.addAll(typeVariables);
+        builder.superclass = superclass;
+        builder.superinterfaces.addAll(superinterfaces);
+        builder.enumConstants.putAll(enumConstants);
+        builder.fieldSpecs.addAll(fieldSpecs);
+        builder.methodSpecs.addAll(methodSpecs);
+        builder.types.addAll(typeSpecs);
+        return builder;
     }
+
 
     void emit(CodeWriter codeWriter, String enumName, Set<Modifier> implicitModifiers)
             throws IOException {
@@ -203,10 +213,11 @@ public class TypeSpec {
         }
     }
 
-    public void writeToFile(String fullPackage, File targetFolder) {
+    public void writeToFile(FileWriter fileWriter, String fullPackage, File targetFolder) {
+        fileWriter.writeToFile(this, fullPackage, targetFolder);
     }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final Kind kind;
         private final String name;
         private final List<TypeSpec> types = new ArrayList<>();
@@ -225,7 +236,7 @@ public class TypeSpec {
             this.name = name;
         }
 
-        public Builder(Kind kind, String typeArgumentsFormat, Object... args) {
+        private Builder(Kind kind, String typeArgumentsFormat, Object... args) {
             this.kind = kind;
             this.name = null;
             this.anonymousTypeArguments = CodeBlock.of(typeArgumentsFormat, args);
@@ -286,6 +297,8 @@ public class TypeSpec {
             return this;
         }
 
-        public abstract TypeSpec build();
+        public TypeSpec build() {
+            return new TypeSpec(this);
+        }
     }
 }
