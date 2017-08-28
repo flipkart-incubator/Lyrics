@@ -67,7 +67,7 @@ public abstract class HandlerSet {
     public abstract Handler getSuperClassHandler();
 
     /**
-     * @return An {@link Handler} that adds the specified specs to the under construction classes.
+     * @return An {@link Handler} that adds the specified interfaces to the under construction classes.
      * Interfaces are provided by {@link TypeModel} and/or by the {@link Tune} as a set of {@link VariableModel}.
      */
     public abstract Handler getInterfacesHandler();
@@ -104,7 +104,7 @@ public abstract class HandlerSet {
     public abstract Handler getCustomConstructorHandler();
 
     /**
-     * @return An {@link Handler} that handles special specs, if any, for the under construction classes.
+     * @return An {@link Handler} that handles special interfaces, if any, for the under construction classes.
      */
     public abstract Handler getSpecialInterfacesHandler();
 
@@ -131,7 +131,7 @@ public abstract class HandlerSet {
     public abstract Handler getOrderedConstructorHandler();
 
     /**
-     * @return A {@link Handler} that adds methods to the under construction specs.
+     * @return A {@link Handler} that adds methods to the under construction interfaces.
      */
     public abstract Handler getInterfaceMethodsHandler();
 

@@ -63,6 +63,21 @@ public class TypeSpec {
         return null;
     }
 
+    public Builder toBuilder() {
+        Builder builder = new Builder(kind, name, anonymousTypeArguments);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        builder.typeVariables.addAll(typeVariables);
+        builder.superclass = superclass;
+        builder.superinterfaces.addAll(superinterfaces);
+        builder.enumConstants.putAll(enumConstants);
+        builder.fieldSpecs.addAll(fieldSpecs);
+        builder.methodSpecs.addAll(methodSpecs);
+        builder.types.addAll(typeSpecs);
+        return builder;
+    }
+
+
     void emit(CodeWriter codeWriter, String enumName, Set<Modifier> implicitModifiers)
             throws IOException {
         // Nested classes interrupt wrapped line indentation. Stash the current wrapping state and put
@@ -203,10 +218,9 @@ public class TypeSpec {
         }
     }
 
-    public void writeToFile(String fullPackage, File targetFolder) {
-    }
+    public void writeToFile(String fullPackage, File targetFolder) { }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final Kind kind;
         private final String name;
         private final List<TypeSpec> types = new ArrayList<>();
@@ -220,12 +234,12 @@ public class TypeSpec {
         private TypeName superclass;
         private CodeBlock anonymousTypeArguments;
 
-        public Builder(Kind kind, String name) {
+        protected Builder(Kind kind, String name) {
             this.kind = kind;
             this.name = name;
         }
 
-        public Builder(Kind kind, String typeArgumentsFormat, Object... args) {
+        protected Builder(Kind kind, String typeArgumentsFormat, Object... args) {
             this.kind = kind;
             this.name = null;
             this.anonymousTypeArguments = CodeBlock.of(typeArgumentsFormat, args);
@@ -286,6 +300,8 @@ public class TypeSpec {
             return this;
         }
 
-        public abstract TypeSpec build();
+        public TypeSpec build() {
+            return new TypeSpec(this);
+        }
     }
 }

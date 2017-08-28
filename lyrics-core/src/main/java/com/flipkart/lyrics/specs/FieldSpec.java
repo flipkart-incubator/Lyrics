@@ -35,6 +35,14 @@ public class FieldSpec {
         return null;
     }
 
+    public Builder toBuilder() {
+        Builder builder = new Builder(type, name);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        builder.initializer = initializer.isEmpty() ? null : initializer;
+        return builder;
+    }
+
     void emit(CodeWriter codeWriter, Set<Modifier> implicitModifiers) throws IOException {
         codeWriter.emitAnnotations(annotations, false);
         codeWriter.emitModifiers(modifiers, implicitModifiers);
@@ -46,20 +54,20 @@ public class FieldSpec {
         codeWriter.emit(";\n");
     }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final String name;
         private final TypeName type;
         private final Set<Modifier> modifiers = new HashSet<>();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private CodeBlock initializer;
 
-        public Builder(TypeName type, String name, Modifier... modifiers) {
+        protected Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;
             this.name = name;
             this.modifiers.addAll(Arrays.asList(modifiers));
         }
 
-        public Builder(Class<?> clazz, String name, Modifier... modifiers) {
+        protected Builder(Class<?> clazz, String name, Modifier... modifiers) {
             this.type = TypeName.get(clazz);
             this.name = name;
             this.modifiers.addAll(Arrays.asList(modifiers));
@@ -90,6 +98,8 @@ public class FieldSpec {
             return this;
         }
 
-        public abstract FieldSpec build();
+        public FieldSpec build() {
+            return new FieldSpec(this);
+        }
     }
 }

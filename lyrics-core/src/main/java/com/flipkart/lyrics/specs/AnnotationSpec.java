@@ -29,6 +29,14 @@ public class AnnotationSpec {
         return null;
     }
 
+    public Builder toBuilder() {
+        Builder builder = new Builder(type);
+        for (Map.Entry<String, List<CodeBlock>> entry : members.entrySet()) {
+            builder.members.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+        return builder;
+    }
+
     void emit(CodeWriter codeWriter, boolean inline) throws IOException {
         String whitespace = inline ? "" : "\n";
         String memberSeparator = inline ? ", " : ",\n";
@@ -84,9 +92,9 @@ public class AnnotationSpec {
         codeWriter.emit(whitespace + "}");
     }
 
-    public static abstract class Builder {
-        private final Map<String, List<CodeBlock>> members = new HashMap<>();
+    public static class Builder {
         private TypeName type;
+        private final Map<String, List<CodeBlock>> members = new HashMap<>();
 
         protected Builder(TypeName typeName) {
             this.type = typeName;
@@ -98,6 +106,8 @@ public class AnnotationSpec {
             return this;
         }
 
-        public abstract AnnotationSpec build();
+        public AnnotationSpec build() {
+            return new AnnotationSpec(this);
+        }
     }
 }

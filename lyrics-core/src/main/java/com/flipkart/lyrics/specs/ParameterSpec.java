@@ -33,6 +33,17 @@ public class ParameterSpec {
         return null;
     }
 
+    public Builder toBuilder() {
+        return toBuilder(type, name);
+    }
+
+    Builder toBuilder(TypeName type, String name) {
+        Builder builder = new Builder(type, name);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        return builder;
+    }
+
     void emit(CodeWriter codeWriter, boolean varargs) throws IOException {
         codeWriter.emitAnnotations(annotations, true);
         codeWriter.emitModifiers(modifiers);
@@ -43,19 +54,19 @@ public class ParameterSpec {
         }
     }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final String name;
         private final TypeName type;
         private final List<Modifier> modifiers = new ArrayList<>();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
 
-        public Builder(TypeName type, String name, Modifier... modifiers) {
+        protected Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
             this.type = type;
             Collections.addAll(this.modifiers, modifiers);
         }
 
-        public Builder(Class<?> clazz, String name, Modifier... modifiers) {
+        protected Builder(Class<?> clazz, String name, Modifier... modifiers) {
             this.name = name;
             this.type = TypeName.get(clazz);
             Collections.addAll(this.modifiers, modifiers);
@@ -71,6 +82,8 @@ public class ParameterSpec {
             return this;
         }
 
-        public abstract ParameterSpec build();
+        public ParameterSpec build() {
+            return new ParameterSpec(this);
+        }
     }
 }

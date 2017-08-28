@@ -47,6 +47,19 @@ public class MethodSpec {
         return null;
     }
 
+    public Builder toBuilder() {
+        Builder builder = new Builder(name);
+        builder.annotations.addAll(annotations);
+        builder.modifiers.addAll(modifiers);
+        builder.returnType = returnType;
+        builder.codeBlocks.addAll(codeBlocks);
+        builder.comments.addAll(comments);
+        builder.statements.addAll(statements);
+        builder.parameters.addAll(parameters);
+        builder.defaultValue = defaultValue;
+        return builder;
+    }
+
     void emit(CodeWriter codeWriter, String enclosingName, Set<Modifier> implicitModifiers)
             throws IOException {
         codeWriter.emitAnnotations(annotations, false);
@@ -90,7 +103,7 @@ public class MethodSpec {
         return name.equals(CONSTRUCTOR);
     }
 
-    public static abstract class Builder {
+    public static class Builder {
         private final String name;
         private final Set<Modifier> modifiers = new HashSet<>();
         private final List<CodeBlock> codeBlocks = new ArrayList<>();
@@ -165,6 +178,8 @@ public class MethodSpec {
             return this;
         }
 
-        public abstract MethodSpec build();
+        public MethodSpec build() {
+            return new MethodSpec(this);
+        }
     }
 }
