@@ -75,11 +75,11 @@ class Util {
         if (methodSpec.returnType != null) {
             builder.returns(getJavaTypeName(methodSpec.returnType));
         }
-        for (CodeBlock statement : methodSpec.statements) {
-            builder.addStatement(statement.format, statement.arguments);
-        }
         for (AnnotationSpec annotation : methodSpec.annotations) {
             builder.addAnnotation(getAnnotationSpec(annotation));
+        }
+        for (CodeBlock statement : methodSpec.statements) {
+            builder.addStatement(statement.format, statement.arguments);
         }
         for (CodeBlock code : methodSpec.codeBlocks) {
             builder.addCode(code.format, code.arguments);
@@ -127,7 +127,7 @@ class Util {
     private static com.squareup.javapoet.FieldSpec getFieldSpec(FieldSpec fieldSpec) {
         com.squareup.javapoet.FieldSpec.Builder builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(fieldSpec.type), fieldSpec.name, getJavaModifiers(fieldSpec.modifiers.toArray(new Modifier[fieldSpec.modifiers.size()])));
 
-        if (fieldSpec.initializer != null) {
+        if (fieldSpec.initializer.format != null) {
             builder.initializer(fieldSpec.initializer.format, fieldSpec.initializer.arguments);
         }
         for (AnnotationSpec annotationSpec : fieldSpec.annotations) {
@@ -213,7 +213,7 @@ class Util {
         if (typeName instanceof ClassName) {
             ClassName className = (ClassName) typeName;
             return com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleName());
-        } else return null;
+        } else throw new ClassCastException();
     }
 
     private static com.squareup.javapoet.ParameterizedTypeName getJavaParameterizedTypeName(ParameterizedTypeName parameterizedTypeName) {

@@ -311,6 +311,10 @@ public final class CodeBlock {
             return this;
         }
 
+        public Builder addStatement(CodeBlock codeBlock) {
+            return addStatement("$L", codeBlock);
+        }
+
         public CodeBlock.Builder add(CodeBlock codeBlock) {
             this.formatParts.addAll(codeBlock.formatParts);
             this.args.addAll(codeBlock.args);

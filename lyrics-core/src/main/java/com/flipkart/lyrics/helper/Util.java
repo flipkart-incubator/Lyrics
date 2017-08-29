@@ -1,5 +1,7 @@
 package com.flipkart.lyrics.helper;
 
+import com.flipkart.lyrics.specs.Modifier;
+
 import java.util.*;
 
 import static java.lang.Character.isISOControl;
@@ -8,6 +10,17 @@ import static java.lang.Character.isISOControl;
  * @author kushal.sharma on 10/08/17.
  */
 public class Util {
+    /** Modifier.DEFAULT doesn't exist until Java 8, but we want to run on earlier releases. */
+    public static final Modifier DEFAULT;
+    static {
+        Modifier def = null;
+        try {
+            def = Modifier.valueOf("DEFAULT");
+        } catch (IllegalArgumentException ignored) {
+        }
+        DEFAULT = def;
+    }
+
     public static void checkArgument(boolean condition, String format, Object... args) {
         if (!condition) {
             throw new IllegalArgumentException(String.format(format, args));
@@ -109,5 +122,24 @@ public class Util {
 
     public static <T> Set<T> immutableSet(Collection<T> set) {
         return Collections.unmodifiableSet(new LinkedHashSet<>(set));
+    }
+
+    public static <K, V> Map<K, V> immutableMap(Map<K, V> map) {
+        return Collections.unmodifiableMap(new LinkedHashMap<>(map));
+    }
+
+
+    public static void requireExactlyOneOf(Set<Modifier> modifiers, Modifier... mutuallyExclusive) {
+        int count = 0;
+        for (Modifier modifier : mutuallyExclusive) {
+            if (modifier == null && Util.DEFAULT == null) continue; // Skip 'DEFAULT' if it doesn't exist!
+            if (modifiers.contains(modifier)) count++;
+        }
+        checkArgument(count == 1, "modifiers %s must contain one of %s",
+                modifiers, Arrays.toString(mutuallyExclusive));
+    }
+
+    public static boolean hasDefaultModifier(Collection<Modifier> modifiers) {
+        return DEFAULT != null && modifiers.contains(DEFAULT);
     }
 }

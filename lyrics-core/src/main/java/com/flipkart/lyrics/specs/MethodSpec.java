@@ -1,8 +1,14 @@
 package com.flipkart.lyrics.specs;
 
+import com.flipkart.lyrics.helper.Util;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
+
+import static com.flipkart.lyrics.helper.Util.checkArgument;
+import static com.flipkart.lyrics.helper.Util.checkNotNull;
+import static com.flipkart.lyrics.helper.Util.checkState;
 
 /**
  * @author kushal.sharma on 09/08/17.
