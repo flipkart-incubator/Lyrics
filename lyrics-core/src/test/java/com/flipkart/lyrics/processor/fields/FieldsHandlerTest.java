@@ -45,6 +45,7 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(ConfigurationExtension.class)
 public class FieldsHandlerTest {
+
     private final MetaInfo metaInfo = new MetaInfo("Sample", "com.test");
 
     @Test

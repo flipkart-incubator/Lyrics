@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
@@ -29,10 +28,7 @@ import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,11 +41,10 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 06/06/17.
  */
-@ExtendWith(ConfigurationExtension.class)
 public class JacksonStyleTest {
 
     @Test
-    public void testNamedAsRule(@TuneProvider Tune tune) {
+    public void testNamedAsRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("TEST");
@@ -67,7 +62,7 @@ public class JacksonStyleTest {
     }
 
     @Test
-    public void testInclusionRule(@TuneProvider Tune tune) {
+    public void testInclusionRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
@@ -85,7 +80,7 @@ public class JacksonStyleTest {
     }
 
     @Test
-    public void testGlobalInclusionRule(@TuneProvider Tune tune) {
+    public void testGlobalInclusionRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
@@ -103,7 +98,7 @@ public class JacksonStyleTest {
     }
 
     @Test
-    public void processSubTypeRule(@TuneProvider Tune tune) {
+    public void processSubTypeRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
 
@@ -135,7 +130,7 @@ public class JacksonStyleTest {
     }
 
     @Test
-    public void processSubTypeRuleExistingProperty(@TuneProvider Tune tune) {
+    public void processSubTypeRuleExistingProperty() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
 
@@ -171,7 +166,7 @@ public class JacksonStyleTest {
     }
 
     @Test
-    public void testPropertyOrderRule(@TuneProvider Tune tune) {
+    public void testPropertyOrderRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
         when(model.getFieldOrder()).thenReturn(Arrays.asList("one", "two"));

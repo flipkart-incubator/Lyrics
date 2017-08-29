@@ -16,13 +16,9 @@
 
 package com.flipkart.lyrics.rules;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.specs.FieldSpec;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -31,11 +27,10 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 06/06/17.
  */
-@ExtendWith(ConfigurationExtension.class)
 public class DeprecatedRuleTest {
 
     @Test
-    public void testDeprecatedField(@TuneProvider Tune tune) {
+    public void testDeprecatedField() {
         FieldSpec.Builder builder = FieldSpec.builder(Integer.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.isDeprecated()).thenReturn(true);
@@ -49,7 +44,7 @@ public class DeprecatedRuleTest {
     }
 
     @Test
-    public void testNotDeprecatedField(@TuneProvider Tune tune) {
+    public void testNotDeprecatedField() {
         FieldSpec.Builder builder = FieldSpec.builder(Integer.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.isDeprecated()).thenReturn(false);
