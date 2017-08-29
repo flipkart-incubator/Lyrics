@@ -16,16 +16,12 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.ParameterSpec;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.validation.constraints.NotNull;
 
@@ -35,11 +31,10 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by shrey.garg on 07/06/17.
  */
-@ExtendWith(ConfigurationExtension.class)
 public class Jsr303StyleTest {
 
     @Test
-    public void testRequiredRule(@TuneProvider Tune tune) {
+    public void testRequiredRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
 
@@ -54,7 +49,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processRequiredRuleForGetters(@TuneProvider Tune tune) {
+    public void processRequiredRuleForGetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         FieldModel model = mock(FieldModel.class);
 
@@ -69,7 +64,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processRequiredRuleForSetters(@TuneProvider Tune tune) {
+    public void processRequiredRuleForSetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
         FieldModel model = mock(FieldModel.class);
@@ -89,7 +84,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processNotRequiredRule(@TuneProvider Tune tune) {
+    public void processNotRequiredRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
 
@@ -101,7 +96,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processNotRequiredRuleForGetters(@TuneProvider Tune tune) {
+    public void processNotRequiredRuleForGetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         FieldModel model = mock(FieldModel.class);
 
@@ -113,7 +108,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processNotRequiredRuleForSetters(@TuneProvider Tune tune) {
+    public void processNotRequiredRuleForSetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
         FieldModel model = mock(FieldModel.class);
@@ -130,7 +125,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processRequiredRuleForConstructor(@TuneProvider Tune tune) {
+    public void processRequiredRuleForConstructor() {
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
 
         new Jsr303Style().processRequiredRuleForConstructor(parameterBuilder);
@@ -144,7 +139,7 @@ public class Jsr303StyleTest {
     }
 
     @Test
-    public void processNotRequiredRuleForConstructor(@TuneProvider Tune tune) {
+    public void processNotRequiredRuleForConstructor() {
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
 
         new Jsr303Style().processNotRequiredRuleForConstructor(parameterBuilder);

@@ -1,24 +1,38 @@
 package com.flipkart.lyrics.specs;
 
+import com.flipkart.lyrics.helper.Util;
+
 import java.io.IOException;
 import java.util.*;
+
+import static com.flipkart.lyrics.helper.Util.checkArgument;
+import static com.flipkart.lyrics.helper.Util.checkNotNull;
+import static com.flipkart.lyrics.helper.Util.checkState;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 public class FieldSpec {
-    public final String name;
     public final TypeName type;
+    public final String name;
+    public final CodeBlock doc;
+    public final List<AnnotationSpec> annotations;
+    public final Set<Modifier> modifiers;
     public final CodeBlock initializer;
-    public final Set<Modifier> modifiers = new HashSet<>();
-    public final List<AnnotationSpec> annotations = new ArrayList<>();
 
-    public FieldSpec(Builder builder) {
-        this.name = builder.name;
-        this.type = builder.type;
-        this.initializer = builder.initializer;
-        this.modifiers.addAll(builder.modifiers);
-        this.annotations.addAll(builder.annotations);
+    private FieldSpec(Builder builder) {
+        this.type = checkNotNull(builder.type, "type == null");
+        this.name = checkNotNull(builder.name, "name == null");
+        this.doc = builder.doc.build();
+        this.annotations = Util.immutableList(builder.annotations);
+        this.modifiers = Util.immutableSet(builder.modifiers);
+        this.initializer = (builder.initializer == null)
+                ? CodeBlock.builder().build()
+                : builder.initializer;
+    }
+
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -31,6 +45,7 @@ public class FieldSpec {
 
     public Builder toBuilder() {
         Builder builder = new Builder(type, name);
+        builder.doc.add(doc);
         builder.annotations.addAll(annotations);
         builder.modifiers.addAll(modifiers);
         builder.initializer = initializer.isEmpty() ? null : initializer;
@@ -49,11 +64,12 @@ public class FieldSpec {
     }
 
     public static final class Builder {
-        private final String name;
         private final TypeName type;
-        private final Set<Modifier> modifiers = new HashSet<>();
+        private final String name;
+        private final CodeBlock.Builder doc = CodeBlock.builder();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
-        private CodeBlock initializer;
+        private final Set<Modifier> modifiers = new HashSet<>();
+        private CodeBlock initializer = null;
 
         protected Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;
@@ -67,28 +83,50 @@ public class FieldSpec {
             this.modifiers.addAll(Arrays.asList(modifiers));
         }
 
-        public FieldSpec.Builder initializer(String format, Object... args) {
-            this.initializer = CodeBlock.of(format, args);
+        public Builder addDoc(String format, Object... args) {
+            doc.add(format, args);
             return this;
         }
 
-        public FieldSpec.Builder addAnnotation(Class<?> clazz) {
-            this.annotations.add(AnnotationSpec.builder(clazz).build());
+        public Builder addDoc(CodeBlock block) {
+            doc.add(block);
             return this;
         }
 
-        public FieldSpec.Builder addAnnotation(ClassName className) {
-            this.annotations.add(AnnotationSpec.builder(className).build());
+        public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
+            checkArgument(annotationSpecs != null, "annotationSpecs == null");
+            for (AnnotationSpec annotationSpec : annotationSpecs) {
+                this.annotations.add(annotationSpec);
+            }
             return this;
         }
 
-        public FieldSpec.Builder addAnnotation(AnnotationSpec annotationSpec) {
+        public Builder addAnnotation(AnnotationSpec annotationSpec) {
             this.annotations.add(annotationSpec);
             return this;
         }
 
-        public FieldSpec.Builder addModifiers(Modifier... modifiers) {
-            this.modifiers.addAll(Arrays.asList(modifiers));
+        public Builder addAnnotation(ClassName annotation) {
+            this.annotations.add(AnnotationSpec.builder(annotation).build());
+            return this;
+        }
+
+        public Builder addAnnotation(Class<?> annotation) {
+            return addAnnotation(ClassName.get(annotation));
+        }
+
+        public Builder addModifiers(Modifier... modifiers) {
+            Collections.addAll(this.modifiers, modifiers);
+            return this;
+        }
+
+        public Builder initializer(String format, Object... args) {
+            return initializer(CodeBlock.of(format, args));
+        }
+
+        public Builder initializer(CodeBlock codeBlock) {
+            checkState(this.initializer == null, "initializer was already set");
+            this.initializer = checkNotNull(codeBlock, "codeBlock == null");
             return this;
         }
 

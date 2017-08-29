@@ -107,5 +107,4 @@ public class ClassAnnotationHandlerTest {
         assertEquals("com.xyz.jkl", spec.annotations.get(2).type.toString(), "Wrong annotation found");
         assertEquals(1, spec.annotations.get(2).members.size());
     }
-
 }

@@ -10,7 +10,7 @@ public class AnnotationSpec {
     public final TypeName type;
     public final Map<String, List<CodeBlock>> members = new HashMap<>();
 
-    public AnnotationSpec(Builder builder) {
+    private AnnotationSpec(Builder builder) {
         this.type = builder.type;
         this.members.putAll(builder.members);
     }

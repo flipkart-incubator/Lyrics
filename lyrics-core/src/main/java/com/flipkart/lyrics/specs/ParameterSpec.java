@@ -1,22 +1,27 @@
 package com.flipkart.lyrics.specs;
 
+import com.flipkart.lyrics.helper.Util;
+
 import java.io.IOException;
 import java.util.*;
+
+import static com.flipkart.lyrics.helper.Util.checkArgument;
+import static com.flipkart.lyrics.helper.Util.checkNotNull;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 public class ParameterSpec {
     public final String name;
+    public final List<AnnotationSpec> annotations;
+    public final Set<Modifier> modifiers;
     public final TypeName type;
-    public final Set<Modifier> modifiers = new HashSet<>();
-    public final List<AnnotationSpec> annotations = new ArrayList<>();
 
     public ParameterSpec(Builder builder) {
-        this.name = builder.name;
-        this.type = builder.type;
-        this.modifiers.addAll(builder.modifiers);
-        this.annotations.addAll(builder.annotations);
+        this.name = checkNotNull(builder.name, "name == null");
+        this.annotations = Util.immutableList(builder.annotations);
+        this.modifiers = Util.immutableSet(builder.modifiers);
+        this.type = checkNotNull(builder.type, "type == null");
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -24,7 +29,7 @@ public class ParameterSpec {
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
-        return new Builder(clazz, name, modifiers);
+        return new Builder(TypeName.get(clazz), name, modifiers);
     }
 
     public Builder toBuilder() {
@@ -49,30 +54,49 @@ public class ParameterSpec {
     }
 
     public static class Builder {
-        private final String name;
         private final TypeName type;
-        private final List<Modifier> modifiers = new ArrayList<>();
+        private final String name;
         private final List<AnnotationSpec> annotations = new ArrayList<>();
+        private final List<Modifier> modifiers = new ArrayList<>();
 
-        protected Builder(TypeName type, String name, Modifier... modifiers) {
+        private Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
             this.type = type;
             Collections.addAll(this.modifiers, modifiers);
         }
 
-        protected Builder(Class<?> clazz, String name, Modifier... modifiers) {
-            this.name = name;
-            this.type = TypeName.get(clazz);
-            Collections.addAll(this.modifiers, modifiers);
-        }
-
-        public ParameterSpec.Builder addAnnotation(Class<?> clazz) {
-            this.annotations.add(AnnotationSpec.builder(clazz).build());
+        public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
+            checkArgument(annotationSpecs != null, "annotationSpecs == null");
+            for (AnnotationSpec annotationSpec : annotationSpecs) {
+                this.annotations.add(annotationSpec);
+            }
             return this;
         }
 
-        public ParameterSpec.Builder addAnnotation(ClassName className) {
-            this.annotations.add(AnnotationSpec.builder(className).build());
+        public Builder addAnnotation(AnnotationSpec annotationSpec) {
+            this.annotations.add(annotationSpec);
+            return this;
+        }
+
+        public Builder addAnnotation(ClassName annotation) {
+            this.annotations.add(AnnotationSpec.builder(annotation).build());
+            return this;
+        }
+
+        public Builder addAnnotation(Class<?> annotation) {
+            return addAnnotation(ClassName.get(annotation));
+        }
+
+        public Builder addModifiers(Modifier... modifiers) {
+            Collections.addAll(this.modifiers, modifiers);
+            return this;
+        }
+
+        public Builder addModifiers(Iterable<Modifier> modifiers) {
+            checkNotNull(modifiers, "modifiers == null");
+            for (Modifier modifier : modifiers) {
+                this.modifiers.add(modifier);
+            }
             return this;
         }
 

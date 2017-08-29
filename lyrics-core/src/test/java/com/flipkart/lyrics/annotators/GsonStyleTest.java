@@ -16,7 +16,6 @@
 
 package com.flipkart.lyrics.annotators;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
@@ -24,12 +23,9 @@ import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,11 +38,10 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 07/06/17.
  */
-@ExtendWith(ConfigurationExtension.class)
 public class GsonStyleTest {
 
     @Test
-    public void testNamedAsRule(@TuneProvider Tune tune) {
+    public void testNamedAsRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.getNamedAs()).thenReturn("TEST");
@@ -66,7 +61,7 @@ public class GsonStyleTest {
     }
 
     @Test
-    public void testInclusionRule(@TuneProvider Tune tune) {
+    public void testInclusionRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
@@ -79,7 +74,7 @@ public class GsonStyleTest {
     }
 
     @Test
-    public void testGlobalInclusionRule(@TuneProvider Tune tune) {
+    public void testGlobalInclusionRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
         when(model.getInclusion()).thenReturn(InclusionType.NON_NULL);
@@ -92,7 +87,7 @@ public class GsonStyleTest {
     }
 
     @Test
-    public void testSubTypeRule(@TuneProvider Tune tune) {
+    public void testSubTypeRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
 
@@ -110,7 +105,7 @@ public class GsonStyleTest {
     }
 
     @Test
-    public void testPropertyOrderRule(@TuneProvider Tune tune) {
+    public void testPropertyOrderRule() {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
         when(model.getFieldOrder()).thenReturn(Arrays.asList("one", "two"));

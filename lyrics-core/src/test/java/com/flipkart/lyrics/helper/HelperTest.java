@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.flipkart.lyrics.java.helper;
+package com.flipkart.lyrics.helper;
 
-import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.specs.ClassName;
 import org.junit.jupiter.api.Test;
 

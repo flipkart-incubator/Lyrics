@@ -16,16 +16,12 @@
 
 package com.flipkart.lyrics.annotators.validations;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.ParameterSpec;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
 import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
@@ -35,11 +31,10 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by shrey.garg on 07/06/17.
  */
-@ExtendWith(ConfigurationExtension.class)
 public class Jsr305StyleTest {
 
     @Test
-    public void testRequiredRule(@TuneProvider Tune tune) {
+    public void testRequiredRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
 
@@ -54,7 +49,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testRequiredRuleForGetters(@TuneProvider Tune tune) {
+    public void testRequiredRuleForGetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         FieldModel model = mock(FieldModel.class);
 
@@ -69,7 +64,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testRequiredRuleForSetters(@TuneProvider Tune tune) {
+    public void testRequiredRuleForSetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
         FieldModel model = mock(FieldModel.class);
@@ -89,7 +84,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testNotRequiredRule(@TuneProvider Tune tune) {
+    public void testNotRequiredRule() {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
 
@@ -104,7 +99,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testNotRequiredRuleForGetters(@TuneProvider Tune tune) {
+    public void testNotRequiredRuleForGetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         FieldModel model = mock(FieldModel.class);
 
@@ -119,7 +114,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testNotRequiredRuleForSetters(@TuneProvider Tune tune) {
+    public void testNotRequiredRuleForSetters() {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("test");
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
         FieldModel model = mock(FieldModel.class);
@@ -139,7 +134,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testRequiredRuleForConstructor(@TuneProvider Tune tune) {
+    public void testRequiredRuleForConstructor() {
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
 
         new Jsr305Style().processRequiredRuleForConstructor(parameterBuilder);
@@ -153,7 +148,7 @@ public class Jsr305StyleTest {
     }
 
     @Test
-    public void testNotRequiredRuleForConstructor(@TuneProvider Tune tune) {
+    public void testNotRequiredRuleForConstructor() {
         ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(String.class, "one");
 
         new Jsr305Style().processNotRequiredRuleForConstructor(parameterBuilder);

@@ -16,14 +16,10 @@
 
 package com.flipkart.lyrics.styles.objectmethods;
 
-import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,11 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Created by shrey.garg on 06/06/17.
  */
 
-@ExtendWith(ConfigurationExtension.class)
 public class CommonsLang3StyleTest {
 
     @Test
-    public void testProcessToString(@TuneProvider Tune tune) {
+    public void testProcessToString() {
         MethodSpec.Builder toStringBuilder = MethodSpec.methodBuilder("toString")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(String.class);
@@ -56,7 +51,7 @@ public class CommonsLang3StyleTest {
     }
 
     @Test
-    public void testProcessToStringNoFields(@TuneProvider Tune tune) {
+    public void testProcessToStringNoFields() {
         MethodSpec.Builder toStringBuilder = MethodSpec.methodBuilder("toString")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(String.class);
@@ -72,7 +67,7 @@ public class CommonsLang3StyleTest {
     }
 
     @Test
-    public void testProcessEqualsAndHashCode(@TuneProvider Tune tune) {
+    public void testProcessEqualsAndHashCode() {
         MethodSpec.Builder equalsBuilder = MethodSpec.methodBuilder("equals")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(boolean.class)
@@ -95,7 +90,7 @@ public class CommonsLang3StyleTest {
     }
 
     @Test
-    public void testProcessEqualsAndHashCodeNoSuperEquality(@TuneProvider Tune tune) {
+    public void testProcessEqualsAndHashCodeNoSuperEquality() {
         MethodSpec.Builder equalsBuilder = MethodSpec.methodBuilder("equals")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(boolean.class)
@@ -118,7 +113,7 @@ public class CommonsLang3StyleTest {
     }
 
     @Test
-    public void testProcessEqualsAndHashCodeNoFields(@TuneProvider Tune tune) {
+    public void testProcessEqualsAndHashCodeNoFields() {
         MethodSpec.Builder equalsBuilder = MethodSpec.methodBuilder("equals")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(boolean.class)
