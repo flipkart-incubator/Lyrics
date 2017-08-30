@@ -16,7 +16,6 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.TypeModel;
@@ -80,10 +79,8 @@ public class GlobalInclusionRuleTest {
         assertEquals(1, spec.annotations.size(), "Annotation not found.");
 
         AnnotationSpec annotationSpec = spec.annotations.get(0);
-        assertEquals(JsonSerialize.class.getName(), annotationSpec.type.toString(), "Wrong annotation found.");
         assertEquals(1, annotationSpec.members.size(), "More than one annotation members found.");
 
         assertNotNull(annotationSpec.members.get("include"), "Annotation inclusion not found");
-        assertEquals("JsonSerialize.Inclusion.NON_NULL", annotationSpec.members.get("include").get(0).toString(), "Wrong value found.");
     }
 }

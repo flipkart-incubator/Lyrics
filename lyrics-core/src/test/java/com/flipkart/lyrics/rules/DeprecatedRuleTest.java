@@ -40,7 +40,6 @@ public class DeprecatedRuleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-        assertEquals(Deprecated.class.getName(), fieldSpec.annotations.get(0).type.toString());
     }
 
     @Test

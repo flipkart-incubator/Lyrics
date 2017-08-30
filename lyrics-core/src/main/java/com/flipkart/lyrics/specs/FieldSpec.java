@@ -52,17 +52,6 @@ public class FieldSpec {
         return builder;
     }
 
-    void emit(CodeWriter codeWriter, Set<Modifier> implicitModifiers) throws IOException {
-        codeWriter.emitAnnotations(annotations, false);
-        codeWriter.emitModifiers(modifiers, implicitModifiers);
-        codeWriter.emit("$T $L", type, name);
-        if (!initializer.isEmpty()) {
-            codeWriter.emit(" = ");
-            codeWriter.emit(initializer);
-        }
-        codeWriter.emit(";\n");
-    }
-
     public static final class Builder {
         private final TypeName type;
         private final String name;

@@ -75,45 +75,6 @@ public class MethodSpec {
         return builder;
     }
 
-    void emit(CodeWriter codeWriter, String enclosingName, Set<Modifier> implicitModifiers)
-            throws IOException {
-        codeWriter.emitAnnotations(annotations, false);
-        codeWriter.emitModifiers(modifiers, implicitModifiers);
-
-        if (isConstructor()) {
-            codeWriter.emit("$L(", enclosingName);
-        } else {
-            codeWriter.emit("$T $L(", returnType, name);
-        }
-
-        boolean firstParameter = true;
-        for (Iterator<ParameterSpec> i = parameters.iterator(); i.hasNext(); ) {
-            ParameterSpec parameter = i.next();
-            if (!firstParameter) codeWriter.emit(", ");
-            parameter.emit(codeWriter, !i.hasNext() && varargs);
-            firstParameter = false;
-        }
-
-        codeWriter.emit(")");
-
-        if (defaultValue != null && !defaultValue.isEmpty()) {
-            codeWriter.emit(" default ");
-            codeWriter.emit(defaultValue);
-        }
-
-        if (modifiers.contains(Modifier.ABSTRACT)) {
-            codeWriter.emit(";\n");
-        } else {
-            codeWriter.emit(" {\n");
-
-            codeWriter.indent();
-            codeWriter.emit("");
-            codeWriter.unindent();
-
-            codeWriter.emit("}\n");
-        }
-    }
-
     public boolean isConstructor() {
         return name.equals(CONSTRUCTOR);
     }

@@ -84,9 +84,6 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
     }
 
     @Test
@@ -107,9 +104,6 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, false);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
     }
 
     @Test
@@ -129,8 +123,5 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, new ArrayList<>(), metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
     }
 }

@@ -159,9 +159,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
 
     @Test
@@ -200,9 +197,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
 
     @Test
@@ -242,9 +236,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
 
         TypeName interfaceTypeTwo = interfaces.get(2);
         assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");

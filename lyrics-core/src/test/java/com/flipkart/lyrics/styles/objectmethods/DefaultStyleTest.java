@@ -83,8 +83,5 @@ public class DefaultStyleTest {
 
         DefaultStyle style = new DefaultStyle();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
     }
 }

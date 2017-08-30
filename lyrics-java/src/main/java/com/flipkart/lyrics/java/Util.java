@@ -2,13 +2,13 @@ package com.flipkart.lyrics.java;
 
 import com.flipkart.lyrics.specs.*;
 
-import java.util.List;
 import java.util.Set;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 class Util {
+
     static com.squareup.javapoet.TypeSpec getTypeSpec(TypeSpec type) {
         com.squareup.javapoet.TypeSpec.Builder builder;
 

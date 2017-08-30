@@ -76,8 +76,6 @@ public class RequiredRuleTest {
 
         assertEquals("test", spec.name, "Wrong name found.");
         assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.validation.constraints.NotNull", spec.annotations.get(0).type.toString(), "JSR-303 annotation not found.");
     }
 
     @Test
@@ -92,7 +90,5 @@ public class RequiredRuleTest {
 
         assertEquals("test", spec.name, "Wrong name found.");
         assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.annotation.Nonnull", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
     }
 }

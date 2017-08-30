@@ -134,12 +134,6 @@ public class SuperClassHandlerTest {
                 () -> assertEquals(className, superClassName.rawType.simpleName()));
 
         assertEquals(3, superClassName.typeArguments.size(), "Mismatch in number of generic variables");
-
-        List<TypeName> typeArguments = superClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()),
-                () -> assertEquals("U", typeArguments.get(1).toString()),
-                () -> assertEquals("V", typeArguments.get(2).toString()));
     }
 
     @Test

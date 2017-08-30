@@ -16,16 +16,10 @@
 
 package com.flipkart.lyrics.annotators;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
 import org.junit.jupiter.api.Test;
@@ -54,11 +48,6 @@ public class JacksonStyleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-
-        AnnotationSpec namedAsAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(JsonProperty.class.getName(), namedAsAnnotation.type.toString());
-        assertEquals(1, namedAsAnnotation.members.size());
-        assertEquals("\"TEST\"", namedAsAnnotation.members.get("value").get(0).toString());
     }
 
     @Test
@@ -72,11 +61,6 @@ public class JacksonStyleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-
-        AnnotationSpec inclusionAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(JsonSerialize.class.getName(), inclusionAnnotation.type.toString());
-        assertEquals(1, inclusionAnnotation.members.size());
-        assertEquals("JsonSerialize.Inclusion.NON_NULL", inclusionAnnotation.members.get("include").get(0).toString());
     }
 
     @Test
@@ -90,11 +74,6 @@ public class JacksonStyleTest {
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
         assertEquals(1, typeSpec.annotations.size());
-
-        AnnotationSpec inclusionAnnotation = typeSpec.annotations.get(0);
-        assertEquals(JsonSerialize.class.getName(), inclusionAnnotation.type.toString());
-        assertEquals(1, inclusionAnnotation.members.size());
-        assertEquals("JsonSerialize.Inclusion.NON_NULL", inclusionAnnotation.members.get("include").get(0).toString());
     }
 
     @Test
@@ -113,20 +92,6 @@ public class JacksonStyleTest {
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
         assertEquals(2, typeSpec.annotations.size());
-
-        AnnotationSpec typeInfoAnnotation = typeSpec.annotations.get(0);
-        assertEquals(JsonTypeInfo.class.getName(), typeInfoAnnotation.type.toString());
-        assertEquals(3, typeInfoAnnotation.members.size());
-        assertEquals("JsonTypeInfo.Id.NAME", typeInfoAnnotation.members.get("use").get(0).toString());
-        assertEquals("JsonTypeInfo.As.PROPERTY", typeInfoAnnotation.members.get("include").get(0).toString());
-        assertEquals("\"one\"", typeInfoAnnotation.members.get("property").get(0).toString());
-
-        AnnotationSpec subTypesAnnotation = typeSpec.annotations.get(1);
-        assertEquals(JsonSubTypes.class.getName(), subTypesAnnotation.type.toString());
-        assertEquals(1, subTypesAnnotation.members.size());
-        assertEquals(2, subTypesAnnotation.members.get("value").size());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"A\", value = com.flipkart.lyrics.A.class)", subTypesAnnotation.members.get("value").get(0).toString());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"B\", value = com.flipkart.lyrics.B.class)", subTypesAnnotation.members.get("value").get(1).toString());
     }
 
     @Test
@@ -149,20 +114,6 @@ public class JacksonStyleTest {
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
         assertEquals(2, typeSpec.annotations.size());
-
-        AnnotationSpec typeInfoAnnotation = typeSpec.annotations.get(0);
-        assertEquals(JsonTypeInfo.class.getName(), typeInfoAnnotation.type.toString());
-        assertEquals(3, typeInfoAnnotation.members.size());
-        assertEquals("JsonTypeInfo.Id.NAME", typeInfoAnnotation.members.get("use").get(0).toString());
-        assertEquals("JsonTypeInfo.As.EXISTING_PROPERTY", typeInfoAnnotation.members.get("include").get(0).toString());
-        assertEquals("\"one\"", typeInfoAnnotation.members.get("property").get(0).toString());
-
-        AnnotationSpec subTypesAnnotation = typeSpec.annotations.get(1);
-        assertEquals(JsonSubTypes.class.getName(), subTypesAnnotation.type.toString());
-        assertEquals(1, subTypesAnnotation.members.size());
-        assertEquals(2, subTypesAnnotation.members.get("value").size());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"A\", value = com.flipkart.lyrics.A.class)", subTypesAnnotation.members.get("value").get(0).toString());
-        assertEquals("@com.fasterxml.jackson.annotation.JsonSubTypes.Type(name = \"B\", value = com.flipkart.lyrics.B.class)", subTypesAnnotation.members.get("value").get(1).toString());
     }
 
     @Test
@@ -176,12 +127,5 @@ public class JacksonStyleTest {
         TypeSpec typeSpec = builder.build();
         assertEquals("Test", typeSpec.name);
         assertEquals(1, typeSpec.annotations.size());
-
-        AnnotationSpec orderAnnotation = typeSpec.annotations.get(0);
-        assertEquals(JsonPropertyOrder.class.getName(), orderAnnotation.type.toString());
-        assertEquals(1, orderAnnotation.members.size());
-        assertEquals(2, orderAnnotation.members.get("value").size());
-        assertEquals("\"one\"", orderAnnotation.members.get("value").get(0).toString());
-        assertEquals("\"two\"", orderAnnotation.members.get("value").get(1).toString());
     }
 }

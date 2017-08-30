@@ -47,16 +47,6 @@ public class ParameterSpec {
         return builder;
     }
 
-    void emit(CodeWriter codeWriter, boolean varargs) throws IOException {
-        codeWriter.emitAnnotations(annotations, true);
-        codeWriter.emitModifiers(modifiers);
-        if (varargs) {
-            codeWriter.emit("$T... $L", TypeName.arrayComponent(type), name);
-        } else {
-            codeWriter.emit("$T $L", type, name);
-        }
-    }
-
     public static class Builder {
         private final TypeName type;
         private final String name;
