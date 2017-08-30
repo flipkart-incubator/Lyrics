@@ -24,6 +24,10 @@ public class ParameterSpec {
         this.type = checkNotNull(builder.type, "type == null");
     }
 
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
+    }
+
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
         return new Builder(typeName, name, modifiers);
     }

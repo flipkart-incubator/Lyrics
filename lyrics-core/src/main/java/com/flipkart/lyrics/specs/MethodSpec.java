@@ -46,6 +46,10 @@ public class MethodSpec {
         this.statements.addAll(builder.statements);
     }
 
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
+    }
+
     public static Builder methodBuilder(String name) {
         return new Builder(name);
     }

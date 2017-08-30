@@ -56,7 +56,7 @@ public class SetterHandlerTest {
         assertEquals(TypeName.INT, methodSpec.parameters.get(0).type);
         assertEquals("test", methodSpec.parameters.get(0).name);
 
-        assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
+        assertTrue(methodSpec.hasModifier((Modifier.PUBLIC)));
         assertEquals(TypeName.VOID, methodSpec.returnType);
         assertEquals("setTest", methodSpec.name);
     }
