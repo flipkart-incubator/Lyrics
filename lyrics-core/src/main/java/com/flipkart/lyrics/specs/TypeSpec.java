@@ -48,6 +48,10 @@ public class TypeSpec {
         this.typeSpecs = Util.immutableList(builder.typeSpecs);
     }
 
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
+    }
+
     public static Builder classBuilder(String name) {
         return new Builder(Kind.CLASS, name);
     }

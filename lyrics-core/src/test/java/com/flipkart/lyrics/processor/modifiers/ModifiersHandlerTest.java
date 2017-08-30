@@ -68,7 +68,7 @@ public class ModifiersHandlerTest {
         Set<Modifier> modifiers = spec.modifiers;
 
         assertEquals(1, modifiers.size(), "No Modifiers found");
-        assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
+        assertTrue(spec.hasModifier(Modifier.PUBLIC));
     }
 
     @Test
@@ -85,8 +85,8 @@ public class ModifiersHandlerTest {
         Set<Modifier> modifiers = spec.modifiers;
 
         assertEquals(2, modifiers.size(), "No Modifiers found");
-        assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
-        assertTrue(spec.modifiers.contains(Modifier.ABSTRACT));
+        assertTrue(spec.hasModifier((Modifier.PUBLIC)));
+        assertTrue(spec.hasModifier((Modifier.ABSTRACT)));
     }
 
     @Test
@@ -103,8 +103,8 @@ public class ModifiersHandlerTest {
         Set<Modifier> modifiers = spec.modifiers;
 
         assertEquals(2, modifiers.size(), "No Modifiers found");
-        assertTrue(spec.modifiers.contains(Modifier.PRIVATE));
-        assertTrue(spec.modifiers.contains(Modifier.ABSTRACT));
+        assertTrue(spec.hasModifier((Modifier.PRIVATE)));
+        assertTrue(spec.hasModifier((Modifier.ABSTRACT)));
     }
 
     @Test
@@ -120,6 +120,6 @@ public class ModifiersHandlerTest {
         Set<Modifier> modifiers = spec.modifiers;
 
         assertEquals(1, modifiers.size(), "No Modifiers found");
-        assertTrue(spec.modifiers.contains(Modifier.PUBLIC));
+        assertTrue(spec.hasModifier((Modifier.PUBLIC)));
     }
 }

@@ -52,7 +52,7 @@ public class GetterHandlerTest {
         assertEquals(1, spec.methodSpecs.size());
         MethodSpec methodSpec = spec.methodSpecs.get(0);
 
-        assertTrue(methodSpec.modifiers.contains(Modifier.PUBLIC));
+        assertTrue(methodSpec.hasModifier(Modifier.PUBLIC));
         assertEquals(TypeName.INT, methodSpec.returnType);
         assertEquals("getTest", methodSpec.name);
     }

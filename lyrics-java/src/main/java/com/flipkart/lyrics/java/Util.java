@@ -2,6 +2,9 @@ package com.flipkart.lyrics.java;
 
 import com.flipkart.lyrics.specs.*;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author kushal.sharma on 10/08/17.
  */
@@ -32,7 +35,6 @@ class Util {
         if (type.superclass != null) {
             builder.superclass(getJavaTypeName(type.superclass));
         }
-
         for (FieldSpec fieldSpec : type.fieldSpecs) {
             builder.addField(getFieldSpec(fieldSpec));
         }
@@ -62,7 +64,6 @@ class Util {
         for (TypeVariableName typeVariableName : type.typeVariables) {
             builder.addTypeVariable(getJavaTypeVariableName(typeVariableName));
         }
-
         return builder.build();
     }
 
@@ -97,7 +98,8 @@ class Util {
     }
 
     private static com.squareup.javapoet.ParameterSpec getParameterSpec(ParameterSpec parameter) {
-        com.squareup.javapoet.ParameterSpec.Builder builder = com.squareup.javapoet.ParameterSpec.builder(getJavaTypeName(parameter.type), parameter.name, getJavaModifiers(parameter.modifiers.toArray(new Modifier[parameter.modifiers.size()])));
+        com.squareup.javapoet.ParameterSpec.Builder builder = com.squareup.javapoet.ParameterSpec
+                .builder(getJavaTypeName(parameter.type), parameter.name, getJavaModifiers(parameter.modifiers));
 
         for (AnnotationSpec annotation : parameter.annotations) {
             builder.addAnnotation(getAnnotationSpec(annotation));
@@ -106,7 +108,8 @@ class Util {
     }
 
     private static com.squareup.javapoet.AnnotationSpec getAnnotationSpec(AnnotationSpec annotationSpec) {
-        com.squareup.javapoet.AnnotationSpec.Builder builder = com.squareup.javapoet.AnnotationSpec.builder(getJavaClassName(annotationSpec.type));
+        com.squareup.javapoet.AnnotationSpec.Builder builder = com.squareup.javapoet.AnnotationSpec
+                .builder(getJavaClassName(annotationSpec.type));
 
         for (String name : annotationSpec.members.keySet()) {
             CodeBlock codeBlock = annotationSpec.members.get(name).get(0);
@@ -125,7 +128,8 @@ class Util {
     }
 
     private static com.squareup.javapoet.FieldSpec getFieldSpec(FieldSpec fieldSpec) {
-        com.squareup.javapoet.FieldSpec.Builder builder = com.squareup.javapoet.FieldSpec.builder(getJavaTypeName(fieldSpec.type), fieldSpec.name, getJavaModifiers(fieldSpec.modifiers.toArray(new Modifier[fieldSpec.modifiers.size()])));
+        com.squareup.javapoet.FieldSpec.Builder builder = com.squareup.javapoet.FieldSpec
+                .builder(getJavaTypeName(fieldSpec.type), fieldSpec.name, getJavaModifiers(fieldSpec.modifiers));
 
         if (fieldSpec.initializer.format != null) {
             builder.initializer(fieldSpec.initializer.format, fieldSpec.initializer.arguments);
@@ -133,14 +137,14 @@ class Util {
         for (AnnotationSpec annotationSpec : fieldSpec.annotations) {
             builder.addAnnotation(getAnnotationSpec(annotationSpec));
         }
-
         return builder.build();
     }
 
-    private static javax.lang.model.element.Modifier[] getJavaModifiers(Modifier... modifiers) {
-        javax.lang.model.element.Modifier[] javaModifiers = new javax.lang.model.element.Modifier[modifiers.length];
-        for (int i = 0; i < modifiers.length; i++) {
-            javaModifiers[i] = getJavaModifier(modifiers[i]);
+    private static javax.lang.model.element.Modifier[] getJavaModifiers(Set<Modifier> modifiers) {
+        Modifier[] modifiersArray = modifiers.toArray(new Modifier[modifiers.size()]);
+        javax.lang.model.element.Modifier[] javaModifiers = new javax.lang.model.element.Modifier[modifiersArray.length];
+        for (int i = 0; i < modifiersArray.length; i++) {
+            javaModifiers[i] = getJavaModifier(modifiersArray[i]);
         }
         return javaModifiers;
     }
