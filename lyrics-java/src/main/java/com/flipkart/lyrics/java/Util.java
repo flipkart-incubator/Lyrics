@@ -128,16 +128,7 @@ class Util {
 
         for (String name : annotationSpec.members.keySet()) {
             CodeBlock codeBlock = annotationSpec.members.get(name).get(0);
-            Object[] newArgs = new Object[codeBlock.arguments.length];
-            for (int i = 0; i < codeBlock.arguments.length; i++) {
-                if (codeBlock.arguments[i] instanceof ClassName) {
-                    ClassName className = (ClassName) codeBlock.arguments[i];
-                    newArgs[i] = getJavaClassName(className);
-                } else {
-                    newArgs[i] = codeBlock.arguments[i];
-                }
-            }
-            builder.addMember(name, com.squareup.javapoet.CodeBlock.of(codeBlock.format, newArgs));
+            builder.addMember(name, com.squareup.javapoet.CodeBlock.of(codeBlock.format, getJavaArgs(codeBlock)));
         }
         return builder.build();
     }
@@ -249,5 +240,18 @@ class Util {
             typeNameArray[i] = getJavaTypeName(typeVariableName.bounds.get(i));
         }
         return com.squareup.javapoet.TypeVariableName.get(typeVariableName.name, typeNameArray);
+    }
+
+    private static Object[] getJavaArgs(CodeBlock codeBlock) {
+        Object[] javaArgs = new Object[codeBlock.arguments.length];
+        for (int i = 0; i < codeBlock.arguments.length; i++) {
+            if (codeBlock.arguments[i] instanceof ClassName) {
+                ClassName className = (ClassName) codeBlock.arguments[i];
+                javaArgs[i] = getJavaClassName(className);
+            } else {
+                javaArgs[i] = codeBlock.arguments[i];
+            }
+        }
+        return javaArgs;
     }
 }
