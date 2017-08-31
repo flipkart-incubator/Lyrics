@@ -147,7 +147,6 @@ public class TypeSpec {
         }
 
         public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
-            checkArgument(annotationSpecs != null, "annotationSpecs == null");
             for (AnnotationSpec annotationSpec : annotationSpecs) {
                 this.annotations.add(annotationSpec);
             }
@@ -168,15 +167,11 @@ public class TypeSpec {
         }
 
         public Builder addModifiers(Modifier... modifiers) {
-            for (Modifier modifier : modifiers) {
-                checkArgument(modifier != null, "modifiers contain null");
-                this.modifiers.add(modifier);
-            }
+            Collections.addAll(this.modifiers, modifiers);
             return this;
         }
 
         public Builder addTypeVariables(Iterable<TypeVariableName> typeVariables) {
-            checkArgument(typeVariables != null, "typeVariables == null");
             for (TypeVariableName typeVariable : typeVariables) {
                 this.typeVariables.add(typeVariable);
             }
@@ -189,8 +184,6 @@ public class TypeSpec {
         }
 
         public Builder superclass(TypeName superclass) {
-            checkState(this.kind == Kind.CLASS, "only classes have super classes, not " + this.kind);
-            checkArgument(!superclass.isPrimitive(), "superclass may not be a primitive");
             this.superclass = superclass;
             return this;
         }
@@ -200,7 +193,6 @@ public class TypeSpec {
         }
 
         public Builder addSuperinterfaces(Iterable<? extends TypeName> superinterfaces) {
-            checkArgument(superinterfaces != null, "superinterfaces == null");
             for (TypeName superinterface : superinterfaces) {
                 addSuperinterface(superinterface);
             }
@@ -208,7 +200,6 @@ public class TypeSpec {
         }
 
         public Builder addSuperinterface(TypeName superinterface) {
-            checkArgument(superinterface != null, "superinterface == null");
             this.superinterfaces.add(superinterface);
             return this;
         }
@@ -222,13 +213,11 @@ public class TypeSpec {
         }
 
         public Builder addEnumConstant(String name, TypeSpec typeSpec) {
-            checkArgument(SourceVersion.isName(name), "not a valid enum constant: %s", name);
             enumConstants.put(name, typeSpec);
             return this;
         }
 
         public Builder addFields(Iterable<FieldSpec> fieldSpecs) {
-            checkArgument(fieldSpecs != null, "fieldSpecs == null");
             for (FieldSpec fieldSpec : fieldSpecs) {
                 addField(fieldSpec);
             }
@@ -236,12 +225,6 @@ public class TypeSpec {
         }
 
         public Builder addField(FieldSpec fieldSpec) {
-            if (kind == Kind.INTERFACE || kind == Kind.ANNOTATION) {
-                requireExactlyOneOf(fieldSpec.modifiers, Modifier.PUBLIC, Modifier.PRIVATE);
-                Set<Modifier> check = EnumSet.of(Modifier.STATIC, Modifier.FINAL);
-                checkState(fieldSpec.modifiers.containsAll(check), "%s %s.%s requires modifiers %s",
-                        kind, name, fieldSpec.name, check);
-            }
             fieldSpecs.add(fieldSpec);
             return this;
         }
@@ -260,9 +243,6 @@ public class TypeSpec {
         }
 
         public Builder addInitializerBlock(CodeBlock block) {
-            if ((kind != Kind.CLASS && kind != Kind.ENUM)) {
-                throw new UnsupportedOperationException(kind + " can't have initializer blocks");
-            }
             initializerBlock.add("{\n")
                     .indent()
                     .add(block)
@@ -272,7 +252,6 @@ public class TypeSpec {
         }
 
         public Builder addMethods(Iterable<MethodSpec> methodSpecs) {
-            checkArgument(methodSpecs != null, "methodSpecs == null");
             for (MethodSpec methodSpec : methodSpecs) {
                 addMethod(methodSpec);
             }
@@ -280,28 +259,11 @@ public class TypeSpec {
         }
 
         public Builder addMethod(MethodSpec methodSpec) {
-            if (kind == Kind.INTERFACE) {
-                requireExactlyOneOf(methodSpec.modifiers, Modifier.ABSTRACT, Modifier.STATIC, Util.DEFAULT);
-                requireExactlyOneOf(methodSpec.modifiers, Modifier.PUBLIC, Modifier.PRIVATE);
-            } else if (kind == Kind.ANNOTATION) {
-                checkState(methodSpec.modifiers.equals(kind.implicitMethodModifiers),
-                        "%s %s.%s requires modifiers %s",
-                        kind, name, methodSpec.name, kind.implicitMethodModifiers);
-            }
-            if (kind != Kind.ANNOTATION) {
-                checkState(methodSpec.defaultValue == null, "%s %s.%s cannot have a default value",
-                        kind, name, methodSpec.name);
-            }
-            if (kind != Kind.INTERFACE) {
-                checkState(!hasDefaultModifier(methodSpec.modifiers), "%s %s.%s cannot be default",
-                        kind, name, methodSpec.name);
-            }
             methodSpecs.add(methodSpec);
             return this;
         }
 
         public Builder addTypes(Iterable<TypeSpec> typeSpecs) {
-            checkArgument(typeSpecs != null, "typeSpecs == null");
             for (TypeSpec typeSpec : typeSpecs) {
                 addType(typeSpec);
             }
@@ -309,9 +271,6 @@ public class TypeSpec {
         }
 
         public Builder addType(TypeSpec typeSpec) {
-            checkArgument(typeSpec.modifiers.containsAll(kind.implicitTypeModifiers),
-                    "%s %s.%s requires modifiers %s", kind, name, typeSpec.name,
-                    kind.implicitTypeModifiers);
             typeSpecs.add(typeSpec);
             return this;
         }

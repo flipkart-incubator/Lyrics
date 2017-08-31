@@ -77,7 +77,6 @@ public class ParameterSpec {
         }
 
         public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
-            checkArgument(annotationSpecs != null, "annotationSpecs == null");
             for (AnnotationSpec annotationSpec : annotationSpecs) {
                 this.annotations.add(annotationSpec);
             }
@@ -104,7 +103,6 @@ public class ParameterSpec {
         }
 
         public Builder addModifiers(Iterable<Modifier> modifiers) {
-            checkNotNull(modifiers, "modifiers == null");
             for (Modifier modifier : modifiers) {
                 this.modifiers.add(modifier);
             }
