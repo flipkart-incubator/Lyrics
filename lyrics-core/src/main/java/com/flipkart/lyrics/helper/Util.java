@@ -10,8 +10,11 @@ import static java.lang.Character.isISOControl;
  * @author kushal.sharma on 10/08/17.
  */
 public class Util {
-    /** Modifier.DEFAULT doesn't exist until Java 8, but we want to run on earlier releases. */
+    /**
+     * Modifier.DEFAULT doesn't exist until Java 8, but we want to run on earlier releases.
+     */
     public static final Modifier DEFAULT;
+
     static {
         Modifier def = null;
         try {

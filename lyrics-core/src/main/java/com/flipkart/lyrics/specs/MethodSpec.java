@@ -1,14 +1,26 @@
+/*
+ * Copyright 2016 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Util.checkArgument;
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
-import static com.flipkart.lyrics.helper.Util.checkState;
 
 /**
  * @author kushal.sharma on 09/08/17.
@@ -46,16 +58,16 @@ public class MethodSpec {
         this.statements.addAll(builder.statements);
     }
 
-    public boolean hasModifier(Modifier modifier) {
-        return modifiers.contains(modifier);
-    }
-
     public static Builder methodBuilder(String name) {
         return new Builder(name);
     }
 
     public static Builder constructorBuilder() {
         return new Builder(CONSTRUCTOR);
+    }
+
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
     }
 
     public Builder toBuilder() {
@@ -84,15 +96,15 @@ public class MethodSpec {
         private final CodeBlock.Builder doc = CodeBlock.builder();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final List<Modifier> modifiers = new ArrayList<>();
-        private List<TypeVariableName> typeVariables = new ArrayList<>();
-        private TypeName returnType;
         private final List<ParameterSpec> parameters = new ArrayList<>();
         private final Set<TypeName> exceptions = new LinkedHashSet<>();
-        private boolean varargs;
-        private CodeBlock defaultValue;
         private final List<CodeBlock> codeBlocks = new ArrayList<>();
         private final List<CodeBlock> comments = new ArrayList<>();
         private final List<CodeBlock> statements = new ArrayList<>();
+        private List<TypeVariableName> typeVariables = new ArrayList<>();
+        private TypeName returnType;
+        private boolean varargs;
+        private CodeBlock defaultValue;
 
         protected Builder(String name) {
             this.name = name;

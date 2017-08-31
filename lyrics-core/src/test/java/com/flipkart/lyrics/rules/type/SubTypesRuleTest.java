@@ -16,8 +16,6 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;

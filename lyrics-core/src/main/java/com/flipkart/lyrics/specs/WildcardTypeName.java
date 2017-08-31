@@ -50,14 +50,6 @@ public final class WildcardTypeName extends TypeName {
         }
     }
 
-    @Override public WildcardTypeName annotated(List<AnnotationSpec> annotations) {
-        return new WildcardTypeName(upperBounds, lowerBounds, concatAnnotations(annotations));
-    }
-
-    @Override public TypeName withoutAnnotations() {
-        return new WildcardTypeName(upperBounds, lowerBounds);
-    }
-
     /**
      * Returns a type that represents an unknown type that extends {@code bound}. For example, if
      * {@code bound} is {@code CharSequence.class}, this returns {@code ? extends CharSequence}. If
@@ -112,5 +104,15 @@ public final class WildcardTypeName extends TypeName {
         return new WildcardTypeName(
                 list(wildcardName.getUpperBounds(), map),
                 list(wildcardName.getLowerBounds(), map));
+    }
+
+    @Override
+    public WildcardTypeName annotated(List<AnnotationSpec> annotations) {
+        return new WildcardTypeName(upperBounds, lowerBounds, concatAnnotations(annotations));
+    }
+
+    @Override
+    public TypeName withoutAnnotations() {
+        return new WildcardTypeName(upperBounds, lowerBounds);
     }
 }

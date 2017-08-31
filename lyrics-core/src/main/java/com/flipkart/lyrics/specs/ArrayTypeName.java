@@ -38,25 +38,23 @@ public final class ArrayTypeName extends TypeName {
         this.componentType = checkNotNull(componentType, "rawType == null");
     }
 
-    @Override public ArrayTypeName annotated(List<AnnotationSpec> annotations) {
-        return new ArrayTypeName(componentType, concatAnnotations(annotations));
-    }
-
-    @Override public TypeName withoutAnnotations() {
-        return new ArrayTypeName(componentType);
-    }
-
-    /** Returns an array type whose elements are all instances of {@code componentType}. */
+    /**
+     * Returns an array type whose elements are all instances of {@code componentType}.
+     */
     public static ArrayTypeName of(TypeName componentType) {
         return new ArrayTypeName(componentType);
     }
 
-    /** Returns an array type whose elements are all instances of {@code componentType}. */
+    /**
+     * Returns an array type whose elements are all instances of {@code componentType}.
+     */
     public static ArrayTypeName of(Type componentType) {
         return of(TypeName.get(componentType));
     }
 
-    /** Returns an array type equivalent to {@code mirror}. */
+    /**
+     * Returns an array type equivalent to {@code mirror}.
+     */
     public static ArrayTypeName get(ArrayType mirror) {
         return get(mirror, new LinkedHashMap<>());
     }
@@ -66,12 +64,24 @@ public final class ArrayTypeName extends TypeName {
         return new ArrayTypeName(get(mirror.getComponentType(), typeVariables));
     }
 
-    /** Returns an array type equivalent to {@code type}. */
+    /**
+     * Returns an array type equivalent to {@code type}.
+     */
     public static ArrayTypeName get(GenericArrayType type) {
         return get(type, new LinkedHashMap<>());
     }
 
     static ArrayTypeName get(GenericArrayType type, Map<Type, TypeVariableName> map) {
         return ArrayTypeName.of(get(type.getGenericComponentType(), map));
+    }
+
+    @Override
+    public ArrayTypeName annotated(List<AnnotationSpec> annotations) {
+        return new ArrayTypeName(componentType, concatAnnotations(annotations));
+    }
+
+    @Override
+    public TypeName withoutAnnotations() {
+        return new ArrayTypeName(componentType);
     }
 }

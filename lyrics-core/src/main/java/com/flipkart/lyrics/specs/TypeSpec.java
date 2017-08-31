@@ -1,10 +1,23 @@
+/*
+ * Copyright 2016 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
 import javax.lang.model.SourceVersion;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -48,10 +61,6 @@ public class TypeSpec {
         this.typeSpecs = Util.immutableList(builder.typeSpecs);
     }
 
-    public boolean hasModifier(Modifier modifier) {
-        return modifiers.contains(modifier);
-    }
-
     public static Builder classBuilder(String name) {
         return new Builder(Kind.CLASS, name);
     }
@@ -70,6 +79,10 @@ public class TypeSpec {
 
     public static Builder anonymousClassBuilder(String typeArgumentsFormat, Object... args) {
         return new Builder(Kind.ANONYMOUS, typeArgumentsFormat, args);
+    }
+
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
     }
 
     public Builder toBuilder() {
@@ -97,7 +110,6 @@ public class TypeSpec {
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final List<Modifier> modifiers = new ArrayList<>();
         private final List<TypeVariableName> typeVariables = new ArrayList<>();
-        private TypeName superclass;
         private final List<TypeName> superinterfaces = new ArrayList<>();
         private final Map<String, TypeSpec> enumConstants = new LinkedHashMap<>();
         private final List<FieldSpec> fieldSpecs = new ArrayList<>();
@@ -105,6 +117,7 @@ public class TypeSpec {
         private final CodeBlock.Builder initializerBlock = CodeBlock.builder();
         private final List<MethodSpec> methodSpecs = new ArrayList<>();
         private final List<TypeSpec> typeSpecs = new ArrayList<>();
+        private TypeName superclass;
 
         public Builder(Kind kind, String name) {
             this.kind = kind;

@@ -32,13 +32,13 @@ public final class CodeBlock {
     private static final Pattern NAMED_ARGUMENT =
             Pattern.compile("\\$(?<argumentName>[\\w_]+):(?<typeChar>[\\w]).*");
     private static final Pattern LOWERCASE = Pattern.compile("[a-z]+[\\w_]*");
-
-    /** A heterogeneous list containing string literals and value placeholders. */
-    final List<String> formatParts;
-    final List<Object> args;
-
     final public String format;
     final public Object[] arguments;
+    /**
+     * A heterogeneous list containing string literals and value placeholders.
+     */
+    final List<String> formatParts;
+    final List<Object> args;
 
     private CodeBlock(Builder builder) {
         this.formatParts = Util.immutableList(builder.formatParts);
@@ -48,27 +48,29 @@ public final class CodeBlock {
         this.arguments = builder.arguments;
     }
 
-    public boolean isEmpty() {
-        return formatParts.isEmpty();
-    }
-
-    @Override public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        return toString().equals(o.toString());
-    }
-
-    @Override public int hashCode() {
-        return toString().hashCode();
-    }
-
     public static CodeBlock of(String format, Object... args) {
         return new Builder().add(format, args).build();
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public boolean isEmpty() {
+        return formatParts.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+        return toString().equals(o.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
     }
 
     public Builder toBuilder() {
@@ -90,11 +92,11 @@ public final class CodeBlock {
 
         /**
          * Adds code using named arguments.
-         *
+         * <p>
          * <p>Named arguments specify their name after the '$' followed by : and the corresponding type
          * character. Argument names consist of characters in {@code a-z, A-Z, 0-9, and _} and must
          * start with a lowercase character.
-         *
+         * <p>
          * <p>For example, to refer to the type {@link java.lang.Integer} with the argument name {@code
          * clazz} use a format string containing {@code $clazz:T} and include the key {@code clazz} with
          * value {@code java.lang.Integer.class} in the argument map.
@@ -147,12 +149,12 @@ public final class CodeBlock {
 
         /**
          * Add code with positional or relative arguments.
-         *
+         * <p>
          * <p>Relative arguments map 1:1 with the placeholders in the format string.
-         *
+         * <p>
          * <p>Positional arguments use an index after the placeholder to identify which argument index
          * to use. For example, for a literal to reference the 3rd argument: "$3L" (1 based index)
-         *
+         * <p>
          * <p>Mixing relative and positional arguments in a call to add is invalid and will result in an
          * error.
          */
@@ -285,7 +287,7 @@ public final class CodeBlock {
 
         /**
          * @param controlFlow the control flow construct and its code, such as "if (foo == 5)".
-         * Shouldn't contain braces or newline characters.
+         *                    Shouldn't contain braces or newline characters.
          */
         public Builder beginControlFlow(String controlFlow, Object... args) {
             add(controlFlow + " {\n", args);
@@ -295,7 +297,7 @@ public final class CodeBlock {
 
         /**
          * @param controlFlow the control flow construct and its code, such as "else if (foo == 10)".
-         *     Shouldn't contain braces or newline characters.
+         *                    Shouldn't contain braces or newline characters.
          */
         public Builder nextControlFlow(String controlFlow, Object... args) {
             unindent();
@@ -312,7 +314,7 @@ public final class CodeBlock {
 
         /**
          * @param controlFlow the optional control flow construct and its code, such as
-         *     "while(foo == 20)". Only used for "do/while" control flows.
+         *                    "while(foo == 20)". Only used for "do/while" control flows.
          */
         public Builder endControlFlow(String controlFlow, Object... args) {
             unindent();
