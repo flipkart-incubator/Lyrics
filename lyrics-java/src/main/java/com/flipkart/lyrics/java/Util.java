@@ -41,7 +41,7 @@ class Util {
                 builder = com.squareup.javapoet.TypeSpec.annotationBuilder(type.name);
                 break;
             case ANONYMOUS:
-                builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousTypeArguments.format, type.anonymousTypeArguments.arguments);
+                builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousClassFormat, type.anonymousClassArgs);
                 break;
             default:
                 builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
@@ -63,18 +63,18 @@ class Util {
             builder.addModifiers(getJavaModifier(modifier));
         }
         for (String key : type.enumConstants.keySet()) {
-            TypeSpec t = type.enumConstants.get(key);
-            if (t == null) {
+            TypeSpec spec = type.enumConstants.get(key);
+            if (spec == null) {
                 builder.addEnumConstant(key);
             } else {
-                builder.addEnumConstant(key, getTypeSpec(t));
+                builder.addEnumConstant(key, getTypeSpec(spec));
             }
         }
         for (TypeName superinterface : type.superinterfaces) {
             builder.addSuperinterface(getJavaTypeName(superinterface));
         }
-        for (TypeSpec t : type.typeSpecs) {
-            builder.addType(getTypeSpec(t));
+        for (TypeSpec spec : type.typeSpecs) {
+            builder.addType(getTypeSpec(spec));
         }
         for (TypeVariableName typeVariableName : type.typeVariables) {
             builder.addTypeVariable(getJavaTypeVariableName(typeVariableName));
