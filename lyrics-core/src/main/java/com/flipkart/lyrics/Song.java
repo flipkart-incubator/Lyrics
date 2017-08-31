@@ -52,6 +52,6 @@ public class Song {
         processFieldModificationHandlers(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
-        typeBuilder.build().writeToFile(tune.getFileWriter(), fullPackage, targetFolder);
+        tune.getFileWriter().writeToFile(typeBuilder.build(), fullPackage, targetFolder);
     }
 }

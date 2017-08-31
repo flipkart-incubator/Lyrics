@@ -89,10 +89,6 @@ public class TypeSpec {
         return builder;
     }
 
-    public void writeToFile(FileWriter fileWriter, String fullPackage, File targetFolder) {
-        fileWriter.writeToFile(this, fullPackage, targetFolder);
-    }
-
     public static class Builder {
         private final Kind kind;
         private final String name;
