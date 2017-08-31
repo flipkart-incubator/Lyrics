@@ -17,11 +17,11 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
+import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.type.TypeMirror;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.WildcardType;
+import java.util.*;
 
 import static com.flipkart.lyrics.helper.Util.checkArgument;
 
@@ -57,7 +57,7 @@ public final class WildcardTypeName extends TypeName {
      * ? extends Object}.
      */
     public static WildcardTypeName subtypeOf(TypeName upperBound) {
-        return new WildcardTypeName(Arrays.asList(upperBound), Collections.emptyList());
+        return new WildcardTypeName(Arrays.asList(upperBound), Collections.<TypeName>emptyList());
     }
 
     public static WildcardTypeName subtypeOf(Type upperBound) {
@@ -69,11 +69,41 @@ public final class WildcardTypeName extends TypeName {
      * bound} is {@code String.class}, this returns {@code ? super String}.
      */
     public static WildcardTypeName supertypeOf(TypeName lowerBound) {
-        return new WildcardTypeName(Arrays.asList(OBJECT), Arrays.asList(lowerBound));
+        return new WildcardTypeName(Arrays.<TypeName>asList(OBJECT), Arrays.asList(lowerBound));
     }
 
     public static WildcardTypeName supertypeOf(Type lowerBound) {
         return supertypeOf(TypeName.get(lowerBound));
+    }
+
+    public static TypeName get(javax.lang.model.type.WildcardType mirror) {
+        return get(mirror, new LinkedHashMap<>());
+    }
+
+    static TypeName get(
+            javax.lang.model.type.WildcardType mirror,
+            Map<TypeParameterElement, TypeVariableName> typeVariables) {
+        TypeMirror extendsBound = mirror.getExtendsBound();
+        if (extendsBound == null) {
+            TypeMirror superBound = mirror.getSuperBound();
+            if (superBound == null) {
+                return subtypeOf(Object.class);
+            } else {
+                return supertypeOf(TypeName.get(superBound, typeVariables));
+            }
+        } else {
+            return subtypeOf(TypeName.get(extendsBound, typeVariables));
+        }
+    }
+
+    public static TypeName get(WildcardType wildcardName) {
+        return get(wildcardName, new LinkedHashMap<>());
+    }
+
+    static TypeName get(WildcardType wildcardName, Map<Type, TypeVariableName> map) {
+        return new WildcardTypeName(
+                list(wildcardName.getUpperBounds(), map),
+                list(wildcardName.getLowerBounds(), map));
     }
 
     @Override

@@ -73,7 +73,5 @@ public class NotRequiredRuleTest {
 
         assertEquals("test", spec.name, "Wrong name found.");
         assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.annotation.Nullable", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
     }
 }

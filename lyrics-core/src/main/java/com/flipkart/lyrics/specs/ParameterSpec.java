@@ -1,9 +1,26 @@
+/*
+ * Copyright 2016 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import static com.flipkart.lyrics.helper.Util.checkArgument;
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
@@ -24,16 +41,16 @@ public class ParameterSpec {
         this.type = checkNotNull(builder.type, "type == null");
     }
 
-    public boolean hasModifier(Modifier modifier) {
-        return modifiers.contains(modifier);
-    }
-
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
         return new Builder(typeName, name, modifiers);
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
         return new Builder(TypeName.get(clazz), name, modifiers);
+    }
+
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
     }
 
     public Builder toBuilder() {
@@ -45,16 +62,6 @@ public class ParameterSpec {
         builder.annotations.addAll(annotations);
         builder.modifiers.addAll(modifiers);
         return builder;
-    }
-
-    void emit(CodeWriter codeWriter, boolean varargs) throws IOException {
-        codeWriter.emitAnnotations(annotations, true);
-        codeWriter.emitModifiers(modifiers);
-        if (varargs) {
-            codeWriter.emit("$T... $L", TypeName.arrayComponent(type), name);
-        } else {
-            codeWriter.emit("$T $L", type, name);
-        }
     }
 
     public static class Builder {
@@ -70,7 +77,6 @@ public class ParameterSpec {
         }
 
         public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
-            checkArgument(annotationSpecs != null, "annotationSpecs == null");
             for (AnnotationSpec annotationSpec : annotationSpecs) {
                 this.annotations.add(annotationSpec);
             }
@@ -97,7 +103,6 @@ public class ParameterSpec {
         }
 
         public Builder addModifiers(Iterable<Modifier> modifiers) {
-            checkNotNull(modifiers, "modifiers == null");
             for (Modifier modifier : modifiers) {
                 this.modifiers.add(modifier);
             }

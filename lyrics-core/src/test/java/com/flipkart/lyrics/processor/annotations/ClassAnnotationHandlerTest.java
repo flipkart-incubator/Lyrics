@@ -65,9 +65,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(2, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
     }
 
     @Test
@@ -82,9 +79,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(2, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
     }
 
     @Test
@@ -101,10 +95,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(3, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
-        assertEquals("com.xyz.jkl", spec.annotations.get(2).type.toString(), "Wrong annotation found");
         assertEquals(1, spec.annotations.get(2).members.size());
     }
 }

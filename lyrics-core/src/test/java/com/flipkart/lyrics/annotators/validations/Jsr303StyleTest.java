@@ -17,13 +17,10 @@
 package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
-import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.ParameterSpec;
 import org.junit.jupiter.api.Test;
-
-import javax.validation.constraints.NotNull;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -43,9 +40,6 @@ public class Jsr303StyleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -58,9 +52,6 @@ public class Jsr303StyleTest {
         MethodSpec methodSpec = builder.build();
         assertEquals("test", methodSpec.name);
         assertEquals(1, methodSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = methodSpec.annotations.get(0);
-        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -78,9 +69,6 @@ public class Jsr303StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -133,9 +121,6 @@ public class Jsr303StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(NotNull.class.getName(), requiredAnnotation.type.toString());
     }
 
     @Test

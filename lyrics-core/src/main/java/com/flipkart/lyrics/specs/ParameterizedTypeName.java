@@ -32,7 +32,7 @@ public final class ParameterizedTypeName extends TypeName {
 
     ParameterizedTypeName(ParameterizedTypeName enclosingType, ClassName rawType,
                           List<TypeName> typeArguments) {
-        this(enclosingType, rawType, typeArguments, new ArrayList<>());
+        this(enclosingType, rawType, typeArguments, new ArrayList<AnnotationSpec>());
     }
 
     private ParameterizedTypeName(ParameterizedTypeName enclosingType, ClassName rawType,
@@ -68,7 +68,7 @@ public final class ParameterizedTypeName extends TypeName {
      * Returns a parameterized type equivalent to {@code type}.
      */
     public static ParameterizedTypeName get(ParameterizedType type) {
-        return get(type, new LinkedHashMap<>());
+        return get(type, new LinkedHashMap<Type, TypeVariableName>());
     }
 
     /**
@@ -94,7 +94,7 @@ public final class ParameterizedTypeName extends TypeName {
     @Override
     public TypeName withoutAnnotations() {
         return new ParameterizedTypeName(
-                enclosingType, rawType, typeArguments, new ArrayList<>());
+                enclosingType, rawType, typeArguments, new ArrayList<AnnotationSpec>());
     }
 
     /**
@@ -103,8 +103,8 @@ public final class ParameterizedTypeName extends TypeName {
      */
     public ParameterizedTypeName nestedClass(String name) {
         checkNotNull(name, "name == null");
-        return new ParameterizedTypeName(this, rawType.nestedClass(name), new ArrayList<>(),
-                new ArrayList<>());
+        return new ParameterizedTypeName(this, rawType.nestedClass(name), new ArrayList<TypeName>(),
+                new ArrayList<AnnotationSpec>());
     }
 
     /**
@@ -114,6 +114,6 @@ public final class ParameterizedTypeName extends TypeName {
     public ParameterizedTypeName nestedClass(String name, List<TypeName> typeArguments) {
         checkNotNull(name, "name == null");
         return new ParameterizedTypeName(this, rawType.nestedClass(name), typeArguments,
-                new ArrayList<>());
+                new ArrayList<AnnotationSpec>());
     }
 }

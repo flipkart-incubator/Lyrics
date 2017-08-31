@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
@@ -23,24 +22,30 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Util.checkArgument;
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
 import static javax.lang.model.element.NestingKind.MEMBER;
 import static javax.lang.model.element.NestingKind.TOP_LEVEL;
 
+/**
+ * A fully-qualified class name for top-level and member classes.
+ */
 public final class ClassName extends TypeName implements Comparable<ClassName> {
     public static final ClassName OBJECT = ClassName.get(Object.class);
 
+    /**
+     * From top to bottom. This will be ["java.util", "Map", "Entry"] for {@link Map.Entry}.
+     */
     final List<String> names;
     final String canonicalName;
 
     private ClassName(List<String> names) {
-        this(names, new ArrayList<>());
+        this(names, new ArrayList<AnnotationSpec>());
     }
 
     private ClassName(List<String> names, List<AnnotationSpec> annotations) {
@@ -56,9 +61,9 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
 
     public static ClassName get(Class<?> clazz) {
         checkNotNull(clazz, "clazz == null");
-        checkArgument(!clazz.isPrimitive(), "primitive typeSpecs cannot be represented as a ClassName");
+        checkArgument(!clazz.isPrimitive(), "primitive types cannot be represented as a ClassName");
         checkArgument(!void.class.equals(clazz), "'void' type cannot be represented as a ClassName");
-        checkArgument(!clazz.isArray(), "array typeSpecs cannot be represented as a ClassName");
+        checkArgument(!clazz.isArray(), "array types cannot be represented as a ClassName");
         List<String> names = new ArrayList<>();
         while (true) {
             String anonymousSuffix = "";
@@ -109,6 +114,10 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
         return new ClassName(names);
     }
 
+    /**
+     * Returns a class name created from the given parts. For example, calling this with package name
+     * {@code "java.util"} and simple names {@code "Map"}, {@code "Entry"} yields {@link Map.Entry}.
+     */
     public static ClassName get(String packageName, String simpleName, String... simpleNames) {
         List<String> result = new ArrayList<>();
         result.add(packageName);
@@ -161,6 +170,10 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
         return names.get(0);
     }
 
+    /**
+     * Returns the enclosing class, like {@link Map} for {@code Map.Entry}. Returns null if this class
+     * is not nested in another class.
+     */
     public ClassName enclosingClassName() {
         if (names.size() == 2) return null;
         return new ClassName(names.subList(0, names.size() - 1));
@@ -219,6 +232,9 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
         return new ClassName(result);
     }
 
+    /**
+     * Returns the simple name of this class, like {@code "Entry"} for {@link Map.Entry}.
+     */
     public String simpleName() {
         return names.get(names.size() - 1);
     }
@@ -226,10 +242,5 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
     @Override
     public int compareTo(ClassName o) {
         return canonicalName.compareTo(o.canonicalName);
-    }
-
-    @Override
-    CodeWriter emit(CodeWriter out) throws IOException {
-        return out.emitAndIndent(out.lookupName(this));
     }
 }

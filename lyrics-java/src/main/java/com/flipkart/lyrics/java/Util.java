@@ -1,14 +1,29 @@
+/*
+ * Copyright 2017 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.flipkart.lyrics.java;
 
 import com.flipkart.lyrics.specs.*;
 
-import java.util.List;
 import java.util.Set;
 
 /**
  * @author kushal.sharma on 10/08/17.
  */
 class Util {
+
     static com.squareup.javapoet.TypeSpec getTypeSpec(TypeSpec type) {
         com.squareup.javapoet.TypeSpec.Builder builder;
 
@@ -26,7 +41,7 @@ class Util {
                 builder = com.squareup.javapoet.TypeSpec.annotationBuilder(type.name);
                 break;
             case ANONYMOUS:
-                builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousTypeArguments.format, type.anonymousTypeArguments.arguments);
+                builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousClassFormat, type.anonymousClassArgs);
                 break;
             default:
                 builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
@@ -48,18 +63,18 @@ class Util {
             builder.addModifiers(getJavaModifier(modifier));
         }
         for (String key : type.enumConstants.keySet()) {
-            TypeSpec t = type.enumConstants.get(key);
-            if (t == null) {
+            TypeSpec spec = type.enumConstants.get(key);
+            if (spec == null) {
                 builder.addEnumConstant(key);
             } else {
-                builder.addEnumConstant(key, getTypeSpec(t));
+                builder.addEnumConstant(key, getTypeSpec(spec));
             }
         }
         for (TypeName superinterface : type.superinterfaces) {
             builder.addSuperinterface(getJavaTypeName(superinterface));
         }
-        for (TypeSpec t : type.typeSpecs) {
-            builder.addType(getTypeSpec(t));
+        for (TypeSpec spec : type.typeSpecs) {
+            builder.addType(getTypeSpec(spec));
         }
         for (TypeVariableName typeVariableName : type.typeVariables) {
             builder.addTypeVariable(getJavaTypeVariableName(typeVariableName));
@@ -113,16 +128,7 @@ class Util {
 
         for (String name : annotationSpec.members.keySet()) {
             CodeBlock codeBlock = annotationSpec.members.get(name).get(0);
-            Object[] newArgs = new Object[codeBlock.arguments.length];
-            for (int i = 0; i < codeBlock.arguments.length; i++) {
-                if (codeBlock.arguments[i] instanceof ClassName) {
-                    ClassName className = (ClassName) codeBlock.arguments[i];
-                    newArgs[i] = getJavaClassName(className);
-                } else {
-                    newArgs[i] = codeBlock.arguments[i];
-                }
-            }
-            builder.addMember(name, com.squareup.javapoet.CodeBlock.of(codeBlock.format, newArgs));
+            builder.addMember(name, com.squareup.javapoet.CodeBlock.of(codeBlock.format, getJavaArgs(codeBlock)));
         }
         return builder.build();
     }
@@ -234,5 +240,18 @@ class Util {
             typeNameArray[i] = getJavaTypeName(typeVariableName.bounds.get(i));
         }
         return com.squareup.javapoet.TypeVariableName.get(typeVariableName.name, typeNameArray);
+    }
+
+    private static Object[] getJavaArgs(CodeBlock codeBlock) {
+        Object[] javaArgs = new Object[codeBlock.arguments.length];
+        for (int i = 0; i < codeBlock.arguments.length; i++) {
+            if (codeBlock.arguments[i] instanceof ClassName) {
+                ClassName className = (ClassName) codeBlock.arguments[i];
+                javaArgs[i] = getJavaClassName(className);
+            } else {
+                javaArgs[i] = codeBlock.arguments[i];
+            }
+        }
+        return javaArgs;
     }
 }

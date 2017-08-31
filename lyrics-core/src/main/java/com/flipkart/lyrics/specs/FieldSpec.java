@@ -1,13 +1,25 @@
+/*
+ * Copyright 2016 Flipkart Internet, pvt ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
-import java.io.IOException;
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Util.checkArgument;
-import static com.flipkart.lyrics.helper.Util.checkNotNull;
-import static com.flipkart.lyrics.helper.Util.checkState;
+import static com.flipkart.lyrics.helper.Util.*;
 
 /**
  * @author kushal.sharma on 10/08/17.
@@ -31,16 +43,16 @@ public class FieldSpec {
                 : builder.initializer;
     }
 
-    public boolean hasModifier(Modifier modifier) {
-        return modifiers.contains(modifier);
-    }
-
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
         return new Builder(typeName, name, modifiers);
     }
 
     public static Builder builder(Class<?> clazz, String name, Modifier... modifiers) {
         return new Builder(clazz, name, modifiers);
+    }
+
+    public boolean hasModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
     }
 
     public Builder toBuilder() {
@@ -50,17 +62,6 @@ public class FieldSpec {
         builder.modifiers.addAll(modifiers);
         builder.initializer = initializer.isEmpty() ? null : initializer;
         return builder;
-    }
-
-    void emit(CodeWriter codeWriter, Set<Modifier> implicitModifiers) throws IOException {
-        codeWriter.emitAnnotations(annotations, false);
-        codeWriter.emitModifiers(modifiers, implicitModifiers);
-        codeWriter.emit("$T $L", type, name);
-        if (!initializer.isEmpty()) {
-            codeWriter.emit(" = ");
-            codeWriter.emit(initializer);
-        }
-        codeWriter.emit(";\n");
     }
 
     public static final class Builder {

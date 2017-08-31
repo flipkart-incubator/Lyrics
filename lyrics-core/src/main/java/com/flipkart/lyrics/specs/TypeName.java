@@ -22,10 +22,9 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor7;
-import java.io.IOException;
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.*;
 
 public class TypeName {
@@ -188,6 +187,12 @@ public class TypeName {
         } else if (type instanceof ParameterizedType) {
             return ParameterizedTypeName.get((ParameterizedType) type, map);
 
+        } else if (type instanceof WildcardType) {
+            return WildcardTypeName.get(type, map);
+
+        } else if (type instanceof TypeVariable<?>) {
+            return TypeVariableName.get((TypeVariable<?>) type, map);
+
         } else if (type instanceof GenericArrayType) {
             return ArrayTypeName.get((GenericArrayType) type, map);
 
@@ -197,7 +202,7 @@ public class TypeName {
     }
 
     /**
-     * Converts an array of typeSpecs to a list of type names.
+     * Converts an array of types to a list of type names.
      */
     static List<TypeName> list(Type[] types) {
         return list(types, new LinkedHashMap<>());
@@ -244,8 +249,8 @@ public class TypeName {
     }
 
     /**
-     * Returns true if this is a primitive type like {@code int}. Returns false for all other typeSpecs
-     * typeSpecs including boxed primitives and {@code void}.
+     * Returns true if this is a primitive type like {@code int}. Returns false for all other types
+     * types including boxed primitives and {@code void}.
      */
     public boolean isPrimitive() {
         return keyword != null && this != VOID;
@@ -253,7 +258,7 @@ public class TypeName {
 
     /**
      * Returns true if this is a boxed primitive type like {@code Integer}. Returns false for all
-     * other typeSpecs typeSpecs including unboxed primitives and {@code java.lang.Void}.
+     * other types types including unboxed primitives and {@code java.lang.Void}.
      */
     public boolean isBoxedPrimitive() {
         return this.equals(BOXED_BOOLEAN)
@@ -315,36 +320,5 @@ public class TypeName {
     @Override
     public final int hashCode() {
         return toString().hashCode();
-    }
-
-    @Override
-    public final String toString() {
-        String result = cachedString;
-        if (result == null) {
-            try {
-                StringBuilder resultBuilder = new StringBuilder();
-                CodeWriter codeWriter = new CodeWriter(resultBuilder);
-                emitAnnotations(codeWriter);
-                emit(codeWriter);
-                result = resultBuilder.toString();
-                cachedString = result;
-            } catch (IOException e) {
-                throw new AssertionError();
-            }
-        }
-        return result;
-    }
-
-    CodeWriter emit(CodeWriter out) throws IOException {
-        if (keyword == null) throw new AssertionError();
-        return out.emitAndIndent(keyword);
-    }
-
-    CodeWriter emitAnnotations(CodeWriter out) throws IOException {
-        for (AnnotationSpec annotation : annotations) {
-            annotation.emit(out, true);
-            out.emit(" ");
-        }
-        return out;
     }
 }

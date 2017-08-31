@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.flipkart.lyrics;
 
 import com.flipkart.lyrics.config.Tune;
@@ -52,6 +51,6 @@ public class Song {
         processFieldModificationHandlers(tune, metaInfo);
 
         TypeSpec.Builder typeBuilder = getCreator(typeModel.getType(), tune.getCreatorSet()).process(handlerSet, typeModel);
-        typeBuilder.build().writeToFile(tune.getFileWriter(), fullPackage, targetFolder);
+        tune.getFileWriter().writeToFile(typeBuilder.build(), fullPackage, targetFolder);
     }
 }
