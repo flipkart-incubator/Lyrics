@@ -53,17 +53,9 @@ public class SuperClassHandlerTest {
 
     @Test
     public void testNoSuperClass(@TuneProvider Tune tune) {
-        String fullPackage = "java.lang";
-        String className = "Object";
-        VariableModel variableModel = new VariableModel(fullPackage + "." + className);
-
-        TypeModel model = mock(TypeModel.class);
-        when(model.getExtendsType()).thenReturn(variableModel);
-
+        TypeModel model = new TypeModel();
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        MetaInfo metaInfo = new MetaInfo(null, null, new HashMap<>());
-
-        new SuperClassHandler(tune, metaInfo, null).process(builder, model);
+        new SuperClassHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
 
         assertEquals("Test", spec.name, "Wrong class name found");

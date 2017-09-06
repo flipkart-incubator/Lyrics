@@ -19,9 +19,6 @@ import com.flipkart.lyrics.specs.*;
 
 import java.util.Set;
 
-/**
- * @author kushal.sharma on 10/08/17.
- */
 class Util {
 
     static com.squareup.javapoet.TypeSpec getTypeSpec(TypeSpec type) {
@@ -47,7 +44,7 @@ class Util {
                 builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
         }
 
-        if (type.superclass != null) {
+        if (type.superclass != null && type.superclass != ClassName.OBJECT) {
             builder.superclass(getJavaTypeName(type.superclass));
         }
         for (FieldSpec fieldSpec : type.fieldSpecs) {

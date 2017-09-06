@@ -22,12 +22,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static com.flipkart.lyrics.helper.Util.checkArgument;
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
 
-/**
- * @author kushal.sharma on 10/08/17.
- */
 public class ParameterSpec {
     public final String name;
     public final List<AnnotationSpec> annotations;

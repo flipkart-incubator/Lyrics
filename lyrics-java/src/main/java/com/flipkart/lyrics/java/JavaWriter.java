@@ -24,9 +24,6 @@ import java.io.IOException;
 
 import static com.flipkart.lyrics.java.Util.getTypeSpec;
 
-/**
- * @author kushal.sharma on 28/08/17.
- */
 public class JavaWriter implements FileWriter {
 
     @Override

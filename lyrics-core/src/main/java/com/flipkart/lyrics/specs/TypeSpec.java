@@ -17,15 +17,9 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
-import javax.lang.model.SourceVersion;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Util.*;
-
-/**
- * @author kushal.sharma on 10/08/17.
- */
 public class TypeSpec {
     public final Kind kind;
     public final String name;
@@ -120,7 +114,7 @@ public class TypeSpec {
         private final CodeBlock.Builder initializerBlock = CodeBlock.builder();
         private final List<MethodSpec> methodSpecs = new ArrayList<>();
         private final List<TypeSpec> typeSpecs = new ArrayList<>();
-        private TypeName superclass;
+        private TypeName superclass = ClassName.OBJECT;
 
         public Builder(Kind kind, String name) {
             this.kind = kind;
