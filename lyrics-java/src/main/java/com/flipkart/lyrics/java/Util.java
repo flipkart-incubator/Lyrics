@@ -92,13 +92,13 @@ class Util {
             builder.addAnnotation(getAnnotationSpec(annotation));
         }
         for (CodeBlock statement : methodSpec.statements) {
-            builder.addStatement(statement.format, statement.arguments);
+            builder.addStatement(statement.format, getJavaArgs(statement));
         }
         for (CodeBlock code : methodSpec.codeBlocks) {
-            builder.addCode(code.format, code.arguments);
+            builder.addCode(code.format, getJavaArgs(code));
         }
         for (CodeBlock comment : methodSpec.comments) {
-            builder.addComment(comment.format, comment.arguments);
+            builder.addComment(comment.format, getJavaArgs(comment));
         }
         for (ParameterSpec parameter : methodSpec.parameters) {
             builder.addParameter(getParameterSpec(parameter));
