@@ -21,9 +21,6 @@ import com.flipkart.lyrics.specs.*;
 
 import java.util.Map;
 
-/**
- * @author kushal.sharma on 18/08/17.
- */
 public class SpecialInterfaces {
 
     public static void processTestInterface2(TypeSpec.Builder builder, TypeModel typeModel, MetaInfo metaInfo) {

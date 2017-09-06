@@ -17,15 +17,9 @@ package com.flipkart.lyrics.specs;
 
 import com.flipkart.lyrics.helper.Util;
 
-import javax.lang.model.SourceVersion;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.flipkart.lyrics.helper.Util.*;
-
-/**
- * @author kushal.sharma on 10/08/17.
- */
 public class TypeSpec {
     public final Kind kind;
     public final String name;

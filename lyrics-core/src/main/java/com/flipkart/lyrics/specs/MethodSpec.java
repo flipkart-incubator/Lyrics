@@ -22,9 +22,6 @@ import java.util.*;
 
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
 
-/**
- * @author kushal.sharma on 09/08/17.
- */
 public class MethodSpec {
     static final String CONSTRUCTOR = "<init>";
 

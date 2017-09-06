@@ -20,9 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author kushal.sharma on 10/08/17.
- */
 public class AnnotationSpec {
     public final TypeName type;
     public final Map<String, List<CodeBlock>> members = new HashMap<>();

@@ -21,9 +21,6 @@ import java.util.*;
 
 import static com.flipkart.lyrics.helper.Util.*;
 
-/**
- * @author kushal.sharma on 10/08/17.
- */
 public class FieldSpec {
     public final TypeName type;
     public final String name;

@@ -19,9 +19,6 @@ import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
 
 import java.util.*;
 
-/**
- * @author kushal.sharma on 23/08/17.
- */
 public class TestTune implements Tune {
 
     private final FieldTypeHandlerSet fieldTypeHandlerSet = new DefaultFieldTypeHandlerSet();
