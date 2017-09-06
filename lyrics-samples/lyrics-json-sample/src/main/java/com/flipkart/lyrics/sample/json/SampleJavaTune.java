@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author kushal.sharma on 18/08/17.
  */
-public class TestTune extends JavaTune {
+public class SampleJavaTune extends JavaTune {
     private static final Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> specialHandlers = new HashMap<>();
 
     static {

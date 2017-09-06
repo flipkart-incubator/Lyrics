@@ -120,7 +120,7 @@ public class TypeSpec {
         private final CodeBlock.Builder initializerBlock = CodeBlock.builder();
         private final List<MethodSpec> methodSpecs = new ArrayList<>();
         private final List<TypeSpec> typeSpecs = new ArrayList<>();
-        private TypeName superclass;
+        private TypeName superclass = ClassName.OBJECT;
 
         public Builder(Kind kind, String name) {
             this.kind = kind;

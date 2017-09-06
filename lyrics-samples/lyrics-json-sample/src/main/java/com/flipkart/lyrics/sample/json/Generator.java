@@ -26,7 +26,7 @@ import java.io.File;
 public class Generator {
 
     public static void main(String[] args) {
-        Tune tune = new TestTune();
+        Tune tune = new SampleJavaTune();
 
         File target = new File(Generator.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
         File generatedSources = new File(target, "generated-sources");

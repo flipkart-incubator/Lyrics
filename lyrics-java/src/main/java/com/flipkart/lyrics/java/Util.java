@@ -47,7 +47,7 @@ class Util {
                 builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
         }
 
-        if (type.superclass != null) {
+        if (type.superclass != null && type.superclass != ClassName.OBJECT) {
             builder.superclass(getJavaTypeName(type.superclass));
         }
         for (FieldSpec fieldSpec : type.fieldSpecs) {
