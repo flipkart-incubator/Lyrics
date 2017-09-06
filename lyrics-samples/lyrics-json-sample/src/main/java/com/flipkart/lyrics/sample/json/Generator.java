@@ -34,7 +34,7 @@ public class Generator {
         Lyrics lyrics = new Lyrics(tune, generatedSources);
 
         // The working directory should be lyrics-json-sample
-        File source = new File("lyrics-samples/lyrics-json-sample/src/main/resources/com");
+        File source = new File("src/main/resources/com");
         lyrics.compose(true, source);
     }
 }
