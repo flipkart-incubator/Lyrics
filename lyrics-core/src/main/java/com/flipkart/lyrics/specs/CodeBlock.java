@@ -15,37 +15,18 @@
  */
 package com.flipkart.lyrics.specs;
 
-import com.flipkart.lyrics.helper.Util;
-
-import javax.lang.model.element.Element;
-import javax.lang.model.type.TypeMirror;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.flipkart.lyrics.helper.Util.checkArgument;
 
 public final class CodeBlock {
-    private static final Pattern NAMED_ARGUMENT =
-            Pattern.compile("\\$(?<argumentName>[\\w_]+):(?<typeChar>[\\w]).*");
-    private static final Pattern LOWERCASE = Pattern.compile("[a-z]+[\\w_]*");
-    final public String format;
-    final public Object[] arguments;
-    /**
-     * A heterogeneous list containing string literals and value placeholders.
-     */
-    final List<String> formatParts;
-    final List<Object> args;
+    final public List<String> formats = new ArrayList<>();
+    final public List<Object> arguments = new ArrayList<>();
 
     private CodeBlock(Builder builder) {
-        this.formatParts = Util.immutableList(builder.formatParts);
-        this.args = Util.immutableList(builder.args);
-
-        this.format = builder.format;
-        this.arguments = builder.arguments;
+        this.formats.addAll(builder.formats);
+        for (Object arg : builder.arguments) {
+            this.arguments.add(arg);
+        }
     }
 
     public static CodeBlock of(String format, Object... args) {
@@ -54,10 +35,6 @@ public final class CodeBlock {
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public boolean isEmpty() {
-        return formatParts.isEmpty();
     }
 
     @Override
@@ -73,216 +50,19 @@ public final class CodeBlock {
         return toString().hashCode();
     }
 
-    public Builder toBuilder() {
-        Builder builder = new Builder();
-        builder.formatParts.addAll(formatParts);
-        builder.args.addAll(args);
-        return builder;
-    }
-
     public static final class Builder {
-        final List<String> formatParts = new ArrayList<>();
-        final List<Object> args = new ArrayList<>();
-
-        public String format;
-        public Object[] arguments;
+        public List<String> formats = new ArrayList<>();
+        public List<Object> arguments = new ArrayList<>();
 
         private Builder() {
         }
 
-        /**
-         * Adds code using named arguments.
-         * <p>
-         * <p>Named arguments specify their name after the '$' followed by : and the corresponding type
-         * character. Argument names consist of characters in {@code a-z, A-Z, 0-9, and _} and must
-         * start with a lowercase character.
-         * <p>
-         * <p>For example, to refer to the type {@link java.lang.Integer} with the argument name {@code
-         * clazz} use a format string containing {@code $clazz:T} and include the key {@code clazz} with
-         * value {@code java.lang.Integer.class} in the argument map.
-         */
-        public Builder addNamed(String format, Map<String, ?> arguments) {
-            int p = 0;
-
-            for (String argument : arguments.keySet()) {
-                checkArgument(LOWERCASE.matcher(argument).matches(),
-                        "argument '%s' must start with a lowercase character", argument);
-            }
-
-            while (p < format.length()) {
-                int nextP = format.indexOf("$", p);
-                if (nextP == -1) {
-                    formatParts.add(format.substring(p, format.length()));
-                    break;
-                }
-
-                if (p != nextP) {
-                    formatParts.add(format.substring(p, nextP));
-                    p = nextP;
-                }
-
-                Matcher matcher = null;
-                int colon = format.indexOf(':', p);
-                if (colon != -1) {
-                    int endIndex = Math.min(colon + 2, format.length());
-                    matcher = NAMED_ARGUMENT.matcher(format.substring(p, endIndex));
-                }
-                if (matcher != null && matcher.lookingAt()) {
-                    String argumentName = matcher.group("argumentName");
-                    checkArgument(arguments.containsKey(argumentName), "Missing named argument for $%s",
-                            argumentName);
-                    char formatChar = matcher.group("typeChar").charAt(0);
-                    addArgument(format, formatChar, arguments.get(argumentName));
-                    formatParts.add("$" + formatChar);
-                    p += matcher.regionEnd();
-                } else {
-                    checkArgument(p < format.length() - 1, "dangling $ at end");
-                    checkArgument(isNoArgPlaceholder(format.charAt(p + 1)),
-                            "unknown format $%s at %s in '%s'", format.charAt(p + 1), p + 1, format);
-                    formatParts.add(format.substring(p, p + 2));
-                    p += 2;
-                }
-            }
-
-            return this;
-        }
-
-        /**
-         * Add code with positional or relative arguments.
-         * <p>
-         * <p>Relative arguments map 1:1 with the placeholders in the format string.
-         * <p>
-         * <p>Positional arguments use an index after the placeholder to identify which argument index
-         * to use. For example, for a literal to reference the 3rd argument: "$3L" (1 based index)
-         * <p>
-         * <p>Mixing relative and positional arguments in a call to add is invalid and will result in an
-         * error.
-         */
         public Builder add(String format, Object... args) {
-            this.format = format;
-            this.arguments = args;
-
-            boolean hasRelative = false;
-            boolean hasIndexed = false;
-
-            int relativeParameterCount = 0;
-            int[] indexedParameterCount = new int[args.length];
-
-            for (int p = 0; p < format.length(); ) {
-                if (format.charAt(p) != '$') {
-                    int nextP = format.indexOf('$', p + 1);
-                    if (nextP == -1) nextP = format.length();
-                    formatParts.add(format.substring(p, nextP));
-                    p = nextP;
-                    continue;
-                }
-
-                p++; // '$'.
-
-                // Consume zero or more digits, leaving 'c' as the first non-digit char after the '$'.
-                int indexStart = p;
-                char c;
-                do {
-                    checkArgument(p < format.length(), "dangling format characters in '%s'", format);
-                    c = format.charAt(p++);
-                } while (c >= '0' && c <= '9');
-                int indexEnd = p - 1;
-
-                // If 'c' doesn't take an argument, we're done.
-                if (isNoArgPlaceholder(c)) {
-                    checkArgument(indexStart == indexEnd, "$$, $>, $<, $[, $], and $W may not have an index");
-                    formatParts.add("$" + c);
-                    continue;
-                }
-
-                // Find either the indexed argument, or the relative argument. (0-based).
-                int index;
-                if (indexStart < indexEnd) {
-                    index = Integer.parseInt(format.substring(indexStart, indexEnd)) - 1;
-                    hasIndexed = true;
-                    if (args.length > 0) {
-                        indexedParameterCount[index % args.length]++; // modulo is needed, checked below anyway
-                    }
-                } else {
-                    index = relativeParameterCount;
-                    hasRelative = true;
-                    relativeParameterCount++;
-                }
-
-                checkArgument(index >= 0 && index < args.length,
-                        "index %d for '%s' not in range (received %s arguments)",
-                        index + 1, format.substring(indexStart - 1, indexEnd + 1), args.length);
-                checkArgument(!hasIndexed || !hasRelative, "cannot mix indexed and positional parameters");
-
-                addArgument(format, c, args[index]);
-
-                formatParts.add("$" + c);
-            }
-
-            if (hasRelative) {
-                checkArgument(relativeParameterCount >= args.length,
-                        "unused arguments: expected %s, received %s", relativeParameterCount, args.length);
-            }
-            if (hasIndexed) {
-                List<String> unused = new ArrayList<>();
-                for (int i = 0; i < args.length; i++) {
-                    if (indexedParameterCount[i] == 0) {
-                        unused.add("$" + (i + 1));
-                    }
-                }
-                String s = unused.size() == 1 ? "" : "s";
-                checkArgument(unused.isEmpty(), "unused argument%s: %s", s, Util.join(", ", unused));
+            this.formats.add(format);
+            for (Object object : args) {
+                this.arguments.add(object);
             }
             return this;
-        }
-
-        private boolean isNoArgPlaceholder(char c) {
-            return c == '$' || c == '>' || c == '<' || c == '[' || c == ']' || c == 'W';
-        }
-
-        private void addArgument(String format, char c, Object arg) {
-            switch (c) {
-                case 'N':
-                    this.args.add(argToName(arg));
-                    break;
-                case 'L':
-                    this.args.add(argToLiteral(arg));
-                    break;
-                case 'S':
-                    this.args.add(argToString(arg));
-                    break;
-                case 'T':
-                    this.args.add(argToType(arg));
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            String.format("invalid format string: '%s'", format));
-            }
-        }
-
-        private String argToName(Object o) {
-            if (o instanceof CharSequence) return o.toString();
-            if (o instanceof ParameterSpec) return ((ParameterSpec) o).name;
-            if (o instanceof FieldSpec) return ((FieldSpec) o).name;
-            if (o instanceof MethodSpec) return ((MethodSpec) o).name;
-            if (o instanceof TypeSpec) return ((TypeSpec) o).name;
-            throw new IllegalArgumentException("expected name but was " + o);
-        }
-
-        private Object argToLiteral(Object o) {
-            return o;
-        }
-
-        private String argToString(Object o) {
-            return o != null ? String.valueOf(o) : null;
-        }
-
-        private TypeName argToType(Object o) {
-            if (o instanceof TypeName) return (TypeName) o;
-            if (o instanceof TypeMirror) return TypeName.get((TypeMirror) o);
-            if (o instanceof Element) return TypeName.get(((Element) o).asType());
-            if (o instanceof Type) return TypeName.get((Type) o);
-            throw new IllegalArgumentException("expected type but was " + o);
         }
 
         /**
@@ -334,18 +114,20 @@ public final class CodeBlock {
         }
 
         public Builder add(CodeBlock codeBlock) {
-            formatParts.addAll(codeBlock.formatParts);
-            args.addAll(codeBlock.args);
+            formats.addAll(codeBlock.formats);
+            for (Object arg : codeBlock.arguments) {
+                arguments.add(arg);
+            }
             return this;
         }
 
         public Builder indent() {
-            this.formatParts.add("$>");
+            this.formats.add("$>");
             return this;
         }
 
         public Builder unindent() {
-            this.formatParts.add("$<");
+            this.formats.add("$<");
             return this;
         }
 

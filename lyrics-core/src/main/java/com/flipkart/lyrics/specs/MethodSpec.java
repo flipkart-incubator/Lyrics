@@ -35,9 +35,7 @@ public class MethodSpec {
     public final boolean varargs;
     public final List<TypeName> exceptions;
     public final CodeBlock defaultValue;
-    public final List<CodeBlock> codeBlocks = new ArrayList<>();
-    public final List<CodeBlock> comments = new ArrayList<>();
-    public final List<CodeBlock> statements = new ArrayList<>();
+    public final CodeBlock code;
 
     protected MethodSpec(Builder builder) {
         this.name = checkNotNull(builder.name, "name == null");
@@ -50,9 +48,7 @@ public class MethodSpec {
         this.varargs = builder.varargs;
         this.exceptions = Util.immutableList(builder.exceptions);
         this.defaultValue = builder.defaultValue;
-        this.codeBlocks.addAll(builder.codeBlocks);
-        this.comments.addAll(builder.comments);
-        this.statements.addAll(builder.statements);
+        this.code = builder.code.build();
     }
 
     public static Builder methodBuilder(String name) {
@@ -78,9 +74,6 @@ public class MethodSpec {
         builder.exceptions.addAll(exceptions);
         builder.varargs = varargs;
         builder.defaultValue = defaultValue;
-        builder.codeBlocks.addAll(codeBlocks);
-        builder.comments.addAll(comments);
-        builder.statements.addAll(statements);
         return builder;
     }
 
@@ -95,9 +88,7 @@ public class MethodSpec {
         private final List<Modifier> modifiers = new ArrayList<>();
         private final List<ParameterSpec> parameters = new ArrayList<>();
         private final Set<TypeName> exceptions = new LinkedHashSet<>();
-        private final List<CodeBlock> codeBlocks = new ArrayList<>();
-        private final List<CodeBlock> comments = new ArrayList<>();
-        private final List<CodeBlock> statements = new ArrayList<>();
+        private final CodeBlock.Builder code = CodeBlock.builder();
         private List<TypeVariableName> typeVariables = new ArrayList<>();
         private TypeName returnType;
         private boolean varargs;
@@ -153,17 +144,37 @@ public class MethodSpec {
         }
 
         public MethodSpec.Builder addCode(String format, Object... args) {
-            this.codeBlocks.add(CodeBlock.of(format, args));
+            this.code.add(format, args);
             return this;
         }
 
         public MethodSpec.Builder addComment(String format, Object... args) {
-            this.comments.add(CodeBlock.of(format, args));
+            this.code.add("// " + format + "\n", args);
             return this;
         }
 
         public MethodSpec.Builder addStatement(String format, Object... args) {
-            this.statements.add(CodeBlock.of(format, args));
+            this.code.addStatement(format, args);
+            return this;
+        }
+
+        public MethodSpec.Builder beginControlFlow(String format, Object... args) {
+            this.code.beginControlFlow(format, args);
+            return this;
+        }
+
+        public Builder nextControlFlow(String controlFlow, Object... args) {
+            this.code.nextControlFlow(controlFlow, args);
+            return this;
+        }
+
+        public Builder endControlFlow() {
+            this.code.endControlFlow();
+            return this;
+        }
+
+        public Builder endControlFlow(String controlFlow, Object... args) {
+            this.code.endControlFlow(controlFlow, args);
             return this;
         }
 

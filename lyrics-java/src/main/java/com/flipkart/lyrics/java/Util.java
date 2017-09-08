@@ -17,6 +17,8 @@ package com.flipkart.lyrics.java;
 
 import com.flipkart.lyrics.specs.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 class Util {
@@ -24,24 +26,25 @@ class Util {
     static com.squareup.javapoet.TypeSpec getTypeSpec(TypeSpec type) {
         com.squareup.javapoet.TypeSpec.Builder builder;
 
-        switch (type.kind) {
-            case CLASS:
-                builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
-                break;
-            case INTERFACE:
-                builder = com.squareup.javapoet.TypeSpec.interfaceBuilder(type.name);
-                break;
-            case ENUM:
-                builder = com.squareup.javapoet.TypeSpec.enumBuilder(type.name);
-                break;
-            case ANNOTATION:
-                builder = com.squareup.javapoet.TypeSpec.annotationBuilder(type.name);
-                break;
-            case ANONYMOUS:
-                builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousClassFormat, type.anonymousClassArgs);
-                break;
-            default:
-                builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
+        if (type.anonymousClassFormat != null && type.name == null) {
+            builder = com.squareup.javapoet.TypeSpec.anonymousClassBuilder(type.anonymousClassFormat, getJavaArgs(type.anonymousClassArgs));
+        } else {
+            switch (type.kind) {
+                case CLASS:
+                    builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
+                    break;
+                case INTERFACE:
+                    builder = com.squareup.javapoet.TypeSpec.interfaceBuilder(type.name);
+                    break;
+                case ENUM:
+                    builder = com.squareup.javapoet.TypeSpec.enumBuilder(type.name);
+                    break;
+                case ANNOTATION:
+                    builder = com.squareup.javapoet.TypeSpec.annotationBuilder(type.name);
+                    break;
+                default:
+                    builder = com.squareup.javapoet.TypeSpec.classBuilder(type.name);
+            }
         }
 
         if (type.superclass != null && type.superclass != ClassName.OBJECT) {
@@ -91,20 +94,13 @@ class Util {
         for (AnnotationSpec annotation : methodSpec.annotations) {
             builder.addAnnotation(getAnnotationSpec(annotation));
         }
-        for (CodeBlock statement : methodSpec.statements) {
-            builder.addStatement(statement.format, statement.arguments);
-        }
-        for (CodeBlock code : methodSpec.codeBlocks) {
-            builder.addCode(code.format, code.arguments);
-        }
-        for (CodeBlock comment : methodSpec.comments) {
-            builder.addComment(comment.format, comment.arguments);
-        }
+        builder.addCode(String.join("", methodSpec.code.formats), getJavaArgs(getCodeArgs(methodSpec.code)));
         for (ParameterSpec parameter : methodSpec.parameters) {
             builder.addParameter(getParameterSpec(parameter));
         }
         if (methodSpec.defaultValue != null) {
-            builder.defaultValue(methodSpec.defaultValue.format, methodSpec.defaultValue.arguments);
+            builder.defaultValue(String.join("", methodSpec.defaultValue.formats),
+                    getJavaArgs(getCodeArgs(methodSpec.code)));
         }
         return builder.build();
     }
@@ -124,8 +120,10 @@ class Util {
                 .builder(getJavaClassName(annotationSpec.type));
 
         for (String name : annotationSpec.members.keySet()) {
-            CodeBlock codeBlock = annotationSpec.members.get(name).get(0);
-            builder.addMember(name, com.squareup.javapoet.CodeBlock.of(codeBlock.format, getJavaArgs(codeBlock)));
+            for (CodeBlock codeBlock : annotationSpec.members.get(name)) {
+                builder.addMember(name, com.squareup.javapoet.CodeBlock.of(String.join("", codeBlock.formats),
+                        getJavaArgs(getCodeArgs(codeBlock))));
+            }
         }
         return builder.build();
     }
@@ -134,8 +132,9 @@ class Util {
         com.squareup.javapoet.FieldSpec.Builder builder = com.squareup.javapoet.FieldSpec
                 .builder(getJavaTypeName(fieldSpec.type), fieldSpec.name, getJavaModifiers(fieldSpec.modifiers));
 
-        if (fieldSpec.initializer.format != null) {
-            builder.initializer(fieldSpec.initializer.format, fieldSpec.initializer.arguments);
+        if (fieldSpec.initializer.formats.size() > 0) {
+            builder.initializer(String.join("", fieldSpec.initializer.formats),
+                    getJavaArgs(getCodeArgs(fieldSpec.initializer)));
         }
         for (AnnotationSpec annotationSpec : fieldSpec.annotations) {
             builder.addAnnotation(getAnnotationSpec(annotationSpec));
@@ -219,7 +218,14 @@ class Util {
     private static com.squareup.javapoet.ClassName getJavaClassName(TypeName typeName) {
         if (typeName instanceof ClassName) {
             ClassName className = (ClassName) typeName;
-            return com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleName());
+            com.squareup.javapoet.ClassName className_;
+            if (className.simpleNames().size() <= 1) {
+                className_ = com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleName());
+            } else {
+                className_ = com.squareup.javapoet.ClassName.get(className.packageName(), className.simpleNames().get(0),
+                        Collections.singleton(className.simpleNames().get(1)).toArray(new String[Collections.singleton(className.simpleNames().get(1)).size()]));
+            }
+            return className_;
         } else throw new ClassCastException();
     }
 
@@ -239,16 +245,28 @@ class Util {
         return com.squareup.javapoet.TypeVariableName.get(typeVariableName.name, typeNameArray);
     }
 
-    private static Object[] getJavaArgs(CodeBlock codeBlock) {
-        Object[] javaArgs = new Object[codeBlock.arguments.length];
-        for (int i = 0; i < codeBlock.arguments.length; i++) {
-            if (codeBlock.arguments[i] instanceof ClassName) {
-                ClassName className = (ClassName) codeBlock.arguments[i];
-                javaArgs[i] = getJavaClassName(className);
+    private static Object[] getJavaArgs(Object[] args) {
+        Object[] javaArgs = new Object[args.length];
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof TypeName) {
+                javaArgs[i] = getJavaTypeName((TypeName) args[i]);
+            } else if (args[i] instanceof AnnotationSpec) {
+                javaArgs[i] = getAnnotationSpec((AnnotationSpec) args[i]);
+            } else if (args[i] instanceof TypeSpec) {
+                javaArgs[i] = getTypeSpec((TypeSpec) args[i]);
             } else {
-                javaArgs[i] = codeBlock.arguments[i];
+                javaArgs[i] = args[i];
             }
         }
         return javaArgs;
+    }
+
+    private static Object[] getCodeArgs(CodeBlock code) {
+        List<Object> arguments = code.arguments;
+        Object[] args = new Object[arguments.size()];
+        for (int i=0; i < arguments.size(); i++) {
+            args[i] = arguments.get(i);
+        }
+        return args;
     }
 }
