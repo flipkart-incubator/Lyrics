@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Square, Inc.
+ * Copyright 2017 Flipkart Internet, pvt ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,19 +37,6 @@ public final class CodeBlock {
         return new Builder();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        return toString().equals(o.toString());
-    }
-
-    @Override
-    public int hashCode() {
-        return toString().hashCode();
-    }
-
     public static final class Builder {
         public List<String> formats = new ArrayList<>();
         public List<Object> arguments = new ArrayList<>();
@@ -65,20 +52,12 @@ public final class CodeBlock {
             return this;
         }
 
-        /**
-         * @param controlFlow the control flow construct and its code, such as "if (foo == 5)".
-         *                    Shouldn't contain braces or newline characters.
-         */
         public Builder beginControlFlow(String controlFlow, Object... args) {
             add(controlFlow + " {\n", args);
             indent();
             return this;
         }
 
-        /**
-         * @param controlFlow the control flow construct and its code, such as "else if (foo == 10)".
-         *                    Shouldn't contain braces or newline characters.
-         */
         public Builder nextControlFlow(String controlFlow, Object... args) {
             unindent();
             add("} " + controlFlow + " {\n", args);
@@ -92,10 +71,6 @@ public final class CodeBlock {
             return this;
         }
 
-        /**
-         * @param controlFlow the optional control flow construct and its code, such as
-         *                    "while(foo == 20)". Only used for "do/while" control flows.
-         */
         public Builder endControlFlow(String controlFlow, Object... args) {
             unindent();
             add("} " + controlFlow + ";\n", args);
