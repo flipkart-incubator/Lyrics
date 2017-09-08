@@ -53,14 +53,14 @@ public class CommonsLang3Style extends ObjectMethodsStyle {
         equalsBuilder.addCode("return new $T()\n", equalsBuilderClass);
 
         if (testSuperEquality) {
-            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n", equalsBuilderClass);
+            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n");
         }
 
         ClassName hashCodeBuilderClass = ClassName.get(HashCodeBuilder.class);
         hashCodeBuilder.addCode("return new $T()\n", hashCodeBuilderClass);
 
         if (testSuperEquality) {
-            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n", hashCodeBuilderClass);
+            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n");
         }
 
         for (String field : nonStaticFields) {

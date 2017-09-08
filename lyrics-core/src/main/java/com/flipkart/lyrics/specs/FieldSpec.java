@@ -57,7 +57,7 @@ public class FieldSpec {
         builder.doc.add(doc);
         builder.annotations.addAll(annotations);
         builder.modifiers.addAll(modifiers);
-        builder.initializer = initializer.isEmpty() ? null : initializer;
+        builder.initializer = initializer.formats.isEmpty() ? null : initializer;
         return builder;
     }
 
