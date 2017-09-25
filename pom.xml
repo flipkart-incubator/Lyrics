@@ -41,6 +41,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.flipkart.rome</groupId>
+                <artifactId>lyrics-java</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.squareup</groupId>
                 <artifactId>javapoet</artifactId>
                 <version>1.8.0</version>
