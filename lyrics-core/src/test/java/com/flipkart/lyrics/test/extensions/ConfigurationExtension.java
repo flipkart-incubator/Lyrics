@@ -57,12 +57,12 @@ public class ConfigurationExtension implements ParameterResolver {
     public static final String ADDITIONAL_FIELD_PROPERTY_HANDLER = "addPropHandler";
 
     @Override
-    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public boolean supports(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return parameterContext.getParameter().isAnnotationPresent(TuneProvider.class);
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public Object resolve(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         String tuneType = parameterContext.getParameter().getAnnotation(TuneProvider.class).value();
         switch (tuneType) {
             case DEFAULT:

@@ -24,12 +24,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.flipkart.rome</groupId>
-            <artifactId>lyrics-android</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
