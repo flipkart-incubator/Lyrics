@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flipkart.rome</groupId>
         <artifactId>lyrics</artifactId>
-        <version>0.4.0</version>
+        <version>0.5.0</version>
     </parent>
 
     <artifactId>lyrics-android</artifactId>
@@ -20,7 +20,6 @@
         <dependency>
             <groupId>com.flipkart.rome</groupId>
             <artifactId>lyrics-java</artifactId>
-            <version>0.4.0</version>
         </dependency>
 
         <dependency>
