@@ -17,28 +17,26 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
-import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.DefaultRuleSet;
 import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 
-import javax.lang.model.element.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.ADDITIONAL_FIELD_PROPERTY_HANDLER;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,6 +45,7 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(ConfigurationExtension.class)
 public class FieldsHandlerTest {
+
     private final MetaInfo metaInfo = new MetaInfo("Sample", "com.test");
 
     @Test
@@ -57,7 +56,7 @@ public class FieldsHandlerTest {
         Map<String, FieldModel> fieldModels = new HashMap<>();
         FieldModel fieldModel = mock(FieldModel.class);
         when(fieldModel.getFieldType()).thenReturn(FieldType.STRING);
-        when(fieldModel.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(fieldModel.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
         fieldModels.put("one", fieldModel);
 
         TypeModel typeModel = mock(TypeModel.class);
@@ -84,11 +83,11 @@ public class FieldsHandlerTest {
         Map<String, FieldModel> fieldModels = new HashMap<>();
         FieldModel fieldModel = mock(FieldModel.class);
         when(fieldModel.getFieldType()).thenReturn(FieldType.STRING);
-        when(fieldModel.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(fieldModel.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         FieldModel fieldModelTwo = mock(FieldModel.class);
         when(fieldModelTwo.getFieldType()).thenReturn(FieldType.STRING);
-        when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         fieldModels.put("one", fieldModel);
         fieldModels.put("two", fieldModelTwo);
@@ -121,7 +120,7 @@ public class FieldsHandlerTest {
         Map<String, FieldModel> fieldModels = new HashMap<>();
         FieldModel fieldModel = mock(FieldModel.class);
         when(fieldModel.getFieldType()).thenReturn(FieldType.STRING);
-        when(fieldModel.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(fieldModel.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         Map<String, Object> additionalFields = new HashMap<>();
         additionalFields.put("abc", "something");
@@ -129,7 +128,7 @@ public class FieldsHandlerTest {
 
         FieldModel fieldModelTwo = mock(FieldModel.class);
         when(fieldModelTwo.getFieldType()).thenReturn(FieldType.STRING);
-        when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(fieldModelTwo.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         Map<String, Object> additionalFieldsTwo = new HashMap<>();
         additionalFieldsTwo.put("abc", "something");

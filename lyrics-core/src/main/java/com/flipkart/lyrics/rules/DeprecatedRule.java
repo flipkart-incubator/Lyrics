@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 
 /**
  * Created by shrey.garg on 01/02/17.
@@ -39,5 +37,4 @@ public class DeprecatedRule extends FieldRule {
 
         fieldSpec.addAnnotation(Deprecated.class);
     }
-
 }

@@ -20,11 +20,9 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -53,11 +51,7 @@ public class GsonStyleTest {
         assertEquals(2, fieldSpec.annotations.size());
 
         AnnotationSpec namedAsAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(SerializedName.class.getName(), namedAsAnnotation.type.toString());
         assertEquals(1, namedAsAnnotation.members.size());
-        assertEquals("\"TEST\"", namedAsAnnotation.members.get("value").get(0).toString());
-
-        assertEquals(Expose.class.getName(), fieldSpec.annotations.get(1).type.toString());
     }
 
     @Test
@@ -116,5 +110,4 @@ public class GsonStyleTest {
         assertEquals("Test", typeSpec.name);
         assertEquals(0, typeSpec.annotations.size());
     }
-
 }

@@ -17,9 +17,9 @@
 package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 
 import javax.validation.constraints.NotNull;
 
@@ -67,5 +67,4 @@ public class Jsr303Style extends ValidationAnnotatorStyle {
     public void processNotRequiredRuleForConstructor(ParameterSpec.Builder parameterSpec) {
 
     }
-
 }

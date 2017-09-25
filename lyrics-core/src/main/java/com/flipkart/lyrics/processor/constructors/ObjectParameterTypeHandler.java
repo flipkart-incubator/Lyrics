@@ -19,8 +19,8 @@ package com.flipkart.lyrics.processor.constructors;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.processType;
 

@@ -18,8 +18,8 @@ package com.flipkart.lyrics.model;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.flipkart.lyrics.specs.Modifier;
 
-import javax.lang.model.element.Modifier;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 import java.util.*;
@@ -28,6 +28,7 @@ import java.util.*;
  * Created by shrey.garg on 25/11/16.
  */
 public class TypeModel {
+    private final Map<String, Object> additionalFields = new HashMap<>();
     private Type type;
     private Modifier[] modifiers = new Modifier[0];
     private VariableModel extendsType;
@@ -46,7 +47,6 @@ public class TypeModel {
     private boolean testSuperEquality = false;
     private boolean deprecated;
     private List<String> customConstructorFields;
-    private final Map<String, Object> additionalFields = new HashMap<>();
 
     public TypeModel() {
     }

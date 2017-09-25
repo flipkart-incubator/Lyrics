@@ -19,7 +19,7 @@ package com.flipkart.lyrics.creator;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 27/11/16.
@@ -54,7 +54,4 @@ public class ClassCreator extends TypeCreator {
 
         return typeBuilder;
     }
-
-
-
 }

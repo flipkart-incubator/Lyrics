@@ -1,0 +1,41 @@
+{
+  "type": "INTERFACE",
+  "genericVariables": [
+    "S"
+  ],
+  "methods": {
+    "one": {
+      "returnType": {
+        "fieldType": "STRING"
+      },
+      "parameters": [
+        {
+          "name": "abc",
+          "fieldType": "SHORT",
+          "primitive": true
+        }
+      ]
+    },
+    "two": {
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "abc",
+          "fieldType": "SHORT",
+          "primitive": true
+        },
+        {
+          "name": "xyz",
+          "fieldType": "OBJECT",
+          "type": {
+            "type": "java.util.Map",
+            "types": [
+              "java.lang.String",
+              "S"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

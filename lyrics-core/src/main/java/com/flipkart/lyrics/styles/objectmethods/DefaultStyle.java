@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.flipkart.lyrics.styles.objectmethods;
 
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.MethodSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
 
 import java.util.List;
 
@@ -52,5 +51,4 @@ public class DefaultStyle extends ObjectMethodsStyle {
         hashCodeBuilder.addComment("Currently not supported.");
         hashCodeBuilder.addStatement("return 0");
     }
-
 }

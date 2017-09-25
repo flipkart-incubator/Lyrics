@@ -20,10 +20,10 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.Primitive;
-import com.squareup.javapoet.ArrayTypeName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.ArrayTypeName;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.resolveModifiers;
 

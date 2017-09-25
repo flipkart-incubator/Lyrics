@@ -134,5 +134,4 @@ public class DefaultHandlerSet extends HandlerSet {
     public Handler getInterfaceMethodsHandler() {
         return new InterfaceMethodsHandler(tune, metaInfo, ruleSet);
     }
-
 }

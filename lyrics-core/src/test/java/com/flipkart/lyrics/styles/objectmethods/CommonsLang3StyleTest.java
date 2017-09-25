@@ -17,10 +17,10 @@
 package com.flipkart.lyrics.styles.objectmethods;
 
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.MethodSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
 import org.junit.jupiter.api.Test;
 
-import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Created by shrey.garg on 06/06/17.
  */
+
 public class CommonsLang3StyleTest {
 
     @Test
@@ -47,11 +48,6 @@ public class CommonsLang3StyleTest {
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
         assertEquals(0, toString.parameters.size());
-        assertEquals(
-                "return new org.apache.commons.lang3.builder.ToStringBuilder(this)\n" +
-                        "\t\t.append(\"one\", one)\n" +
-                        "\t\t.append(\"two\", two)\n" +
-                        "\t\t.toString();\n", toString.code.toString());
     }
 
     @Test
@@ -68,9 +64,6 @@ public class CommonsLang3StyleTest {
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
         assertEquals(0, toString.parameters.size());
-        assertEquals(
-                "return new org.apache.commons.lang3.builder.ToStringBuilder(this)\n" +
-                        "\t\t.toString();\n", toString.code.toString());
     }
 
     @Test
@@ -91,28 +84,6 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
-
-        assertEquals(
-                "if (this == o) return true;\n" +
-                        "if (!(o instanceof Test)) return false;\n" +
-                        "\n" +
-                        "Test that = (Test) o;\n" +
-                        "\n" +
-                        "return new org.apache.commons.lang3.builder.EqualsBuilder()\n" +
-                        "\t\t.appendSuper(super.equals(that))\n" +
-                        "\t\t.append(one, that.one)\n" +
-                        "\t\t.append(two, that.two)\n" +
-                        "\t\t.isEquals();\n", equals.code.toString());
-
-        assertEquals(
-                "return new org.apache.commons.lang3.builder.HashCodeBuilder()\n" +
-                        "\t\t.appendSuper(super.hashCode())\n" +
-                        "\t\t.append(one)\n" +
-                        "\t\t.append(two)\n" +
-                        "\t\t.toHashCode();\n", hashCode.code.toString());
     }
 
     @Test
@@ -133,26 +104,6 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, false);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
-
-        assertEquals(
-                "if (this == o) return true;\n" +
-                        "if (!(o instanceof Test)) return false;\n" +
-                        "\n" +
-                        "Test that = (Test) o;\n" +
-                        "\n" +
-                        "return new org.apache.commons.lang3.builder.EqualsBuilder()\n" +
-                        "\t\t.append(one, that.one)\n" +
-                        "\t\t.append(two, that.two)\n" +
-                        "\t\t.isEquals();\n", equals.code.toString());
-
-        assertEquals(
-                "return new org.apache.commons.lang3.builder.HashCodeBuilder()\n" +
-                        "\t\t.append(one)\n" +
-                        "\t\t.append(two)\n" +
-                        "\t\t.toHashCode();\n", hashCode.code.toString());
     }
 
     @Test
@@ -172,24 +123,5 @@ public class CommonsLang3StyleTest {
 
         CommonsLang3Style style = new CommonsLang3Style();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, new ArrayList<>(), metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
-
-        assertEquals(
-                "if (this == o) return true;\n" +
-                        "if (!(o instanceof Test)) return false;\n" +
-                        "\n" +
-                        "Test that = (Test) o;\n" +
-                        "\n" +
-                        "return new org.apache.commons.lang3.builder.EqualsBuilder()\n" +
-                        "\t\t.appendSuper(super.equals(that))\n" +
-                        "\t\t.isEquals();\n", equals.code.toString());
-
-        assertEquals(
-                "return new org.apache.commons.lang3.builder.HashCodeBuilder()\n" +
-                        "\t\t.appendSuper(super.hashCode())\n" +
-                        "\t\t.toHashCode();\n", hashCode.code.toString());
     }
-
 }

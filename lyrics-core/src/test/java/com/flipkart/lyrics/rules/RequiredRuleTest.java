@@ -18,9 +18,9 @@ package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -76,8 +76,6 @@ public class RequiredRuleTest {
 
         assertEquals("test", spec.name, "Wrong name found.");
         assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.validation.constraints.NotNull", spec.annotations.get(0).type.toString(), "JSR-303 annotation not found.");
     }
 
     @Test
@@ -92,8 +90,5 @@ public class RequiredRuleTest {
 
         assertEquals("test", spec.name, "Wrong name found.");
         assertEquals(1, spec.annotations.size(), "Annotations not found.");
-
-        assertEquals("javax.annotation.Nonnull", spec.annotations.get(0).type.toString(), "JSR-305 annotation not found.");
     }
-
 }

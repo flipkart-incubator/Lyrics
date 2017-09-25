@@ -17,16 +17,15 @@
 package com.flipkart.lyrics.styles.objectmethods;
 
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.MethodSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
 import org.junit.jupiter.api.Test;
-
-import javax.lang.model.element.Modifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by shrey.garg on 06/06/17.
@@ -48,12 +47,6 @@ public class DefaultStyleTest {
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
         assertEquals(0, toString.parameters.size());
-        assertEquals(
-                "final StringBuilder sb = new StringBuilder(\"Test{\");\n" +
-                "sb.append(\"one=\").append(one);\n" +
-                "sb.append(\", two=\").append(two);;\n" +
-                "sb.append('}');\n" +
-                "return sb.toString();\n", toString.code.toString());
     }
 
     @Test
@@ -70,10 +63,6 @@ public class DefaultStyleTest {
         MethodSpec toString = toStringBuilder.build();
         assertEquals("toString", toString.name);
         assertEquals(0, toString.parameters.size());
-        assertEquals(
-                "final StringBuilder sb = new StringBuilder(\"Test{\");\n" +
-                "sb.append('}');\n" +
-                "return sb.toString();\n", toString.code.toString());
     }
 
     @Test
@@ -94,17 +83,5 @@ public class DefaultStyleTest {
 
         DefaultStyle style = new DefaultStyle();
         style.processEqualsAndHashCode(equalsBuilder, hashCodeBuilder, fields, metaInfo, true);
-
-        MethodSpec equals = equalsBuilder.build();
-        MethodSpec hashCode = hashCodeBuilder.build();
-
-        assertEquals(
-                "// Currently not supported.\n" +
-                "return false;\n", equals.code.toString());
-
-        assertEquals(
-                "// Currently not supported.\n" +
-                        "return 0;\n", hashCode.code.toString());
     }
-
 }

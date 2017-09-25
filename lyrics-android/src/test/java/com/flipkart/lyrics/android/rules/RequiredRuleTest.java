@@ -16,16 +16,16 @@
 
 package com.flipkart.lyrics.android.rules;
 
-import com.flipkart.lyrics.android.config.AndroidTune;
+import com.flipkart.lyrics.android.test.annotation.TuneProvider;
+import com.flipkart.lyrics.android.test.extensions.ConfigurationExtension;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.rules.RequiredRule;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static com.flipkart.lyrics.android.test.extensions.ConfigurationExtension.ANDROID_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,15 +33,15 @@ import static org.mockito.Mockito.when;
 /**
  * Created by shrey.garg on 15/01/17.
  */
+
+@ExtendWith(ConfigurationExtension.class)
 public class RequiredRuleTest {
 
     @Test
-    public void testAndroidRequiredRules() {
+    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = mock(FieldModel.class);
         when(model.isRequired()).thenReturn(true);
-
-        Tune tune = new AndroidTune();
 
         new RequiredRule(tune, null).process(builder, model);
 
@@ -52,5 +52,4 @@ public class RequiredRuleTest {
 
         assertEquals("android.support.annotation.NonNull", spec.annotations.get(0).type.toString(), "Android support annotation not found.");
     }
-
 }

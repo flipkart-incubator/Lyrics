@@ -20,7 +20,7 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InitializerModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.*;
+import com.flipkart.lyrics.specs.*;
 
 import static com.flipkart.lyrics.helper.Helper.*;
 

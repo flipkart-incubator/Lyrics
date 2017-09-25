@@ -33,7 +33,7 @@ import com.flipkart.lyrics.processor.supertypes.SuperClassHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by shrey.garg on 02/01/17.
@@ -124,5 +124,4 @@ public class DefaultHandlerSetTest {
         Handler handler = handlerSet.getOrderedConstructorHandler();
         assertTrue(handler instanceof OrderedConstructorHandler);
     }
-
 }

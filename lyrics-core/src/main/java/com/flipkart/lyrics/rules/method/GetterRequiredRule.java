@@ -19,8 +19,8 @@ package com.flipkart.lyrics.rules.method;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 
 /**
  * Created by shrey.garg on 10/01/17.
@@ -38,5 +38,4 @@ public class GetterRequiredRule extends MethodRule {
 
         tune.getValidationAnnotatorStyles().forEach(style -> style.processRequiredRuleForGetters(methodSpec, fieldModel));
     }
-
 }

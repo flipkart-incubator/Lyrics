@@ -66,5 +66,4 @@ public abstract class ParameterTypeHandlerSet {
     public final void setMetaInfo(MetaInfo metaInfo) {
         this.metaInfo = metaInfo;
     }
-
 }

@@ -16,26 +16,29 @@
 
 package com.flipkart.lyrics.android.rules;
 
-import com.flipkart.lyrics.android.config.AndroidTune;
+import com.flipkart.lyrics.android.test.annotation.TuneProvider;
+import com.flipkart.lyrics.android.test.extensions.ConfigurationExtension;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.rules.NotRequiredRule;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.flipkart.lyrics.android.test.extensions.ConfigurationExtension.ANDROID_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by shrey.garg on 15/01/17.
  */
+
+@ExtendWith(ConfigurationExtension.class)
 public class NotRequiredRuleTest {
 
     @Test
-    public void testAndroidRequiredRules() {
+    public void testAndroidRequiredRules(@TuneProvider(ANDROID_SUPPORT) Tune tune) {
         FieldSpec.Builder builder = FieldSpec.builder(String.class, "test");
         FieldModel model = new FieldModel();
-
-        Tune tune = new AndroidTune();
 
         new NotRequiredRule(tune, null).process(builder, model);
 

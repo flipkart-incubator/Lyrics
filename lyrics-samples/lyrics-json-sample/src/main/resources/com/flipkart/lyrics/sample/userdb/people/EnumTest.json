@@ -1,0 +1,25 @@
+{
+  "type": "ENUM_WITH_FIELDS",
+  "valuesWithFields": {
+    "one": [
+      1,
+      "abc"
+    ],
+    "two": [
+      2,
+      "xyz"
+    ]
+  },
+  "fields": {
+    "num": {
+      "fieldType": "INTEGER"
+    },
+    "text": {
+      "fieldType": "STRING"
+    }
+  },
+  "fieldOrder": [
+    "num",
+    "text"
+  ]
+}

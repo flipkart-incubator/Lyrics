@@ -16,14 +16,13 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.CodeBlock;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -32,7 +31,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.JACKSON;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -85,7 +85,6 @@ public class PropertyOrderRuleTest {
         assertEquals(1, spec.annotations.size(), "Annotation not found.");
 
         AnnotationSpec propertyOrderAnnotationSpec = spec.annotations.get(0);
-        assertEquals(JsonPropertyOrder.class.getName(), propertyOrderAnnotationSpec.type.toString(), "Wrong annotation found");
         assertEquals(1, propertyOrderAnnotationSpec.members.size(), "More than one value found");
 
         List<CodeBlock> propertyValues = propertyOrderAnnotationSpec.members.get("value");
@@ -108,15 +107,10 @@ public class PropertyOrderRuleTest {
         assertEquals(1, spec.annotations.size(), "Annotation not found.");
 
         AnnotationSpec propertyOrderAnnotationSpec = spec.annotations.get(0);
-        assertEquals(JsonPropertyOrder.class.getName(), propertyOrderAnnotationSpec.type.toString(), "Wrong annotation found");
         assertEquals(1, propertyOrderAnnotationSpec.members.size(), "More than one value found");
 
         List<CodeBlock> propertyValues = propertyOrderAnnotationSpec.members.get("value");
         assertNotNull(propertyValues);
         assertEquals(2, propertyValues.size(), "Unexpected values found");
-        assertAll("Correct property order",
-                () -> assertEquals("\"one\"", propertyValues.get(0).toString()),
-                () -> assertEquals("\"two\"", propertyValues.get(1).toString())
-        );
     }
 }

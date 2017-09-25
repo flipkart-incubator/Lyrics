@@ -18,13 +18,13 @@ package com.flipkart.lyrics.processor.modifiers;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import javax.lang.model.element.Modifier;
 import java.util.Set;
 
 import static com.flipkart.lyrics.test.extensions.ConfigurationExtension.NO_MODIFIERS;
@@ -58,7 +58,7 @@ public class ModifiersHandlerTest {
     public void testSingleModifier(@TuneProvider(NO_MODIFIERS) Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
@@ -75,7 +75,7 @@ public class ModifiersHandlerTest {
     public void testMultipleModifiers(@TuneProvider(NO_MODIFIERS) Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PUBLIC, Modifier.ABSTRACT });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PUBLIC, Modifier.ABSTRACT});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
@@ -93,7 +93,7 @@ public class ModifiersHandlerTest {
     public void testConfigModifiersAndModelModifier(@TuneProvider Tune tune) {
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         TypeModel model = mock(TypeModel.class);
-        when(model.getModifiers()).thenReturn(new Modifier[] { Modifier.PRIVATE, Modifier.ABSTRACT });
+        when(model.getModifiers()).thenReturn(new Modifier[]{Modifier.PRIVATE, Modifier.ABSTRACT});
 
         new ModifiersHandler(tune, null, null).process(builder, model);
         TypeSpec spec = builder.build();
@@ -122,5 +122,4 @@ public class ModifiersHandlerTest {
         assertEquals(1, modifiers.size(), "No Modifiers found");
         assertTrue(spec.hasModifier(Modifier.PUBLIC));
     }
-
 }

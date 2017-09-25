@@ -16,7 +16,7 @@
 
 package com.flipkart.lyrics.helper;
 
-import com.squareup.javapoet.ClassName;
+import com.flipkart.lyrics.specs.ClassName;
 import org.junit.jupiter.api.Test;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
@@ -123,5 +123,4 @@ public class HelperTest {
     private void verifyBooleanSetterName(String fieldName, String setterName, boolean primitive) {
         assertEquals(setterName, getGetterSetterName(fieldName, true, true, primitive));
     }
-
 }

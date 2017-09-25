@@ -27,10 +27,11 @@ import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
 import com.flipkart.lyrics.processor.fields.FieldModificationHandler;
 import com.flipkart.lyrics.processor.types.TypeAdditionalHandler;
 import com.flipkart.lyrics.sets.*;
+import com.flipkart.lyrics.specs.FileWriter;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.styles.objectmethods.ObjectMethodsStyle;
-import com.squareup.javapoet.TypeSpec;
 
-import javax.lang.model.element.Modifier;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,4 +87,5 @@ public interface Tune {
 
     List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
+    FileWriter getFileWriter();
 }

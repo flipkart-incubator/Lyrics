@@ -25,9 +25,9 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.List;
 import java.util.Map;
@@ -100,5 +100,4 @@ public class JacksonStyle extends AnnotatorStyle {
 
         typeSpec.addAnnotation(propertyOrderBuilder.build());
     }
-
 }

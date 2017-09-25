@@ -14,5 +14,4 @@ public interface TriConsumer<T, U, V> {
      * @param v the third input argument
      */
     void accept(T t, U u, V v);
-
 }

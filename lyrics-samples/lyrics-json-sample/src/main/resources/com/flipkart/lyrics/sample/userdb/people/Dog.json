@@ -1,0 +1,24 @@
+{
+  "type": "CLASS",
+  "modifiers": [
+    "PUBLIC"
+  ],
+  "fields": {
+    "id": {
+      "fieldType": "INTEGER",
+      "modifiers": [
+        "PRIVATE"
+      ],
+      "primitive": true
+    },
+    "name": {
+      "fieldType": "STRING",
+      "modifiers": [
+        "PUBLIC"
+      ],
+      "initializeWith": {
+        "value": "Chubby"
+      }
+    }
+  }
+}
