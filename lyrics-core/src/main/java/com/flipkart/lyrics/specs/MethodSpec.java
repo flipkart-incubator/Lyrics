@@ -23,7 +23,7 @@ import java.util.*;
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
 
 public class MethodSpec {
-    static final String CONSTRUCTOR = "<init>";
+    static final String CONSTRUCTOR = "init";
 
     public final String name;
     public final CodeBlock doc;

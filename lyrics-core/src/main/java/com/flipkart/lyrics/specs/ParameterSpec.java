@@ -23,18 +23,25 @@ import java.util.List;
 import java.util.Set;
 
 import static com.flipkart.lyrics.helper.Util.checkNotNull;
+import static com.flipkart.lyrics.helper.Util.checkState;
 
 public class ParameterSpec {
     public final String name;
     public final List<AnnotationSpec> annotations;
     public final Set<Modifier> modifiers;
     public final TypeName type;
+    public final boolean nullable;
+    public final CodeBlock initializer;
 
     public ParameterSpec(Builder builder) {
         this.name = checkNotNull(builder.name, "name == null");
         this.annotations = Util.immutableList(builder.annotations);
         this.modifiers = Util.immutableSet(builder.modifiers);
         this.type = checkNotNull(builder.type, "type == null");
+        this.nullable = builder.nullable;
+        this.initializer = (builder.initializer == null)
+                ? CodeBlock.builder().build()
+                : builder.initializer;
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -57,6 +64,8 @@ public class ParameterSpec {
         Builder builder = new Builder(type, name);
         builder.annotations.addAll(annotations);
         builder.modifiers.addAll(modifiers);
+        builder.nullable = nullable;
+        builder.initializer = initializer.formats.isEmpty() ? null : initializer;
         return builder;
     }
 
@@ -65,11 +74,18 @@ public class ParameterSpec {
         private final String name;
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final List<Modifier> modifiers = new ArrayList<>();
+        private boolean nullable = false;
+        private CodeBlock initializer = null;
 
         private Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
             this.type = type;
             Collections.addAll(this.modifiers, modifiers);
+        }
+
+        public Builder nullable(boolean nullable) {
+            this.nullable = nullable;
+            return this;
         }
 
         public Builder addAnnotations(Iterable<AnnotationSpec> annotationSpecs) {
@@ -102,6 +118,16 @@ public class ParameterSpec {
             for (Modifier modifier : modifiers) {
                 this.modifiers.add(modifier);
             }
+            return this;
+        }
+
+        public Builder initializer(String format, Object... args) {
+            return initializer(CodeBlock.of(format, args));
+        }
+
+        public Builder initializer(CodeBlock codeBlock) {
+            checkState(this.initializer == null, "initializer was already set");
+            this.initializer = checkNotNull(codeBlock, "codeBlock == null");
             return this;
         }
 

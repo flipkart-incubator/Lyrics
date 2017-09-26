@@ -58,7 +58,16 @@ public enum Modifier {
      */NATIVE,
     /**
      * The modifier {@code strictfp}
-     */STRICTFP;
+     */STRICTFP,
+
+    INTERNAL,
+    FILEPRIVATE,
+    CONVENIENCE,
+    REQUIRED,
+    CLASS,
+    DYNAMIC,
+    OVERRIDE;
+
 
     /**
      * Returns this modifier's name in lowercase.
