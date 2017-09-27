@@ -36,6 +36,7 @@ public class MethodSpec {
     public final List<TypeName> exceptions;
     public final CodeBlock defaultValue;
     public final CodeBlock code;
+    public final boolean throwsException;
 
     protected MethodSpec(Builder builder) {
         this.name = checkNotNull(builder.name, "name == null");
@@ -49,6 +50,7 @@ public class MethodSpec {
         this.exceptions = Util.immutableList(builder.exceptions);
         this.defaultValue = builder.defaultValue;
         this.code = builder.code.build();
+        this.throwsException = builder.throwsException;
     }
 
     public static Builder methodBuilder(String name) {
@@ -74,6 +76,7 @@ public class MethodSpec {
         builder.exceptions.addAll(exceptions);
         builder.varargs = varargs;
         builder.defaultValue = defaultValue;
+        builder.throwsException = throwsException;
         return builder;
     }
 
@@ -93,9 +96,15 @@ public class MethodSpec {
         private TypeName returnType;
         private boolean varargs;
         private CodeBlock defaultValue;
+        private boolean throwsException;
 
         protected Builder(String name) {
             this.name = name;
+        }
+
+        public Builder throwsException(boolean throwsException) {
+            this.throwsException = throwsException;
+            return this;
         }
 
         public MethodSpec.Builder addModifiers(Modifier... modifiers) {

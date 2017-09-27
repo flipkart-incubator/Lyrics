@@ -32,6 +32,7 @@ public class ParameterSpec {
     public final TypeName type;
     public final boolean nullable;
     public final CodeBlock initializer;
+    public final String label;
 
     public ParameterSpec(Builder builder) {
         this.name = checkNotNull(builder.name, "name == null");
@@ -42,6 +43,7 @@ public class ParameterSpec {
         this.initializer = (builder.initializer == null)
                 ? CodeBlock.builder().build()
                 : builder.initializer;
+        this.label = builder.label;
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -66,6 +68,7 @@ public class ParameterSpec {
         builder.modifiers.addAll(modifiers);
         builder.nullable = nullable;
         builder.initializer = initializer.formats.isEmpty() ? null : initializer;
+        builder.label = label;
         return builder;
     }
 
@@ -76,11 +79,17 @@ public class ParameterSpec {
         private final List<Modifier> modifiers = new ArrayList<>();
         private boolean nullable = false;
         private CodeBlock initializer = null;
+        private String label;
 
         private Builder(TypeName type, String name, Modifier... modifiers) {
             this.name = name;
             this.type = type;
             Collections.addAll(this.modifiers, modifiers);
+        }
+
+        public Builder label(String label) {
+            this.label = label;
+            return this;
         }
 
         public Builder nullable(boolean nullable) {
