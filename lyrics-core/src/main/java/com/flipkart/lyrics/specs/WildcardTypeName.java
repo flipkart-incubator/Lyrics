@@ -115,4 +115,20 @@ public final class WildcardTypeName extends TypeName {
     public TypeName withoutAnnotations() {
         return new WildcardTypeName(upperBounds, lowerBounds);
     }
+
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WildcardTypeName)) return false;
+        WildcardTypeName that = (WildcardTypeName) o;
+        return upperBounds.equals((that.upperBounds)) && lowerBounds.equals(that.lowerBounds);
+    }
+
+    @Override
+    public final int hashCode() {
+        int hashCode = upperBounds.hashCode();
+        hashCode += 31 * lowerBounds.hashCode();
+        return hashCode;
+    }
 }

@@ -116,4 +116,20 @@ public final class ParameterizedTypeName extends TypeName {
         return new ParameterizedTypeName(this, rawType.nestedClass(name), typeArguments,
                 new ArrayList<AnnotationSpec>());
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParameterizedTypeName)) return false;
+        ParameterizedTypeName that = (ParameterizedTypeName) o;
+        return rawType.equals((that.rawType)) && typeArguments.equals(that.typeArguments) && enclosingType.equals(that.enclosingType);
+    }
+
+    @Override
+    public final int hashCode() {
+        int hashCode = rawType.hashCode();
+        hashCode += 31 * typeArguments.hashCode();
+        hashCode += 31 * enclosingType.hashCode();
+        return hashCode;
+    }
 }

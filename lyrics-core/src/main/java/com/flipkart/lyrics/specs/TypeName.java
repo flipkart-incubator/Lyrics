@@ -22,6 +22,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor7;
+import java.io.IOException;
 import java.lang.reflect.*;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
@@ -309,16 +310,5 @@ public class TypeName {
         throw new UnsupportedOperationException("cannot unbox " + this);
     }
 
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        return toString().equals(o.toString());
-    }
 
-    @Override
-    public final int hashCode() {
-        return toString().hashCode();
-    }
 }

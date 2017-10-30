@@ -243,4 +243,18 @@ public final class ClassName extends TypeName implements Comparable<ClassName> {
     public int compareTo(ClassName o) {
         return canonicalName.compareTo(o.canonicalName);
     }
+
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ClassName)) return false;
+        return canonicalName.equals((((ClassName) o).canonicalName));
+    }
+
+    @Override
+    public final int hashCode() {
+        return canonicalName.hashCode();
+    }
+
 }

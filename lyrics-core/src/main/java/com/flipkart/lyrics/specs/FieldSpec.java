@@ -29,7 +29,6 @@ public class FieldSpec {
     public final Set<Modifier> modifiers;
     public final CodeBlock initializer;
     public final boolean required;
-    public final boolean mutable;
 
     private FieldSpec(Builder builder) {
         this.type = checkNotNull(builder.type, "type == null");
@@ -41,7 +40,6 @@ public class FieldSpec {
                 ? CodeBlock.builder().build()
                 : builder.initializer;
         this.required = builder.required;
-        this.mutable = builder.mutable;
     }
 
     public static Builder builder(TypeName typeName, String name, Modifier... modifiers) {
@@ -63,7 +61,6 @@ public class FieldSpec {
         builder.modifiers.addAll(modifiers);
         builder.initializer = initializer.formats.isEmpty() ? null : initializer;
         builder.required = required;
-        builder.mutable = mutable;
         return builder;
     }
 
@@ -75,7 +72,6 @@ public class FieldSpec {
         private final Set<Modifier> modifiers = new HashSet<>();
         private CodeBlock initializer = null;
         private boolean required;
-        private boolean mutable;
 
         protected Builder(TypeName type, String name, Modifier... modifiers) {
             this.type = type;
@@ -91,11 +87,6 @@ public class FieldSpec {
 
         public Builder required(boolean required) {
             this.required = required;
-            return this;
-        }
-
-        public Builder mutable(boolean mutable) {
-            this.mutable = mutable;
             return this;
         }
 

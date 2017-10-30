@@ -15,6 +15,7 @@
  */
 package com.flipkart.lyrics.specs;
 
+
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.ArrayType;
 import java.lang.reflect.GenericArrayType;
@@ -83,5 +84,18 @@ public final class ArrayTypeName extends TypeName {
     @Override
     public TypeName withoutAnnotations() {
         return new ArrayTypeName(componentType);
+    }
+
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArrayTypeName)) return false;
+        return componentType.equals((((ArrayTypeName) o).componentType));
+    }
+
+    @Override
+    public final int hashCode() {
+        return componentType.hashCode();
     }
 }
