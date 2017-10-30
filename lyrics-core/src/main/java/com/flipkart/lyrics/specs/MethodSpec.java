@@ -98,6 +98,11 @@ public class MethodSpec {
             this.name = name;
         }
 
+        public MethodSpec.Builder addException(TypeName exception) {
+            this.exceptions.add(exception);
+            return this;
+        }
+
         public MethodSpec.Builder addModifiers(Modifier... modifiers) {
             this.modifiers.addAll(Arrays.asList(modifiers));
             return this;
