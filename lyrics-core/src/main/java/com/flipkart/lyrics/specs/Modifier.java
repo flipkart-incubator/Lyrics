@@ -57,7 +57,7 @@ public enum Modifier {
      * The modifier {@code native}
      */NATIVE,
     /**
-     * The modifier {@code native}
+     * The modifier {@code export}
      */EXPORT,
     /**
      * The modifier {@code strictfp}
