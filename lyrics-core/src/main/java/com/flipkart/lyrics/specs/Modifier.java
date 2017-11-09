@@ -58,7 +58,11 @@ public enum Modifier {
      */NATIVE,
     /**
      * The modifier {@code strictfp}
-     */STRICTFP;
+     */STRICTFP,
+
+    CONVENIENCE,
+    REQUIRED,
+    OVERRIDE;
 
 
     /**
