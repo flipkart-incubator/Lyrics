@@ -122,7 +122,8 @@ public final class ParameterizedTypeName extends TypeName {
         if (this == o) return true;
         if (!(o instanceof ParameterizedTypeName)) return false;
         ParameterizedTypeName that = (ParameterizedTypeName) o;
-        return rawType.equals((that.rawType)) && typeArguments.equals(that.typeArguments) && enclosingType.equals(that.enclosingType);
+        return rawType.equals((that.rawType)) && typeArguments.equals(that.typeArguments)
+                && (enclosingType == null || enclosingType.equals(that.enclosingType));
     }
 
     @Override

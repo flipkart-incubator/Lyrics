@@ -64,7 +64,7 @@ public final class Lyrics {
             TypeModel typeModel = JsonMapper.get().readValue(source, TypeModel.class);
             String name = fullName.replace(".json", "");
             pkg = pkg.substring(0, pkg.length() - 1);
-            song.createType(name, pkg, typeModel, target);
+            song.createType(name, pkg, typeModel, target, null);
         } catch (IOException e) {
             System.out.println("Error while processing " + source.getAbsolutePath());
             e.printStackTrace();

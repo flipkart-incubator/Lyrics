@@ -22,10 +22,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.flipkart.lyrics.specs.MethodSpec;
-import com.flipkart.lyrics.specs.Modifier;
-import com.flipkart.lyrics.specs.ParameterSpec;
-import com.flipkart.lyrics.specs.TypeSpec;
+import com.flipkart.lyrics.specs.*;
 
 import java.util.List;
 import java.util.Map;
@@ -55,6 +52,13 @@ public abstract class ConstructorHandler extends Handler {
             constructor = constructor.addModifiers(getModifier());
         }
 
+        CodeBlock codeBlock = getCodeBlock();
+        if (codeBlock != null) {
+            Object[] args = new Object[codeBlock.arguments.size()];
+            args = codeBlock.arguments.toArray(args);
+            constructor.addCode(String.join("", codeBlock.formats), args);
+        }
+
         for (String field : constructorFields) {
             ParameterSpec.Builder parameterSpec = getParameterTypeHandler(fields.get(field).getFieldType(), tune.getParameterTypeHandlerSet())
                     .process(typeSpec, field, fields.get(field));
@@ -70,7 +74,7 @@ public abstract class ConstructorHandler extends Handler {
             }
 
             constructor.addParameter(parameterSpec.build());
-            constructor.addStatement("this.$L = $L", field, field);
+            constructor.addStatement("$N.$L = $L", selfReference() == null ? "this" : selfReference(), field, field);
         }
 
         typeSpec.addMethod(constructor.build());
@@ -80,4 +84,12 @@ public abstract class ConstructorHandler extends Handler {
     protected abstract List<String> getConstructorFields(TypeModel typeModel);
 
     protected abstract Modifier getModifier();
+
+    protected String selfReference() {
+        return null;
+    }
+
+    protected CodeBlock getCodeBlock() {
+        return null;
+    }
 }

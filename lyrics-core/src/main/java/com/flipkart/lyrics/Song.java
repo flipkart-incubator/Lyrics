@@ -18,6 +18,7 @@ package com.flipkart.lyrics;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.flipkart.lyrics.specs.TypeSpec;
@@ -40,8 +41,11 @@ public class Song {
         this.tune = tune;
     }
 
-    public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
+    public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder, TypeModel extendsTypeModel) throws IOException {
         MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()));
+        if (extendsTypeModel != null) {
+            metaInfo.setSuperClassFields(extendsTypeModel.getFields());
+        }
         RuleSet ruleSet = processRuleSet(tune, metaInfo);
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);
