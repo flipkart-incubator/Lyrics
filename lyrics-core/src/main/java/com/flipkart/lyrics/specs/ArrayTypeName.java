@@ -15,7 +15,6 @@
  */
 package com.flipkart.lyrics.specs;
 
-
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.ArrayType;
 import java.lang.reflect.GenericArrayType;
