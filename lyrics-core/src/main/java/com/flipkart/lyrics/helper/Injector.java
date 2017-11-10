@@ -17,6 +17,7 @@ package com.flipkart.lyrics.helper;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
@@ -72,5 +73,11 @@ public class Injector {
             h.setTune(tune);
             h.setMetaInfo(metaInfo);
         });
+    }
+
+    public static void processSuperClassFields(Tune tune, MetaInfo metaInfo, TypeModel extendsTypeModel) {
+        if (extendsTypeModel != null) {
+            metaInfo.setSuperClassFields(extendsTypeModel.getFields());
+        }
     }
 }
