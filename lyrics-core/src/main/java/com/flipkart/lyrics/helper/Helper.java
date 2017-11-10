@@ -56,9 +56,6 @@ public class Helper {
 
     public static ClassName getClassName(String name) {
         int lastIndex = name.lastIndexOf(".");
-        if (lastIndex < 0) {
-            return ClassName.get("", name);
-        }
         return ClassName.get(name.substring(0, lastIndex), name.substring(lastIndex + 1));
     }
 
