@@ -170,7 +170,6 @@ public final class TypeVariableName extends TypeName {
         return new TypeVariableName(name, newBounds, annotations);
     }
 
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -185,6 +184,5 @@ public final class TypeVariableName extends TypeName {
         hashCode += 31 * bounds.hashCode();
         return hashCode;
     }
-
 }
 

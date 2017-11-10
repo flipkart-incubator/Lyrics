@@ -85,7 +85,6 @@ public final class ArrayTypeName extends TypeName {
         return new ArrayTypeName(componentType);
     }
 
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

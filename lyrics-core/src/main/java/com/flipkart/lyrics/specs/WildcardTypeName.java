@@ -116,7 +116,6 @@ public final class WildcardTypeName extends TypeName {
         return new WildcardTypeName(upperBounds, lowerBounds);
     }
 
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
