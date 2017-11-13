@@ -52,11 +52,11 @@ public abstract class ConstructorHandler extends Handler {
             constructor = constructor.addModifiers(getModifier());
         }
 
-        CodeBlock codeBlock = getCodeBlock();
-        if (codeBlock != null) {
-            Object[] args = new Object[codeBlock.arguments.size()];
-            args = codeBlock.arguments.toArray(args);
-            constructor.addCode(String.join("", codeBlock.formats), args);
+        CodeBlock superInitCodeBlock = getSuperInitCodeBlock();
+        if (superInitCodeBlock != null) {
+            Object[] args = new Object[superInitCodeBlock.arguments.size()];
+            args = superInitCodeBlock.arguments.toArray(args);
+            constructor.addCode(String.join("", superInitCodeBlock.formats), args);
         }
 
         for (String field : constructorFields) {
@@ -89,7 +89,7 @@ public abstract class ConstructorHandler extends Handler {
         return null;
     }
 
-    protected CodeBlock getCodeBlock() {
+    protected CodeBlock getSuperInitCodeBlock() {
         return null;
     }
 }
