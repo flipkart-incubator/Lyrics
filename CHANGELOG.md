@@ -1,3 +1,8 @@
+## 0.5.0 (October 13, 2017)
+### CORE
+- Refactored JavaPoet out of core, created a new module for Java
+- Added support for adding modules in other languages
+
 ## 0.4.0 (June 22, 2017)
 ### CORE
 - Added support for user handling of additional properties in TypeModel
