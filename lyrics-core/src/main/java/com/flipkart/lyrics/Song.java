@@ -41,9 +41,8 @@ public class Song {
         this.tune = tune;
     }
 
-    public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder, TypeModel extendsTypeModel) throws IOException {
+    public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
         MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()));
-        processSuperClassFields(tune, metaInfo, extendsTypeModel);
         RuleSet ruleSet = processRuleSet(tune, metaInfo);
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);

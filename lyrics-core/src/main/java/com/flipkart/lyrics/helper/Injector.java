@@ -74,10 +74,4 @@ public class Injector {
             h.setMetaInfo(metaInfo);
         });
     }
-
-    public static void processSuperClassFields(Tune tune, MetaInfo metaInfo, TypeModel extendsTypeModel) {
-        if (extendsTypeModel != null) {
-            metaInfo.setSuperClassFields(extendsTypeModel.getFields());
-        }
-    }
 }
