@@ -65,7 +65,9 @@ public interface Tune {
 
     boolean isCustomConstructorNeeded();
 
-    boolean isNoArgsConstructorNeeded();
+    default boolean isNoArgsConstructorNeeded() {
+        return true;
+    }
 
     ObjectMethodsStyle getObjectMethodsStyle();
 

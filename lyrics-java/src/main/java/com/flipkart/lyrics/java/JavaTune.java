@@ -113,11 +113,6 @@ public class JavaTune implements Tune {
     }
 
     @Override
-    public boolean isNoArgsConstructorNeeded() {
-        return true;
-    }
-
-    @Override
     public ObjectMethodsStyle getObjectMethodsStyle() {
         return objectMethodsStyle;
     }

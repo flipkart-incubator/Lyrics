@@ -95,11 +95,6 @@ public class TestTune implements Tune {
     }
 
     @Override
-    public boolean isNoArgsConstructorNeeded() {
-        return true;
-    }
-
-    @Override
     public ObjectMethodsStyle getObjectMethodsStyle() {
         return objectMethodsStyle;
     }
