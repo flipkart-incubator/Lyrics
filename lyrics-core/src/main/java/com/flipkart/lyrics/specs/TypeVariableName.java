@@ -169,5 +169,20 @@ public final class TypeVariableName extends TypeName {
         newBounds.addAll(bounds);
         return new TypeVariableName(name, newBounds, annotations);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TypeVariableName)) return false;
+        TypeVariableName that = (TypeVariableName) o;
+        return name.equals((that.name)) && bounds.equals(that.bounds);
+    }
+
+    @Override
+    public final int hashCode() {
+        int hashCode = name.hashCode();
+        hashCode += 31 * bounds.hashCode();
+        return hashCode;
+    }
 }
 

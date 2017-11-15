@@ -65,6 +65,10 @@ public interface Tune {
 
     boolean isCustomConstructorNeeded();
 
+    default boolean isNoArgsConstructorNeeded() {
+        return true;
+    }
+
     ObjectMethodsStyle getObjectMethodsStyle();
 
     Map<String, TriConsumer<TypeSpec.Builder, TypeModel, MetaInfo>> getSpecialInterfacesHandler();

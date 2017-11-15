@@ -61,7 +61,12 @@ public enum Modifier {
      */EXPORT,
     /**
      * The modifier {@code strictfp}
-     */STRICTFP;
+     */STRICTFP,
+
+    CONVENIENCE,
+    REQUIRED,
+    OVERRIDE;
+
 
     /**
      * Returns this modifier's name in lowercase.

@@ -36,6 +36,7 @@ public class NoArgsConstructorHandler extends Handler {
 
     @Override
     public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        if (!tune.isNoArgsConstructorNeeded()) return;
         MethodSpec constructor = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC)
                 .build();

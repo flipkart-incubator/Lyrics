@@ -84,4 +84,16 @@ public final class ArrayTypeName extends TypeName {
     public TypeName withoutAnnotations() {
         return new ArrayTypeName(componentType);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArrayTypeName)) return false;
+        return componentType.equals((((ArrayTypeName) o).componentType));
+    }
+
+    @Override
+    public final int hashCode() {
+        return componentType.hashCode();
+    }
 }
