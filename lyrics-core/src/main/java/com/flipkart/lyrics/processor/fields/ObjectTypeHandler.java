@@ -43,7 +43,7 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
-        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel)).required(fieldModel.isRequired());
         InitializerModel initializeWith = fieldModel.getInitializeWith();
         if (initializeWith != null) {
             if (initializeWith.getValue() != null) {
