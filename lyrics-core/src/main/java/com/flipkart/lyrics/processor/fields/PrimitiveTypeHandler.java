@@ -44,7 +44,7 @@ public class PrimitiveTypeHandler extends FieldTypeHandler {
         Class aClass = fieldModel.isPrimitive() ? primitive.getUnboxed() : primitive.getBoxed();
         TypeName typeName = fieldModel.isArray() ? ArrayTypeName.of(aClass) : TypeName.get(aClass);
 
-        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel)).required(fieldModel.isRequired());
         if (fieldModel.getInitializeWith() != null) {
             builder.initializer("$L", fieldModel.getInitializeWith().getValue());
         }
