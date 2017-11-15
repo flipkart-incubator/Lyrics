@@ -52,11 +52,11 @@ public abstract class ConstructorHandler extends Handler {
             constructor = constructor.addModifiers(getModifier());
         }
 
-        CodeBlock superInitCodeBlock = getSuperInitCodeBlock();
-        if (superInitCodeBlock != null) {
-            Object[] args = new Object[superInitCodeBlock.arguments.size()];
-            args = superInitCodeBlock.arguments.toArray(args);
-            constructor.addCode(String.join("", superInitCodeBlock.formats), args);
+        CodeBlock superArgs = superArgs();
+        if (superArgs != null) {
+            Object[] args = new Object[superArgs.arguments.size()];
+            args = superArgs.arguments.toArray(args);
+            constructor.addCode(superIdentifier() + "." + String.join("", superArgs.formats), args);
         }
 
         for (String field : constructorFields) {
@@ -74,7 +74,7 @@ public abstract class ConstructorHandler extends Handler {
             }
 
             constructor.addParameter(parameterSpec.build());
-            constructor.addStatement("$N.$L = $L", selfReference() == null ? "this" : selfReference(), field, field);
+            constructor.addStatement("$N.$L = $L", selfReference(), field, field);
         }
 
         typeSpec.addMethod(constructor.build());
@@ -86,10 +86,14 @@ public abstract class ConstructorHandler extends Handler {
     protected abstract Modifier getModifier();
 
     protected String selfReference() {
-        return null;
+        return "this";
     }
 
-    protected CodeBlock getSuperInitCodeBlock() {
+    protected String superIdentifier() {
+        return "super";
+    }
+
+    protected CodeBlock superArgs() {
         return null;
     }
 }
