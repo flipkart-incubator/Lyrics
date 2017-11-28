@@ -73,6 +73,7 @@ public abstract class ConstructorHandler extends Handler {
                 });
             }
 
+            parameterSpec.required(fields.get(field).isRequired());
             constructor.addParameter(parameterSpec.build());
             constructor.addStatement("$N.$L = $L", selfReference(), field, field);
         }
