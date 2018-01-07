@@ -21,8 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-class Util {
-
+public class Util {
     static com.squareup.javapoet.TypeSpec getTypeSpec(TypeSpec type) {
         com.squareup.javapoet.TypeSpec.Builder builder;
 
@@ -182,7 +181,7 @@ class Util {
         }
     }
 
-    private static com.squareup.javapoet.TypeName getJavaTypeName(TypeName typeName) {
+    public static com.squareup.javapoet.TypeName getJavaTypeName(TypeName typeName) {
         if (typeName == TypeName.INT) {
             return com.squareup.javapoet.TypeName.INT;
         } else if (typeName == TypeName.BOOLEAN) {
