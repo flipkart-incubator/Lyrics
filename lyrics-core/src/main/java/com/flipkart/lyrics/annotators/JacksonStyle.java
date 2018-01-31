@@ -70,11 +70,14 @@ public class JacksonStyle extends AnnotatorStyle {
     public void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         SubTypeModel subTypeModel = typeModel.getSubTypes();
 
-        AnnotationSpec typeInfoAnnotation = AnnotationSpec.builder(JsonTypeInfo.class)
+        AnnotationSpec.Builder typeInfoAnnotation = AnnotationSpec.builder(JsonTypeInfo.class)
                 .addMember("use", "$L", "JsonTypeInfo.Id.NAME")
                 .addMember("include", "$L", "JsonTypeInfo.As." + (subTypeModel.isExistingProperty() ? "EXISTING_PROPERTY" : "PROPERTY"))
-                .addMember("property", "$S", subTypeModel.getProperty())
-                .build();
+                .addMember("property", "$S", subTypeModel.getProperty());
+
+        if (subTypeModel.isVisible()) {
+            typeInfoAnnotation.addMember("visible", "$L", subTypeModel.isVisible());
+        }
 
         AnnotationSpec.Builder subTypesBuilder = AnnotationSpec.builder(JsonSubTypes.class);
         for (Map.Entry<String, String> subType : subTypeModel.getSubTypeMapping().entrySet()) {
@@ -85,7 +88,7 @@ public class JacksonStyle extends AnnotatorStyle {
                             .build());
         }
 
-        typeSpec.addAnnotation(typeInfoAnnotation);
+        typeSpec.addAnnotation(typeInfoAnnotation.build());
         typeSpec.addAnnotation(subTypesBuilder.build());
     }
 
