@@ -48,7 +48,8 @@ public class Helper {
     public static TypeName getClassName(String name, Map<String, TypeVariableName> typeVariableNames) {
         int lastIndex = name.lastIndexOf(".");
         if (lastIndex < 0) {
-            return typeVariableNames.get(name);
+            TypeName typeName = typeVariableNames.get(name);
+            return typeName != null ? typeName : ClassName.get("", name);
         }
 
         return ClassName.get(name.substring(0, lastIndex), name.substring(lastIndex + 1));
