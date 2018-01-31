@@ -23,7 +23,7 @@ import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.*;
 
@@ -44,5 +44,4 @@ public class SpecialInterfaceHandler extends Handler {
         interfaces.addAll(typeModel.getInterfaces());
         interfaces.forEach(i -> Optional.ofNullable(specialHandlers.get(i.getType())).ifPresent(fn -> fn.accept(typeSpec, typeModel, metaInfo)));
     }
-
 }

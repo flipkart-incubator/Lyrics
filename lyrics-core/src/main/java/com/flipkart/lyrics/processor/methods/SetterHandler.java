@@ -21,12 +21,7 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.FieldType;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
-
-import javax.lang.model.element.Modifier;
+import com.flipkart.lyrics.specs.*;
 
 import static com.flipkart.lyrics.helper.Helper.getGetterSetterName;
 

@@ -18,7 +18,7 @@ package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 
 /**
  * Created by shrey.garg on 13/05/17.
@@ -32,8 +32,8 @@ public abstract class FieldAdditionalHandler {
 
     /**
      * @param fieldBuilder Builder for the current field being processed, before it is added to type.
-     * @param key The additional property name for which the handler is called.
-     * @param value The non-null value of the additional property.
+     * @param key          The additional property name for which the handler is called.
+     * @param value        The non-null value of the additional property.
      * @return False, if the field is not supposed to be added to the type. True, otherwise.
      */
     public abstract boolean process(FieldSpec.Builder fieldBuilder, String key, Object value);

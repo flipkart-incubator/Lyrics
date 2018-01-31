@@ -23,7 +23,7 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.Arrays;
 import java.util.List;

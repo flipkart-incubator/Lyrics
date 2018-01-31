@@ -24,9 +24,8 @@ import com.flipkart.lyrics.processor.fields.FieldTypeHandler;
 import com.flipkart.lyrics.sets.CreatorSet;
 import com.flipkart.lyrics.sets.FieldTypeHandlerSet;
 import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
-import com.squareup.javapoet.*;
+import com.flipkart.lyrics.specs.*;
 
-import javax.lang.model.element.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,7 +48,8 @@ public class Helper {
     public static TypeName getClassName(String name, Map<String, TypeVariableName> typeVariableNames) {
         int lastIndex = name.lastIndexOf(".");
         if (lastIndex < 0) {
-            return typeVariableNames.get(name);
+            TypeName typeName = typeVariableNames.get(name);
+            return typeName != null ? typeName : ClassName.get("", name);
         }
 
         return ClassName.get(name.substring(0, lastIndex), name.substring(lastIndex + 1));
@@ -57,6 +57,9 @@ public class Helper {
 
     public static ClassName getClassName(String name) {
         int lastIndex = name.lastIndexOf(".");
+        if (lastIndex < 0) {
+            return ClassName.get("", name);
+        }
         return ClassName.get(name.substring(0, lastIndex), name.substring(lastIndex + 1));
     }
 
@@ -132,7 +135,7 @@ public class Helper {
         }
 
         if (tune.forceDefaultFieldModifiers() || (fieldModel.getModifiers().length == 0 && !fieldModel.isPackageVisibility())) {
-            return new Modifier[] { tune.getDefaultFieldModifier() };
+            return new Modifier[]{tune.getDefaultFieldModifier()};
         }
 
         return fieldModel.getModifiers();

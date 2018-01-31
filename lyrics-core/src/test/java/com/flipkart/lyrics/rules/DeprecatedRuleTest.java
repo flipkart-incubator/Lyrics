@@ -17,11 +17,10 @@
 package com.flipkart.lyrics.rules;
 
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.FieldSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +40,6 @@ public class DeprecatedRuleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-        assertEquals(Deprecated.class.getName(), fieldSpec.annotations.get(0).type.toString());
     }
 
     @Test
@@ -56,5 +54,4 @@ public class DeprecatedRuleTest {
         assertEquals("test", fieldSpec.name);
         assertEquals(0, fieldSpec.annotations.size());
     }
-
 }

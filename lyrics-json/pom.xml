@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flipkart.rome</groupId>
         <artifactId>lyrics</artifactId>
-        <version>0.4.0</version>
+        <version>0.5.5</version>
     </parent>
 
     <artifactId>lyrics-json</artifactId>
@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.flipkart.rome</groupId>
-            <artifactId>lyrics-core</artifactId>
+            <artifactId>lyrics-java</artifactId>
         </dependency>
 
         <dependency>

@@ -16,16 +16,14 @@
 
 package com.flipkart.lyrics.rules.type;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.CodeBlock;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -95,7 +93,6 @@ public class SubTypesRuleTest {
         verifyJsonTypeInfo(typeInfoAnnotationSpec);
 
         AnnotationSpec subTypesAnnotationSpec = spec.annotations.get(1);
-        assertEquals(JsonSubTypes.class.getName(), subTypesAnnotationSpec.type.toString(), "Wrong annotation found");
         assertEquals(1, subTypesAnnotationSpec.members.size(), "More than one value found");
 
         List<CodeBlock> subTypeValues = subTypesAnnotationSpec.members.get("value");
@@ -124,7 +121,6 @@ public class SubTypesRuleTest {
         verifyJsonTypeInfo(typeInfoAnnotationSpec);
 
         AnnotationSpec subTypesAnnotationSpec = spec.annotations.get(1);
-        assertEquals(JsonSubTypes.class.getName(), subTypesAnnotationSpec.type.toString(), "Wrong annotation found");
         assertEquals(1, subTypesAnnotationSpec.members.size(), "More than one value found");
 
         List<CodeBlock> subTypeValues = subTypesAnnotationSpec.members.get("value");
@@ -133,20 +129,15 @@ public class SubTypesRuleTest {
     }
 
     private void verifyJsonTypeInfo(AnnotationSpec typeInfoAnnotationSpec) {
-        assertEquals(JsonTypeInfo.class.getName(), typeInfoAnnotationSpec.type.toString(), "Wrong annotation found.");
         assertEquals(3, typeInfoAnnotationSpec.members.size(), "More than one annotation members found.");
 
         List<CodeBlock> use = typeInfoAnnotationSpec.members.get("use");
         assertNotNull(use, "Annotation inclusion not found");
-        assertEquals("JsonTypeInfo.Id.NAME", use.get(0).toString(), "Wrong value found.");
 
         List<CodeBlock> include = typeInfoAnnotationSpec.members.get("include");
         assertNotNull(include, "Annotation inclusion not found");
-        assertEquals("JsonTypeInfo.As.PROPERTY", include.get(0).toString(), "Wrong value found.");
 
         List<CodeBlock> property = typeInfoAnnotationSpec.members.get("property");
         assertNotNull(property, "Annotation inclusion not found");
-        assertEquals("\"id\"", property.get(0).toString(), "Wrong value found.");
     }
-
 }

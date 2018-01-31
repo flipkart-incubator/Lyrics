@@ -18,8 +18,6 @@ package com.flipkart.lyrics.rules.method;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Created by shrey.garg on 06/06/17.
  */
@@ -28,5 +26,4 @@ public class GetterRequiredRuleTest {
     @Test
     public void testGetter() {
     }
-
 }

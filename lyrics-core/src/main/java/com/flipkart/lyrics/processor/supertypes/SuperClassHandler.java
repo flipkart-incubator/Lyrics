@@ -21,8 +21,8 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import static com.flipkart.lyrics.helper.Helper.getResolvedTypeName;
 

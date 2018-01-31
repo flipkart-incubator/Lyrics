@@ -17,16 +17,11 @@
 package com.flipkart.lyrics.annotators.validations;
 
 import com.flipkart.lyrics.model.FieldModel;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.ParameterSpec;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.constraints.NotNull;
-
-import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NON_NULL;
-import static com.flipkart.lyrics.helper.ClassNames.JSR_305_NULLABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -45,9 +40,6 @@ public class Jsr305StyleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(JSR_305_NON_NULL.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -60,9 +52,6 @@ public class Jsr305StyleTest {
         MethodSpec methodSpec = builder.build();
         assertEquals("test", methodSpec.name);
         assertEquals(1, methodSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = methodSpec.annotations.get(0);
-        assertEquals(JSR_305_NON_NULL.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -80,9 +69,6 @@ public class Jsr305StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(JSR_305_NON_NULL.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -95,9 +81,6 @@ public class Jsr305StyleTest {
         FieldSpec fieldSpec = builder.build();
         assertEquals("test", fieldSpec.name);
         assertEquals(1, fieldSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = fieldSpec.annotations.get(0);
-        assertEquals(JSR_305_NULLABLE.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -110,9 +93,6 @@ public class Jsr305StyleTest {
         MethodSpec methodSpec = builder.build();
         assertEquals("test", methodSpec.name);
         assertEquals(1, methodSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = methodSpec.annotations.get(0);
-        assertEquals(JSR_305_NULLABLE.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -130,9 +110,6 @@ public class Jsr305StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(JSR_305_NULLABLE.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -144,9 +121,6 @@ public class Jsr305StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(JSR_305_NON_NULL.toString(), requiredAnnotation.type.toString());
     }
 
     @Test
@@ -158,9 +132,5 @@ public class Jsr305StyleTest {
         ParameterSpec parameterSpec = parameterBuilder.build();
         assertEquals("one", parameterSpec.name);
         assertEquals(1, parameterSpec.annotations.size());
-
-        AnnotationSpec requiredAnnotation = parameterSpec.annotations.get(0);
-        assertEquals(JSR_305_NULLABLE.toString(), requiredAnnotation.type.toString());
     }
-
 }

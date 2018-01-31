@@ -21,12 +21,12 @@ import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.ParameterizedTypeName;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -80,6 +80,7 @@ public class SuperClassHandlerTest {
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
         MetaInfo metaInfo = new MetaInfo(null, null, new HashMap<>());
+
         new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
@@ -125,12 +126,6 @@ public class SuperClassHandlerTest {
                 () -> assertEquals(className, superClassName.rawType.simpleName()));
 
         assertEquals(3, superClassName.typeArguments.size(), "Mismatch in number of generic variables");
-
-        List<TypeName> typeArguments = superClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()),
-                () -> assertEquals("U", typeArguments.get(1).toString()),
-                () -> assertEquals("V", typeArguments.get(2).toString()));
     }
 
     @Test

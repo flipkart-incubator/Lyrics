@@ -1,0 +1,40 @@
+{
+  "type": "CLASS",
+  "extendsType": "com.flipkart.lyrics.sample.userdb.people.Dog",
+  "interfaces": [
+    {
+      "type": "com.flipkart.lyrics.sample.userdb.people.TestInterface1",
+      "types": [
+        "com.flipkart.lyrics.sample.userdb.people.Dog"
+      ]
+    },
+    {
+      "type": "com.flipkart.lyrics.sample.userdb.people.TestInterface2",
+      "types": [
+        "com.flipkart.lyrics.sample.userdb.people.Person"
+      ]
+    }
+  ],
+  "fields": {
+    "one": {
+      "fieldType": "LONG",
+      "primitive": true,
+      "array": true
+    },
+    "two": {
+      "fieldType": "OBJECT",
+      "type": {
+        "type": "com.flipkart.lyrics.sample.userdb.people.TestClass",
+        "types": [
+          "T"
+        ]
+      }
+    }
+  },
+  "genericVariables": [
+    {
+      "name": "T",
+      "bounds": "com.flipkart.lyrics.sample.userdb.people.Person"
+    }
+  ]
+}

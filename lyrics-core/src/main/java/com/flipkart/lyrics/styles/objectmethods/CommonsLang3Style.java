@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.flipkart.lyrics.styles.objectmethods;
 
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.MethodSpec;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -54,14 +53,14 @@ public class CommonsLang3Style extends ObjectMethodsStyle {
         equalsBuilder.addCode("return new $T()\n", equalsBuilderClass);
 
         if (testSuperEquality) {
-            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n", equalsBuilderClass);
+            equalsBuilder.addCode("\t\t.appendSuper(super.equals(that))\n");
         }
 
         ClassName hashCodeBuilderClass = ClassName.get(HashCodeBuilder.class);
         hashCodeBuilder.addCode("return new $T()\n", hashCodeBuilderClass);
 
         if (testSuperEquality) {
-            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n", hashCodeBuilderClass);
+            hashCodeBuilder.addCode("\t\t.appendSuper(super.hashCode())\n");
         }
 
         for (String field : nonStaticFields) {
@@ -72,5 +71,4 @@ public class CommonsLang3Style extends ObjectMethodsStyle {
         equalsBuilder.addCode("\t\t.isEquals();\n");
         hashCodeBuilder.addCode("\t\t.toHashCode();\n");
     }
-
 }

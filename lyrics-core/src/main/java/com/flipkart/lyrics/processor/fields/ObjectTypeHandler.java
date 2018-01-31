@@ -20,7 +20,7 @@ import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InitializerModel;
 import com.flipkart.lyrics.model.MetaInfo;
-import com.squareup.javapoet.*;
+import com.flipkart.lyrics.specs.*;
 
 import static com.flipkart.lyrics.helper.Helper.*;
 
@@ -43,7 +43,7 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
-        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel));
+        FieldSpec.Builder builder = FieldSpec.builder(typeName, key, resolveModifiers(tune, fieldModel)).required(fieldModel.isRequired());
         InitializerModel initializeWith = fieldModel.getInitializeWith();
         if (initializeWith != null) {
             if (initializeWith.getValue() != null) {

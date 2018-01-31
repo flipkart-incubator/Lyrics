@@ -24,8 +24,8 @@ import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.processor.methods.GetterHandler;
 import com.flipkart.lyrics.processor.methods.SetterHandler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -21,10 +21,9 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
-
-import javax.lang.model.element.Modifier;
+import com.flipkart.lyrics.specs.MethodSpec;
+import com.flipkart.lyrics.specs.Modifier;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 /**
  * Created by shrey.garg on 26/11/16.
@@ -37,6 +36,7 @@ public class NoArgsConstructorHandler extends Handler {
 
     @Override
     public void process(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        if (!tune.isNoArgsConstructorNeeded()) return;
         MethodSpec constructor = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC)
                 .build();

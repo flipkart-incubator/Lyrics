@@ -16,19 +16,18 @@
 
 package com.flipkart.lyrics.test.extensions;
 
+import com.flipkart.lyrics.TestTune;
 import com.flipkart.lyrics.annotators.GsonStyle;
 import com.flipkart.lyrics.annotators.JacksonStyle;
 import com.flipkart.lyrics.annotators.validations.Jsr303Style;
 import com.flipkart.lyrics.annotators.validations.Jsr305Style;
-import com.flipkart.lyrics.config.DefaultTune;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.processor.fields.FieldAdditionalHandler;
-import com.flipkart.lyrics.sets.HandlerSet;
 import com.flipkart.lyrics.sets.RuleSet;
+import com.flipkart.lyrics.specs.FieldSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
-import com.squareup.javapoet.FieldSpec;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -38,7 +37,6 @@ import javax.annotation.Resource;
 import java.util.*;
 
 import static com.flipkart.lyrics.helper.Injector.*;
-import static com.flipkart.lyrics.helper.Injector.processFieldAdditionalHandlers;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -93,7 +91,7 @@ public class ConfigurationExtension implements ParameterResolver {
     }
 
     private Tune getDefaultTune() {
-        Tune tune = new DefaultTune();
+        Tune tune = new TestTune();
         RuleSet ruleSet = processRuleSet(tune, null);
         processHandlerSet(tune, null, ruleSet);
         processFieldTypeHandlerSet(tune, null);
@@ -105,55 +103,54 @@ public class ConfigurationExtension implements ParameterResolver {
     }
 
     private Tune getAnnotationsTune() {
-        Tune jacksonTune = spy(DefaultTune.class);
+        Tune jacksonTune = spy(TestTune.class);
         List<AnnotationModel> annotationModels = Arrays.asList(new AnnotationModel(Deprecated.class.getName()), new AnnotationModel(Resource.class.getName()));
         when(jacksonTune.getClassLevelAnnotations()).thenReturn(annotationModels);
         return jacksonTune;
     }
 
     private Tune getJacksonTune() {
-        Tune jacksonTune = spy(DefaultTune.class);
+        Tune jacksonTune = spy(TestTune.class);
         when(jacksonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new JacksonStyle()));
         return jacksonTune;
     }
 
     private Tune getGsonTune() {
-        Tune gsonTune = spy(DefaultTune.class);
+        Tune gsonTune = spy(TestTune.class);
         when(gsonTune.getAnnotatorStyles()).thenReturn(Collections.singletonList(new GsonStyle()));
         return gsonTune;
     }
 
     private Tune getRequiredTune() {
-        Tune requireTune = spy(DefaultTune.class);
+        Tune requireTune = spy(TestTune.class);
         when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
         return requireTune;
     }
 
     private Tune getJsr303Tune() {
-        Tune requireTune = spy(DefaultTune.class);
+        Tune requireTune = spy(TestTune.class);
         when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr303Style()));
         return requireTune;
     }
 
     private Tune getJsr305Tune() {
-        Tune requireTune = spy(DefaultTune.class);
+        Tune requireTune = spy(TestTune.class);
         when(requireTune.getValidationAnnotatorStyles()).thenReturn(Collections.singletonList(new Jsr305Style()));
         return requireTune;
     }
 
     private Tune getInterfacesTune() {
-        Tune interfacesTune = spy(DefaultTune.class);
+        Tune interfacesTune = spy(TestTune.class);
         Set<VariableModel> interfaces = new HashSet<>();
         interfaces.add(new VariableModel("java.io.Serializable"));
-        interfaces.add(
-                new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
-                new VariableModel[] { new VariableModel("T") }));
+        interfaces.add(new VariableModel("com.flipkart.lyrics.test.classes.GenericInterface",
+                new VariableModel[]{new VariableModel("T")}));
         when(interfacesTune.interfaces()).thenReturn(interfaces);
         return interfacesTune;
     }
 
     private Tune getNoModifiersTune() {
-        Tune jacksonTune = spy(DefaultTune.class);
+        Tune jacksonTune = spy(TestTune.class);
         when(jacksonTune.getDefaultClassModifier()).thenReturn(null);
         return jacksonTune;
     }

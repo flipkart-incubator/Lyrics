@@ -22,10 +22,9 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
+import com.flipkart.lyrics.specs.AnnotationSpec;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.TypeSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
-import static com.flipkart.lyrics.helper.Helper.isNullOrEmpty;
 
 /**
  * Created by shrey.garg on 25/11/16.

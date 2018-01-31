@@ -99,5 +99,4 @@ public class DefaultRuleSet extends RuleSet {
     public FieldRule getInclusionRule() {
         return new InclusionRule(tune, metaInfo);
     }
-
 }

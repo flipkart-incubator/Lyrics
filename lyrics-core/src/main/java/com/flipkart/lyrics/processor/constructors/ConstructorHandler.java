@@ -22,11 +22,8 @@ import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.flipkart.lyrics.specs.*;
 
-import javax.lang.model.element.Modifier;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +52,13 @@ public abstract class ConstructorHandler extends Handler {
             constructor = constructor.addModifiers(getModifier());
         }
 
+        CodeBlock superArgs = superArgs();
+        if (superArgs != null) {
+            Object[] args = new Object[superArgs.arguments.size()];
+            args = superArgs.arguments.toArray(args);
+            constructor.addCode(superIdentifier() + "." + String.join("", superArgs.formats), args);
+        }
+
         for (String field : constructorFields) {
             ParameterSpec.Builder parameterSpec = getParameterTypeHandler(fields.get(field).getFieldType(), tune.getParameterTypeHandlerSet())
                     .process(typeSpec, field, fields.get(field));
@@ -69,8 +73,9 @@ public abstract class ConstructorHandler extends Handler {
                 });
             }
 
+            parameterSpec.required(fields.get(field).isRequired());
             constructor.addParameter(parameterSpec.build());
-            constructor.addStatement("this.$L = $L", field, field);
+            constructor.addStatement("$N.$L = $L", selfReference(), field, field);
         }
 
         typeSpec.addMethod(constructor.build());
@@ -80,4 +85,16 @@ public abstract class ConstructorHandler extends Handler {
     protected abstract List<String> getConstructorFields(TypeModel typeModel);
 
     protected abstract Modifier getModifier();
+
+    protected String selfReference() {
+        return "this";
+    }
+
+    protected String superIdentifier() {
+        return "super";
+    }
+
+    protected CodeBlock superArgs() {
+        return null;
+    }
 }

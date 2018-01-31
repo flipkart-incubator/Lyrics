@@ -19,9 +19,9 @@ package com.flipkart.lyrics.processor.annotations;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.model.AnnotationModel;
 import com.flipkart.lyrics.model.TypeModel;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -65,9 +65,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(2, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
     }
 
     @Test
@@ -82,9 +79,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(2, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
     }
 
     @Test
@@ -101,11 +95,6 @@ public class ClassAnnotationHandlerTest {
 
         assertEquals("Test", spec.name, "Wrong class found");
         assertEquals(3, spec.annotations.size(), "Annotations found");
-
-        assertEquals(Deprecated.class.getName(), spec.annotations.get(0).type.toString(), "Wrong annotation found");
-        assertEquals(Resource.class.getName(), spec.annotations.get(1).type.toString(), "Wrong annotation found");
-        assertEquals("com.xyz.jkl", spec.annotations.get(2).type.toString(), "Wrong annotation found");
         assertEquals(1, spec.annotations.get(2).members.size());
     }
-
 }

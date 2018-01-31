@@ -21,12 +21,12 @@ import com.flipkart.lyrics.model.GenericVariableModel;
 import com.flipkart.lyrics.model.MetaInfo;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.model.VariableModel;
+import com.flipkart.lyrics.specs.ClassName;
+import com.flipkart.lyrics.specs.ParameterizedTypeName;
+import com.flipkart.lyrics.specs.TypeName;
+import com.flipkart.lyrics.specs.TypeSpec;
 import com.flipkart.lyrics.test.annotation.TuneProvider;
 import com.flipkart.lyrics.test.extensions.ConfigurationExtension;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -159,9 +159,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
 
     @Test
@@ -200,9 +197,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
     }
 
     @Test
@@ -242,9 +236,6 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("GenericInterface", interfaceThreeClassName.rawType.simpleName()));
 
         assertEquals(1, interfaceThreeClassName.typeArguments.size(), "Mismatch in number of generic variables");
-        List<TypeName> typeArguments = interfaceThreeClassName.typeArguments;
-        assertAll("Type variable validations",
-                () -> assertEquals("T", typeArguments.get(0).toString()));
 
         TypeName interfaceTypeTwo = interfaces.get(2);
         assertTrue(interfaceTypeTwo instanceof ClassName, "Wrong type of TypeName found");
@@ -254,5 +245,4 @@ public class InterfaceHandlerTest {
                 () -> assertEquals("java.lang", interfaceTwoClassName.packageName()),
                 () -> assertEquals("Cloneable", interfaceTwoClassName.simpleName()));
     }
-
 }
