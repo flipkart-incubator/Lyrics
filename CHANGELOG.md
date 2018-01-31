@@ -1,3 +1,7 @@
+## 0.6.0 (January 31, 2018)
+### CORE
+- Allowing control over 'visible' property while using sub-types
+
 ## 0.5.0 (October 13, 2017)
 ### CORE
 - Refactored JavaPoet out of core, created a new module for Java

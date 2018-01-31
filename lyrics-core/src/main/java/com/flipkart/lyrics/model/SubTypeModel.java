@@ -24,6 +24,7 @@ import java.util.Map;
 public class SubTypeModel {
     private String property;
     private boolean existingProperty;
+    private boolean visible;
     private Map<String, String> subTypeMapping;
 
     public SubTypeModel() {
@@ -44,5 +45,9 @@ public class SubTypeModel {
 
     public Map<String, String> getSubTypeMapping() {
         return subTypeMapping;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }
