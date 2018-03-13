@@ -41,6 +41,10 @@ public class SetterHandler {
     }
 
     public void process(TypeSpec.Builder typeBuilder, FieldSpec fieldSpec, FieldModel fieldModel) {
+        if (fieldModel.isImmutable()) {
+            return;
+        }
+
         String methodName = getGetterSetterName(fieldSpec.name, true, fieldModel.getFieldType() == FieldType.BOOLEAN, fieldModel.isPrimitive());
 
         MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName)

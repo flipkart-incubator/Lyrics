@@ -104,7 +104,7 @@ public class Util {
         return builder.build();
     }
 
-    private static com.squareup.javapoet.ParameterSpec getParameterSpec(ParameterSpec parameter) {
+    public static com.squareup.javapoet.ParameterSpec getParameterSpec(ParameterSpec parameter) {
         com.squareup.javapoet.ParameterSpec.Builder builder = com.squareup.javapoet.ParameterSpec
                 .builder(getJavaTypeName(parameter.type), parameter.name, getJavaModifiers(parameter.modifiers));
 

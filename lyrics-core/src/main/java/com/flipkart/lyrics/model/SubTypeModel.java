@@ -35,6 +35,13 @@ public class SubTypeModel {
         this.subTypeMapping = subTypeMapping;
     }
 
+    public SubTypeModel(String property, boolean existingProperty, boolean visible, Map<String, String> subTypeMapping) {
+        this.property = property;
+        this.existingProperty = existingProperty;
+        this.visible = visible;
+        this.subTypeMapping = subTypeMapping;
+    }
+
     public String getProperty() {
         return property;
     }
