@@ -135,6 +135,11 @@ public abstract class HandlerSet {
      */
     public abstract Handler getInterfaceMethodsHandler();
 
+    /**
+     * @return A {@link Handler} that adds a builder class to the under construction classes.
+     */
+    public abstract Handler getBuilderPatternHandler();
+
     public Tune getTune() {
         return tune;
     }

@@ -1,3 +1,8 @@
+## 0.7.0 (March 14, 2018)
+### CORE
+- Added "immutable" property to FieldModel for creating an immutable field
+- Added "createBuilder" to TypeModel for generating builders
+
 ## 0.6.0 (January 31, 2018)
 ### CORE
 - Allowing control over 'visible' property while using sub-types

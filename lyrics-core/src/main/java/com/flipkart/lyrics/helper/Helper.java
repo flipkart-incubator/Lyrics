@@ -16,6 +16,7 @@
 
 package com.flipkart.lyrics.helper;
 
+import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.creator.TypeCreator;
 import com.flipkart.lyrics.model.*;
@@ -271,7 +272,7 @@ public class Helper {
     public static List<String> getRequiredFields(Map<String, FieldModel> fields, boolean excludeInitializedFields) {
         return fields.entrySet().stream()
                 .filter(entry -> {
-                    if (!entry.getValue().isRequired()) {
+                    if (!entry.getValue().isRequired() && !entry.getValue().isImmutable()) {
                         return false;
                     }
 
@@ -283,4 +284,14 @@ public class Helper {
                 }).map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    public static final TriConsumer<ValidationAnnotatorStyle, FieldModel, ParameterSpec.Builder>
+            requiredParameterConstructorParadigm = (style, fieldModel, parameterSpec) -> {
+                if (fieldModel.isRequired()) {
+                    style.processRequiredRuleForConstructor(parameterSpec);
+                } else {
+                    style.processNotRequiredRuleForConstructor(parameterSpec);
+                }
+            };
+
 }

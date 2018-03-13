@@ -47,11 +47,17 @@ public class TypeModel {
     private boolean testSuperEquality = false;
     private boolean deprecated;
     private List<String> customConstructorFields;
+    private boolean createBuilder = false;
 
     public TypeModel() {
     }
 
-    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces, List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations, Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion, List<String> values, Map<String, Object[]> valuesWithFields, List<String> fieldOrder, SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes, List<String> customConstructorFields) {
+    public TypeModel(Type type, Modifier[] modifiers, VariableModel extendsType, Set<VariableModel> interfaces,
+                     List<GenericVariableModel> genericVariables, List<AnnotationModel> annotations,
+                     Map<String, FieldModel> fields, Map<String, MethodModel> methods, InclusionType inclusion,
+                     List<String> values, Map<String, Object[]> valuesWithFields, List<String> fieldOrder,
+                     SubTypeModel subTypes, RetentionPolicy retention, ElementType[] elementTypes,
+                     List<String> customConstructorFields, boolean createBuilder) {
         this.type = type;
         this.modifiers = modifiers;
         this.extendsType = extendsType;
@@ -68,6 +74,7 @@ public class TypeModel {
         this.retention = retention;
         this.elementTypes = elementTypes;
         this.customConstructorFields = customConstructorFields;
+        this.createBuilder = createBuilder;
     }
 
     public Type getType() {
@@ -140,6 +147,10 @@ public class TypeModel {
 
     public List<String> getCustomConstructorFields() {
         return customConstructorFields;
+    }
+
+    public boolean isCreateBuilder() {
+        return createBuilder;
     }
 
     @JsonAnyGetter

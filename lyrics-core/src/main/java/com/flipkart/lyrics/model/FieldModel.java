@@ -32,6 +32,7 @@ public class FieldModel {
     private FieldType fieldType;
     private VariableModel type = new VariableModel();
     private boolean primitive;
+    private boolean immutable;
     private boolean array;
     private Modifier[] modifiers = new Modifier[0];
     private boolean packageVisibility;
@@ -45,7 +46,10 @@ public class FieldModel {
     public FieldModel() {
     }
 
-    public FieldModel(String namedAs, FieldType fieldType, VariableModel type, boolean primitive, Modifier[] modifiers, boolean packageVisibility, InclusionType inclusion, boolean required, boolean excludeFromToString, boolean excludeFromEqualsAndHashCode, boolean array, InitializerModel initializeWith, boolean deprecated) {
+    public FieldModel(String namedAs, FieldType fieldType, VariableModel type, boolean primitive, Modifier[] modifiers,
+                      boolean packageVisibility, InclusionType inclusion, boolean required, boolean excludeFromToString,
+                      boolean excludeFromEqualsAndHashCode, boolean array, InitializerModel initializeWith,
+                      boolean deprecated, boolean immutable) {
         this.namedAs = namedAs;
         this.fieldType = fieldType;
         this.type = type;
@@ -59,6 +63,7 @@ public class FieldModel {
         this.array = array;
         this.initializeWith = initializeWith;
         this.deprecated = deprecated;
+        this.immutable = immutable;
     }
 
     public String getNamedAs() {
@@ -121,5 +126,9 @@ public class FieldModel {
     @JsonAnySetter
     public void addAdditionalProperties(String name, Object value) {
         this.additionalFields.put(name, value);
+    }
+
+    public boolean isImmutable() {
+        return immutable;
     }
 }

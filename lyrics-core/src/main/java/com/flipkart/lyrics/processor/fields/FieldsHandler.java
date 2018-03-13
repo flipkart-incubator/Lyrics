@@ -66,7 +66,7 @@ public class FieldsHandler extends Handler {
             FieldSpec fieldSpec = fieldBuilder.build();
             typeBuilder.addField(fieldSpec);
 
-            if (tune.areAccessorsNeeded()) {
+            if (tune.areAccessorsNeeded() && !metaInfo.isOverrideAccessorGeneration()) {
                 new GetterHandler(tune, metaInfo, ruleSet).process(typeBuilder, fieldSpec, fieldModel);
                 new SetterHandler(tune, metaInfo, ruleSet).process(typeBuilder, fieldSpec, fieldModel);
             }

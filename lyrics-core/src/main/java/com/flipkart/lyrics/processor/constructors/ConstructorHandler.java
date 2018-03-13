@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Helper.getParameterTypeHandler;
+import static com.flipkart.lyrics.helper.Helper.requiredParameterConstructorParadigm;
 
 /**
  * Created by shrey.garg on 06/02/17.
@@ -64,13 +65,7 @@ public abstract class ConstructorHandler extends Handler {
                     .process(typeSpec, field, fields.get(field));
 
             if (!fields.get(field).isPrimitive()) {
-                tune.getValidationAnnotatorStyles().forEach(style -> {
-                    if (fields.get(field).isRequired()) {
-                        style.processRequiredRuleForConstructor(parameterSpec);
-                    } else {
-                        style.processNotRequiredRuleForConstructor(parameterSpec);
-                    }
-                });
+                tune.getValidationAnnotatorStyles().forEach(style -> requiredParameterConstructorParadigm.accept(style, fields.get(field), parameterSpec));
             }
 
             parameterSpec.required(fields.get(field).isRequired());
