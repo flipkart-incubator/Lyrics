@@ -27,12 +27,15 @@ import com.flipkart.lyrics.model.SubTypeModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
 
+import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Map;
 
 import static com.flipkart.lyrics.helper.Helper.getClassName;
+import static com.flipkart.lyrics.helper.Helper.getRequiredFields;
 
 /**
  * Created by shrey.garg on 03/01/17.
@@ -102,5 +105,15 @@ public class JacksonStyle extends AnnotatorStyle {
         }
 
         typeSpec.addAnnotation(propertyOrderBuilder.build());
+    }
+
+    @Override
+    public void processConstructorOrderRule(MethodSpec.Builder methodSpec, TypeModel typeModel, List<String> constructorFields) {
+        AnnotationSpec.Builder constructorPropertyOrderBuilder = AnnotationSpec.builder(ConstructorProperties.class);
+        for (String field : constructorFields) {
+            constructorPropertyOrderBuilder.addMember("value", "$S", field);
+        }
+
+        methodSpec.addAnnotation(constructorPropertyOrderBuilder.build());
     }
 }

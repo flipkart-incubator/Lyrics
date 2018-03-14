@@ -73,7 +73,10 @@ public abstract class ConstructorHandler extends Handler {
             constructor.addStatement("$N.$L = $L", selfReference(), field, field);
         }
 
-        typeSpec.addMethod(constructor.build());
+        final MethodSpec.Builder finalConstructor = constructor;
+        System.out.println(tune.getAnnotatorStyles());
+        tune.getAnnotatorStyles().forEach(style -> style.processConstructorOrderRule(finalConstructor, typeModel, constructorFields));
+        typeSpec.addMethod(finalConstructor.build());
     }
 
 

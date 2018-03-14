@@ -20,9 +20,13 @@ import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.AnnotationSpec;
 import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.beans.ConstructorProperties;
+import java.util.List;
 
 /**
  * Created by shrey.garg on 03/01/17.
@@ -57,5 +61,15 @@ public class GsonStyle extends AnnotatorStyle {
     @Override
     public void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
 
+    }
+
+    @Override
+    public void processConstructorOrderRule(MethodSpec.Builder methodSpec, TypeModel typeModel, List<String> constructorFields) {
+        AnnotationSpec.Builder constructorPropertyOrderBuilder = AnnotationSpec.builder(ConstructorProperties.class);
+        for (String field : constructorFields) {
+            constructorPropertyOrderBuilder.addMember("value", "$S", field);
+        }
+
+        methodSpec.addAnnotation(constructorPropertyOrderBuilder.build());
     }
 }

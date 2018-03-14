@@ -128,6 +128,11 @@ public class MethodSpec {
             return this;
         }
 
+        public MethodSpec.Builder addAnnotation(AnnotationSpec annotationSpec) {
+            this.annotations.add(annotationSpec);
+            return this;
+        }
+
         public MethodSpec.Builder addParameter(ParameterSpec parameterSpec) {
             this.parameters.add(parameterSpec);
             return this;

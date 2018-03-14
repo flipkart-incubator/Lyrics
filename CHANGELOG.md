@@ -1,3 +1,7 @@
+## 0.8.0 (March 14, 2018)
+### CORE
+- Added support for defining constructor parameter order
+
 ## 0.7.1 (March 14, 2018)
 ### CORE
 - [BUGFIX] Builder method should be STATIC

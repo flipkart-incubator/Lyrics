@@ -19,7 +19,10 @@ package com.flipkart.lyrics.annotators;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.specs.FieldSpec;
+import com.flipkart.lyrics.specs.MethodSpec;
 import com.flipkart.lyrics.specs.TypeSpec;
+
+import java.util.List;
 
 /**
  * Created by shrey.garg on 03/01/17.
@@ -35,4 +38,6 @@ public abstract class AnnotatorStyle {
     public abstract void processSubTypeRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
 
     public abstract void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel);
+
+    public abstract void processConstructorOrderRule(MethodSpec.Builder methodSpec, TypeModel typeModel, List<String> constructorFields);
 }
