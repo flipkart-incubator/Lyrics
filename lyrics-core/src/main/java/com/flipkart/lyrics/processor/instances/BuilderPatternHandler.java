@@ -18,7 +18,10 @@ package com.flipkart.lyrics.processor.instances;
 
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.Helper;
-import com.flipkart.lyrics.model.*;
+import com.flipkart.lyrics.model.FieldModel;
+import com.flipkart.lyrics.model.FieldType;
+import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.TypeModel;
 import com.flipkart.lyrics.processor.Handler;
 import com.flipkart.lyrics.sets.RuleSet;
 import com.flipkart.lyrics.specs.*;
@@ -29,9 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.flipkart.lyrics.helper.Helper.getParameterTypeHandler;
-import static com.flipkart.lyrics.helper.Helper.getRequiredFields;
-import static com.flipkart.lyrics.helper.Helper.requiredParameterConstructorParadigm;
+import static com.flipkart.lyrics.helper.Helper.*;
 
 /**
  * Created by shrey.garg on 13/03/18.
@@ -132,7 +133,7 @@ public class BuilderPatternHandler extends Handler {
 
     private void createBuilderMethod(TypeSpec.Builder typeSpec, TypeModel typeModel) {
         MethodSpec.Builder builder = MethodSpec.methodBuilder("builder");
-        builder.addModifiers(Modifier.PUBLIC);
+        builder.addModifiers(Modifier.PUBLIC, Modifier.STATIC);
         builder.returns(ClassName.get(metaInfo.getFullPackage(), metaInfo.getClassName(), "Builder"));
 
         Map<String, FieldModel> fields = typeModel.getFields();
