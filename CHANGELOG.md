@@ -1,3 +1,7 @@
+## 0.7.1 (March 14, 2018)
+### CORE
+- [BUGFIX] Builder method should be STATIC
+
 ## 0.7.0 (March 14, 2018)
 ### CORE
 - Added "immutable" property to FieldModel for creating an immutable field
