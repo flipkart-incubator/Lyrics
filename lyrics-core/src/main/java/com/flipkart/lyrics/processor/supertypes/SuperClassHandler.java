@@ -41,7 +41,7 @@ public class SuperClassHandler extends Handler {
             return;
         }
 
-        TypeName extendsType = getResolvedTypeName(typeModel.getExtendsType(), metaInfo.getGenericVariables());
+        TypeName extendsType = getResolvedTypeName(typeModel.getExtendsType(), metaInfo.getGenericVariables(), tune.getChords());
 
         typeSpec.superclass(extendsType);
     }

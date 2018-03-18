@@ -1,3 +1,7 @@
+## 0.9.0 (March 19, 2018)
+### CORE
+- Defining common types like MAP, LIST and STRING for language independence
+
 ## 0.8.0 (March 14, 2018)
 ### CORE
 - Added support for defining constructor parameter order

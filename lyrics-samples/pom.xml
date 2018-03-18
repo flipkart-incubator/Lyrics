@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flipkart.rome</groupId>
         <artifactId>lyrics</artifactId>
-        <version>0.8.0</version>
+        <version>0.9.0</version>
     </parent>
 
     <artifactId>lyrics-samples</artifactId>

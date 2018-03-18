@@ -133,7 +133,7 @@ public class InterfaceHandlerTest {
         TypeModel model = new TypeModel();
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables, tune.getChords()));
         new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
@@ -171,7 +171,7 @@ public class InterfaceHandlerTest {
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables, tune.getChords()));
         new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
@@ -210,7 +210,7 @@ public class InterfaceHandlerTest {
         when(model.getInterfaces()).thenReturn(interfaceSet);
 
         List<GenericVariableModel> genericVariables = Collections.singletonList(new GenericVariableModel("T"));
-        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables, tune.getChords()));
         new InterfaceHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 

@@ -41,7 +41,7 @@ public class Song {
     }
 
     public void createType(String name, String fullPackage, TypeModel typeModel, File targetFolder) throws IOException {
-        MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables()));
+        MetaInfo metaInfo = new MetaInfo(name, fullPackage, getTypeVariables(typeModel.getGenericVariables(), tune.getChords()));
         RuleSet ruleSet = processRuleSet(tune, metaInfo);
         HandlerSet handlerSet = processHandlerSet(tune, metaInfo, ruleSet);
         processFieldTypeHandlerSet(tune, metaInfo);

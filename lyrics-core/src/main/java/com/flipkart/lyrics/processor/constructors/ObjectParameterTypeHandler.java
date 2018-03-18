@@ -35,6 +35,6 @@ public class ObjectParameterTypeHandler extends ParameterTypeHandler {
 
     @Override
     public ParameterSpec.Builder process(TypeSpec.Builder typeSpec, String field, FieldModel fieldModel) {
-        return ParameterSpec.builder(processType(fieldModel, metaInfo.getGenericVariables()), field);
+        return ParameterSpec.builder(processType(fieldModel, metaInfo.getGenericVariables(), tune.getChords()), field);
     }
 }

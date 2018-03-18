@@ -39,7 +39,7 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         if (fieldModel.getType() == null) {
             typeName = TypeName.OBJECT;
         } else {
-            typeName = getResolvedTypeName(fieldModel.getType(), metaInfo.getGenericVariables());
+            typeName = getResolvedTypeName(fieldModel.getType(), metaInfo.getGenericVariables(), tune.getChords());
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
