@@ -2,6 +2,8 @@ package com.flipkart.lyrics.android;
 
 import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
+import com.flipkart.lyrics.config.Chords;
+import com.flipkart.lyrics.config.DefaultChords;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
@@ -33,6 +35,7 @@ public class TestTune implements Tune {
     private final Map<String, FieldAdditionalHandler> fieldAdditionalHandlerMap = new HashMap<>();
     private final Map<String, TypeAdditionalHandler> typeAdditionalHandlerMap = new HashMap<>();
     private final Map<String, FieldModificationHandler> fieldModificationHandlers = new HashMap<>();
+    private final Chords chords = new DefaultChords();
 
     @Override
     public Modifier getDefaultFieldModifier() {
@@ -62,6 +65,11 @@ public class TestTune implements Tune {
     @Override
     public FileWriter getFileWriter() {
         return null;
+    }
+
+    @Override
+    public Chords getChords() {
+        return chords;
     }
 
     @Override

@@ -111,7 +111,7 @@ public class SuperClassHandlerTest {
         List<GenericVariableModel> genericVariables = Arrays.asList(new GenericVariableModel("T"), new GenericVariableModel("U"), new GenericVariableModel("V"));
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables, tune.getChords()));
         new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 
@@ -140,7 +140,7 @@ public class SuperClassHandlerTest {
         List<GenericVariableModel> genericVariables = Arrays.asList(new GenericVariableModel("T"), new GenericVariableModel("U"), new GenericVariableModel("V"));
 
         TypeSpec.Builder builder = TypeSpec.classBuilder("Test");
-        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables));
+        MetaInfo metaInfo = new MetaInfo(null, null, getTypeVariables(genericVariables, tune.getChords()));
         new SuperClassHandler(tune, metaInfo, null).process(builder, model);
         TypeSpec spec = builder.build();
 

@@ -49,7 +49,7 @@ public class AnnotationMethodsHandler extends Handler {
             FieldModel returnsModel = methodEntry.getValue().getReturnType();
             MethodSpec.Builder builder = MethodSpec.methodBuilder(methodEntry.getKey())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                    .returns(Helper.processType(returnsModel, metaInfo.getGenericVariables()));
+                    .returns(Helper.processType(returnsModel, metaInfo.getGenericVariables(), tune.getChords()));
 
             if (methodEntry.getValue().getDefaultValue() != null) {
                 builder.defaultValue(returnsModel.getFieldType() == FieldType.STRING ? "$S" : "$L", methodEntry.getValue().getDefaultValue());

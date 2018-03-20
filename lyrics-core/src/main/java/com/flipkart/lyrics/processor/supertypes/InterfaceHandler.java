@@ -52,7 +52,7 @@ public class InterfaceHandler extends Handler {
         }
 
         List<TypeName> interfaces = interfaceDefinitions.stream()
-                .map(model -> getResolvedTypeName(model, metaInfo.getGenericVariables()))
+                .map(model -> getResolvedTypeName(model, metaInfo.getGenericVariables(), tune.getChords()))
                 .collect(Collectors.toList());
 
         typeSpec.addSuperinterfaces(interfaces);

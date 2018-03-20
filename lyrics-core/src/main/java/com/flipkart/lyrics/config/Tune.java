@@ -92,4 +92,6 @@ public interface Tune {
     List<ValidationAnnotatorStyle> getValidationAnnotatorStyles();
 
     FileWriter getFileWriter();
+
+    Chords getChords();
 }

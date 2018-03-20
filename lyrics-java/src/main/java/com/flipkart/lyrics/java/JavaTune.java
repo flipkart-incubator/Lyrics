@@ -17,6 +17,7 @@ package com.flipkart.lyrics.java;
 
 import com.flipkart.lyrics.annotators.AnnotatorStyle;
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
+import com.flipkart.lyrics.config.Chords;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.helper.TriConsumer;
 import com.flipkart.lyrics.model.AnnotationModel;
@@ -51,6 +52,7 @@ public class JavaTune implements Tune {
     private final Map<String, FieldAdditionalHandler> fieldAdditionalHandlerMap = new HashMap<>();
     private final Map<String, TypeAdditionalHandler> typeAdditionalHandlerMap = new HashMap<>();
     private final Map<String, FieldModificationHandler> fieldModificationHandlers = new HashMap<>();
+    private final Chords chords = new JavaChords();
 
     @Override
     public Modifier getDefaultFieldModifier() {
@@ -80,6 +82,11 @@ public class JavaTune implements Tune {
     @Override
     public FileWriter getFileWriter() {
         return new JavaWriter();
+    }
+
+    @Override
+    public Chords getChords() {
+        return chords;
     }
 
     @Override

@@ -17,6 +17,7 @@
 package com.flipkart.lyrics.helper;
 
 import com.flipkart.lyrics.annotators.validations.ValidationAnnotatorStyle;
+import com.flipkart.lyrics.config.Chords;
 import com.flipkart.lyrics.config.Tune;
 import com.flipkart.lyrics.creator.TypeCreator;
 import com.flipkart.lyrics.model.*;
@@ -28,6 +29,7 @@ import com.flipkart.lyrics.sets.ParameterTypeHandlerSet;
 import com.flipkart.lyrics.specs.*;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -92,31 +94,35 @@ public class Helper {
         return prefix + capitalizedName;
     }
 
-    public static TypeName getResolvedTypeName(VariableModel variableModel, final Map<String, TypeVariableName> typeVariableNames) {
+    public static TypeName getResolvedTypeName(VariableModel variableModel, final Map<String, TypeVariableName> typeVariableNames,
+                                               Chords chords) {
         TypeName typeName;
+        String type = variableModel.getType();
+        type = Optional.ofNullable(chordMapper.get(type)).map(cm -> cm.apply(chords)).orElse(type);
+
         if (variableModel.getTypes().length > 0) {
-            ClassName className = getClassName(variableModel.getType());
+            ClassName className = getClassName(type);
 
             TypeName[] typeNames = new TypeName[variableModel.getTypes().length];
             for (int i = 0; i < variableModel.getTypes().length; i++) {
-                typeNames[i] = getResolvedTypeName(variableModel.getTypes()[i], typeVariableNames);
+                typeNames[i] = getResolvedTypeName(variableModel.getTypes()[i], typeVariableNames, chords);
             }
 
             typeName = ParameterizedTypeName.get(className, typeNames);
         } else {
-            typeName = getClassName(variableModel.getType(), typeVariableNames);
+            typeName = getClassName(type, typeVariableNames);
         }
 
         return typeName;
     }
 
-    public static Map<String, TypeVariableName> getTypeVariables(List<GenericVariableModel> genericVariables) {
+    public static Map<String, TypeVariableName> getTypeVariables(List<GenericVariableModel> genericVariables, Chords chords) {
         Map<String, TypeVariableName> typeVariableNames = new HashMap<>();
         for (GenericVariableModel variable : genericVariables) {
             List<TypeName> resolvedBounds = new ArrayList<>();
             for (VariableModel variableModel : variable.getBounds()) {
                 if (variableModel != null) {
-                    resolvedBounds.add(getResolvedTypeName(variableModel, typeVariableNames));
+                    resolvedBounds.add(getResolvedTypeName(variableModel, typeVariableNames, chords));
                 }
             }
 
@@ -217,7 +223,7 @@ public class Helper {
         }
     }
 
-    public static TypeName processType(FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames) {
+    public static TypeName processType(FieldModel fieldModel, Map<String, TypeVariableName> typeVariableNames, Chords chords) {
         if (fieldModel == null) {
             return TypeName.VOID;
         }
@@ -232,7 +238,7 @@ public class Helper {
                 if (fieldModel.getType().getType() == null) {
                     typeName = TypeName.OBJECT;
                 } else {
-                    typeName = getResolvedTypeName(fieldModel.getType(), typeVariableNames);
+                    typeName = getResolvedTypeName(fieldModel.getType(), typeVariableNames, chords);
                 }
                 return fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
             case SHORT:
@@ -294,4 +300,10 @@ public class Helper {
                 }
             };
 
+    private static final Map<String, Function<Chords, String>> chordMapper = new HashMap<>();
+    static {
+        chordMapper.put("MAP", Chords::handleMap);
+        chordMapper.put("LIST", Chords::handleList);
+        chordMapper.put("STRING", Chords::handleString);
+    }
 }

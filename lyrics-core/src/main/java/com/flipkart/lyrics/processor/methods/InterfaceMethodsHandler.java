@@ -54,11 +54,11 @@ public class InterfaceMethodsHandler extends Handler {
 
             MethodSpec.Builder builder = MethodSpec.methodBuilder(methodEntry.getKey())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                    .returns(Helper.processType(returnsModel, metaInfo.getGenericVariables()));
+                    .returns(Helper.processType(returnsModel, metaInfo.getGenericVariables(), tune.getChords()));
 
             for (FieldModelOrdered parameter : parameters) {
                 builder.addParameter(
-                        Helper.processType(parameter, metaInfo.getGenericVariables()),
+                        Helper.processType(parameter, metaInfo.getGenericVariables(), tune.getChords()),
                         parameter.getName(), parameter.getModifiers()
                 );
             }
