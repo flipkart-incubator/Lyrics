@@ -36,7 +36,7 @@ public class ObjectTypeHandler extends FieldTypeHandler {
     @Override
     public FieldSpec.Builder process(TypeSpec.Builder typeSpec, String key, FieldModel fieldModel) {
         TypeName typeName;
-        if (fieldModel.getType() == null) {
+        if (fieldModel.getType() == null || fieldModel.getType().getType() == null) {
             typeName = TypeName.OBJECT;
         } else {
             typeName = getResolvedTypeName(fieldModel.getType(), metaInfo.getGenericVariables(), tune.getChords());
