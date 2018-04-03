@@ -59,6 +59,11 @@ public class GsonStyle extends AnnotatorStyle {
     }
 
     @Override
+    public void processIgnoreUnknownsRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+
+    }
+
+    @Override
     public void processPropertyOrderRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
 
     }

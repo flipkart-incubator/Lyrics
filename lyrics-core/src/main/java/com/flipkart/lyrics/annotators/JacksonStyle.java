@@ -16,10 +16,7 @@
 
 package com.flipkart.lyrics.annotators;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InclusionType;
@@ -93,6 +90,14 @@ public class JacksonStyle extends AnnotatorStyle {
 
         typeSpec.addAnnotation(typeInfoAnnotation.build());
         typeSpec.addAnnotation(subTypesBuilder.build());
+    }
+
+    @Override
+    public void processIgnoreUnknownsRule(TypeSpec.Builder typeSpec, TypeModel typeModel) {
+        AnnotationSpec ignoreUnknowns = AnnotationSpec.builder(JsonIgnoreProperties.class)
+                .addMember("ignoreUnknown", "$L", true).build();
+
+        typeSpec.addAnnotation(ignoreUnknowns);
     }
 
     @Override
