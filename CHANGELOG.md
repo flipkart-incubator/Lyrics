@@ -1,3 +1,8 @@
+## 0.9.1 (April 3, 2018)
+### CORE
+- [BUGFIX] Allowing subtypes for interfaces and not just classes
+- Allowed handling of unknown fields in AnnotatorStyle 
+
 ## 0.9.0 (March 19, 2018)
 ### CORE
 - Defining common types like MAP, LIST and STRING for language independence
