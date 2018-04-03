@@ -56,6 +56,11 @@ public class DefaultRuleSet extends RuleSet {
     }
 
     @Override
+    public TypeRule getIgnoreUnknownRule() {
+        return new IgnoreUnknownsRule(tune, metaInfo);
+    }
+
+    @Override
     public FieldRule getDeprecatedRule() {
         return new DeprecatedRule(tune, metaInfo);
     }

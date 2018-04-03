@@ -50,6 +50,8 @@ public abstract class RuleSet {
 
     public abstract TypeRule getGlobalDeprecatedRule();
 
+    public abstract TypeRule getIgnoreUnknownRule();
+
     public abstract FieldRule getDeprecatedRule();
 
     public abstract FieldRule getNamedAsRule();
