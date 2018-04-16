@@ -47,8 +47,12 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         InitializerModel initializeWith = fieldModel.getInitializeWith();
         if (initializeWith != null) {
             if (initializeWith.getValue() != null) {
-                ClassName fromType = getClassName(initializeWith.getFromType());
-                builder.initializer("$T.$L", fromType, initializeWith.getValue());
+                if (initializeWith.getFromType() != null) {
+                    ClassName fromType = getClassName(initializeWith.getFromType());
+                    builder.initializer("$T.$L", fromType, initializeWith.getValue());
+                } else {
+                    builder.initializer("$L", initializeWith.getValue());
+                }
             } else if (initializeWith.getNewInstanceOf() != null) {
                 ClassName instanceOf = getClassName(initializeWith.getNewInstanceOf());
                 String initializerString = "new $T" + (initializeWith.isInferGenerics() ? "<>" : "") + "()";
