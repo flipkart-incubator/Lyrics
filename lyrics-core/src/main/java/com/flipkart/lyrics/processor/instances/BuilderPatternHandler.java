@@ -73,7 +73,7 @@ public class BuilderPatternHandler extends Handler {
 
         final ClassName builderClass = ClassName.get(metaInfo.getFullPackage(), metaInfo.getClassName(), "Builder");
         for (String field : notRequiredFields) {
-            MethodSpec.Builder builder = MethodSpec.methodBuilder(field);
+            MethodSpec.Builder builder = MethodSpec.methodBuilder(field).addModifiers(Modifier.PUBLIC);
             builder.returns(builderClass);
 
             FieldModel fieldModel = fields.get(field);

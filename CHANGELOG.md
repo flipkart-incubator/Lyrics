@@ -1,3 +1,7 @@
+## 0.9.1 (April 20, 2018)
+### CORE
+- [BUGFIX] Accessors in builder should be public
+
 ## 0.9.1 (April 3, 2018)
 ### CORE
 - [BUGFIX] Allowing subtypes for interfaces and not just classes
