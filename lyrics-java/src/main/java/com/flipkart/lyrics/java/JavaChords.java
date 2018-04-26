@@ -43,4 +43,49 @@ public class JavaChords implements Chords {
     public String handleString() {
         return string;
     }
+
+    @Override
+    public String handleObject() {
+        return Object.class.getName();
+    }
+
+    @Override
+    public String handleInteger() {
+        return Integer.class.getName();
+    }
+
+    @Override
+    public String handleBoolean() {
+        return Boolean.class.getName();
+    }
+
+    @Override
+    public String handleLong() {
+        return Long.class.getName();
+    }
+
+    @Override
+    public String handleDouble() {
+        return Double.class.getName();
+    }
+
+    @Override
+    public String handleCharacter() {
+        return Character.class.getName();
+    }
+
+    @Override
+    public String handleShort() {
+        return Short.class.getName();
+    }
+
+    @Override
+    public String handleByte() {
+        return Byte.class.getName();
+    }
+
+    @Override
+    public String handleFloat() {
+        return Float.class.getName();
+    }
 }

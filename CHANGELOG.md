@@ -1,4 +1,8 @@
-## 0.9.1 (April 20, 2018)
+## 0.9.3 (April 26, 2018)
+### CORE
+- Adding missing chords
+
+## 0.9.2 (April 20, 2018)
 ### CORE
 - [BUGFIX] Accessors in builder should be public
 

@@ -305,5 +305,14 @@ public class Helper {
         chordMapper.put("MAP", Chords::handleMap);
         chordMapper.put("LIST", Chords::handleList);
         chordMapper.put("STRING", Chords::handleString);
+        chordMapper.put("OBJECT", Chords::handleObject);
+        chordMapper.put("INTEGER", Chords::handleInteger);
+        chordMapper.put("BOOLEAN", Chords::handleBoolean);
+        chordMapper.put("LONG", Chords::handleLong);
+        chordMapper.put("DOUBLE", Chords::handleDouble);
+        chordMapper.put("CHARACTER", Chords::handleCharacter);
+        chordMapper.put("SHORT", Chords::handleShort);
+        chordMapper.put("BYTE", Chords::handleByte);
+        chordMapper.put("FLOAT", Chords::handleFloat);
     }
 }

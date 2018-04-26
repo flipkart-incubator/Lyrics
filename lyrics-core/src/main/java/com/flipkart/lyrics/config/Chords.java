@@ -35,4 +35,49 @@ public interface Chords {
      * @return Representation of "STRING" for the language being used.
      */
     String handleString();
+
+    /**
+     * @return Representation of "OBJECT" for the language being used.
+     */
+    String handleObject();
+
+    /**
+     * @return Representation of "INTEGER" for the language being used.
+     */
+    String handleInteger();
+
+    /**
+     * @return Representation of "BOOLEAN" for the language being used.
+     */
+    String handleBoolean();
+
+    /**
+     * @return Representation of "LONG" for the language being used.
+     */
+    String handleLong();
+
+    /**
+     * @return Representation of "DOUBLE" for the language being used.
+     */
+    String handleDouble();
+
+    /**
+     * @return Representation of "CHARACTER" for the language being used.
+     */
+    String handleCharacter();
+
+    /**
+     * @return Representation of "SHORT" for the language being used.
+     */
+    String handleShort();
+
+    /**
+     * @return Representation of "BYTE" for the language being used.
+     */
+    String handleByte();
+
+    /**
+     * @return Representation of "FLOAT" for the language being used.
+     */
+    String handleFloat();
 }

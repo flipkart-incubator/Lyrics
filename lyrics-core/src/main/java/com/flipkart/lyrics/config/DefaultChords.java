@@ -23,6 +23,7 @@ public class DefaultChords implements Chords {
     private final String map = "MAP";
     private final String list = "LIST";
     private final String string = "STRING";
+    private final String object = "OBJECT";
 
     @Override
     public String handleMap() {
@@ -36,6 +37,51 @@ public class DefaultChords implements Chords {
 
     @Override
     public String handleString() {
-        return null;
+        return string;
+    }
+
+    @Override
+    public String handleObject() {
+        return object;
+    }
+
+    @Override
+    public String handleInteger() {
+        return "INTEGER";
+    }
+
+    @Override
+    public String handleBoolean() {
+        return "BOOLEAN";
+    }
+
+    @Override
+    public String handleLong() {
+        return "LONG";
+    }
+
+    @Override
+    public String handleDouble() {
+        return "DOUBLE";
+    }
+
+    @Override
+    public String handleCharacter() {
+        return "CHARACTER";
+    }
+
+    @Override
+    public String handleShort() {
+        return "SHORT";
+    }
+
+    @Override
+    public String handleByte() {
+        return "BYTE";
+    }
+
+    @Override
+    public String handleFloat() {
+        return "FLOAT";
     }
 }
