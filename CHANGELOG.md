@@ -1,3 +1,7 @@
+## 0.9.4 (May 31, 2019)
+### CORE
+- Adding support for Android JetPack. Removing Android Support library.
+
 ## 0.9.3 (April 26, 2018)
 ### CORE
 - Adding missing chords
