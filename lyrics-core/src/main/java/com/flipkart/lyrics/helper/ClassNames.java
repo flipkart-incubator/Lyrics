@@ -32,7 +32,7 @@ public class ClassNames {
 
     /**
      * Used with configuration option: "areAndroidValidationAnnotationsNeeded".
-     * Include "android-support" library.
+     * Include "android-x" library.
      */
     public static final ClassName ANDROID_VALIDATIONS_NON_NULL = ClassName.get("androidx.annotation", "NonNull");
     public static final ClassName ANDROID_VALIDATIONS_NULLABLE = ClassName.get("androidx.annotation", "Nullable");
