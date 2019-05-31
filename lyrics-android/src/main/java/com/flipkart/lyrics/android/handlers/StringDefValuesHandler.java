@@ -49,7 +49,7 @@ public class StringDefValuesHandler extends Handler {
 
         AnnotationSpec.Builder retentionAnnotation = AnnotationSpec.builder(ClassName.get(Retention.class)).
                 addMember("value", "$T.SOURCE", ClassName.get(RetentionPolicy.class));
-        AnnotationSpec.Builder intDefAnnotation = AnnotationSpec.builder(ClassName.get("android.support.annotation", "StringDef"))
+        AnnotationSpec.Builder intDefAnnotation = AnnotationSpec.builder(ClassName.get("androidx.annotation", "StringDef"))
                 .addMember("value", "{ $L }", valuesStr.substring(0, valuesStr.length() - 2));
 
         typeBuilder.addType(TypeSpec.annotationBuilder(metaInfo.getClassName() + "Def").
