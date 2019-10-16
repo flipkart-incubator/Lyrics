@@ -24,6 +24,7 @@ import static com.flipkart.lyrics.helper.Util.*;
 public class FieldSpec {
     public final TypeName type;
     public final String name;
+    public final String namedAs;
     public final CodeBlock doc;
     public final List<AnnotationSpec> annotations;
     public final Set<Modifier> modifiers;
@@ -33,6 +34,7 @@ public class FieldSpec {
     private FieldSpec(Builder builder) {
         this.type = checkNotNull(builder.type, "type == null");
         this.name = checkNotNull(builder.name, "name == null");
+        this.namedAs = builder.namedAs;
         this.doc = builder.doc.build();
         this.annotations = Util.immutableList(builder.annotations);
         this.modifiers = Util.immutableSet(builder.modifiers);
@@ -56,6 +58,7 @@ public class FieldSpec {
 
     public Builder toBuilder() {
         Builder builder = new Builder(type, name);
+        builder.namedAs = namedAs;
         builder.doc.add(doc);
         builder.annotations.addAll(annotations);
         builder.modifiers.addAll(modifiers);
@@ -67,6 +70,7 @@ public class FieldSpec {
     public static final class Builder {
         private final TypeName type;
         private final String name;
+        private String namedAs;
         private final CodeBlock.Builder doc = CodeBlock.builder();
         private final List<AnnotationSpec> annotations = new ArrayList<>();
         private final Set<Modifier> modifiers = new HashSet<>();
@@ -83,6 +87,11 @@ public class FieldSpec {
             this.type = TypeName.get(clazz);
             this.name = name;
             this.modifiers.addAll(Arrays.asList(modifiers));
+        }
+
+        public Builder namedAs(String namedAs) {
+            this.namedAs = namedAs;
+            return this;
         }
 
         public Builder required(boolean required) {

@@ -63,6 +63,7 @@ public class FieldsHandler extends Handler {
                 continue;
             }
 
+            fieldBuilder.namedAs(fieldModel.getNamedAs());
             FieldSpec fieldSpec = fieldBuilder.build();
             typeBuilder.addField(fieldSpec);
 
