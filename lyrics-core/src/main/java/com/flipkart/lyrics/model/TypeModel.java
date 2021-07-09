@@ -162,4 +162,9 @@ public class TypeModel {
     public void addAdditionalProperties(String name, Object value) {
         this.additionalFields.put(name, value);
     }
+
+    @JsonAnySetter
+    public void setTestSuperEquality(boolean testSuperEquality){
+        this.testSuperEquality = testSuperEquality;
+    }
 }
