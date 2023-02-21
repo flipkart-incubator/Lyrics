@@ -17,6 +17,7 @@
 package com.flipkart.lyrics.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Created by shrey.garg on 28/11/16.
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class VariableModel {
     private String type;
     private VariableModel[] types = new VariableModel[0];
+    private FieldType fieldType;
 
     public VariableModel() {
     }
@@ -45,6 +47,14 @@ public class VariableModel {
         return types;
     }
 
+    public FieldType getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(FieldType fieldType) {
+        this.fieldType = fieldType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,12 +63,14 @@ public class VariableModel {
         VariableModel that = (VariableModel) o;
 
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (!Objects.equals(fieldType, that.fieldType)) return false;
         return Arrays.equals(types, that.types);
     }
 
     @Override
     public int hashCode() {
         int result = type != null ? type.hashCode() : 0;
+        result += fieldType != null ? fieldType.hashCode() : 0;
         result = 31 * result + Arrays.hashCode(types);
         return result;
     }
