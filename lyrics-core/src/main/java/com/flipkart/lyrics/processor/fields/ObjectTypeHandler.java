@@ -17,10 +17,14 @@
 package com.flipkart.lyrics.processor.fields;
 
 import com.flipkart.lyrics.config.Tune;
+import com.flipkart.lyrics.helper.Helper;
 import com.flipkart.lyrics.model.FieldModel;
 import com.flipkart.lyrics.model.InitializerModel;
 import com.flipkart.lyrics.model.MetaInfo;
+import com.flipkart.lyrics.model.VariableModel;
 import com.flipkart.lyrics.specs.*;
+
+import java.util.function.Function;
 
 import static com.flipkart.lyrics.helper.Helper.*;
 
@@ -39,7 +43,7 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         if (fieldModel.getType() == null || fieldModel.getType().getType() == null) {
             typeName = TypeName.OBJECT;
         } else {
-            typeName = getResolvedTypeName(fieldModel.getType(), metaInfo.getGenericVariables(), tune.getChords());
+            typeName = getResolvedTypeName(getTypeFromVariableModelFunction(), fieldModel.getType(), metaInfo.getGenericVariables());
         }
 
         typeName = fieldModel.isArray() ? ArrayTypeName.of(typeName) : typeName;
@@ -57,5 +61,9 @@ public class ObjectTypeHandler extends FieldTypeHandler {
         }
 
         return builder;
+    }
+
+    protected Function<VariableModel, String> getTypeFromVariableModelFunction() {
+        return Helper.getTypeFromVariableModelFunction(tune.getChords());
     }
 }

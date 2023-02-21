@@ -94,18 +94,30 @@ public class Helper {
         return prefix + capitalizedName;
     }
 
+    public static String getTypeFromVariableModel(VariableModel variableModel, Chords chords) {
+        String type = variableModel.getType();
+        return Optional.ofNullable(chordMapper.get(type)).map(cm -> cm.apply(chords)).orElse(type);
+    }
+
+    public static Function<VariableModel, String> getTypeFromVariableModelFunction(Chords chords) {
+        return inlinedVariableModel -> getTypeFromVariableModel(inlinedVariableModel, chords);
+    }
+
     public static TypeName getResolvedTypeName(VariableModel variableModel, final Map<String, TypeVariableName> typeVariableNames,
                                                Chords chords) {
-        TypeName typeName;
-        String type = variableModel.getType();
-        type = Optional.ofNullable(chordMapper.get(type)).map(cm -> cm.apply(chords)).orElse(type);
+        return getResolvedTypeName(getTypeFromVariableModelFunction(chords), variableModel, typeVariableNames);
+    }
 
+    public static TypeName getResolvedTypeName(Function<VariableModel, String> getTypeFromVariableModel, VariableModel variableModel,
+                                               final Map<String, TypeVariableName> typeVariableNames) {
+        TypeName typeName;
+        String type = getTypeFromVariableModel.apply(variableModel);
         if (variableModel.getTypes().length > 0) {
             ClassName className = getClassName(type);
 
             TypeName[] typeNames = new TypeName[variableModel.getTypes().length];
             for (int i = 0; i < variableModel.getTypes().length; i++) {
-                typeNames[i] = getResolvedTypeName(variableModel.getTypes()[i], typeVariableNames, chords);
+                typeNames[i] = getResolvedTypeName(getTypeFromVariableModel, variableModel.getTypes()[i], typeVariableNames);
             }
 
             typeName = ParameterizedTypeName.get(className, typeNames);
